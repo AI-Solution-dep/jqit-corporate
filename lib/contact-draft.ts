@@ -1,7 +1,7 @@
 export type ContactDraft = Record<string, string>;
 
 const STORAGE_KEY = "jqit:contact-draft:v1";
-const EXCLUDED_FIELDS = new Set(["privacy"]);
+const EXCLUDED_FIELDS = new Set(["privacy", "website"]);
 
 export function buildContactDraft(
   entries: Iterable<readonly [string, unknown]>,

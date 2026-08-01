@@ -1,14 +1,30 @@
-import type { Metadata } from "next";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { NewsListFiltered } from "@/components/news/NewsListFiltered";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { Container } from "@/components/ui/Container";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { getNewsList } from "@/lib/microcms";
+import { createPageMetadata, createWebPageJsonLd } from "@/lib/seo";
 
-export const metadata: Metadata = {
+const pageDescription =
+  "株式会社JQITのニュース一覧。IT・AIソリューション、認定・許可、社内イベントなど、当社の最新情報をお届けします。";
+
+export const metadata = createPageMetadata({
   title: "ニュース",
-  description: "JQIT株式会社のお知らせ・イベント情報の一覧です。",
-};
+  description: pageDescription,
+  path: "/news",
+});
+
+const newsPageJsonLd = createWebPageJsonLd({
+  type: "CollectionPage",
+  name: "ニュース｜株式会社JQIT",
+  description: pageDescription,
+  path: "/news",
+  breadcrumbs: [
+    { name: "ホーム", path: "/" },
+    { name: "ニュース", path: "/news" },
+  ],
+});
 
 export const revalidate = 60;
 
@@ -17,6 +33,7 @@ export default async function NewsListPage() {
 
   return (
     <>
+      <JsonLd data={newsPageJsonLd} />
       <PageHeader title="ニュース" en="News" />
       <section className="bg-paper pb-16 pt-14 min-[720px]:pb-20 min-[720px]:pt-16">
         <Container>

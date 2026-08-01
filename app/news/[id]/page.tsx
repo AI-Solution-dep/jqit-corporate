@@ -3,12 +3,54 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Container } from "@/components/ui/Container";
-import { formatNewsDate, getNewsDetail, getNewsList } from "@/lib/microcms";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { formatNewsDate, getNewsDetail, getNewsList, type News } from "@/lib/microcms";
+import {
+  absoluteUrl,
+  createBreadcrumbJsonLd,
+  createDescription,
+  createPageMetadata,
+  plainTextFromHtml,
+} from "@/lib/seo";
 import { siteConfig } from "@/lib/site-config";
 
 export const revalidate = 60;
 
 type Props = { params: Promise<{ id: string }> };
+
+function newsDates(news: { date: string; updatedAt?: string }) {
+  const publishedTime = news.date;
+  const modifiedTime =
+    news.updatedAt && news.updatedAt > publishedTime ? news.updatedAt : publishedTime;
+  return { publishedTime, modifiedTime };
+}
+
+function newsDescription(news: News): string {
+  const body = plainTextFromHtml(news.excerpt ?? news.body);
+  const fallback = `${news.title}について、株式会社JQITからお知らせします。${news.category}情報と当社の最新の取り組みをご案内します。`;
+  const source = body.length >= 50 ? body : `${body} ${fallback}`.trim();
+  return createDescription(source, fallback);
+}
+
+function newsAuthor(news: News) {
+  const authorName = news.authorName ?? siteConfig.name;
+  const authorRole = news.authorRole ?? (authorName === siteConfig.name ? "広報" : undefined);
+  const jsonLd =
+    authorName === siteConfig.name
+      ? {
+          "@type": "Organization",
+          "@id": `${siteConfig.url}/#organization`,
+          name: siteConfig.name,
+        }
+      : {
+          "@type": "Person",
+          name: authorName,
+          ...(authorRole ? { jobTitle: authorRole } : {}),
+          worksFor: { "@id": `${siteConfig.url}/#organization` },
+        };
+
+  return { authorName, authorRole, jsonLd };
+}
 
 function isBadgeImage(src: string): boolean {
   return src.startsWith("/badges/");
@@ -24,10 +66,25 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params;
   const news = await getNewsDetail(id);
   if (!news) return { title: "ニュース" };
-  return {
+  const description = newsDescription(news);
+  const { publishedTime, modifiedTime } = newsDates(news);
+
+  return createPageMetadata({
     title: news.title,
-    description: `${news.category}｜${formatNewsDate(news.date)}｜JQIT株式会社のニュース`,
-  };
+    description,
+    path: `/news/${news.id}`,
+    type: "article",
+    image: news.eyecatch
+      ? {
+          url: news.eyecatch.url,
+          width: news.eyecatch.width,
+          height: news.eyecatch.height,
+          alt: news.title,
+        }
+      : undefined,
+    publishedTime,
+    modifiedTime,
+  });
 }
 
 export default async function NewsDetailPage({ params }: Props) {
@@ -41,9 +98,49 @@ export default async function NewsDetailPage({ params }: Props) {
   const shareHref = `https://x.com/intent/post?text=${encodeURIComponent(
     `${news.title}｜${siteConfig.name}`,
   )}&url=${encodeURIComponent(`${siteConfig.url}/news/${news.id}`)}`;
+  const articleUrl = absoluteUrl(`/news/${news.id}`);
+  const description = newsDescription(news);
+  const { publishedTime, modifiedTime } = newsDates(news);
+  const { authorName, authorRole, jsonLd: authorJsonLd } = newsAuthor(news);
+  const publishedDate = publishedTime.slice(0, 10);
+  const modifiedDate = modifiedTime.slice(0, 10);
+  const articleJsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "NewsArticle",
+        "@id": `${articleUrl}#article`,
+        mainEntityOfPage: articleUrl,
+        headline: news.title,
+        description,
+        image: news.eyecatch ? [absoluteUrl(news.eyecatch.url)] : undefined,
+        datePublished: publishedTime,
+        dateModified: modifiedTime,
+        inLanguage: "ja-JP",
+        author: authorJsonLd,
+        publisher: {
+          "@type": "Organization",
+          "@id": `${siteConfig.url}/#organization`,
+          name: siteConfig.name,
+          logo: {
+            "@type": "ImageObject",
+            url: `${siteConfig.url}/jqit-logo.png`,
+            width: 425,
+            height: 118,
+          },
+        },
+      },
+      createBreadcrumbJsonLd([
+        { name: "ホーム", path: "/" },
+        { name: "ニュース", path: "/news" },
+        { name: news.title, path: `/news/${news.id}` },
+      ]),
+    ],
+  } satisfies Record<string, unknown>;
 
   return (
     <>
+      <JsonLd data={articleJsonLd} />
       {/* 記事詳細は記事タイトルが主役。汎用PageHeaderは使わずパンくずのみの軽量帯にする */}
       <div className="border-b border-line bg-cream">
         <Container>
@@ -75,10 +172,21 @@ export default async function NewsDetailPage({ params }: Props) {
 
       <section className="bg-paper pb-24 pt-12 min-[720px]:pt-14">
         <Container className="max-w-[860px]">
-          <div className="mb-6 flex flex-wrap items-center gap-4">
-            <span className="font-mono text-[13px] tracking-[0.06em] text-muted">
-              {formatNewsDate(news.date)}
-            </span>
+          <div className="mb-6 flex flex-wrap items-center gap-x-4 gap-y-2">
+            <time
+              dateTime={publishedDate}
+              className="font-mono text-[13px] tracking-[0.06em] text-muted"
+            >
+              公開 {formatNewsDate(publishedDate)}
+            </time>
+            {modifiedDate > publishedDate && (
+              <time
+                dateTime={modifiedTime}
+                className="font-mono text-[13px] tracking-[0.06em] text-muted"
+              >
+                更新 {formatNewsDate(modifiedDate)}
+              </time>
+            )}
             <span className="rounded-card border border-brand px-2.5 py-[3px] text-[11px] font-semibold tracking-[0.06em] text-brand">
               {news.category}
             </span>
@@ -86,6 +194,10 @@ export default async function NewsDetailPage({ params }: Props) {
           <h1 className="palt border-b border-line pb-8 text-[36px] font-bold leading-[1.35] tracking-[-0.02em] text-ink min-[720px]:text-[44px]">
             {news.title}
           </h1>
+          <p className="mt-4 text-[12px] leading-[1.8] text-muted">
+            発信：{authorName}
+            {authorRole ? `（${authorRole}）` : ""}
+          </p>
           {news.eyecatch && (
             <div className="relative mt-10 aspect-[16/9] overflow-hidden bg-cream">
               <Image

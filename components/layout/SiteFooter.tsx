@@ -122,7 +122,10 @@ export function SiteFooter() {
             >
               プライバシーポリシー
             </Link>
-            <a href="#" className="text-xs text-muted transition-colors hover:text-brand">
+            <a
+              href="/sitemap.xml"
+              className="text-xs text-muted transition-colors hover:text-brand"
+            >
               サイトマップ
             </a>
           </div>

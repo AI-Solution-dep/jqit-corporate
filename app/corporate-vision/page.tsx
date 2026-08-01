@@ -1,15 +1,29 @@
-import type { Metadata } from "next";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { companySubNav, SubNav } from "@/components/layout/SubNav";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { Container } from "@/components/ui/Container";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { SectionHead } from "@/components/ui/SectionHead";
+import { createPageMetadata, createWebPageJsonLd } from "@/lib/seo";
 
-export const metadata: Metadata = {
+const pageDescription =
+  "株式会社JQITのビジョンと戦略。企業理念・6つの行動指針・DX戦略と成果指標・推進体制をご紹介します。";
+
+export const metadata = createPageMetadata({
   title: "ビジョンと戦略",
-  description:
-    "株式会社JQITのビジョンと戦略。企業理念・6つの行動指針・DX戦略と成果指標・推進体制をご紹介します。",
-};
+  description: pageDescription,
+  path: "/corporate-vision",
+});
+
+const visionJsonLd = createWebPageJsonLd({
+  name: "ビジョンと戦略｜株式会社JQIT",
+  description: pageDescription,
+  path: "/corporate-vision",
+  breadcrumbs: [
+    { name: "ホーム", path: "/" },
+    { name: "ビジョンと戦略", path: "/corporate-vision" },
+  ],
+});
 
 const philosophy = [
   {
@@ -88,6 +102,7 @@ const structure = [
 export default function CorporateVisionPage() {
   return (
     <>
+      <JsonLd data={visionJsonLd} />
       <PageHeader title="ビジョンと戦略" en="Vision" />
       <SubNav group="Company" items={companySubNav} />
 

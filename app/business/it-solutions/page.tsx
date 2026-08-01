@@ -1,19 +1,29 @@
-import type { Metadata } from "next";
 import Image from "next/image";
 import { NextBusinessBand } from "@/components/business/NextBusinessBand";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { businessSubNav, SubNav } from "@/components/layout/SubNav";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { ServiceFaq, type ServiceFaqItem } from "@/components/seo/ServiceFaq";
 import { Container } from "@/components/ui/Container";
 import { DisplayText } from "@/components/ui/DisplayText";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { Kicker } from "@/components/ui/Kicker";
 import { SectionHead } from "@/components/ui/SectionHead";
+import { createBreadcrumbJsonLd, createPageMetadata } from "@/lib/seo";
+import { siteConfig } from "@/lib/site-config";
 
-export const metadata: Metadata = {
+export const metadata = createPageMetadata({
   title: "ITソリューション事業",
   description:
     "株式会社JQITのITソリューション事業。受託開発（SI）とSESにより、システム＆アプリ開発・インフラ・QA（第三者検証）をワンストップで提供します。",
-};
+  path: "/business/it-solutions",
+  image: {
+    url: "/natural-tech-it.webp",
+    width: 1448,
+    height: 1086,
+    alt: "自然光の入るオフィスでシステム設計を議論するエンジニア",
+  },
+});
 
 /** イントロ下の実データストリップ（数値・認証はすべて実在情報） */
 const facts = [
@@ -93,9 +103,58 @@ const strengths = [
   },
 ];
 
+/** 旧コーポレートサイトで公開していた、守秘義務に配慮したQA実績 */
+const qaProjectExamples = [
+  "セキュリティ製品の品質管理",
+  "業務系パッケージシステムの検証",
+  "次世代携帯端末の検証",
+  "駅構内システムの検証",
+  "保険システムの検証",
+] as const;
+
+const faqs: readonly ServiceFaqItem[] = [
+  {
+    question: "どのようなシステム開発に対応していますか？",
+    answer:
+      "Webアプリケーション、Web API、スマートフォンアプリ、社内業務システムを中心に、要件定義・設計・開発・テスト・運用保守まで対応しています。",
+  },
+  {
+    question: "開発工程の一部だけでも依頼できますか？",
+    answer:
+      "はい。要件定義から運用保守までの一括対応に加え、設計、開発、インフラ構築、第三者検証、運用など、必要な工程のみでもご相談いただけます。",
+  },
+  {
+    question: "受託開発とSESのどちらに対応していますか？",
+    answer:
+      "どちらにも対応しています。プロジェクト単位でお請けする受託開発と、エンジニアがチームに参画して技術支援するSESから、課題に合う提供形態をご提案します。",
+  },
+];
+
+const serviceJsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Service",
+      "@id": `${siteConfig.url}/business/it-solutions#service`,
+      name: "ITソリューション事業",
+      description:
+        "受託開発（SI）とSESにより、システム・アプリ開発、インフラ、QA・第三者検証をワンストップで提供します。",
+      url: `${siteConfig.url}/business/it-solutions`,
+      serviceType: ["受託開発", "SES", "インフラ構築", "QA・第三者検証"],
+      areaServed: { "@type": "Country", name: "日本" },
+      provider: { "@id": `${siteConfig.url}/#organization` },
+    },
+    createBreadcrumbJsonLd([
+      { name: "ホーム", path: "/" },
+      { name: "ITソリューション事業", path: "/business/it-solutions" },
+    ]),
+  ],
+} satisfies Record<string, unknown>;
+
 export default function ItSolutionsPage() {
   return (
     <>
+      <JsonLd data={serviceJsonLd} />
       <PageHeader title="ITソリューション事業" en="IT Solutions" />
       <SubNav group="Business" items={businessSubNav} />
 
@@ -260,6 +319,39 @@ export default function ItSolutionsPage() {
         </Container>
       </section>
 
+      {/* EXPERIENCE — 実務経験を検索・AI回答エンジンが抽出しやすい形で提示 */}
+      <section className="border-t border-line bg-paper py-20 min-[720px]:py-[92px]">
+        <Container>
+          <SectionHead
+            kicker="Project Experience"
+            title="QA・第三者検証のプロジェクト実績"
+            lead="守秘義務に配慮し、公開可能な範囲で業種・検証領域のみ掲載しています。"
+            className="mb-10"
+          />
+          <FadeIn>
+            <ul className="grid grid-cols-1 gap-px border border-line bg-line min-[720px]:grid-cols-2">
+              {qaProjectExamples.map((project, index) => (
+                <li
+                  key={project}
+                  className={`flex items-baseline gap-4 bg-white px-6 py-5 ${
+                    index === qaProjectExamples.length - 1
+                      ? "min-[720px]:col-span-2"
+                      : ""
+                  }`}
+                >
+                  <span className="font-mono text-[11px] font-semibold text-brand">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <span className="text-[14px] font-semibold leading-[1.8] text-ink">
+                    {project}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </FadeIn>
+        </Container>
+      </section>
+
       {/* PROCESS — 開発の流れ */}
       <section className="border-t border-line bg-cream py-20 min-[720px]:py-[96px]">
         <Container>
@@ -329,6 +421,8 @@ export default function ItSolutionsPage() {
           </p>
         </Container>
       </section>
+
+      <ServiceFaq items={faqs} />
 
       {/* NEXT — AIソリューション事業へ */}
       <NextBusinessBand

@@ -6,26 +6,29 @@ import {
   parseContactDraft,
 } from "../lib/contact-draft.ts";
 
-test("buildContactDraft keeps text values and excludes privacy", () => {
+test("F11-06: buildContactDraft は privacy と website を保存対象外にする", () => {
   assert.deepEqual(
     buildContactDraft([
       ["name", "山田 太郎"],
       ["message", "相談内容"],
       ["privacy", "on"],
+      ["website", "https://bot.example"],
     ]),
     { name: "山田 太郎", message: "相談内容" },
   );
 });
 
-test("parseContactDraft rejects malformed and non-string values", () => {
+test("F11-07: parseContactDraft は不正値と秘密フィールドを復元しない", () => {
   assert.deepEqual(parseContactDraft("not-json"), {});
   assert.deepEqual(
-    parseContactDraft('{"name":"山田 太郎","privacy":"on","count":1}'),
+    parseContactDraft(
+      '{"name":"山田 太郎","privacy":"on","website":"bot","count":1}',
+    ),
     { name: "山田 太郎" },
   );
 });
 
-test("clearContactDraft removes the session draft", () => {
+test("F11-08: clearContactDraft はセッション下書きを削除する", () => {
   const removedKeys: string[] = [];
   clearContactDraft({
     removeItem(key: string) {

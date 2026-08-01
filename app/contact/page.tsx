@@ -1,16 +1,31 @@
-import type { Metadata } from "next";
 import { ContactForm } from "@/components/contact/ContactForm";
 import { PageHeader } from "@/components/layout/PageHeader";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { Container } from "@/components/ui/Container";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { Kicker } from "@/components/ui/Kicker";
+import { createPageMetadata, createWebPageJsonLd } from "@/lib/seo";
 import { siteConfig } from "@/lib/site-config";
 
-export const metadata: Metadata = {
+const pageDescription =
+  "株式会社JQITへのお問い合わせ。IT・AIソリューション、採用、協業のご相談を受け付けています。担当者より2〜3営業日以内にご連絡します。";
+
+export const metadata = createPageMetadata({
   title: "お問い合わせ",
-  description:
-    "JQIT株式会社へのお問い合わせ。サービス・採用・協業など、お気軽にご相談ください。",
-};
+  description: pageDescription,
+  path: "/contact",
+});
+
+const contactJsonLd = createWebPageJsonLd({
+  type: "ContactPage",
+  name: "お問い合わせ｜株式会社JQIT",
+  description: pageDescription,
+  path: "/contact",
+  breadcrumbs: [
+    { name: "ホーム", path: "/" },
+    { name: "お問い合わせ", path: "/contact" },
+  ],
+});
 
 const directInfos = [
   { label: "Tel", value: siteConfig.tel, en: true },
@@ -22,6 +37,7 @@ const directInfos = [
 export default function ContactPage() {
   return (
     <>
+      <JsonLd data={contactJsonLd} />
       <PageHeader title="お問い合わせ" en="Contact" />
       <section className="bg-paper pb-20 pt-12 min-[720px]:pb-24 min-[720px]:pt-20">
         <Container>

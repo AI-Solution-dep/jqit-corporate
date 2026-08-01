@@ -8,7 +8,7 @@ export const siteConfig = {
   tagline: "挑戦と革新で、顧客の未来を切り拓く。",
   description:
     "私たちは、技術の力でお客様の“本質的な課題”を解決するITのプロフェッショナル集団です。ITソリューション事業とAIソリューション事業の両輪で、企業の挑戦を支えます。",
-  url: "https://jqit.co.jp",
+  url: "https://www.jqit.co.jp",
 
   tel: "03-6433-5383",
   telHref: "tel:0364335383",

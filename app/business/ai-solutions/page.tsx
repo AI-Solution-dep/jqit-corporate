@@ -1,21 +1,30 @@
-import type { Metadata } from "next";
 import Image from "next/image";
 import { NextBusinessBand } from "@/components/business/NextBusinessBand";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { businessSubNav, SubNav } from "@/components/layout/SubNav";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { ServiceFaq, type ServiceFaqItem } from "@/components/seo/ServiceFaq";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { DisplayText } from "@/components/ui/DisplayText";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { Kicker } from "@/components/ui/Kicker";
 import { SectionHead } from "@/components/ui/SectionHead";
+import { createBreadcrumbJsonLd, createPageMetadata } from "@/lib/seo";
 import { siteConfig } from "@/lib/site-config";
 
-export const metadata: Metadata = {
+export const metadata = createPageMetadata({
   title: "AIソリューション事業",
   description:
     "株式会社JQITのAIソリューション事業。AIシステムの受託開発、AI導入支援・AI推進コンサル、AIサービス開発で企業のAI活用を支援します。",
-};
+  path: "/business/ai-solutions",
+  image: {
+    url: "/natural-tech-ai.webp",
+    width: 1448,
+    height: 1086,
+    alt: "AIデータ可視化を前に分析するJQITのメンバー",
+  },
+});
 
 /** イントロ下の実データストリップ（すべて実在情報） */
 const facts = [
@@ -80,9 +89,49 @@ const services = [
 /** NOVA が一元管理する領域（製品の実機能） */
 const novaFeatures = ["AIマッチング", "社員管理", "人材管理", "案件管理", "契約管理"];
 
+const faqs: readonly ServiceFaqItem[] = [
+  {
+    question: "どのようなAIシステムを開発できますか？",
+    answer:
+      "生成AIを活用したチャットボット、RAG、AIエージェント、社内業務アプリなどを、要件整理から設計・開発・運用まで一気通貫で開発します。",
+  },
+  {
+    question: "AI導入の検討段階から相談できますか？",
+    answer:
+      "はい。業務フローと課題を整理し、AIの活用領域の選定、導入検証、運用設計、社内展開、定着まで伴走します。",
+  },
+  {
+    question: "社内でAI活用を内製化する支援もできますか？",
+    answer:
+      "対応しています。現場が自走して改善を続けられるよう、業務整理、活用ルール、推進体制、運用設計、人材育成を含めて支援します。",
+  },
+];
+
+const serviceJsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Service",
+      "@id": `${siteConfig.url}/business/ai-solutions#service`,
+      name: "AIソリューション事業",
+      description:
+        "AIシステムの受託開発、AI導入支援・AI推進コンサル、AIサービス開発を通じて企業のAI活用を支援します。",
+      url: `${siteConfig.url}/business/ai-solutions`,
+      serviceType: ["AIシステム受託開発", "AI導入支援", "AI推進コンサル", "AIサービス開発"],
+      areaServed: { "@type": "Country", name: "日本" },
+      provider: { "@id": `${siteConfig.url}/#organization` },
+    },
+    createBreadcrumbJsonLd([
+      { name: "ホーム", path: "/" },
+      { name: "AIソリューション事業", path: "/business/ai-solutions" },
+    ]),
+  ],
+} satisfies Record<string, unknown>;
+
 export default function AiSolutionsPage() {
   return (
     <>
+      <JsonLd data={serviceJsonLd} />
       <PageHeader title="AIソリューション事業" en="AI Solutions" />
       <SubNav group="Business" items={businessSubNav} />
 
@@ -246,7 +295,7 @@ export default function AiSolutionsPage() {
               <h2 className="palt text-[28px] font-bold leading-[1.45] tracking-[-0.02em] min-[720px]:text-[36px]">
                 AIマッチング×一元管理で、
                 <br />
-                SES営業の生産性を劇的に向上。
+                SES営業の生産性向上を支援。
               </h2>
               <p className="mt-6 text-[14.5px] leading-[2.05] text-white/80">
                 NOVAは、当社のAI開発力を注ぎ込んだSES事業特化の管理システムです。生成AIを活用したマッチング機能により、SES営業未経験でも高精度なマッチングを実現。SES事業に必要な情報を一元管理します。
@@ -285,6 +334,8 @@ export default function AiSolutionsPage() {
           </div>
         </Container>
       </section>
+
+      <ServiceFaq items={faqs} />
 
       {/* NEXT — ITソリューション事業へ */}
       <NextBusinessBand

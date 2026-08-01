@@ -1,15 +1,29 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHeader } from "@/components/layout/PageHeader";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { Container } from "@/components/ui/Container";
 import { FadeIn } from "@/components/ui/FadeIn";
+import { createPageMetadata, createWebPageJsonLd } from "@/lib/seo";
 import { siteConfig } from "@/lib/site-config";
 
-export const metadata: Metadata = {
+const pageDescription =
+  "株式会社JQITのプライバシーポリシー。個人情報の取得、利用目的、第三者提供、安全管理、開示等の請求について定めています。";
+
+export const metadata = createPageMetadata({
   title: "プライバシーポリシー",
-  description:
-    "株式会社JQITのプライバシーポリシー。個人情報の取得、利用目的、第三者提供、安全管理、開示等の請求について定めています。",
-};
+  description: pageDescription,
+  path: "/privacy-policy",
+});
+
+const privacyJsonLd = createWebPageJsonLd({
+  name: "プライバシーポリシー｜株式会社JQIT",
+  description: pageDescription,
+  path: "/privacy-policy",
+  breadcrumbs: [
+    { name: "ホーム", path: "/" },
+    { name: "プライバシーポリシー", path: "/privacy-policy" },
+  ],
+});
 
 type PolicySection = {
   title: string;
@@ -95,6 +109,7 @@ const sections: PolicySection[] = [
 export default function PrivacyPolicyPage() {
   return (
     <>
+      <JsonLd data={privacyJsonLd} />
       <PageHeader title="プライバシーポリシー" en="Privacy Policy" />
       <section className="bg-paper pb-24 pt-14 min-[720px]:pt-16">
         <Container className="max-w-[860px]">

@@ -1,15 +1,29 @@
-import type { Metadata } from "next";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { companySubNav, SubNav } from "@/components/layout/SubNav";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { Container } from "@/components/ui/Container";
 import { FadeIn } from "@/components/ui/FadeIn";
+import { createPageMetadata, createWebPageJsonLd } from "@/lib/seo";
 import { siteConfig } from "@/lib/site-config";
 
-export const metadata: Metadata = {
+const pageDescription =
+  "株式会社JQITの情報セキュリティ基本方針。情報資産の適切な運用管理体制の構築・維持のための方針を定めています。";
+
+export const metadata = createPageMetadata({
   title: "情報セキュリティ基本方針",
-  description:
-    "株式会社JQITの情報セキュリティ基本方針。情報資産の適切な運用管理体制の構築・維持のための方針を定めています。",
-};
+  description: pageDescription,
+  path: "/security-policy",
+});
+
+const securityJsonLd = createWebPageJsonLd({
+  name: "情報セキュリティ基本方針｜株式会社JQIT",
+  description: pageDescription,
+  path: "/security-policy",
+  breadcrumbs: [
+    { name: "ホーム", path: "/" },
+    { name: "情報セキュリティ基本方針", path: "/security-policy" },
+  ],
+});
 
 type PolicySection = {
   title: string;
@@ -85,6 +99,7 @@ const sections: PolicySection[] = [
 export default function SecurityPolicyPage() {
   return (
     <>
+      <JsonLd data={securityJsonLd} />
       <PageHeader title="情報セキュリティ基本方針" en="Security Policy" />
       <SubNav group="Company" items={companySubNav} />
       <section className="bg-paper pb-24 pt-14 min-[720px]:pt-16">

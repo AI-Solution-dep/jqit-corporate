@@ -5,6 +5,7 @@ import { useActionState, useEffect, useRef } from "react";
 import { submitContact } from "@/app/contact/actions";
 import {
   contactCategories,
+  contactFieldLimits,
   type ContactField,
   initialContactState,
 } from "@/lib/contact";
@@ -53,7 +54,7 @@ export function ContactForm() {
         <p className="mb-3.5 font-mono text-[11px] uppercase tracking-[0.2em] text-brand">
           Thank you
         </p>
-        <h3 className="palt text-2xl font-bold text-ink">送信が完了しました。</h3>
+        <h2 className="palt text-2xl font-bold text-ink">送信が完了しました。</h2>
         <p className="mt-3.5 text-sm leading-[1.9] text-muted">
           お問い合わせありがとうございます。担当者より折り返しご連絡いたします。
         </p>
@@ -77,6 +78,15 @@ export function ContactForm() {
         </p>
       )}
 
+      <input
+        name="website"
+        type="text"
+        hidden
+        aria-hidden="true"
+        tabIndex={-1}
+        autoComplete="off"
+      />
+
       <div className="grid grid-cols-1 gap-5 min-[600px]:grid-cols-2">
         <div className="flex flex-col gap-2">
           <label htmlFor="name" className="text-sm font-semibold leading-6 text-ink">
@@ -86,6 +96,7 @@ export function ContactForm() {
             id="name"
             name="name"
             type="text"
+            maxLength={contactFieldLimits.name}
             placeholder="山田 太郎"
             className={fieldCls}
             {...a11y("name")}
@@ -100,6 +111,7 @@ export function ContactForm() {
             id="company"
             name="company"
             type="text"
+            maxLength={contactFieldLimits.company}
             placeholder="株式会社〇〇"
             className={fieldCls}
           />
@@ -115,6 +127,7 @@ export function ContactForm() {
             id="email"
             name="email"
             type="email"
+            maxLength={contactFieldLimits.email}
             placeholder="name@example.com"
             className={fieldCls}
             {...a11y("email")}
@@ -129,6 +142,7 @@ export function ContactForm() {
             id="tel"
             name="tel"
             type="tel"
+            maxLength={contactFieldLimits.tel}
             placeholder="03-0000-0000"
             className={fieldCls}
           />
@@ -166,6 +180,7 @@ export function ContactForm() {
           id="message"
           name="message"
           rows={6}
+          maxLength={contactFieldLimits.message}
           placeholder="お問い合わせ内容をご記入ください"
           className={`${fieldCls} resize-y leading-[1.7]`}
           {...a11y("message")}

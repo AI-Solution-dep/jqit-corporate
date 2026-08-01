@@ -1,19 +1,29 @@
-import type { Metadata } from "next";
 import Image from "next/image";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { companySubNav, SubNav } from "@/components/layout/SubNav";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { Kicker } from "@/components/ui/Kicker";
 import { SectionHead } from "@/components/ui/SectionHead";
+import { createBreadcrumbJsonLd, createPageMetadata } from "@/lib/seo";
 import { siteConfig } from "@/lib/site-config";
 
-export const metadata: Metadata = {
+const pageDescription =
+  "株式会社JQITの会社情報。企業理念「挑戦と革新で、顧客の未来を切り拓く。」のもと、ITソリューション事業とAIソリューション事業を展開しています。";
+
+export const metadata = createPageMetadata({
   title: "会社情報",
-  description:
-    "株式会社JQITの会社情報。企業理念「挑戦と革新で、顧客の未来を切り拓く。」のもと、ITソリューション事業とAIソリューション事業を展開しています。",
-};
+  description: pageDescription,
+  path: "/about",
+  image: {
+    url: "/natural-tech-about.webp",
+    width: 1672,
+    height: 941,
+    alt: "自然光の入る空間で事業戦略を議論するJQITのチーム",
+  },
+});
 
 const profile = [
   { k: "会社名", v: `${siteConfig.name}（${siteConfig.nameEn}）` },
@@ -57,9 +67,52 @@ const accessAddressLines = [
   "クロスオフィス渋谷609",
 ];
 
+const officialSources = [
+  {
+    label: "ISTQB® Gold パートナー認定",
+    organization: "JSTQB（公式パートナー一覧）",
+    href: "https://www.jstqb.jp/partnership/",
+  },
+  {
+    label: "労働者派遣事業許可 派13-318536",
+    organization: "日本人材派遣協会（新規許可事業所一覧）",
+    href: "https://www.jassa.or.jp/wp-content/uploads/2026/03/260301shinki.pdf",
+  },
+] as const;
+
+const aboutJsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "AboutPage",
+      "@id": `${siteConfig.url}/about#webpage`,
+      url: `${siteConfig.url}/about`,
+      name: `会社情報｜${siteConfig.name}`,
+      description: pageDescription,
+      inLanguage: "ja-JP",
+      isPartOf: { "@id": `${siteConfig.url}/#website` },
+      about: { "@id": `${siteConfig.url}/#organization` },
+      mainEntity: { "@id": `${siteConfig.url}/#organization` },
+    },
+    {
+      "@type": "Person",
+      "@id": `${siteConfig.url}/about#ceo`,
+      name: siteConfig.ceo,
+      jobTitle: "代表取締役社長",
+      image: `${siteConfig.url}/representative-yamada.png`,
+      worksFor: { "@id": `${siteConfig.url}/#organization` },
+    },
+    createBreadcrumbJsonLd([
+      { name: "ホーム", path: "/" },
+      { name: "会社情報", path: "/about" },
+    ]),
+  ],
+} satisfies Record<string, unknown>;
+
 export default function AboutPage() {
   return (
     <>
+      <JsonLd data={aboutJsonLd} />
       <PageHeader title="会社情報" en="About" />
       <SubNav group="Company" items={companySubNav} />
 
@@ -124,6 +177,40 @@ export default function AboutPage() {
                 <p className="text-[15px] leading-[1.9] text-ink">{row.v}</p>
               </div>
             ))}
+          </FadeIn>
+        </Container>
+      </section>
+
+      {/* PRIMARY SOURCES — 外部の一次情報で許認可・専門性を検証可能にする */}
+      <section className="border-t border-line bg-paper pb-20 min-[720px]:pb-[92px]">
+        <Container>
+          <FadeIn className="border border-line bg-cream px-7 py-8 min-[720px]:px-9">
+            <Kicker className="mb-4">Official Sources</Kicker>
+            <h2 className="palt text-[22px] font-bold tracking-[-0.02em] text-ink min-[720px]:text-[26px]">
+              第三者機関で確認できる認定・許可
+            </h2>
+            <p className="mt-3 max-w-[720px] text-[13.5px] leading-[1.95] text-body">
+              当社が掲示する認定・許可のうち、公開されている公式情報へのリンクです。
+            </p>
+            <ul className="mt-6 grid grid-cols-1 gap-px border border-line bg-line min-[760px]:grid-cols-2">
+              {officialSources.map((source) => (
+                <li key={source.href} className="bg-white px-6 py-5">
+                  <a
+                    href={source.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group block"
+                  >
+                    <span className="palt text-[15px] font-bold leading-[1.7] text-ink transition-colors group-hover:text-brand">
+                      {source.label}
+                    </span>
+                    <span className="mt-1.5 block text-[11.5px] leading-[1.7] text-muted">
+                      {source.organization} ↗
+                    </span>
+                  </a>
+                </li>
+              ))}
+            </ul>
           </FadeIn>
         </Container>
       </section>

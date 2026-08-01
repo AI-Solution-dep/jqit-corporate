@@ -30,6 +30,11 @@ export type News = {
   id: string;
   title: string;
   date: string;
+  publishedAt?: string;
+  updatedAt?: string;
+  excerpt?: string;
+  authorName?: string;
+  authorRole?: string;
   category: NewsCategory | string;
   eyecatch?: MicroCMSImage;
   gallery?: MicroCMSImage[];
@@ -41,6 +46,10 @@ type MicroCMSNews = {
   title: string;
   date?: string;
   publishedAt?: string;
+  updatedAt?: string;
+  excerpt?: string;
+  authorName?: string;
+  authorRole?: string;
   category?: MicroCMSCategory;
   eyecatch?: MicroCMSImage;
   gallery?: MicroCMSImage[];
@@ -200,6 +209,11 @@ function normalize(item: MicroCMSNews): News {
     title: item.title,
     // 日時フィールドは ISO 文字列で返るため日付部分のみ使う
     date: (item.date ?? item.publishedAt)?.slice(0, 10) ?? "",
+    publishedAt: item.publishedAt ?? item.date,
+    updatedAt: item.updatedAt ?? item.publishedAt ?? item.date,
+    excerpt: item.excerpt?.trim() || undefined,
+    authorName: item.authorName?.trim() || undefined,
+    authorRole: item.authorRole?.trim() || undefined,
     category,
     eyecatch: item.eyecatch ?? bodyImages[0] ?? defaultMedia?.eyecatch,
     gallery:
