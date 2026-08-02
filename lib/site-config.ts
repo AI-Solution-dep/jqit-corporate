@@ -32,8 +32,7 @@ export const siteConfig = {
   ],
 
   links: {
-    // 新採用サイト（GitHub Pages）。独自ドメイン移行時はここを差し替え
-    recruit: "https://jqt-ai-sol.github.io/jqit-careers/",
+    recruit: "https://recruitment.jqit.co.jp",
     nova: "https://nova-ai.jp/",
     aiSupport: "https://ai.jqit.co.jp/",
     qiita: "https://qiita.com/organizations/jqiit-co",

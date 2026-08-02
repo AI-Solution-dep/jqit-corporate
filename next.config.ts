@@ -38,7 +38,7 @@ const legacyPageRedirects = [
   { source: "/company", destination: "/about" },
   { source: "/business", destination: "/#business" },
   { source: "/category/news", destination: "/news" },
-  { source: "/recruit/:path*", destination: "https://jqt-ai-sol.github.io/jqit-careers/" },
+  { source: "/recruit/:path*", destination: "https://recruitment.jqit.co.jp" },
   { source: "/メンテナンスページ", destination: "/" },
   { source: "/business/ai-solutions/:path+", destination: "/business/it-solutions" },
 ] as const;
