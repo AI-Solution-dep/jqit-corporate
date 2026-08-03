@@ -45,6 +45,10 @@ const legacyPageRedirects = [
 
 const legacyPageRewrites = [
   {
+    source: "/portal/wp-login.php",
+    destination: "https://portal.jqit.co.jp/jqit-portal-login-proxy.php",
+  },
+  {
     source: "/portal/:path*",
     destination: "https://portal.jqit.co.jp/:path*",
   },
