@@ -106,6 +106,7 @@ const nextConfig: NextConfig = isStaticExport
     }
   : {
       poweredByHeader: false,
+      skipTrailingSlashRedirect: true,
       images: {
         remotePatterns: [
           {
