@@ -53,9 +53,9 @@ const legacyPageRewrites = [
     destination: "https://portal.jqit.co.jp/jqit-portal-admin-proxy.php",
   },
   {
-    source: "/portal/wp-admin/:path*",
+    source: "/portal/wp-admin/:jqit_admin_path*",
     destination:
-      "https://portal.jqit.co.jp/jqit-portal-admin-proxy.php?jqit_admin_path=:path*",
+      "https://portal.jqit.co.jp/jqit-portal-admin-proxy.php?jqit_admin_path=:jqit_admin_path*",
   },
   {
     source: "/portal/wp-login.php",
