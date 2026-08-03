@@ -12,7 +12,7 @@ const contentSecurityPolicy = [
   "default-src 'self'",
   "object-src 'none'",
   "base-uri 'self'",
-  "form-action 'self'",
+  "form-action 'self' https://portal.jqit.co.jp",
   "frame-ancestors 'none'",
   "img-src 'self' data: https:",
   "style-src 'self' 'unsafe-inline' https://portal.jqit.co.jp",
