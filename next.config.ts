@@ -38,6 +38,10 @@ const legacyPageRedirects = [
   { source: "/company", destination: "/about" },
   { source: "/business", destination: "/#business" },
   { source: "/category/news", destination: "/news" },
+  {
+    source: "/portal/:path*",
+    destination: "https://portal.jqit.co.jp/:path*",
+  },
   { source: "/recruit/:path*", destination: "https://recruitment.jqit.co.jp" },
   { source: "/メンテナンスページ", destination: "/" },
   { source: "/business/ai-solutions/:path+", destination: "/business/it-solutions" },
