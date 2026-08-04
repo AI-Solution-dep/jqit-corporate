@@ -23,6 +23,22 @@ const contentSecurityPolicy = [
   "upgrade-insecure-requests",
 ].join("; ");
 
+const portalContentSecurityPolicy = [
+  "default-src 'self'",
+  "object-src 'none'",
+  "base-uri 'self'",
+  "form-action 'self' https://portal.jqit.co.jp",
+  "frame-ancestors 'self' https://www.jqit.co.jp",
+  "img-src 'self' data: blob: https:",
+  "style-src 'self' 'unsafe-inline' https://portal.jqit.co.jp",
+  "script-src 'self' 'unsafe-inline' https://portal.jqit.co.jp",
+  "font-src 'self' data: https://portal.jqit.co.jp",
+  "connect-src 'self' https://portal.jqit.co.jp",
+  "frame-src 'self' blob: https://portal.jqit.co.jp https://www.google.com",
+  "worker-src 'self' blob:",
+  "upgrade-insecure-requests",
+].join("; ");
+
 const securityHeaders = [
   { key: "Content-Security-Policy", value: contentSecurityPolicy },
   { key: "X-Content-Type-Options", value: "nosniff" },
@@ -32,6 +48,17 @@ const securityHeaders = [
     value: "camera=(), microphone=(), geolocation=()",
   },
   { key: "X-Frame-Options", value: "DENY" },
+] as const;
+
+const portalSecurityHeaders = [
+  { key: "Content-Security-Policy", value: portalContentSecurityPolicy },
+  { key: "X-Content-Type-Options", value: "nosniff" },
+  { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+  {
+    key: "Permissions-Policy",
+    value: "camera=(), microphone=(), geolocation=()",
+  },
+  { key: "X-Frame-Options", value: "SAMEORIGIN" },
 ] as const;
 
 const legacyPageRedirects = [
@@ -138,7 +165,10 @@ const nextConfig: NextConfig = isStaticExport
         return [...legacyPageRewrites];
       },
       async headers() {
-        return [{ source: "/:path*", headers: [...securityHeaders] }];
+        return [
+          { source: "/:path*", headers: [...securityHeaders] },
+          { source: "/portal/:path*", headers: [...portalSecurityHeaders] },
+        ];
       },
     };
 
