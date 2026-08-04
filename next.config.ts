@@ -58,7 +58,6 @@ const portalSecurityHeaders = [
     key: "Permissions-Policy",
     value: "camera=(), microphone=(), geolocation=()",
   },
-  { key: "X-Frame-Options", value: "SAMEORIGIN" },
 ] as const;
 
 const legacyPageRedirects = [
@@ -166,7 +165,10 @@ const nextConfig: NextConfig = isStaticExport
       },
       async headers() {
         return [
-          { source: "/:path*", headers: [...securityHeaders] },
+          {
+            source: "/((?!portal(?:/|$)).*)",
+            headers: [...securityHeaders],
+          },
           { source: "/portal/:path*", headers: [...portalSecurityHeaders] },
         ];
       },
