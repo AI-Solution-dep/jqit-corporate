@@ -58,6 +58,9 @@ const portalSecurityHeaders = [
     key: "Permissions-Policy",
     value: "camera=(), microphone=(), geolocation=()",
   },
+  // WordPress 6.9 uses a blob: editor iframe. CSP frame-ancestors above remains
+  // the authoritative restriction while this overrides WordPress's legacy XFO.
+  { key: "X-Frame-Options", value: "ALLOWALL" },
 ] as const;
 
 const legacyPageRedirects = [
