@@ -68,6 +68,22 @@ const legacyPageRewrites = [
     source: "/portal/wp-admin/",
     destination: "https://portal.jqit.co.jp/jqit-portal-admin-proxy.php",
   },
+  // Sakura blocks PHP files under /wp-admin when Vercel calls them directly,
+  // so PHP requests continue through the root-level wrapper below. Static
+  // admin assets must bypass that wrapper because it intentionally accepts
+  // only .php targets and otherwise returns 400.
+  {
+    source: "/portal/wp-admin/css/:path*",
+    destination: "https://portal.jqit.co.jp/wp-admin/css/:path*",
+  },
+  {
+    source: "/portal/wp-admin/images/:path*",
+    destination: "https://portal.jqit.co.jp/wp-admin/images/:path*",
+  },
+  {
+    source: "/portal/wp-admin/js/:path*",
+    destination: "https://portal.jqit.co.jp/wp-admin/js/:path*",
+  },
   {
     source: "/portal/wp-admin/:jqit_admin_path*",
     destination:

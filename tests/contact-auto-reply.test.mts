@@ -108,6 +108,8 @@ const routingCases = [
   { id: "F14-11", category: "協業・パートナーについて", dedicated: false, route: "fallback@example.com" },
   { id: "F14-12", category: "取材・メディアについて", dedicated: false, route: "fallback@example.com" },
   { id: "F14-13", category: "その他", dedicated: false, route: "fallback@example.com" },
+  { id: "F14-14", category: "営業のご提案・サービス紹介", dedicated: true, route: "sales@example.com" },
+  { id: "F14-15", category: "営業のご提案・サービス紹介", dedicated: false, route: "fallback@example.com" },
 ] as const;
 
 for (const route of routingCases) {
