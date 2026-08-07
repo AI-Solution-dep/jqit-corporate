@@ -149,6 +149,7 @@ export function getContactRecipients(
     case "サービスについて":
     case "協業・パートナーについて":
     case "取材・メディアについて":
+    case "営業のご提案・サービス紹介":
     case "その他":
       return sales;
     case "採用について":

@@ -3,6 +3,7 @@ export const contactCategories = [
   "採用について",
   "協業・パートナーについて",
   "取材・メディアについて",
+  "営業のご提案・サービス紹介",
   "その他",
 ] as const;
 

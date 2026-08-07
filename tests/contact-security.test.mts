@@ -255,6 +255,8 @@ const recipientCases = [
   { id: "F12-08", category: "協業・パートナーについて", specialized: false, expected: "fallback@example.com" },
   { id: "F12-09", category: "取材・メディアについて", specialized: false, expected: "fallback@example.com" },
   { id: "F12-10", category: "その他", specialized: false, expected: "fallback@example.com" },
+  { id: "F12-11", category: "営業のご提案・サービス紹介", specialized: true, expected: "sales@example.com" },
+  { id: "F12-12", category: "営業のご提案・サービス紹介", specialized: false, expected: "fallback@example.com" },
 ] as const;
 
 for (const route of recipientCases) {
