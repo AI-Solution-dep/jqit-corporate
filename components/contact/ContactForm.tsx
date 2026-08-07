@@ -1,13 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import { useActionState, useEffect, useRef } from "react";
+import { useActionState, useEffect, useRef, useState } from "react";
 import { submitContact } from "@/app/contact/actions";
 import {
   contactCategories,
   contactFieldLimits,
   type ContactField,
   initialContactState,
+  salesRedirectNotice,
+  shouldShowSalesRedirectNotice,
 } from "@/lib/contact";
 import { clearContactDraft, connectContactDraft } from "@/lib/contact-draft";
 
@@ -29,10 +31,15 @@ export function ContactForm() {
     initialContactState,
   );
   const formRef = useRef<HTMLFormElement>(null);
+  const categoryRef = useRef<HTMLSelectElement>(null);
+  const [category, setCategory] = useState("");
 
   useEffect(() => {
     if (!formRef.current) return;
-    return connectContactDraft(formRef.current);
+    const disconnect = connectContactDraft(formRef.current);
+    // 下書き復元は DOM を直接書き換えるため、復元後の値を state に取り込む。
+    setCategory(categoryRef.current?.value ?? "");
+    return disconnect;
   }, []);
 
   useEffect(() => {
@@ -154,9 +161,11 @@ export function ContactForm() {
           お問い合わせ種別 <span className="text-brand">*</span>
         </label>
         <select
+          ref={categoryRef}
           id="category"
           name="category"
           defaultValue=""
+          onChange={(e) => setCategory(e.target.value)}
           className={fieldCls}
           {...a11y("category")}
         >
@@ -170,6 +179,14 @@ export function ContactForm() {
           ))}
         </select>
         <FieldError id={errorId("category")} message={state.fieldErrors.category} />
+        {shouldShowSalesRedirectNotice(category) && (
+          <p
+            role="status"
+            className="text-xs font-semibold leading-[1.8] text-brand"
+          >
+            {salesRedirectNotice}
+          </p>
+        )}
       </div>
 
       <div className="flex flex-col gap-2">

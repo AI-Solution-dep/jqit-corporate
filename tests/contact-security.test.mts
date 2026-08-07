@@ -321,3 +321,38 @@ test("F13-03: フッターのサイトマップは XML エンドポイントへ�
   assert.match(source, /href="\/sitemap\.xml"[^>]*>\s*サイトマップ/);
   assert.doesNotMatch(source, /href="#"[^>]*>\s*サイトマップ/);
 });
+
+/**
+ * FORM-07 -> F15（営業種別への誘導表示）
+ */
+const salesNoticeCases = [
+  { id: "F15-01", category: "採用について", expected: true },
+  { id: "F15-02", category: "協業・パートナーについて", expected: true },
+  { id: "F15-03", category: "サービスについて", expected: false },
+  { id: "F15-04", category: "取材・メディアについて", expected: false },
+  { id: "F15-05", category: "営業のご提案・サービス紹介", expected: false },
+  { id: "F15-06", category: "その他", expected: false },
+  { id: "F15-07", category: "", expected: false },
+] as const;
+
+for (const c of salesNoticeCases) {
+  test(`${c.id}: ${c.category || "未選択"}で営業誘導文を${c.expected ? "表示する" : "表示しない"}`, async () => {
+    const { shouldShowSalesRedirectNotice } = await import("../lib/contact.ts");
+    assert.equal(shouldShowSalesRedirectNotice(c.category), c.expected);
+  });
+}
+
+test("F15-08: 営業誘導文は誘導先の種別名を含む", async () => {
+  const { salesRedirectNotice, contactCategories } = await import("../lib/contact.ts");
+  assert.equal(contactCategories.includes("営業のご提案・サービス紹介"), true);
+  assert.match(salesRedirectNotice, /営業のご提案・サービス紹介/);
+});
+
+test("F15-09: フォームは種別選択に応じて誘導文をブランド色で描画する", () => {
+  const source = readFileSync("components/contact/ContactForm.tsx", "utf8");
+  assert.match(source, /shouldShowSalesRedirectNotice\(category\)/);
+  assert.match(source, /\{salesRedirectNotice\}/);
+  assert.match(source, /text-brand/);
+  // 下書き復元後も state が同期されること（DOM 直接書き換え対策）。
+  assert.match(source, /setCategory\(categoryRef\.current\?\.value \?\? ""\)/);
+});
