@@ -78,6 +78,27 @@ section[id] {
   animation: hero-rise 0.8s cubic-bezier(0.16, 0.84, 0.44, 1) forwards;
 }
 
+/* ヒーローKV: 画像はゆっくり呼吸し、切り替えは輪郭を崩さないクロスフェード */
+@keyframes hero-media-drift {
+  from {
+    transform: scale(1.004) translate3d(0, 0, 0);
+  }
+  to {
+    transform: scale(1.018) translate3d(-0.2%, -0.1%, 0);
+  }
+}
+
+.hero-media-slide {
+  transition: opacity 1.35s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: opacity;
+}
+
+.hero-media-drift {
+  animation: hero-media-drift 14s ease-in-out infinite alternate;
+  transform-origin: 72% 50%;
+  will-change: transform;
+}
+
 /* TechBackdrop: 微細ドットグリッド */
 .tech-dots {
   background-image: radial-gradient(
@@ -272,6 +293,15 @@ section[id] {
   .hero-rise {
     animation: none;
     opacity: 1;
+  }
+
+  .hero-media-slide {
+    transition: none;
+  }
+
+  .hero-media-drift {
+    animation: none;
+    transform: none;
   }
 
   .brand-line-card,
