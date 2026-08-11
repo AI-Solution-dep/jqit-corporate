@@ -91,7 +91,7 @@ export function BusinessSection() {
                   href={b.href}
                   className="group mt-7 inline-flex items-center gap-2.5 font-mono text-[13px] font-semibold tracking-[0.12em] text-ink transition-colors hover:text-brand"
                 >
-                  詳しく見る
+                  {b.title}を詳しく見る
                   <span
                     aria-hidden
                     className="transition-transform duration-300 group-hover:translate-x-1.5"

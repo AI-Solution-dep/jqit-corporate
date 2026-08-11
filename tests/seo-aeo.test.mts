@@ -47,6 +47,7 @@ test("SEO-03 static sitemap entries carry substantive modification dates", () =>
   const source = read("app/sitemap.ts");
 
   assert.match(source, /STATIC_PAGE_LAST_MODIFIED/);
+  assert.match(source, /homeLastModified/);
   assert.match(source, /lastModified/);
 });
 
@@ -55,4 +56,16 @@ test("SEO-04 publishes the Search Console ownership verification tag", () => {
 
   assert.match(source, /verification:\s*\{/);
   assert.match(source, /google:/);
+});
+
+test("SEO-05 homepage identifies important internal pages with descriptive links", () => {
+  const layout = read("app/layout.tsx");
+  const business = read("components/home/BusinessSection.tsx");
+  const siteConfig = read("lib/site-config.ts");
+
+  assert.match(layout, /significantLink/);
+  assert.match(layout, /business\/it-solutions/);
+  assert.match(layout, /business\/ai-solutions/);
+  assert.match(business, /\{b\.title\}を詳しく見る/);
+  assert.match(siteConfig, /\{ label: "お問い合わせ", href: "\/contact" \}/);
 });

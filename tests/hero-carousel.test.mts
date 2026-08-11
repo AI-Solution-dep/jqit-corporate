@@ -21,7 +21,7 @@ test("トップ画像は既存KVを先頭にした4枚構成である", () => {
 });
 
 test("自動切り替えは停止でき、モーション軽減設定を尊重する", () => {
-  assert.match(carouselSource, /ROTATION_INTERVAL_MS = 7_000/);
+  assert.match(carouselSource, /ROTATION_INTERVAL_MS = 5_000/);
   assert.match(carouselSource, /prefers-reduced-motion: reduce/);
   assert.match(carouselSource, /aria-pressed=\{isPaused\}/);
   assert.match(carouselSource, /window\.setTimeout/);

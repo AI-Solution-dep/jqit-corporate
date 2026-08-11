@@ -111,6 +111,24 @@ const websiteJsonLd = {
       inLanguage: "ja-JP",
       publisher: { "@id": `${siteConfig.url}/#organization` },
     },
+    {
+      "@type": "WebPage",
+      "@id": `${siteConfig.url}/#webpage`,
+      url: siteConfig.url,
+      name: `${siteConfig.name}｜${siteConfig.tagline}`,
+      description: siteConfig.description,
+      inLanguage: "ja-JP",
+      isPartOf: { "@id": `${siteConfig.url}/#website` },
+      about: { "@id": `${siteConfig.url}/#organization` },
+      significantLink: [
+        `${siteConfig.url}/about`,
+        `${siteConfig.url}/business/it-solutions`,
+        `${siteConfig.url}/business/ai-solutions`,
+        `${siteConfig.url}/corporate-vision`,
+        `${siteConfig.url}/news`,
+        `${siteConfig.url}/contact`,
+      ],
+    },
   ],
 } satisfies Record<string, unknown>;
 

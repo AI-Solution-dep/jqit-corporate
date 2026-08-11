@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
-const ROTATION_INTERVAL_MS = 7_000;
+const ROTATION_INTERVAL_MS = 5_000;
 
 const heroSlides = [
   {

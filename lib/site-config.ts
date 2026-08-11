@@ -131,6 +131,7 @@ export const footerNav: { head: string; links: FooterLink[] }[] = [
       { label: "代表メッセージ", href: "/about#message" },
       { label: "ビジョンと戦略", href: "/corporate-vision" },
       { label: "ニュース", href: "/news" },
+      { label: "お問い合わせ", href: "/contact" },
       { label: "情報セキュリティ基本方針", href: "/security-policy" },
     ],
   },

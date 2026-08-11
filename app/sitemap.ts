@@ -5,8 +5,8 @@ import { siteConfig } from "@/lib/site-config";
 // output: export（GitHub Pages）でも生成できるよう明示
 export const dynamic = "force-static";
 
-// 2026-08-02のリニューアル／SEO・AEO改善で静的ページを実質更新。
-const STATIC_PAGE_LAST_MODIFIED = new Date("2026-08-02T00:00:00+09:00");
+// サイト構造や主要導線を含む静的ページの最終更新日。
+const STATIC_PAGE_LAST_MODIFIED = new Date("2026-08-12T00:00:00+09:00");
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const base = siteConfig.url;
@@ -17,11 +17,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const date = new Date(value);
     return !latest || date > latest ? date : latest;
   }, undefined);
+  const homeLastModified =
+    latestNewsModified && latestNewsModified > STATIC_PAGE_LAST_MODIFIED
+      ? latestNewsModified
+      : STATIC_PAGE_LAST_MODIFIED;
 
   return [
     {
       url: base,
-      lastModified: latestNewsModified ?? STATIC_PAGE_LAST_MODIFIED,
+      lastModified: homeLastModified,
       changeFrequency: "weekly",
       priority: 1,
     },
