@@ -93,6 +93,25 @@ section[id] {
   will-change: opacity;
 }
 
+/*
+ * ヒーロー画像の縁のぼかし。
+ * 1280px 以上は本文の脇に画像を置くレイアウトのため、横方向の白グラデーション
+ * （HeroCarousel 内のオーバーレイ）が担当する。それ未満では画像が全幅で入り
+ * 上下左右が切り落とされて見えるので、マスクで四辺をフェードさせる。
+ */
+@media (max-width: 1279.98px) {
+  .hero-media-feather {
+    -webkit-mask-image:
+      linear-gradient(to bottom, transparent 0%, #000 14%, #000 86%, transparent 100%),
+      linear-gradient(to right, transparent 0%, #000 10%, #000 90%, transparent 100%);
+    -webkit-mask-composite: source-in;
+    mask-image:
+      linear-gradient(to bottom, transparent 0%, #000 14%, #000 86%, transparent 100%),
+      linear-gradient(to right, transparent 0%, #000 10%, #000 90%, transparent 100%);
+    mask-composite: intersect;
+  }
+}
+
 .hero-media-drift {
   animation: hero-media-drift 14s ease-in-out infinite alternate;
   transform-origin: 72% 50%;

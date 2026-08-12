@@ -58,7 +58,7 @@ export function HeroCarousel() {
       <div
         id="hero-visuals"
         aria-hidden="true"
-        className="relative ml-[-39%] aspect-[1792/1008] w-[139%] max-w-none min-[600px]:ml-[-18%] min-[600px]:w-[118%] min-[1280px]:ml-0 min-[1280px]:h-full min-[1280px]:w-auto"
+        className="hero-media-feather relative ml-[-39%] aspect-[1792/1008] w-[139%] max-w-none min-[600px]:ml-[-18%] min-[600px]:w-[118%] min-[1280px]:ml-0 min-[1280px]:h-full min-[1280px]:w-auto"
       >
         {heroSlides.map((slide, index) => {
           const isActive = index === activeIndex;
