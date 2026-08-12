@@ -16,9 +16,9 @@ const contentSecurityPolicy = [
   "frame-ancestors 'none'",
   "img-src 'self' data: https:",
   "style-src 'self' 'unsafe-inline' https://portal.jqit.co.jp",
-  "script-src 'self' 'unsafe-inline' https://portal.jqit.co.jp",
+  "script-src 'self' 'unsafe-inline' https://portal.jqit.co.jp https://www.googletagmanager.com",
   "font-src 'self' data: https://portal.jqit.co.jp",
-  "connect-src 'self' https://portal.jqit.co.jp",
+  "connect-src 'self' https://portal.jqit.co.jp https://www.google-analytics.com https://*.google-analytics.com",
   "frame-src https://www.google.com",
   "upgrade-insecure-requests",
 ].join("; ");

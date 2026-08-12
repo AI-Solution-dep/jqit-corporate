@@ -115,6 +115,9 @@ const client =
 /** microCMS が接続済みかどうか（未接続時はフォールバックデータで動作） */
 export const isCmsConfigured = client !== null;
 
+/** news 以外のエンドポイント（works 等）から同一クライアントを共有するための公開参照 */
+export const microcmsClient = client;
+
 function isNotFoundError(e: unknown): boolean {
   return e instanceof Error && /\b404\b/.test(e.message);
 }
@@ -165,6 +168,9 @@ export function prepareNewsBodyHtml(html: string | undefined): string | undefine
     },
   });
 }
+
+/** リッチエディタ由来HTMLの共通サニタイズ（news 以外のエンドポイントからも使う） */
+export const prepareRichTextHtml = prepareNewsBodyHtml;
 
 function extractImagesFromHtml(html: string | undefined): MicroCMSImage[] {
   if (!html) return [];

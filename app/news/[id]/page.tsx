@@ -13,6 +13,7 @@ import {
   plainTextFromHtml,
 } from "@/lib/seo";
 import { siteConfig } from "@/lib/site-config";
+import { getNewsSeoOverride } from "@/lib/news-seo-overrides";
 
 export const revalidate = 60;
 
@@ -66,11 +67,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params;
   const news = await getNewsDetail(id);
   if (!news) return { title: "ニュース" };
-  const description = newsDescription(news);
+  const seoOverride = getNewsSeoOverride(news.id);
+  const description = seoOverride?.description ?? newsDescription(news);
   const { publishedTime, modifiedTime } = newsDates(news);
 
   return createPageMetadata({
-    title: news.title,
+    title: seoOverride?.title ?? news.title,
     description,
     path: `/news/${news.id}`,
     type: "article",
@@ -91,15 +93,17 @@ export default async function NewsDetailPage({ params }: Props) {
   const { id } = await params;
   const news = await getNewsDetail(id);
   if (!news) notFound();
+  const seoOverride = getNewsSeoOverride(news.id);
+  const displayTitle = seoOverride?.title ?? news.title;
 
   const related = (await getNewsList({ limit: 4 }))
     .filter((n) => n.id !== news.id)
     .slice(0, 3);
   const shareHref = `https://x.com/intent/post?text=${encodeURIComponent(
-    `${news.title}｜${siteConfig.name}`,
+    `${displayTitle}｜${siteConfig.name}`,
   )}&url=${encodeURIComponent(`${siteConfig.url}/news/${news.id}`)}`;
   const articleUrl = absoluteUrl(`/news/${news.id}`);
-  const description = newsDescription(news);
+  const description = seoOverride?.description ?? newsDescription(news);
   const { publishedTime, modifiedTime } = newsDates(news);
   const { authorName, authorRole, jsonLd: authorJsonLd } = newsAuthor(news);
   const publishedDate = publishedTime.slice(0, 10);
@@ -111,7 +115,7 @@ export default async function NewsDetailPage({ params }: Props) {
         "@type": "NewsArticle",
         "@id": `${articleUrl}#article`,
         mainEntityOfPage: articleUrl,
-        headline: news.title,
+        headline: displayTitle,
         description,
         image: news.eyecatch ? [absoluteUrl(news.eyecatch.url)] : undefined,
         datePublished: publishedTime,
@@ -133,14 +137,29 @@ export default async function NewsDetailPage({ params }: Props) {
       createBreadcrumbJsonLd([
         { name: "ホーム", path: "/" },
         { name: "ニュース", path: "/news" },
-        { name: news.title, path: `/news/${news.id}` },
+        { name: displayTitle, path: `/news/${news.id}` },
       ]),
     ],
   } satisfies Record<string, unknown>;
+  const faqJsonLd = seoOverride
+    ? {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: seoOverride.faqs.map((faq) => ({
+          "@type": "Question",
+          name: faq.question,
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: faq.answer,
+          },
+        })),
+      }
+    : null;
 
   return (
     <>
       <JsonLd data={articleJsonLd} />
+      {faqJsonLd && <JsonLd data={faqJsonLd} />}
       {/* 記事詳細は記事タイトルが主役。汎用PageHeaderは使わずパンくずのみの軽量帯にする */}
       <div className="border-b border-line bg-cream">
         <Container>
@@ -164,7 +183,7 @@ export default async function NewsDetailPage({ params }: Props) {
               aria-current="page"
               className="inline-block max-w-[24em] truncate align-bottom font-sans tracking-normal"
             >
-              {news.title}
+              {displayTitle}
             </span>
           </nav>
         </Container>
@@ -192,7 +211,7 @@ export default async function NewsDetailPage({ params }: Props) {
             </span>
           </div>
           <h1 className="palt border-b border-line pb-8 text-[36px] font-bold leading-[1.35] tracking-[-0.02em] text-ink min-[720px]:text-[44px]">
-            {news.title}
+            {displayTitle}
           </h1>
           <p className="mt-4 text-[12px] leading-[1.8] text-muted">
             発信：{authorName}
@@ -202,7 +221,7 @@ export default async function NewsDetailPage({ params }: Props) {
             <div className="relative mt-10 aspect-[16/9] overflow-hidden bg-cream">
               <Image
                 src={news.eyecatch.url}
-                alt={news.title}
+                alt={displayTitle}
                 fill
                 sizes="(min-width: 900px) 860px, 100vw"
                 className={isBadgeImage(news.eyecatch.url) ? "object-contain p-10" : "object-cover"}
@@ -210,11 +229,58 @@ export default async function NewsDetailPage({ params }: Props) {
               />
             </div>
           )}
+          {seoOverride && (
+            <section
+              aria-labelledby="article-summary"
+              className="mt-10 border border-line bg-cream px-6 py-7 min-[720px]:px-8"
+            >
+              <h2 id="article-summary" className="palt text-[24px] font-bold text-ink">
+                まず結論
+              </h2>
+              <p className="mt-4 text-[15px] leading-[2] text-body">
+                {seoOverride.summary}
+              </p>
+              <h2 className="palt mt-8 text-[20px] font-bold text-ink">要点</h2>
+              <ul className="mt-4 space-y-3">
+                {seoOverride.keyPoints.map((point) => (
+                  <li key={point} className="flex gap-3 text-[14px] leading-[1.9] text-body">
+                    <span aria-hidden className="mt-[0.8em] h-px w-4 shrink-0 bg-brand" />
+                    {point}
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
           {/* 本文は microCMS 管理画面（社内編集者のみ）由来のリッチテキスト */}
           <div
             className="news-body mt-10"
             dangerouslySetInnerHTML={{ __html: news.body ?? "" }}
           />
+
+          {seoOverride && (
+            <section aria-labelledby="article-faq" className="mt-12 border-t border-line pt-10">
+              <h2 id="article-faq" className="palt text-[26px] font-bold text-ink">
+                よくある質問
+              </h2>
+              <dl className="mt-6 divide-y divide-line border-y border-line">
+                {seoOverride.faqs.map((faq) => (
+                  <div key={faq.question} className="py-6">
+                    <dt className="text-[16px] font-bold leading-[1.7] text-ink">
+                      {faq.question}
+                    </dt>
+                    <dd className="mt-3 text-[14px] leading-[2] text-body">{faq.answer}</dd>
+                  </div>
+                ))}
+              </dl>
+              <Link
+                href={seoOverride.relatedPath}
+                className="mt-7 inline-flex items-center gap-2 font-mono text-[13px] font-semibold tracking-[0.08em] text-brand transition-colors hover:text-ink"
+              >
+                {seoOverride.relatedLabel}
+                <span aria-hidden>→</span>
+              </Link>
+            </section>
+          )}
 
           {news.gallery && news.gallery.length > 0 && (
             <div className="mt-12 border-t border-line pt-8">

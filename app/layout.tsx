@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Anton, Inter, JetBrains_Mono, Noto_Sans_JP } from "next/font/google";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteHeader } from "@/components/layout/SiteHeader";
+import { GoogleAnalytics } from "@/components/seo/GoogleAnalytics";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { absoluteUrl, defaultSocialImage } from "@/lib/seo";
 import { siteConfig } from "@/lib/site-config";
@@ -143,6 +144,7 @@ export default function RootLayout({
       className={`${notoSansJp.variable} ${inter.variable} ${jetBrainsMono.variable} ${anton.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
+        <GoogleAnalytics />
         <JsonLd data={websiteJsonLd} />
         <a
           href="#main"

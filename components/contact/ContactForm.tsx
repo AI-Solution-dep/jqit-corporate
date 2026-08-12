@@ -12,6 +12,7 @@ import {
   shouldShowSalesRedirectNotice,
 } from "@/lib/contact";
 import { clearContactDraft, connectContactDraft } from "@/lib/contact-draft";
+import { trackGoogleAnalyticsEvent } from "@/lib/analytics";
 
 const fieldCls =
   "min-h-12 w-full rounded-card border border-[#d8d5d0] bg-white px-4 py-3 text-base text-ink outline-none transition-colors placeholder:text-[#8a8781] focus:border-brand aria-[invalid=true]:border-brand";
@@ -32,6 +33,7 @@ export function ContactForm() {
   );
   const formRef = useRef<HTMLFormElement>(null);
   const categoryRef = useRef<HTMLSelectElement>(null);
+  const conversionTrackedRef = useRef(false);
   const [category, setCategory] = useState("");
 
   useEffect(() => {
@@ -43,7 +45,15 @@ export function ContactForm() {
   }, []);
 
   useEffect(() => {
-    if (state.status === "success") clearContactDraft();
+    if (state.status !== "success") return;
+
+    clearContactDraft();
+    if (conversionTrackedRef.current) return;
+
+    conversionTrackedRef.current = true;
+    trackGoogleAnalyticsEvent("generate_lead", {
+      form_name: "corporate_contact",
+    });
   }, [state.status]);
 
   const errorId = (field: ContactField) => `${field}-error`;
