@@ -14,9 +14,9 @@ import { createBreadcrumbJsonLd, createPageMetadata } from "@/lib/seo";
 import { siteConfig } from "@/lib/site-config";
 
 export const metadata = createPageMetadata({
-  title: "AIソリューション事業",
+  title: "法人向けAIエージェント開発・RAG構築・AI導入支援",
   description:
-    "株式会社JQITのAIソリューション事業。AIシステムの受託開発、AI導入支援・AI推進コンサル、AIサービス開発で企業のAI活用を支援します。",
+    "AIエージェント・RAG・チャットボットの受託開発と、AI導入支援・内製化支援を法人向けに提供します。自社でAIプロダクト「NOVA」を開発・運用する知見をもとに、課題整理から設計・開発・運用・社内定着まで伴走。財界 BEST AI 100 選出、経済産業省DX認定、ISO/IEC 27001認証取得。",
   path: "/business/ai-solutions",
   image: {
     url: "/natural-tech-ai.webp",
@@ -37,9 +37,10 @@ const facts = [
 const services = [
   {
     no: "01",
-    en: "AI Development",
-    title: "AIシステムの受託開発事業",
-    lead: "生成AIやAIエージェントを組み込んだ業務システム・アプリケーションを、要件整理から設計・開発・運用まで一気通貫で開発します。",
+    id: "ai-agent",
+    en: "AI Agent Development",
+    title: "AIエージェント開発・RAG構築",
+    lead: "AIエージェント、RAG、チャットボット、AIを組み込んだ業務アプリケーションを、法人向けに受託開発します。要件整理から設計・開発・運用まで一気通貫で対応します。",
     items: [
       {
         head: "AIシステム・アプリケーション開発",
@@ -53,6 +54,7 @@ const services = [
   },
   {
     no: "02",
+    id: "ai-consulting",
     en: "AI Enablement",
     title: "AI導入支援・AI推進コンサル事業",
     lead: "AIエージェントの導入支援を中心に、業務自動化・効率化を内製化して実現していくための伴走支援を行います。",
@@ -70,6 +72,7 @@ const services = [
   },
   {
     no: "03",
+    id: "ai-product",
     en: "AI Product",
     title: "AIサービス開発",
     lead: "NOVAをはじめとしたAIサービスの企画・開発を通じて、現場の生産性を高めるプロダクトを継続的に生み出します。",
@@ -98,12 +101,52 @@ const faqs: readonly ServiceFaqItem[] = [
   {
     question: "AI導入の検討段階から相談できますか？",
     answer:
-      "はい。業務フローと課題を整理し、AIの活用領域の選定、導入検証、運用設計、社内展開、定着まで伴走します。",
+      "対応可能です。業務フローと課題を整理し、AIの活用領域の選定、導入検証、運用設計、社内展開、定着まで伴走します。",
   },
   {
     question: "社内でAI活用を内製化する支援もできますか？",
     answer:
-      "対応しています。現場が自走して改善を続けられるよう、業務整理、活用ルール、推進体制、運用設計、人材育成を含めて支援します。",
+      "対応可能です。現場が自走して改善を続けられるよう、業務整理、活用ルール、推進体制、運用設計、人材育成を含めて支援します。",
+  },
+  {
+    question: "PoC（実証実験）で終わってしまわないか心配です。",
+    answer:
+      "業務整理を起点に、自動化する範囲と人が判断する範囲を先に切り分けたうえで設計します。本番導入後の運用設計、ログと監視、社内展開、定着支援までを対象としています。",
+  },
+  {
+    question: "AIが誤った動作をした場合はどうなりますか？",
+    answer:
+      "誤動作のリスクがある工程には、人が承認を挟む設計を行います。どの工程を自動実行とし、どこで承認を求めるかは、業務の重要度に応じて設計段階で取り決めます。",
+  },
+  {
+    question: "動作のログや監視はどうなりますか？",
+    answer:
+      "AIの入出力と実行結果を記録し、運用中に確認できる形を前提に構築します。監視の範囲と通知の要否は、運用体制に合わせて設計します。",
+  },
+  {
+    question: "使用するAIモデルは選べますか？",
+    answer:
+      "業務要件、コスト、データの取り扱い方針に応じてご提案し、ご相談のうえ決定します。特定のモデルやクラウドをご指定いただくことも可能です。",
+  },
+  {
+    question: "社内のデータを学習に使われることはありませんか？",
+    answer:
+      "お客様のデータの取り扱い範囲は契約時に取り決めます。ISO/IEC 27001（ISMS）認証を取得しており、秘密保持と情報管理の体制を整えています。",
+  },
+  {
+    question: "既存システムとの連携はできますか？",
+    answer:
+      "対応可能です。社内システム、業務ツール、データベースとの接続を含めて設計します。接続方式と権限の範囲は、要件整理の段階で確認します。",
+  },
+  {
+    question: "ソースコードや知的財産の帰属はどうなりますか？",
+    answer:
+      "ご契約時に取り決めます。納品範囲、ソースコードの引き渡し、二次利用の可否について、着手前に明確にしたうえで進めます。",
+  },
+  {
+    question: "小さく始めることはできますか？",
+    answer:
+      "対応可能です。対象業務を絞った小規模な構築から始め、効果を確認しながら範囲を広げる進め方をご提案できます。",
   },
 ];
 
@@ -118,6 +161,42 @@ const serviceJsonLd = {
         "AIシステムの受託開発、AI導入支援・AI推進コンサル、AIサービス開発を通じて企業のAI活用を支援します。",
       url: `${siteConfig.url}/business/ai-solutions`,
       serviceType: ["AIシステム受託開発", "AI導入支援", "AI推進コンサル", "AIサービス開発"],
+      areaServed: { "@type": "Country", name: "日本" },
+      provider: { "@id": `${siteConfig.url}/#organization` },
+    },
+    // カテゴリ単位でも認識されるよう、章ごとに Service を分けて宣言する
+    {
+      "@type": "Service",
+      "@id": `${siteConfig.url}/business/ai-solutions#ai-agent`,
+      name: "AIエージェント開発・RAG構築",
+      alternateName: ["AIエージェント受託開発", "RAG構築", "生成AIシステム開発"],
+      description:
+        "AIエージェント、RAG、チャットボット、AI組み込み業務アプリを法人向けに受託開発します。要件整理から設計・開発・運用・内製化支援まで対応します。",
+      url: `${siteConfig.url}/business/ai-solutions#ai-agent`,
+      serviceType: [
+        "AIエージェント開発",
+        "RAG構築",
+        "生成AIシステム受託開発",
+        "チャットボット開発",
+        "業務自動化",
+      ],
+      areaServed: { "@type": "Country", name: "日本" },
+      provider: { "@id": `${siteConfig.url}/#organization` },
+    },
+    {
+      "@type": "Service",
+      "@id": `${siteConfig.url}/business/ai-solutions#ai-consulting`,
+      name: "AI導入支援・内製化支援",
+      alternateName: ["生成AI導入支援", "AI推進コンサルティング", "AI内製化支援"],
+      description:
+        "業務フローに合わせてAIの活用領域を設計し、導入・検証・定着まで伴走します。現場が自走して改善を続けられるよう、業務整理・運用設計・社内展開・人材育成まで支援します。",
+      url: `${siteConfig.url}/business/ai-solutions#ai-consulting`,
+      serviceType: [
+        "AI導入支援",
+        "生成AI導入支援",
+        "AI推進コンサルティング",
+        "業務自動化の内製化支援",
+      ],
       areaServed: { "@type": "Country", name: "日本" },
       provider: { "@id": `${siteConfig.url}/#organization` },
     },
@@ -225,7 +304,8 @@ export default function AiSolutionsPage() {
             {services.map((s) => (
               <FadeIn
                 key={s.no}
-                className="brand-line-row group grid grid-cols-1 gap-5 border-b border-line py-10 first:border-t min-[900px]:grid-cols-[120px_1.05fr_1.35fr] min-[900px]:gap-10 min-[900px]:py-12"
+                id={s.id}
+                className="brand-line-row group grid scroll-mt-24 grid-cols-1 gap-5 border-b border-line py-10 first:border-t min-[900px]:grid-cols-[120px_1.05fr_1.35fr] min-[900px]:gap-10 min-[900px]:py-12"
               >
                 <span
                   aria-hidden

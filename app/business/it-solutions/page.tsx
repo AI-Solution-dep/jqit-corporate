@@ -13,9 +13,9 @@ import { createBreadcrumbJsonLd, createPageMetadata } from "@/lib/seo";
 import { siteConfig } from "@/lib/site-config";
 
 export const metadata = createPageMetadata({
-  title: "ITソリューション事業",
+  title: "法人向けSES・受託開発・QAのITソリューション",
   description:
-    "株式会社JQITのITソリューション事業。受託開発（SI）とSESにより、システム＆アプリ開発・インフラ・QA（第三者検証）をワンストップで提供します。",
+    "法人向けにSES（システムエンジニアリングサービス）でのエンジニア常駐・準委任、業務システムの受託開発、インフラ構築、QA（第三者検証）を提供します。ご依頼の業務範囲に応じた体制を編成し、必要な期間・工程だけでも対応します。労働者派遣事業許可（派13-318536）、ISO/IEC 27001認証取得。",
   path: "/business/it-solutions",
   image: {
     url: "/natural-tech-it.webp",
@@ -32,30 +32,19 @@ const facts = [
   { label: "QA Partnership", value: "ISTQB® Gold", note: "パートナー" },
 ];
 
-/** 提供形態: 受託開発（SI）と SES のふたつ */
-const models = [
-  {
-    no: "01",
-    en: "SI — System Integration",
-    title: "プロジェクトごと、任せる。",
-    body: "システム構築の要件定義から運用保守までを一括してお請けする受託開発です。WebアプリケーションやWeb APIをメインとした業務系システムの開発を得意としています。",
-    features: [
-      "要件定義から運用保守までの一括対応",
-      "設計・検証・導入など一部工程からの参画も可能",
-      "Web・業務系システム開発が主軸",
-    ],
-  },
-  {
-    no: "02",
-    en: "SES — Engineering Service",
-    title: "チームに、技術を加える。",
-    body: "エンジニアがお客様先に常駐し、システム開発・保守・運用を支援するサービスです。常駐により打ち合わせを迅速に行い、スピード感のあるプロジェクト進行を実現します。",
-    features: [
-      "常駐による迅速な意思疎通とスピード感",
-      "業務の拡大・縮小に合わせて必要な期間だけ提供",
-      "チーム体制にて技術支援",
-    ],
-  },
+/** SES の提供内容。ページ内 #ses セクションの本体 */
+const sesFeatures = [
+  "常駐による迅速な意思疎通とスピード感",
+  "業務の拡大・縮小に合わせて必要な期間だけ提供",
+  "業務範囲に応じた体制を編成（単一工程からチーム体制まで）",
+  "開発・インフラ・QAを組み合わせた体制も可能",
+];
+
+/** 受託開発（SI）の提供内容。ページ内 #contract-development セクションの本体 */
+const siFeatures = [
+  "要件定義から運用保守までの一括対応",
+  "設計・検証・導入など一部工程からの参画も可能",
+  "Web・業務系システム開発が主軸",
 ];
 
 /** サービス領域（既存HPの実コンテンツ） */
@@ -114,6 +103,41 @@ const qaProjectExamples = [
 
 const faqs: readonly ServiceFaqItem[] = [
   {
+    question: "SESとは何ですか？",
+    answer:
+      "SESは System Engineering Service（システムエンジニアリングサービス）の略で、エンジニアがお客様のプロジェクトに参画し、技術力を提供する契約形態です。成果物の完成を約束する請負契約とは異なり、業務の遂行に対して報酬をお支払いいただきます。指揮命令はエンジニアの所属元である当社が行います。",
+  },
+  {
+    question: "SESと受託開発、労働者派遣はどう違いますか？",
+    answer:
+      "受託開発（請負）は成果物の完成に責任を負い、SESは業務の遂行に対して報酬が発生します。労働者派遣はお客様がエンジニアへ直接指揮命令を行う点が異なります。当社は労働者派遣事業許可（派13-318536）を取得しており、ご要望に応じた契約形態でご提案します。",
+  },
+  {
+    question: "参画するのは自社の社員ですか？協力会社やフリーランスですか？",
+    answer:
+      "自社に在籍する社員が参画します。社員数は106名（2026年4月時点）です。案件の内容によっては協力会社との連携をご提案する場合がありますが、その際は事前に所属と商流を明示します。",
+  },
+  {
+    question: "商流は何次請けになりますか？",
+    answer:
+      "お客様と当社の直接契約を基本としています。商流が発生する場合は、ご提案時に構造を明示します。",
+  },
+  {
+    question: "参画するエンジニアが合わなかった場合、交代はできますか？",
+    answer:
+      "対応可能です。参画後も所属元として稼働状況をフォローし、ミスマッチが生じた場合は引き継ぎ期間を設けたうえで体制の見直しをご提案します。",
+  },
+  {
+    question: "小規模な依頼でも対応できますか？",
+    answer:
+      "対応可能です。ご依頼いただく業務の範囲に応じて、当社が体制を編成します。単一の工程を担当する小規模な体制から、リーダーを置いたチーム体制まで対応します。開発・インフラ・QAを組み合わせた体制も可能です。",
+  },
+  {
+    question: "リモートでの参画は可能ですか？",
+    answer:
+      "案件の内容とお客様のセキュリティ要件に応じて、常駐・リモート・併用のいずれも対応可能です。常駐の場合は打ち合わせを迅速に行える点が利点です。",
+  },
+  {
     question: "どのようなシステム開発に対応していますか？",
     answer:
       "Webアプリケーション、Web API、スマートフォンアプリ、社内業務システムを中心に、要件定義・設計・開発・テスト・運用保守まで対応しています。",
@@ -121,12 +145,22 @@ const faqs: readonly ServiceFaqItem[] = [
   {
     question: "開発工程の一部だけでも依頼できますか？",
     answer:
-      "はい。要件定義から運用保守までの一括対応に加え、設計、開発、インフラ構築、第三者検証、運用など、必要な工程のみでもご相談いただけます。",
+      "対応可能です。要件定義から運用保守までの一括対応に加え、設計、開発、インフラ構築、第三者検証、運用など、必要な工程のみでも承ります。",
   },
   {
-    question: "受託開発とSESのどちらに対応していますか？",
+    question: "要件が固まっていない段階でも相談できますか？",
     answer:
-      "どちらにも対応しています。プロジェクト単位でお請けする受託開発と、エンジニアがチームに参画して技術支援するSESから、課題に合う提供形態をご提案します。",
+      "対応可能です。課題と要望の整理から着手し、システムの要件を一緒に定義するところから対応します。",
+  },
+  {
+    question: "納品後の保守・運用まで対応してもらえますか？",
+    answer:
+      "対応しています。リリース後の保守、運用、監視までを含めてお請けします。運用のみでも対応可能です。",
+  },
+  {
+    question: "セキュリティ体制はどうなっていますか？",
+    answer:
+      "ISO/IEC 27001（ISMS）認証を取得しています。あわせて経済産業省のDX認定、労働者派遣事業許可（派13-318536）を取得しています。参画時の秘密保持契約、セキュリティ教育、端末の取り扱いについても、ご要望に応じて対応します。",
   },
 ];
 
@@ -138,9 +172,45 @@ const serviceJsonLd = {
       "@id": `${siteConfig.url}/business/it-solutions#service`,
       name: "ITソリューション事業",
       description:
-        "受託開発（SI）とSESにより、システム・アプリ開発、インフラ、QA・第三者検証をワンストップで提供します。",
+        "SESと受託開発（SI）により、システム・アプリ開発、インフラ、QA・第三者検証をワンストップで提供します。",
       url: `${siteConfig.url}/business/it-solutions`,
-      serviceType: ["受託開発", "SES", "インフラ構築", "QA・第三者検証"],
+      serviceType: ["SES", "受託開発", "インフラ構築", "QA・第三者検証"],
+      areaServed: { "@type": "Country", name: "日本" },
+      provider: { "@id": `${siteConfig.url}/#organization` },
+    },
+    // カテゴリ単位でも認識されるよう、章ごとに Service を分けて宣言する
+    {
+      "@type": "Service",
+      "@id": `${siteConfig.url}/business/it-solutions#ses`,
+      name: "SES（システムエンジニアリングサービス）",
+      alternateName: ["システムエンジニアリングサービス", "System Engineering Service"],
+      description:
+        "エンジニアがお客様のプロジェクトに常駐・準委任で参画し、システム開発・インフラ構築・QA（第三者検証）を技術支援する法人向けサービスです。ご依頼の業務範囲に応じて体制を編成します。",
+      url: `${siteConfig.url}/business/it-solutions#ses`,
+      serviceType: [
+        "SES",
+        "システムエンジニアリングサービス",
+        "エンジニア常駐支援",
+        "準委任契約による技術支援",
+      ],
+      areaServed: { "@type": "Country", name: "日本" },
+      provider: { "@id": `${siteConfig.url}/#organization` },
+      isRelatedTo: { "@id": `${siteConfig.url}/business/it-solutions#contract-development` },
+    },
+    {
+      "@type": "Service",
+      "@id": `${siteConfig.url}/business/it-solutions#contract-development`,
+      name: "受託開発（SI）",
+      alternateName: ["システム受託開発", "請負開発", "System Integration"],
+      description:
+        "業務システムの要件定義から設計・開発・テスト・運用保守までを一括してお請けする受託開発です。一部工程のみでも対応します。",
+      url: `${siteConfig.url}/business/it-solutions#contract-development`,
+      serviceType: [
+        "受託開発",
+        "業務システム開発",
+        "Webアプリケーション開発",
+        "システムインテグレーション",
+      ],
       areaServed: { "@type": "Country", name: "日本" },
       provider: { "@id": `${siteConfig.url}/#organization` },
     },
@@ -217,59 +287,74 @@ export default function ItSolutionsPage() {
         </Container>
       </section>
 
-      {/* MODELS — ふたつの提供形態 */}
-      <section className="relative overflow-hidden border-t border-line bg-cream py-20 min-[720px]:py-[96px]">
+      {/* SES — 主力の提供形態。ページ内アンカー #ses で単体参照できるようにする */}
+      <section
+        id="ses"
+        className="relative overflow-hidden border-t border-line bg-cream py-20 min-[720px]:py-[96px] scroll-mt-24"
+      >
         <div className="pointer-events-none absolute -top-3 right-0">
-          <DisplayText size="md">ENGAGEMENT</DisplayText>
+          <DisplayText size="md">SES</DisplayText>
         </div>
         <Container className="relative">
           <SectionHead
-            kicker="Engagement Model"
+            kicker="SES — System Engineering Service"
             title={
               <>
-                進め方は、<span className="text-brand">ふたつ</span>。
+                チームに、<span className="text-brand">技術</span>を加える。
               </>
             }
-            lead="プロジェクトを丸ごと預ける受託開発（SI）と、チームの一員として技術を提供するSES。課題と体制に合わせて選べます。"
+            lead="SES（システムエンジニアリングサービス）は、エンジニアがお客様のプロジェクトに常駐・準委任で参画し、システム開発・保守・運用を支援する法人向けのサービスです。開発の技術支援も、インフラ運用やQAのアウトソーシングも、ご依頼の業務範囲に応じて当社が体制を編成します。"
             className="mb-12"
           />
-          <div className="grid grid-cols-1 gap-px border border-line bg-line min-[900px]:grid-cols-2">
-            {models.map((m) => (
-              <FadeIn
-                key={m.no}
-                className="brand-line-card bg-white px-8 py-10 min-[720px]:px-10 min-[720px]:py-12"
-              >
-                <div className="flex items-start justify-between gap-4">
-                  <div>
-                    <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-brand">
-                      {m.en}
-                    </p>
-                    <h3 className="brand-line-label palt mt-3 text-[24px] font-bold leading-[1.4] tracking-[-0.02em] text-ink min-[720px]:text-[28px]">
-                      {m.title}
-                    </h3>
-                  </div>
-                  <span
-                    aria-hidden
-                    className="brand-line-no font-anton text-[48px] leading-none text-ink/10 min-[720px]:text-[60px]"
-                  >
-                    {m.no}
-                  </span>
-                </div>
-                <p className="mt-5 text-[14.5px] leading-[2.05] text-body">{m.body}</p>
-                <ul className="mt-7 border-t border-line">
-                  {m.features.map((f) => (
-                    <li
-                      key={f}
-                      className="flex items-baseline gap-3.5 border-b border-line py-3.5 text-[13.5px] leading-[1.8] text-ink"
-                    >
-                      <span aria-hidden className="h-px w-4 shrink-0 translate-y-[-3px] bg-brand" />
-                      {f}
-                    </li>
-                  ))}
-                </ul>
-              </FadeIn>
-            ))}
-          </div>
+          <FadeIn className="brand-line-card border border-line bg-white px-8 py-10 min-[720px]:px-10 min-[720px]:py-12">
+            <ul className="grid grid-cols-1 gap-x-10 border-t border-line min-[900px]:grid-cols-2">
+              {sesFeatures.map((f) => (
+                <li
+                  key={f}
+                  className="flex items-baseline gap-3.5 border-b border-line py-3.5 text-[13.5px] leading-[1.8] text-ink"
+                >
+                  <span aria-hidden className="h-px w-4 shrink-0 translate-y-[-3px] bg-brand" />
+                  {f}
+                </li>
+              ))}
+            </ul>
+          </FadeIn>
+
+        </Container>
+      </section>
+
+      {/* 受託開発（SI） — ページ内アンカー #contract-development */}
+      <section
+        id="contract-development"
+        className="relative overflow-hidden border-t border-line bg-paper py-20 min-[720px]:py-[96px] scroll-mt-24"
+      >
+        <div className="pointer-events-none absolute -top-3 right-0">
+          <DisplayText size="md">SI</DisplayText>
+        </div>
+        <Container className="relative">
+          <SectionHead
+            kicker="SI — System Integration"
+            title={
+              <>
+                プロジェクトごと、<span className="text-brand">任せる</span>。
+              </>
+            }
+            lead="システム構築の要件定義から運用保守までを一括してお請けする受託開発です。WebアプリケーションやWeb APIをメインとした業務系システムの開発を得意としています。要件が固まっていない段階からのご相談にも対応します。"
+            className="mb-12"
+          />
+          <FadeIn className="brand-line-card border border-line bg-white px-8 py-10 min-[720px]:px-10 min-[720px]:py-12">
+            <ul className="grid grid-cols-1 gap-x-10 border-t border-line min-[900px]:grid-cols-2">
+              {siFeatures.map((f) => (
+                <li
+                  key={f}
+                  className="flex items-baseline gap-3.5 border-b border-line py-3.5 text-[13.5px] leading-[1.8] text-ink"
+                >
+                  <span aria-hidden className="h-px w-4 shrink-0 translate-y-[-3px] bg-brand" />
+                  {f}
+                </li>
+              ))}
+            </ul>
+          </FadeIn>
         </Container>
       </section>
 

@@ -15,6 +15,11 @@ const businesses = [
     image: "/natural-tech-it.webp",
     alt: "自然光の入るオフィスでシステム設計を議論するエンジニア",
     href: "/business/it-solutions",
+    /** カテゴリ単位のセクションへの導線。トップから直接その章に着地できるようにする */
+    subLinks: [
+      { label: "SES（システムエンジニアリングサービス）", href: "/business/it-solutions#ses" },
+      { label: "受託開発（SI）", href: "/business/it-solutions#contract-development" },
+    ],
   },
   {
     no: "02",
@@ -25,6 +30,10 @@ const businesses = [
     image: "/natural-tech-ai.webp",
     alt: "AIデータ可視化を前に分析するメンバー",
     href: "/business/ai-solutions",
+    subLinks: [
+      { label: "AIエージェント開発・RAG構築", href: "/business/ai-solutions#ai-agent" },
+      { label: "AI導入支援・内製化支援", href: "/business/ai-solutions#ai-consulting" },
+    ],
   },
 ];
 
@@ -99,6 +108,21 @@ export function BusinessSection() {
                     →
                   </span>
                 </Link>
+                {b.subLinks && (
+                  <ul className="mt-4 flex flex-wrap gap-x-6 gap-y-2">
+                    {b.subLinks.map((s) => (
+                      <li key={s.href}>
+                        <Link
+                          href={s.href}
+                          className="group inline-flex items-center gap-2 text-[13px] leading-[1.8] text-body underline-offset-4 transition-colors hover:text-brand hover:underline"
+                        >
+                          <span aria-hidden className="h-px w-3 shrink-0 bg-brand" />
+                          {s.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </div>
             </FadeIn>
           ))}

@@ -100,7 +100,7 @@ export const globalNav: NavItem[] = [
     en: "Business",
     href: "/#business",
     children: [
-      { label: "ITソリューション事業", href: "/business/it-solutions" },
+      { label: "ITソリューション事業（SES・受託開発）", href: "/business/it-solutions" },
       { label: "AIソリューション事業", href: "/business/ai-solutions" },
     ],
   },
@@ -139,7 +139,11 @@ export const footerNav: { head: string; links: FooterLink[] }[] = [
     head: "Business",
     links: [
       { label: "ITソリューション事業", href: "/business/it-solutions" },
+      { label: "SES", href: "/business/it-solutions#ses" },
+      { label: "受託開発", href: "/business/it-solutions#contract-development" },
       { label: "AIソリューション事業", href: "/business/ai-solutions" },
+      { label: "AIエージェント開発", href: "/business/ai-solutions#ai-agent" },
+      { label: "AI導入支援", href: "/business/ai-solutions#ai-consulting" },
       { label: "NOVA（製品サイト）", href: siteConfig.links.nova, external: true },
       { label: "AI導入伴走支援", href: siteConfig.links.aiSupport, external: true },
       { label: "パートナー", href: "/#partner" },
