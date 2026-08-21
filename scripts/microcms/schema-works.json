@@ -1,0 +1,72 @@
+{
+  "apiFields": [
+    { "idValue": "wrkTitle01", "fieldId": "title", "name": "タイトル", "kind": "text", "required": true },
+    { "idValue": "wrkDate001", "fieldId": "date", "name": "実施日", "kind": "date", "required": true },
+    { "idValue": "wrkClientN", "fieldId": "clientName", "name": "顧客名（実名・許諾済みのみ）", "kind": "text", "required": false },
+    { "idValue": "wrkClientA", "fieldId": "clientAlias", "name": "顧客名（匿名表記）", "kind": "text", "required": false },
+    {
+      "idValue": "wrkIndustr",
+      "fieldId": "industry",
+      "name": "業種",
+      "kind": "select",
+      "required": false,
+      "multipleSelect": false,
+      "selectInitialValue": [],
+      "selectItems": [
+        { "id": "indManufac", "value": "製造" },
+        { "id": "indRetail0", "value": "小売" },
+        { "id": "indFinance", "value": "金融" },
+        { "id": "indPublic0", "value": "公共" },
+        { "id": "indMedical", "value": "医療" },
+        { "id": "indItTeleco", "value": "IT・通信" },
+        { "id": "indOther00", "value": "その他" }
+      ]
+    },
+    {
+      "idValue": "wrkService",
+      "fieldId": "serviceType",
+      "name": "提供サービス",
+      "kind": "select",
+      "required": false,
+      "multipleSelect": false,
+      "selectInitialValue": [],
+      "selectItems": [
+        { "id": "svcContrac", "value": "受託開発" },
+        { "id": "svcSes0000", "value": "SES" },
+        { "id": "svcQaTest0", "value": "システムテスト・QA" },
+        { "id": "svcAiIntro", "value": "AI導入支援" },
+        { "id": "svcAiAgent", "value": "AIエージェント開発" }
+      ]
+    },
+    { "idValue": "wrkPeriod0", "fieldId": "period", "name": "期間", "kind": "text", "required": false },
+    { "idValue": "wrkScale00", "fieldId": "scale", "name": "体制", "kind": "text", "required": false },
+    { "idValue": "wrkSummary", "fieldId": "summary", "name": "要約", "kind": "textArea", "required": false },
+    { "idValue": "wrkChallen", "fieldId": "challenge", "name": "課題", "kind": "richEditorV2", "required": false },
+    { "idValue": "wrkApproac", "fieldId": "approach", "name": "打ち手", "kind": "richEditorV2", "required": false },
+    { "idValue": "wrkResult0", "fieldId": "result", "name": "成果", "kind": "richEditorV2", "required": false },
+    {
+      "idValue": "wrkMetrics",
+      "fieldId": "metrics",
+      "name": "指標",
+      "kind": "repeater",
+      "required": false,
+      "customFieldCreatedAtList": ["2026-08-21T00:00:00.000Z"]
+    },
+    { "idValue": "wrkTechSta", "fieldId": "techStack", "name": "技術スタック（カンマ区切り）", "kind": "text", "required": false },
+    { "idValue": "wrkEyecatc", "fieldId": "eyecatch", "name": "アイキャッチ", "kind": "media", "required": false },
+    { "idValue": "wrkBody000", "fieldId": "body", "name": "補足", "kind": "richEditorV2", "required": false }
+  ],
+  "customFields": [
+    {
+      "createdAt": "2026-08-21T00:00:00.000Z",
+      "updatedAt": "2026-08-21T00:00:00.000Z",
+      "fieldId": "metric",
+      "name": "指標",
+      "fields": [
+        { "idValue": "metLabel00", "fieldId": "label", "name": "項目名", "kind": "text", "required": false },
+        { "idValue": "metValue00", "fieldId": "value", "name": "数値", "kind": "text", "required": false }
+      ],
+      "position": [["metLabel00", "metValue00"]]
+    }
+  ]
+}

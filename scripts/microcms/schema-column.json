@@ -1,0 +1,14 @@
+{
+  "apiFields": [
+    { "idValue": "colTitle01", "fieldId": "title", "name": "タイトル", "kind": "text", "required": true },
+    { "idValue": "colDate001", "fieldId": "date", "name": "公開日", "kind": "date", "required": true },
+    { "idValue": "colTags001", "fieldId": "tags", "name": "タグ（カンマ区切り）", "kind": "text", "required": false },
+    { "idValue": "colExcerpt", "fieldId": "excerpt", "name": "要約", "kind": "textArea", "required": false },
+    { "idValue": "colAuthorN", "fieldId": "authorName", "name": "執筆者", "kind": "text", "required": false },
+    { "idValue": "colAuthorR", "fieldId": "authorRole", "name": "執筆者の肩書", "kind": "text", "required": false },
+    { "idValue": "colEyecatc", "fieldId": "eyecatch", "name": "アイキャッチ", "kind": "media", "required": false },
+    { "idValue": "colBody001", "fieldId": "body", "name": "本文", "kind": "richEditorV2", "required": true },
+    { "idValue": "colQiitaUr", "fieldId": "qiitaUrl", "name": "Qiita転載先URL", "kind": "text", "required": false }
+  ],
+  "customFields": []
+}
