@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { formatColumnDate, type Column } from "@/lib/column";
@@ -8,11 +7,12 @@ import { formatColumnDate, type Column } from "@/lib/column";
 const ALL = "すべて";
 const MAX_TAGS = 8;
 
-type Item = Pick<
-  Column,
-  "id" | "title" | "date" | "excerpt" | "tags" | "eyecatch" | "authorName"
->;
+type Item = Pick<Column, "id" | "title" | "date" | "excerpt" | "tags">;
 
+/**
+ * 技術記事の一覧はタイトル・タグ・要約が読めることを優先し、
+ * アイキャッチ画像は持たせない（記事ごとの装飾画像は内容を伝えないため）。
+ */
 export function ColumnListFiltered({ items }: { items: Item[] }) {
   const [active, setActive] = useState(ALL);
   // タグは記事ごとに5つ前後付くため、全件出すとタブが何行にもなって一覧が押し下がる。
@@ -59,33 +59,17 @@ export function ColumnListFiltered({ items }: { items: Item[] }) {
         </div>
       )}
 
-      <div className="mt-10 grid grid-cols-1 gap-x-8 gap-y-12 min-[720px]:grid-cols-2">
+      <div className="mt-4 grid grid-cols-1 gap-x-12 min-[900px]:grid-cols-2">
         {shown.map((c) => (
           <Link
             key={c.id}
             href={`/column/${c.id}`}
-            className="group flex flex-col border-b border-line pb-8"
+            className="group flex flex-col border-b border-line py-8"
           >
-            <span className="relative block aspect-[16/10] overflow-hidden bg-cream">
-              {c.eyecatch ? (
-                <Image
-                  src={c.eyecatch.url}
-                  alt=""
-                  fill
-                  sizes="(min-width: 720px) 540px, 100vw"
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-              ) : (
-                <span className="absolute inset-0 flex items-center justify-center font-mono text-[11px] uppercase tracking-[0.24em] text-[#c9c6c0]">
-                  JQIT Column
-                </span>
-              )}
-            </span>
-
-            <span className="mt-5 flex flex-wrap items-center gap-2">
+            <span className="flex flex-wrap items-center gap-x-3 gap-y-2">
               <time
                 dateTime={c.date}
-                className="font-mono text-[12px] tracking-[0.06em] text-muted"
+                className="font-mono text-[12px] tracking-[0.08em] text-muted"
               >
                 {formatColumnDate(c.date)}
               </time>
@@ -99,15 +83,25 @@ export function ColumnListFiltered({ items }: { items: Item[] }) {
               ))}
             </span>
 
-            <span className="palt mt-3 text-[20px] font-bold leading-[1.55] tracking-[-0.02em] text-ink transition-colors group-hover:text-brand">
+            <span className="palt mt-3.5 text-[21px] font-bold leading-[1.5] tracking-[-0.02em] text-ink transition-colors group-hover:text-brand min-[720px]:text-[22px]">
               {c.title}
             </span>
 
             {c.excerpt && (
-              <span className="mt-3.5 text-[14px] leading-[1.95] text-body">
+              <span className="mt-3 text-[14px] leading-[1.95] text-body">
                 {c.excerpt}
               </span>
             )}
+
+            <span className="mt-5 inline-flex items-center gap-2 font-mono text-[12px] font-semibold tracking-[0.12em] text-ink transition-colors group-hover:text-brand">
+              続きを読む
+              <span
+                aria-hidden
+                className="transition-transform duration-300 group-hover:translate-x-1.5"
+              >
+                →
+              </span>
+            </span>
           </Link>
         ))}
       </div>
