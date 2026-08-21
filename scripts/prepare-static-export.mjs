@@ -47,3 +47,32 @@ for (const detail of [
     console.log(`[static-export] ${detail} に dynamicParams = false を追加`);
   }
 }
+
+// 4) CMS のキーが無い環境（CI に secrets 未設定）では、コラムの記事ページを外す。
+// コラムはフォールバックデータを持たないため記事が0件になり、
+// generateStaticParams が空配列を返して output: export がビルドを拒否する。
+// 一覧ページは「公開中のコラムはありません」を表示するので残す。
+if (!cmsServiceDomain()) {
+  fs.rmSync("app/column/[id]", { recursive: true, force: true });
+  console.log(
+    "[static-export] MICROCMS_SERVICE_DOMAIN が無いため app/column/[id] を除外しました。" +
+      "記事も書き出したい場合は、ワークフローに microCMS の認証情報を渡してください。",
+  );
+}
+
+/**
+ * microCMS のサービスドメインを解決する。
+ * CI では環境変数、ローカルでは .env.local に入っている（Next は .env.local を
+ * 自動で読むが、このスクリプトは素の Node なので自前で読む）。
+ */
+function cmsServiceDomain() {
+  if (process.env.MICROCMS_SERVICE_DOMAIN) return process.env.MICROCMS_SERVICE_DOMAIN;
+  if (!fs.existsSync(".env.local")) return "";
+
+  const line = fs
+    .readFileSync(".env.local", "utf8")
+    .split(/\r?\n/)
+    .find((l) => /^\s*MICROCMS_SERVICE_DOMAIN=/.test(l));
+  return line ? line.split("=").slice(1).join("=").trim().replace(/^["']|["']$/g, "") : "";
+}
+

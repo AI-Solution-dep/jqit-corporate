@@ -26,9 +26,14 @@ jobs:
       - run: npm ci
       # 静的エクスポート用にフォームページ差し替え・ISR除去（CI上のみ、コミットしない）
       - run: node scripts/prepare-static-export.mjs
+        env:
+          MICROCMS_SERVICE_DOMAIN: ${{ secrets.MICROCMS_SERVICE_DOMAIN }}
       - run: npm run build
         env:
           STATIC_EXPORT: "1"
+          # 未設定でもビルドは通る（コラムの記事ページが除外される）
+          MICROCMS_SERVICE_DOMAIN: ${{ secrets.MICROCMS_SERVICE_DOMAIN }}
+          MICROCMS_API_KEY: ${{ secrets.MICROCMS_API_KEY }}
       - uses: actions/upload-pages-artifact@v3
         with:
           path: out
