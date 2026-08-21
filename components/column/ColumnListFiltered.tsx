@@ -32,10 +32,11 @@ export function ColumnListFiltered({ items }: { items: Item[] }) {
   return (
     <>
       {tags.length > 0 && (
+        // タブではなくタグとして見せる（記事に付いているタグと同じ形）
         <div
-          role="tablist"
+          role="group"
           aria-label="タグで絞り込み"
-          className="flex flex-wrap gap-x-8 gap-y-1 border-b border-line"
+          className="flex flex-wrap gap-2 border-b border-line pb-7"
         >
           {tabs.map((t) => {
             const selected = t === active;
@@ -43,13 +44,12 @@ export function ColumnListFiltered({ items }: { items: Item[] }) {
               <button
                 key={t}
                 type="button"
-                role="tab"
-                aria-selected={selected}
+                aria-pressed={selected}
                 onClick={() => setActive(t)}
-                className={`-mb-px border-b-2 pb-3 pt-1 font-mono text-[13px] tracking-[0.1em] transition-colors ${
+                className={`rounded-card border px-3.5 py-1.5 font-mono text-[12px] tracking-[0.06em] transition-colors ${
                   selected
-                    ? "border-brand font-semibold text-ink"
-                    : "border-transparent text-muted hover:text-ink"
+                    ? "border-brand bg-brand font-semibold text-white"
+                    : "border-line text-muted hover:border-brand hover:text-brand"
                 }`}
               >
                 {t}
