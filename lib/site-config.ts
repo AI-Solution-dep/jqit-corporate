@@ -114,6 +114,7 @@ export const globalNav: NavItem[] = [
     ],
   },
   { label: "ニュース", en: "News", href: "/news" },
+  { label: "技術コラム", en: "Column", href: "/column" },
   { label: "採用", en: "Recruit", href: siteConfig.links.recruit, external: true },
 ];
 
@@ -153,6 +154,7 @@ export const footerNav: { head: string; links: FooterLink[] }[] = [
     head: "Careers & Media",
     links: [
       { label: "採用情報", href: siteConfig.links.recruit, external: true },
+      { label: "技術コラム", href: "/column" },
       { label: "Qiita", href: siteConfig.links.qiita, external: true },
       { label: "note", href: siteConfig.links.note, external: true },
     ],
