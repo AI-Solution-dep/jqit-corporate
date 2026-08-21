@@ -75,26 +75,22 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const column = await getColumnDetail(id);
   if (!column) return { title: "技術コラム", robots: { index: false, follow: false } };
 
-  return {
-    ...createPageMetadata({
-      title: column.title,
-      description: columnDescription(column),
-      path: `/column/${column.id}`,
-      type: "article",
-      image: column.eyecatch
-        ? {
-            url: column.eyecatch.url,
-            width: column.eyecatch.width,
-            height: column.eyecatch.height,
-            alt: column.title,
-          }
-        : undefined,
-      publishedTime: column.publishedAt,
-      modifiedTime: column.updatedAt,
-    }),
-    // 公開時にこの robots 指定を削除する（app/column/page.tsx のコメント参照）
-    robots: { index: false, follow: false },
-  };
+  return createPageMetadata({
+    title: column.title,
+    description: columnDescription(column),
+    path: `/column/${column.id}`,
+    type: "article",
+    image: column.eyecatch
+      ? {
+          url: column.eyecatch.url,
+          width: column.eyecatch.width,
+          height: column.eyecatch.height,
+          alt: column.title,
+        }
+      : undefined,
+    publishedTime: column.publishedAt,
+    modifiedTime: column.updatedAt,
+  });
 }
 
 export default async function ColumnDetailPage({ params }: Props) {

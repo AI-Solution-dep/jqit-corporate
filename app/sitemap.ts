@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { getColumnList } from "@/lib/column";
 import { getNewsList } from "@/lib/microcms";
 import { siteConfig } from "@/lib/site-config";
 
@@ -11,7 +12,14 @@ const STATIC_PAGE_LAST_MODIFIED = new Date("2026-08-12T00:00:00+09:00");
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const base = siteConfig.url;
   const news = await getNewsList({ limit: 100 });
+  const columns = await getColumnList({ limit: 100 });
   const latestNewsModified = news.reduce<Date | undefined>((latest, item) => {
+    const value = item.updatedAt ?? item.date;
+    if (!value) return latest;
+    const date = new Date(value);
+    return !latest || date > latest ? date : latest;
+  }, undefined);
+  const latestColumnModified = columns.reduce<Date | undefined>((latest, item) => {
     const value = item.updatedAt ?? item.date;
     if (!value) return latest;
     const date = new Date(value);
@@ -77,6 +85,22 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "daily",
       priority: 0.9,
     },
+    {
+      url: `${base}/column`,
+      lastModified: latestColumnModified ?? STATIC_PAGE_LAST_MODIFIED,
+      changeFrequency: "weekly" as const,
+      priority: 0.8,
+    },
+    ...columns.map((c) => ({
+      url: `${base}/column/${c.id}`,
+      lastModified: c.updatedAt
+        ? new Date(c.updatedAt)
+        : c.date
+          ? new Date(c.date)
+          : undefined,
+      changeFrequency: "yearly" as const,
+      priority: 0.6,
+    })),
     ...news.map((n) => ({
       url: `${base}/news/${n.id}`,
       lastModified: n.updatedAt
