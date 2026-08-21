@@ -122,6 +122,18 @@ function isNotFoundError(e: unknown): boolean {
   return e instanceof Error && /\b404\b/.test(e.message);
 }
 
+/**
+ * 本文HTML内のローカル画像（/column/... 等）は Next.js が basePath を付けないため、
+ * 静的エクスポート（GitHub Pages）時だけ自前で補う。外部URLはそのまま返す。
+ * basePath は next.config.ts / lib/static-image-loader.ts と同期を保つこと。
+ */
+const staticExportBasePath = "/jqit-corporate";
+
+function resolveBodyImageSrc(src: string): string {
+  if (!src.startsWith("/")) return optimizeMicroCmsImageUrl(src);
+  return process.env.STATIC_EXPORT === "1" ? `${staticExportBasePath}${src}` : src;
+}
+
 function optimizeMicroCmsImageUrl(src: string): string {
   try {
     const url = new URL(src);
@@ -162,7 +174,7 @@ export function prepareNewsBodyHtml(html: string | undefined): string | undefine
         tagName,
         attribs: {
           ...attribs,
-          ...(attribs.src ? { src: optimizeMicroCmsImageUrl(attribs.src) } : {}),
+          ...(attribs.src ? { src: resolveBodyImageSrc(attribs.src) } : {}),
         },
       }),
     },
