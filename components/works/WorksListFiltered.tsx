@@ -18,6 +18,7 @@ type Item = Pick<
   | "summary"
   | "metrics"
   | "eyecatch"
+  | "isDiagram"
 >;
 
 export function WorksListFiltered({ items }: { items: Item[] }) {
@@ -70,7 +71,11 @@ export function WorksListFiltered({ items }: { items: Item[] }) {
                   alt=""
                   fill
                   sizes="(min-width: 720px) 540px, 100vw"
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  className={
+                    w.isDiagram
+                      ? "object-contain p-4"
+                      : "object-cover transition-transform duration-500 group-hover:scale-105"
+                  }
                 />
               ) : (
                 <span className="absolute inset-0 flex items-center justify-center font-mono text-[11px] uppercase tracking-[0.24em] text-[#c9c6c0]">

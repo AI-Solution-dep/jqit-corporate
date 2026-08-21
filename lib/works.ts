@@ -50,6 +50,8 @@ export type Work = {
   eyecatch?: MicroCMSImage;
   /** フォールバック（microCMS未接続）由来のサンプルデータか */
   isSample?: boolean;
+  /** アイキャッチが構成図か（写真ではないため、切り抜かず全体を見せる） */
+  isDiagram?: boolean;
 };
 
 export type WorkMetric = {
@@ -79,6 +81,24 @@ type MicroCMSWork = {
   result?: string;
   body?: string;
   eyecatch?: MicroCMSImage;
+};
+
+/**
+ * 実績ごとの構成図。顧客システムの画面は公開できないため、
+ * 「何をどう作ったか」を示す図をリポジトリ側に持つ。
+ * microCMS 側に eyecatch が入ればそちらが優先される。
+ */
+const defaultWorkMedia: Record<string, MicroCMSImage> = {
+  "school-ijime-ai-support": {
+    url: "/works/school-ijime-ai-support.webp",
+    width: 1600,
+    height: 900,
+  },
+  "ai-agent-sales-list": {
+    url: "/works/ai-agent-sales-list.webp",
+    width: 1600,
+    height: 900,
+  },
 };
 
 function isNotFoundError(e: unknown): boolean {
@@ -123,11 +143,12 @@ function normalize(item: MicroCMSWork): Work {
       .map((m) => ({ label: m.label?.trim() ?? "", value: m.value?.trim() ?? "" }))
       .filter((m) => m.label && m.value),
     techStack: parseTechStack(item.techStack),
+    isDiagram: !item.eyecatch && Boolean(defaultWorkMedia[item.id]),
     challenge: prepareRichTextHtml(item.challenge),
     approach: prepareRichTextHtml(item.approach),
     result: prepareRichTextHtml(item.result),
     body: prepareRichTextHtml(item.body),
-    eyecatch: item.eyecatch,
+    eyecatch: item.eyecatch ?? defaultWorkMedia[item.id],
   };
 }
 

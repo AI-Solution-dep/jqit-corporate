@@ -192,7 +192,7 @@ export default async function WorkDetailPage({ params }: Props) {
                 alt={work.title}
                 fill
                 sizes="(min-width: 900px) 860px, 100vw"
-                className="object-cover"
+                className={work.isDiagram ? "object-contain" : "object-cover"}
                 priority
               />
             </div>
