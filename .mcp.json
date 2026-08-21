@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "microcms-document": {
+      "command": "npx",
+      "args": ["-y", "microcms-document-mcp-server@latest"]
+    },
+    "microcms": {
+      "command": "./scripts/mcp/microcms-mcp.sh",
+      "args": []
+    }
+  }
+}
