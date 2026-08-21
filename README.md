@@ -35,6 +35,13 @@ npm run lint
 | `gallery` | 複数画像 |
 | `body` | リッチエディタ |
 
+### microCMS MCP（Claude Code / Cursor から直接操作）
+
+`.mcp.json` に公式MCPサーバー2つを定義済み。`cp scripts/mcp/settings.local.example.json
+.claude/settings.local.json` してエディタを再起動すれば使えます。APIキーは `.env.local`
+から読むため `.mcp.json` に秘密情報は入りません。詳細・安全策は
+[`scripts/mcp/README.md`](scripts/mcp/README.md)。
+
 ## 構成
 
 - `app/` — ページ（トップ / about / contact / news / news/[id]）+ SEO（sitemap / robots / not-found）
