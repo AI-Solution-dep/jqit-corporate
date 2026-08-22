@@ -1,13 +1,5 @@
 import type { NextConfig } from "next";
 
-/**
- * STATIC_EXPORT=1: GitHub Pages 向け静的エクスポート。
- * basePath はリポジトリ名（https://<owner>.github.io/jqit-corporate/）に一致させる。
- * lib/static-image-loader.ts の basePath と同期を保つこと。
- * 通常ビルド（Vercel等・ローカル）は Server Actions / ISR をそのまま使う。
- */
-const isStaticExport = process.env.STATIC_EXPORT === "1";
-
 const contentSecurityPolicy = [
   "default-src 'self'",
   "object-src 'none'",
@@ -132,52 +124,35 @@ const legacyNewsRedirects = [
   { source: "/2025/06/13/:slug", destination: "/news/wp-1" },
 ] as const;
 
-const nextConfig: NextConfig = isStaticExport
-  ? {
-      poweredByHeader: false,
-      output: "export",
-      basePath: "/jqit-corporate",
-      trailingSlash: true,
-      images: {
-        loader: "custom",
-        loaderFile: "./lib/static-image-loader.ts",
-        remotePatterns: [
-          {
-            protocol: "https",
-            hostname: "images.microcms-assets.io",
-          },
-        ],
+const nextConfig: NextConfig = {
+  poweredByHeader: false,
+  skipTrailingSlashRedirect: true,
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "images.microcms-assets.io",
       },
-    }
-  : {
-      poweredByHeader: false,
-      skipTrailingSlashRedirect: true,
-      images: {
-        remotePatterns: [
-          {
-            protocol: "https",
-            hostname: "images.microcms-assets.io",
-          },
-        ],
+    ],
+  },
+  async redirects() {
+    return [...legacyPageRedirects, ...legacyNewsRedirects].map((redirect) => ({
+      ...redirect,
+      permanent: true,
+    }));
+  },
+  async rewrites() {
+    return [...legacyPageRewrites];
+  },
+  async headers() {
+    return [
+      {
+        source: "/((?!portal(?:/|$)).*)",
+        headers: [...securityHeaders],
       },
-      async redirects() {
-        return [...legacyPageRedirects, ...legacyNewsRedirects].map((redirect) => ({
-          ...redirect,
-          permanent: true,
-        }));
-      },
-      async rewrites() {
-        return [...legacyPageRewrites];
-      },
-      async headers() {
-        return [
-          {
-            source: "/((?!portal(?:/|$)).*)",
-            headers: [...securityHeaders],
-          },
-          { source: "/portal/:path*", headers: [...portalSecurityHeaders] },
-        ];
-      },
-    };
+      { source: "/portal/:path*", headers: [...portalSecurityHeaders] },
+    ];
+  },
+};
 
 export default nextConfig;

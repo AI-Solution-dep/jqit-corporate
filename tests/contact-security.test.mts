@@ -311,9 +311,10 @@ test("F13-01: 動的配信設定は全パスへ具体的なセキュリティヘ
   }
 });
 
-test("F13-02: 静的・動的両ブランチで X-Powered-By を無効化する", () => {
+test("F13-02: X-Powered-By を無効化する", () => {
   const source = readFileSync("next.config.ts", "utf8");
-  assert.equal(source.match(/poweredByHeader:\s*false/g)?.length, 2);
+  // 静的エクスポート（GitHub Pages）を廃止し、設定は Vercel 向けの1系統のみになった
+  assert.equal(source.match(/poweredByHeader:\s*false/g)?.length, 1);
 });
 
 test("F13-03: フッターのサイトマップは XML エンドポイントへリンクする", () => {
