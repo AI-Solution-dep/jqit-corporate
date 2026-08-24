@@ -96,11 +96,66 @@ const websiteJsonLd = {
         areaServed: "JP",
         availableLanguage: "Japanese",
       },
+      slogan: siteConfig.tagline,
+      description: siteConfig.description,
+      numberOfEmployees: {
+        "@type": "QuantitativeValue",
+        value: 106,
+        unitText: "名",
+      },
+      // 全ページに出る Organization から参照するため、@id だけでなく
+      // 最小限の実体を持たせる（Person ノードの本体は /about 側）。
+      founder: {
+        "@type": "Person",
+        "@id": `${siteConfig.url}/about#ceo`,
+        name: siteConfig.ceo,
+        jobTitle: "代表取締役社長",
+      },
+      award: ["2026年度 財界 BEST AI 100"],
+      // 認証・許認可は lib/site-config.ts の certifications と対応。
+      // 一次情報が公開されているものは url を添えて検証可能にする。
+      hasCredential: [
+        {
+          "@type": "EducationalOccupationalCredential",
+          credentialCategory: "certification",
+          name: "ISO/IEC 27001（ISMS）",
+        },
+        {
+          "@type": "EducationalOccupationalCredential",
+          credentialCategory: "certification",
+          name: "DX認定",
+          recognizedBy: { "@type": "GovernmentOrganization", name: "経済産業省" },
+        },
+        {
+          "@type": "EducationalOccupationalCredential",
+          credentialCategory: "certification",
+          name: "ISTQB® Gold パートナー",
+          url: "https://www.jstqb.jp/partnership/",
+        },
+        {
+          "@type": "EducationalOccupationalCredential",
+          credentialCategory: "license",
+          name: "労働者派遣事業許可 派13-318536",
+          recognizedBy: { "@type": "GovernmentOrganization", name: "厚生労働省" },
+        },
+      ],
+      knowsAbout: [
+        "SES（システムエンジニアリングサービス）",
+        "受託開発",
+        "QA・第三者検証",
+        "ITインフラ構築",
+        "AIエージェント開発",
+        "RAG構築",
+        "生成AI導入支援",
+      ],
       sameAs: [
         siteConfig.links.x,
         siteConfig.links.instagram,
         siteConfig.links.qiita,
         siteConfig.links.note,
+        siteConfig.links.nova,
+        siteConfig.links.aiSupport,
+        siteConfig.links.recruit,
       ],
     },
     {

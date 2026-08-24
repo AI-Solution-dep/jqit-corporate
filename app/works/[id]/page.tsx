@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { resolveBusinessLinkByServiceType } from "@/lib/business-links";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { Kicker } from "@/components/ui/Kicker";
@@ -83,6 +84,8 @@ export default async function WorkDetailPage({ params }: Props) {
   const { id } = await params;
   const work = await getWorkDetail(id);
   if (!work) notFound();
+
+  const businessLink = resolveBusinessLinkByServiceType(work.serviceType);
 
   const related = (await getWorksList({ limit: 4 }))
     .filter((w) => w.id !== work.id)
@@ -245,6 +248,19 @@ export default async function WorkDetailPage({ params }: Props) {
                   </li>
                 ))}
               </ul>
+            </div>
+          )}
+
+          {businessLink && (
+            <div className="mt-14 border-t border-line pt-8">
+              <p className="text-[14px] leading-[1.95] text-body">{businessLink.lead}</p>
+              <Link
+                href={businessLink.href}
+                className="mt-4 inline-flex items-center gap-2 font-mono text-[13px] font-semibold tracking-[0.08em] text-brand transition-colors hover:text-ink"
+              >
+                {businessLink.label}
+                <span aria-hidden>→</span>
+              </Link>
             </div>
           )}
 

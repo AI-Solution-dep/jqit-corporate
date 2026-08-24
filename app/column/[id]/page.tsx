@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { resolveBusinessLink } from "@/lib/business-links";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { Kicker } from "@/components/ui/Kicker";
@@ -101,6 +102,7 @@ export default async function ColumnDetailPage({ params }: Props) {
   const related = (await getColumnList({ limit: 4 }))
     .filter((c) => c.id !== column.id)
     .slice(0, 3);
+  const businessLink = resolveBusinessLink(column.tags);
   const description = columnDescription(column);
   const articleUrl = absoluteUrl(`/column/${column.id}`);
   const { authorName, authorRole, jsonLd: authorJsonLd } = columnAuthor(column);
@@ -247,6 +249,19 @@ export default async function ColumnDetailPage({ params }: Props) {
               </a>{" "}
               でも公開しています。
             </p>
+          )}
+
+          {businessLink && (
+            <div className="mt-14 border-t border-line pt-8">
+              <p className="text-[14px] leading-[1.95] text-body">{businessLink.lead}</p>
+              <Link
+                href={businessLink.href}
+                className="mt-4 inline-flex items-center gap-2 font-mono text-[13px] font-semibold tracking-[0.08em] text-brand transition-colors hover:text-ink"
+              >
+                {businessLink.label}
+                <span aria-hidden>→</span>
+              </Link>
+            </div>
           )}
 
           <div className="mt-16 border border-line bg-cream px-8 py-10 text-center">
