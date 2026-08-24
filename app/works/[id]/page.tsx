@@ -54,8 +54,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       publishedTime: work.publishedAt,
       modifiedTime: work.updatedAt,
     }),
-    // 公開時にこの robots 指定を削除する（app/works/page.tsx のコメント参照）
-    robots: { index: false, follow: false },
   };
 }
 
