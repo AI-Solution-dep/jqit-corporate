@@ -5,6 +5,9 @@ import { siteConfig } from "@/lib/site-config";
 
 // output: export（GitHub Pages）でも生成できるよう明示
 export const dynamic = "force-static";
+// 既定は revalidate=false（再検証しない）のため、これがないと
+// 記事を公開しても再デプロイするまで sitemap が古いままになる。
+export const revalidate = 3600;
 
 // サイト構造や主要導線を含む静的ページの最終更新日。
 const STATIC_PAGE_LAST_MODIFIED = new Date("2026-08-12T00:00:00+09:00");
