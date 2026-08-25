@@ -55,7 +55,7 @@ export function ServiceSection() {
                 {service.id === "nova" ? (
                   <div className="flex h-[220px] items-center bg-[#f4f4f2] p-6 min-[720px]:h-[280px] min-[720px]:p-8">
                     <Image
-                      src="/nova-product.png"
+                      src="/nova-product-2026-08.png"
                       alt="NOVA 管理画面 — AIマッチングアシスタントと案件一覧"
                       width={748}
                       height={438}
