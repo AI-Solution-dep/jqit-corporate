@@ -79,7 +79,7 @@ const services = [
     items: [
       {
         head: "NOVA",
-        body: "SES営業のAIマッチングと一元管理を実現する、当社開発のAIプロダクトです。",
+        body: "案件・人材メールの自動取込からAIマッチング、提案メールの起草までを担う、当社開発のSES向けAIプロダクトです。",
       },
       {
         head: "AIサービス企画・開発",
@@ -90,7 +90,13 @@ const services = [
 ];
 
 /** NOVA が一元管理する領域（製品の実機能） */
-const novaFeatures = ["AIマッチング", "社員管理", "人材管理", "案件管理", "契約管理"];
+const novaFeatures = [
+  "メール自動取込",
+  "AI 2段階マッチング",
+  "案件・人材・BP管理",
+  "契約終了アラート",
+  "提案メールAI起草",
+];
 
 const faqs: readonly ServiceFaqItem[] = [
   {
@@ -373,12 +379,12 @@ export default function AiSolutionsPage() {
                 Our Product
               </p>
               <h2 className="palt text-[28px] font-bold leading-[1.45] tracking-[-0.02em] min-[720px]:text-[36px]">
-                AIマッチング×一元管理で、
+                メールを読む仕事から、
                 <br />
-                SES営業の生産性向上を支援。
+                決める仕事へ。
               </h2>
               <p className="mt-6 text-[14.5px] leading-[2.05] text-white/80">
-                NOVAは、当社のAI開発力を注ぎ込んだSES事業特化の管理システムです。生成AIを活用したマッチング機能により、SES営業未経験でも高精度なマッチングを実現。SES事業に必要な情報を一元管理します。
+                NOVAは、届いた案件・人材メールをAIが自動で構造化し、タグスコアとAI判定の2段階マッチングで候補と「なぜ合うか」の判断理由まで提示するSES特化のAIマッチングシステムです。契約終了アラートによる先回り営業、提案メールのAI起草まで、メール1通が提案になるまでを一気通貫で支えます。
               </p>
               <div className="mt-8 grid grid-cols-2 gap-px border border-white/15 bg-white/15 min-[600px]:grid-cols-3">
                 {novaFeatures.map((f, i) => (
