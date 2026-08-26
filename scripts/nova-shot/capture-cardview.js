@@ -7,9 +7,10 @@ const OUT = process.argv[2] || path.join(__dirname, "source-projects-cards.png")
 const BASE = "http://localhost:3200";
 const SUPABASE_REF = "mwderapzymmrwhnlbaul"; // frontend/.env.local の NEXT_PUBLIC_SUPABASE_URL のプロジェクトref
 
-// ---- デモデータ（product_x/backend/seed_demo_data.py と同じ架空の会社・案件） ----
+// ---- デモデータ（案件内容は product_x/backend/seed_demo_data.py 相当。社名は匿名表記） ----
 // (タイトル, 会社, 技術領域, 勤務地, リモート, 予算下限, 予算上限, 外国籍可, 商流制限, 個人事業主可, [必須], [尚可])
-const COMPANIES = ["株式会社ネクストフィールド", "サンライズテクノロジー株式会社", "株式会社ブルーポート", "みらいシステムズ株式会社", "株式会社アークライン"];
+// 案件元は匿名表記（実在企業と衝突しないよう、社名は作らない）
+const COMPANIES = ["SIer A社", "製造業 B社", "EC事業者 C社", "金融系SIer D社", "通信系 E社"];
 const SEED = [
   ["生成AI活用チャットボットの開発", 0, "開発", "港区（フルリモート可）", true, 70, 90, false, "1社先まで", true, ["Python", "生成AI", "AWS"], ["LangChain", "FastAPI"]],
   ["基幹システム刷新プロジェクト", 1, "開発", "新宿", false, 65, 80, false, "元請直", false, ["Java", "Spring Boot", "SQL"], ["Oracle", "詳細設計"]],

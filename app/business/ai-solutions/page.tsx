@@ -409,7 +409,7 @@ export default function AiSolutionsPage() {
             </FadeIn>
             <FadeIn>
               <Image
-                src="/nova-product-2026-08b.png"
+                src="/nova-product-2026-08c.png"
                 alt="NOVAの管理画面"
                 width={748}
                 height={438}
