@@ -12,8 +12,8 @@ const services = [
     name: "NOVA",
     heading: "SES営業を変える、NOVA",
     description:
-      "AIマッチングから契約書類の自動発行まで、SESビジネスの業務をワンストップで支える営業支援プラットフォームです。",
-    features: ["AIマッチング", "案件・人材の一元管理", "書類の自動発行"],
+      "案件・人材メールをAIが構造化し、2段階マッチングで候補と判断理由を提示。契約終了アラートによる先回り営業まで、メール1通が提案になるまでを支えるSES向けAIマッチングシステムです。",
+    features: ["AI 2段階マッチング", "メール自動取込", "契約終了アラート"],
     href: siteConfig.links.nova,
     cta: "NOVA 製品サイトへ",
   },
@@ -55,7 +55,7 @@ export function ServiceSection() {
                 {service.id === "nova" ? (
                   <div className="flex h-[220px] items-center bg-[#f4f4f2] p-6 min-[720px]:h-[280px] min-[720px]:p-8">
                     <Image
-                      src="/nova-product.png"
+                      src="/nova-product-2026-08c.png"
                       alt="NOVA 管理画面 — AIマッチングアシスタントと案件一覧"
                       width={748}
                       height={438}

@@ -12,6 +12,8 @@ type Item = Pick<Column, "id" | "title" | "date" | "excerpt" | "tags">;
 /**
  * 技術記事の一覧はタイトル・タグ・要約が読めることを優先し、
  * アイキャッチ画像は持たせない（記事ごとの装飾画像は内容を伝えないため）。
+ * 画像がないぶん、枠と余白で1件を「塊」として見せる。ホバーの赤ラインと
+ * 背景の変化はサイト共通の .brand-line-card（globals.css）に揃えている。
  */
 export function ColumnListFiltered({ items }: { items: Item[] }) {
   const [active, setActive] = useState(ALL);
@@ -59,12 +61,12 @@ export function ColumnListFiltered({ items }: { items: Item[] }) {
         </div>
       )}
 
-      <div className="mt-4 grid grid-cols-1 gap-x-12 min-[900px]:grid-cols-2">
+      <div className="mt-7 grid grid-cols-1 gap-[18px] min-[900px]:grid-cols-2">
         {shown.map((c) => (
           <Link
             key={c.id}
             href={`/column/${c.id}`}
-            className="group flex flex-col border-b border-line py-8"
+            className="brand-line-card group flex flex-col rounded-card border border-line px-6 py-7 min-[720px]:px-7"
           >
             <span className="flex flex-wrap items-center gap-x-3 gap-y-2">
               <time
