@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { getColumnList } from "@/lib/column";
 import { getNewsList } from "@/lib/microcms";
 import { siteConfig } from "@/lib/site-config";
+import { getWorksList } from "@/lib/works";
 
 // output: export（GitHub Pages）でも生成できるよう明示
 export const dynamic = "force-static";
@@ -16,6 +17,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const base = siteConfig.url;
   const news = await getNewsList({ limit: 100 });
   const columns = await getColumnList({ limit: 100 });
+  const works = await getWorksList({ limit: 100 });
   const latestNewsModified = news.reduce<Date | undefined>((latest, item) => {
     const value = item.updatedAt ?? item.date;
     if (!value) return latest;
@@ -23,6 +25,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     return !latest || date > latest ? date : latest;
   }, undefined);
   const latestColumnModified = columns.reduce<Date | undefined>((latest, item) => {
+    const value = item.updatedAt ?? item.date;
+    if (!value) return latest;
+    const date = new Date(value);
+    return !latest || date > latest ? date : latest;
+  }, undefined);
+  const latestWorkModified = works.reduce<Date | undefined>((latest, item) => {
     const value = item.updatedAt ?? item.date;
     if (!value) return latest;
     const date = new Date(value);
@@ -94,6 +102,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "weekly" as const,
       priority: 0.8,
     },
+    {
+      url: `${base}/works`,
+      lastModified: latestWorkModified ?? STATIC_PAGE_LAST_MODIFIED,
+      changeFrequency: "weekly" as const,
+      priority: 0.8,
+    },
     ...columns.map((c) => ({
       url: `${base}/column/${c.id}`,
       lastModified: c.updatedAt
@@ -103,6 +117,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
           : undefined,
       changeFrequency: "yearly" as const,
       priority: 0.6,
+    })),
+    ...works.map((w) => ({
+      url: `${base}/works/${w.id}`,
+      lastModified: w.updatedAt
+        ? new Date(w.updatedAt)
+        : w.date
+          ? new Date(w.date)
+          : undefined,
+      changeFrequency: "yearly" as const,
+      priority: 0.7,
     })),
     ...news.map((n) => ({
       url: `${base}/news/${n.id}`,

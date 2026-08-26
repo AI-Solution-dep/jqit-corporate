@@ -9,20 +9,12 @@ import { getWorksList } from "@/lib/works";
 const pageDescription =
   "株式会社JQITの受託開発実績。課題・打ち手・成果の三点で、これまでに手がけたプロジェクトをご紹介します。";
 
-/**
- * 公開前ページ。ヘッダー・フッター・サイトマップには意図的に載せていない。
- * 公開時にやること:
- *   1. 下の robots 指定を削除
- *   2. lib/site-config.ts の globalNav / footerNav に追加
- *   3. app/sitemap.ts に /works と各実績を追加
- */
 export const metadata = {
   ...createPageMetadata({
     title: "実績",
     description: pageDescription,
     path: "/works",
   }),
-  robots: { index: false, follow: false },
 };
 
 const worksPageJsonLd = createWebPageJsonLd({
