@@ -16,6 +16,12 @@ type PageMetadataOptions = {
   type?: "website" | "article";
   publishedTime?: string;
   modifiedTime?: string;
+  /**
+   * rel=canonical に出すURL。外部サイトが原本の転載ページで指定する
+   * （例: Qiita から取り込んだ技術コラム）。省略時は自ページのURL。
+   * og:url は共有時の遷移先なので、原本ではなく自ページを指す。ここでは上書きしない。
+   */
+  canonicalUrl?: string;
 };
 
 export const defaultSocialImage: SeoImage = {
@@ -47,8 +53,10 @@ export function createPageMetadata({
   type = "website",
   publishedTime,
   modifiedTime,
+  canonicalUrl,
 }: PageMetadataOptions): Metadata {
-  const canonical = absoluteUrl(path);
+  const pageUrl = absoluteUrl(path);
+  const canonical = canonicalUrl ?? pageUrl;
   const fullTitle = `${title}｜${siteConfig.name}`;
   const images = [socialImage(image)];
 
@@ -58,7 +66,7 @@ export function createPageMetadata({
           type: "article",
           title: fullTitle,
           description,
-          url: canonical,
+          url: pageUrl,
           siteName: siteConfig.name,
           locale: "ja_JP",
           images,
@@ -69,7 +77,7 @@ export function createPageMetadata({
           type: "website",
           title: fullTitle,
           description,
-          url: canonical,
+          url: pageUrl,
           siteName: siteConfig.name,
           locale: "ja_JP",
           images,

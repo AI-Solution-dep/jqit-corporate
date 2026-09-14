@@ -91,6 +91,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       : undefined,
     publishedTime: column.publishedAt,
     modifiedTime: column.updatedAt,
+    // Qiita から取り込んだ記事は本文が Qiita と同一。原本を canonical に出して
+    // 重複コンテンツ扱いを避ける。HP 発の記事は qiitaUrl が無いので自ページのまま。
+    canonicalUrl: column.qiitaUrl,
   });
 }
 
