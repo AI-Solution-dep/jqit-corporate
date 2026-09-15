@@ -9,6 +9,9 @@ const socialLinks = [
   { label: "note", href: siteConfig.links.note },
 ];
 
+// 郵便番号の後ろで改行する。addressLines は自動返信メールの署名と共用なので、データは変えず表示だけ分ける
+const [footerPostalCode, ...footerStreet] = siteConfig.addressLines[0].split(" ");
+
 export function SiteFooter() {
   return (
     <footer className="border-t border-ink bg-paper pb-8 pt-[72px] text-ink">
@@ -30,7 +33,9 @@ export function SiteFooter() {
               技術の力で、お客様の“本質的な課題”を解決します。
             </p>
             <p className="mt-5 font-mono text-[11px] leading-[1.9] tracking-[0.1em] text-muted">
-              {siteConfig.addressLines[0]}
+              {footerPostalCode}
+              <br />
+              {footerStreet.join(" ")}
               <br />
               {siteConfig.addressLines[1]}
               <br />
