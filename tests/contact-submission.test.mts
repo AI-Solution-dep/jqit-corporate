@@ -231,6 +231,6 @@ test("F14-24: MAIL-AUTO-02 受付メールの会社情報は siteConfig の各�
   );
   assert.doesNotMatch(
     source,
-    /〒150-0002 東京都渋谷区渋谷1-12-2|クロスオフィス渋谷609|03-6433-5383|https:\/\/www\.jqit\.co\.jp/,
+    /〒101-0047 東京都千代田区内神田1-4-13|THE GATE Otemachi 3階|03-6433-5383|https:\/\/www\.jqit\.co\.jp/,
   );
 });

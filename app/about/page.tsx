@@ -57,14 +57,14 @@ const mapLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComp
 )}`;
 
 const accessRoutes = [
-  "東京メトロ銀座線・半蔵門線・副都心線「渋谷」駅 B3出口 徒歩2分",
-  "JR線「渋谷」駅 宮益坂口 徒歩4分",
+  "東京メトロ丸ノ内線・半蔵門線・東西線、都営三田線「大手町」駅 徒歩5分",
+  "JR線「神田」駅 徒歩7分",
 ];
 
 const accessAddressLines = [
-  "〒150-0002",
-  "東京都渋谷区渋谷1-12-2",
-  "クロスオフィス渋谷609",
+  "〒101-0047",
+  "東京都千代田区内神田1-4-13",
+  "THE GATE Otemachi 3階",
 ];
 
 const officialSources = [

@@ -90,10 +90,10 @@ const websiteJsonLd = {
       address: {
         "@type": "PostalAddress",
         addressCountry: "JP",
-        postalCode: "150-0002",
+        postalCode: "101-0047",
         addressRegion: "東京都",
-        addressLocality: "渋谷区",
-        streetAddress: "渋谷1-12-2 クロスオフィス渋谷609",
+        addressLocality: "千代田区",
+        streetAddress: "内神田1-4-13 THE GATE Otemachi 3階",
       },
       contactPoint: {
         "@type": "ContactPoint",
