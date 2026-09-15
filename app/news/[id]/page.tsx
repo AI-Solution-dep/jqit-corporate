@@ -13,7 +13,7 @@ import {
   plainTextFromHtml,
 } from "@/lib/seo";
 import { siteConfig } from "@/lib/site-config";
-import { getNewsSeoOverride } from "@/lib/news-seo-overrides";
+import { getNewsSeoOverride, isInstagramRepost } from "@/lib/news-seo-overrides";
 
 export const revalidate = 60;
 
@@ -71,7 +71,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const description = seoOverride?.description ?? newsDescription(news);
   const { publishedTime, modifiedTime } = newsDates(news);
 
-  return createPageMetadata({
+  const metadata = createPageMetadata({
     title: seoOverride?.title ?? news.title,
     description,
     path: `/news/${news.id}`,
@@ -87,6 +87,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     publishedTime,
     modifiedTime,
   });
+  // Instagram 投稿の転記は一覧には残すが、検索結果には出さない
+  return isInstagramRepost(news)
+    ? { ...metadata, robots: { index: false, follow: true } }
+    : metadata;
 }
 
 export default async function NewsDetailPage({ params }: Props) {

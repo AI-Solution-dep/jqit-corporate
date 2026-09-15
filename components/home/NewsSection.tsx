@@ -5,13 +5,17 @@ import { DisplayText } from "@/components/ui/DisplayText";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { Kicker } from "@/components/ui/Kicker";
 import { formatNewsDate, getNewsList } from "@/lib/microcms";
+import { isInstagramRepost } from "@/lib/news-seo-overrides";
 
 function isBadgeImage(src: string): boolean {
   return src.startsWith("/badges/");
 }
 
 export async function NewsSection() {
-  const news = await getNewsList({ limit: 4 });
+  // Instagram 投稿の転記（採用広報）はトップに出さない。除外で4件を割らないよう多めに取る
+  const news = (await getNewsList({ limit: 20 }))
+    .filter((n) => !isInstagramRepost(n))
+    .slice(0, 4);
 
   return (
     <section id="news" className="overflow-hidden bg-paper py-20 min-[720px]:py-[96px]">

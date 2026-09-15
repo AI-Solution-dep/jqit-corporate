@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { getColumnList } from "@/lib/column";
 import { getNewsList } from "@/lib/microcms";
+import { isInstagramRepost } from "@/lib/news-seo-overrides";
 import { siteConfig } from "@/lib/site-config";
 import { getWorksList } from "@/lib/works";
 
@@ -128,7 +129,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "yearly" as const,
       priority: 0.7,
     })),
-    ...news.map((n) => ({
+    // Instagram 投稿の転記は noindex なので sitemap にも載せない
+    ...news.filter((n) => !isInstagramRepost(n)).map((n) => ({
       url: `${base}/news/${n.id}`,
       lastModified: n.updatedAt
         ? new Date(n.updatedAt)
