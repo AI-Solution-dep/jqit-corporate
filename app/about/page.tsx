@@ -30,7 +30,7 @@ const profile = [
   { k: "設立", v: "2024年12月6日" },
   { k: "代表者", v: `代表取締役社長　${siteConfig.ceo}` },
   { k: "資本金", v: siteConfig.capital },
-  { k: "所在地", v: siteConfig.address },
+  { k: "所在地", v: `${siteConfig.address}（${siteConfig.officeName}）` },
   { k: "TEL / FAX", v: `TEL ${siteConfig.tel}　FAX ${siteConfig.fax}` },
   {
     k: "事業内容",
@@ -222,7 +222,7 @@ export default function AboutPage() {
           <FadeIn className="grid grid-cols-1 overflow-hidden border border-line bg-paper min-[900px]:grid-cols-[1.08fr_0.92fr]">
             <div className="relative min-h-[320px] bg-white min-[720px]:min-h-[420px]">
               <iframe
-                title="JQIT本社周辺のGoogle Map"
+                title={`JQIT本社（${siteConfig.officeName}）周辺のGoogle Map`}
                 src={mapEmbedSrc}
                 className="absolute inset-0 h-full w-full border-0 grayscale-[15%]"
                 loading="lazy"
@@ -231,7 +231,10 @@ export default function AboutPage() {
               />
             </div>
             <div className="flex flex-col justify-center border-t border-line p-8 min-[720px]:p-10 min-[900px]:border-l min-[900px]:border-t-0 min-[1040px]:p-12">
-              <Kicker className="mb-6">Office</Kicker>
+              <Kicker className="mb-3">Office</Kicker>
+              <p className="mb-6 text-[20px] font-bold tracking-[-0.01em] text-ink min-[720px]:text-[22px]">
+                {siteConfig.officeName}
+              </p>
               <div className="space-y-8">
                 <div>
                   <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-brand">

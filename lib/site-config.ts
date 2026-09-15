@@ -16,6 +16,8 @@ export const siteConfig = {
   address: "〒101-0047 東京都千代田区内神田1-4-13 THE GATE Otemachi 3階",
   addressLines: ["〒101-0047 東京都千代田区内神田1-4-13", "THE GATE Otemachi 3階"],
   addressShort: "東京都千代田区内神田1-4-13 THE GATE Otemachi 3階",
+  /** 本社の拠点名。人が読む拠点紹介（会社概要・アクセス欄）にだけ添え、宛先形式の住所には入れない */
+  officeName: "大手町オフィス",
   businessHours: "平日 10:00 - 19:00",
   founded: 2024,
   foundedDate: "2024-12-06",
