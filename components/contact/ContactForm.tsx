@@ -5,6 +5,7 @@ import { useActionState, useEffect, useRef, useState } from "react";
 import { submitContact } from "@/app/contact/actions";
 import {
   contactCategories,
+  contactCategoryAnalyticsKey,
   contactFieldLimits,
   type ContactField,
   initialContactState,
@@ -53,8 +54,10 @@ export function ContactForm() {
     conversionTrackedRef.current = true;
     trackGoogleAnalyticsEvent("generate_lead", {
       form_name: "corporate_contact",
+      // 送信完了時はフォームが結果表示に置き換わるため、DOM ではなく state の値を使う
+      inquiry_category: contactCategoryAnalyticsKey(category),
     });
-  }, [state.status]);
+  }, [state.status, category]);
 
   const errorId = (field: ContactField) => `${field}-error`;
   const a11y = (field: ContactField) =>
