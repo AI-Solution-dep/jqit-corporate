@@ -34,10 +34,16 @@ const anton = Anton({
   display: "swap",
 });
 
+/**
+ * トップページの title。検索される事業名を先頭に置く（SEO対策.docx ①）。
+ * h1 はキャッチコピー（tagline）のまま残す。
+ */
+const homeTitle = `SES・受託開発・AI導入支援の${siteConfig.name}`;
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: `${siteConfig.name}｜${siteConfig.tagline}`,
+    default: homeTitle,
     template: `%s｜${siteConfig.name}`,
   },
   description: siteConfig.description,
@@ -47,7 +53,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     siteName: siteConfig.name,
-    title: `${siteConfig.name}｜${siteConfig.tagline}`,
+    title: homeTitle,
     description: siteConfig.description,
     locale: "ja_JP",
     url: siteConfig.url,
@@ -55,7 +61,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: `${siteConfig.name}｜${siteConfig.tagline}`,
+    title: homeTitle,
     description: siteConfig.description,
     images: [{ ...defaultSocialImage, url: absoluteUrl(defaultSocialImage.url) }],
   },
