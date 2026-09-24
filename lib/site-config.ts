@@ -10,8 +10,8 @@ export const siteConfig = {
     "私たちは、技術の力でお客様の“本質的な課題”を解決するITのプロフェッショナル集団です。ITソリューション事業とAIソリューション事業の両輪で、企業の挑戦を支えます。",
   url: "https://www.jqit.co.jp",
 
-  tel: "03-6433-5383",
-  telHref: "tel:0364335383",
+  tel: "03-5577-6105",
+  telHref: "tel:0355776105",
   fax: "03-6433-5384",
   address: "〒101-0047 東京都千代田区内神田1-4-13 THE GATE Otemachi 3階",
   addressLines: ["〒101-0047 東京都千代田区内神田1-4-13", "THE GATE Otemachi 3階"],

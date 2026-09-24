@@ -146,7 +146,7 @@ for (const missing of productionMissingConfigCases) {
       status: "error",
       fieldErrors: {},
       formError:
-        "現在フォームを利用できません。お手数ですが TEL 03-6433-5383（平日 10:00 - 19:00）までご連絡ください。",
+        "現在フォームを利用できません。お手数ですが TEL 03-5577-6105（平日 10:00 - 19:00）までご連絡ください。",
     });
     assert.deepEqual({ sent, logs, errors }, {
       sent: [],
@@ -231,6 +231,6 @@ test("F14-24: MAIL-AUTO-02 受付メールの会社情報は siteConfig の各�
   );
   assert.doesNotMatch(
     source,
-    /〒101-0047 東京都千代田区内神田1-4-13|THE GATE Otemachi 3階|03-6433-5383|https:\/\/www\.jqit\.co\.jp/,
+    /〒101-0047 東京都千代田区内神田1-4-13|THE GATE Otemachi 3階|03-5577-6105|https:\/\/www\.jqit\.co\.jp/,
   );
 });
