@@ -242,6 +242,11 @@ export async function processContactSubmission(
       logger.error(
         "[contact] 受付メールの送信に失敗しました（社内通知は送信済み）",
       );
+      return {
+        status: "success",
+        fieldErrors: {},
+        formError: "確認メールが届きにくい状況ですが、ご内容は受け付けております。担当者より2〜3営業日以内にご連絡いたします。"
+      };
     }
   } else if (env.NODE_ENV === "production") {
     logger.error(
