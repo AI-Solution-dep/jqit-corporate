@@ -39,7 +39,7 @@ export function SiteFooter() {
               <br />
               {siteConfig.addressLines[1]}
               <br />
-              TEL {siteConfig.tel} ／ FAX {siteConfig.fax}
+              TEL {siteConfig.tel}
             </p>
             <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2">
               {socialLinks.map((s) => (

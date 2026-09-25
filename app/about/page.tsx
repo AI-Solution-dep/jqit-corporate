@@ -31,7 +31,7 @@ const profile = [
   { k: "代表者", v: `代表取締役社長　${siteConfig.ceo}` },
   { k: "資本金", v: siteConfig.capital },
   { k: "所在地", v: `${siteConfig.address}（${siteConfig.officeName}）` },
-  { k: "TEL / FAX", v: `TEL ${siteConfig.tel}　FAX ${siteConfig.fax}` },
+  { k: "TEL", v: siteConfig.tel },
   {
     k: "事業内容",
     v: "ITソリューション事業（受託開発／SES／インフラ／QA・第三者検証）、AIソリューション事業（生成AI導入支援／AIエージェント開発／AI人材育成）",

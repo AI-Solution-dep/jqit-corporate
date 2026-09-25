@@ -12,7 +12,6 @@ export const siteConfig = {
 
   tel: "03-5577-6105",
   telHref: "tel:0355776105",
-  fax: "03-6433-5384",
   address: "〒101-0047 東京都千代田区内神田1-4-13 THE GATE Otemachi 3階",
   addressLines: ["〒101-0047 東京都千代田区内神田1-4-13", "THE GATE Otemachi 3階"],
   addressShort: "東京都千代田区内神田1-4-13 THE GATE Otemachi 3階",
