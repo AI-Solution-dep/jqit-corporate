@@ -5,10 +5,9 @@ import { isInstagramRepost } from "@/lib/news-seo-overrides";
 import { siteConfig } from "@/lib/site-config";
 import { getWorksList } from "@/lib/works";
 
-// output: export（GitHub Pages）でも生成できるよう明示
-export const dynamic = "force-static";
-// 既定は revalidate=false（再検証しない）のため、これがないと
-// 記事を公開しても再デプロイするまで sitemap が古いままになる。
+// microCMS の記事を取り込むので ISR で再検証する。既定は revalidate=false（再検証しない）。
+// ⚠️ dynamic = "force-static" を付けると再デプロイするまで更新されない。
+// 2026-09-29 の本番で、9/28 公開の記事が sitemap に載らず（Age 39時間・lastmod 9/11）確認済み。
 export const revalidate = 3600;
 
 // サイト構造や主要導線を含む静的ページの最終更新日。

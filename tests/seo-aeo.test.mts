@@ -51,6 +51,18 @@ test("SEO-03 static sitemap entries carry substantive modification dates", () =>
   assert.match(source, /lastModified/);
 });
 
+test("SEO-06 sitemap picks up newly published articles without a redeploy", () => {
+  const source = read("app/sitemap.ts");
+
+  assert.match(source, /export const revalidate = 3600/);
+  // コメント中の注意書きは拾わないよう、行頭の宣言だけを見る
+  assert.doesNotMatch(
+    source,
+    /^export const dynamic/m,
+    "force-static だと再デプロイするまで sitemap が古いままになる",
+  );
+});
+
 test("SEO-04 publishes the Search Console ownership verification tag", () => {
   const source = read("app/layout.tsx");
 
