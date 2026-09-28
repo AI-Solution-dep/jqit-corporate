@@ -3,8 +3,8 @@ import { buildLlmsTxt } from "@/lib/llms-txt";
 import { siteConfig } from "@/lib/site-config";
 import { getWorksList } from "@/lib/works";
 
-// sitemap.xml と同じく静的生成し、記事を公開したら1時間以内に反映する
-export const dynamic = "force-static";
+// sitemap.xml と同じく ISR。記事を公開したら1時間以内に反映する。
+// ⚠️ force-static を付けると再デプロイするまで古いままになる。
 export const revalidate = 3600;
 
 export async function GET() {

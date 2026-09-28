@@ -63,10 +63,15 @@ test("LLMS-04 excludes fallback sample works", () => {
   assert.doesNotMatch(text, /sample-1/);
 });
 
-test("LLMS-05 route is statically generated, revalidated, and served as UTF-8 text", () => {
+test("LLMS-05 route is revalidated by ISR, not pinned to the last deploy", () => {
   const route = readFileSync("app/llms.txt/route.ts", "utf8");
 
-  assert.match(route, /export const dynamic = "force-static"/);
   assert.match(route, /export const revalidate = 3600/);
+  // コメント中の注意書きは拾わないよう、行頭の宣言だけを見る
+  assert.doesNotMatch(
+    route,
+    /^export const dynamic/m,
+    "force-static を付けると再デプロイまで記事が反映されない",
+  );
   assert.match(route, /text\/plain; charset=utf-8/);
 });
