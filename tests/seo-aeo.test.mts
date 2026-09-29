@@ -74,6 +74,16 @@ test("SEO-07 keeps fallback sample works out of the sitemap", () => {
   );
 });
 
+test("SEO-08 keeps fallback sample works out of the search index", () => {
+  const source = read("app/works/[id]/page.tsx");
+
+  assert.match(
+    source,
+    /work\.isSample[\s\S]{0,120}robots: \{ index: false, follow: false \}/,
+    "サンプル実績の詳細ページは noindex にする",
+  );
+});
+
 test("SEO-04 publishes the Search Console ownership verification tag", () => {
   const source = read("app/layout.tsx");
 
