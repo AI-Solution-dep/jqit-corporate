@@ -63,6 +63,17 @@ test("SEO-06 sitemap picks up newly published articles without a redeploy", () =
   );
 });
 
+test("SEO-07 keeps fallback sample works out of the sitemap", () => {
+  const source = read("app/sitemap.ts");
+
+  assert.match(source, /works\.filter\(\(w\) => !w\.isSample\)/);
+  assert.doesNotMatch(
+    source,
+    /\.\.\.works\.map\(/,
+    "sitemap の実績URLはサンプル除外後の一覧から作る",
+  );
+});
+
 test("SEO-04 publishes the Search Console ownership verification tag", () => {
   const source = read("app/layout.tsx");
 
