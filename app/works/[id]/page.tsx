@@ -38,24 +38,28 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const work = await getWorkDetail(id);
   if (!work) return { title: "実績", robots: { index: false, follow: false } };
 
-  return {
-    ...createPageMetadata({
-      title: work.title,
-      description: workDescription(work),
-      path: `/works/${work.id}`,
-      type: "article",
-      image: work.eyecatch
-        ? {
-            url: work.eyecatch.url,
-            width: work.eyecatch.width,
-            height: work.eyecatch.height,
-            alt: work.title,
-          }
-        : undefined,
-      publishedTime: work.publishedAt,
-      modifiedTime: work.updatedAt,
-    }),
-  };
+  const metadata = createPageMetadata({
+    title: work.title,
+    description: workDescription(work),
+    path: `/works/${work.id}`,
+    type: "article",
+    image: work.eyecatch
+      ? {
+          url: work.eyecatch.url,
+          width: work.eyecatch.width,
+          height: work.eyecatch.height,
+          alt: work.title,
+        }
+      : undefined,
+    publishedTime: work.publishedAt,
+    modifiedTime: work.updatedAt,
+  });
+
+  // microCMS から取得できないときのサンプル（lib/works-fallback.ts）は実在しない案件。
+  // 画面には「表示確認用のサンプルです」と出したうえで表示を残し、検索結果には出さない。
+  return work.isSample
+    ? { ...metadata, robots: { index: false, follow: false } }
+    : metadata;
 }
 
 function Section({
