@@ -48,14 +48,6 @@ const profile = [
   { k: "取引先銀行", v: "三井住友銀行、GMOあおぞらネット銀行" },
 ];
 
-const mapEmbedSrc = `https://www.google.com/maps?q=${encodeURIComponent(
-  siteConfig.addressShort,
-)}&output=embed`;
-
-const mapLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-  siteConfig.addressShort,
-)}`;
-
 const accessRoutes = [
   "東京メトロ丸ノ内線・半蔵門線・東西線、都営三田線「大手町」駅 徒歩5分",
   "JR線「神田」駅 徒歩7分",
@@ -223,7 +215,7 @@ export default function AboutPage() {
             <div className="relative min-h-[320px] bg-white min-[720px]:min-h-[420px]">
               <iframe
                 title={`JQIT本社（${siteConfig.officeName}）周辺のGoogle Map`}
-                src={mapEmbedSrc}
+                src={siteConfig.mapEmbedUrl}
                 className="absolute inset-0 h-full w-full border-0 grayscale-[15%]"
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
@@ -263,7 +255,7 @@ export default function AboutPage() {
                 </div>
               </div>
               <a
-                href={mapLink}
+                href={siteConfig.mapUrl}
                 target="_blank"
                 rel="noreferrer"
                 className="group mt-9 inline-flex w-fit items-center gap-2.5 border-b border-ink pb-1 font-mono text-[12px] font-semibold uppercase tracking-[0.12em] text-ink transition-colors hover:border-brand hover:text-brand"

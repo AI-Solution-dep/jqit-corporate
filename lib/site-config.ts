@@ -17,6 +17,10 @@ export const siteConfig = {
   addressShort: "東京都千代田区内神田1-4-13 THE GATE Otemachi 3階",
   /** 本社の拠点名。人が読む拠点紹介（会社概要・アクセス欄）にだけ添え、宛先形式の住所には入れない */
   officeName: "大手町オフィス",
+  // Google マップの共有画面から取得。住所検索による複数候補の表示を避け、入居ビルを指定する。
+  mapEmbedUrl:
+    "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3240.4551068883193!2d139.7656692!3d35.69041670000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60188c06827cdf89%3A0x55b81e7709b515b!2z44CSMTAxLTAwNDcg5p2x5Lqs6YO95Y2D5Luj55Sw5Yy65YaF56We55Sw77yR5LiB55uu77yU4oiS77yR77yTIENSQ-WMl-Wkp-aJi-eUuuODk-ODqw!5e0!3m2!1sja!2sjp!4v1791383657348!5m2!1sja!2sjp",
+  mapUrl: "https://www.google.com/maps?cid=386045024096964955",
   businessHours: "平日 10:00 - 19:00",
   founded: 2024,
   foundedDate: "2024-12-06",
