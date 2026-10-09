@@ -300,7 +300,11 @@ test("F14-22: MAIL-AUTO-05 受付メールだけ失敗した場合は再送防�
   );
 
   assert.deepEqual({ result, attemptSubjects: attempts.map(({ subject }) => subject), errors }, {
-    result: { status: "success", fieldErrors: {} },
+    result: {
+      status: "success",
+      fieldErrors: {},
+      formError: `お問い合わせを受け付けました。受け取り確認メールの送信に失敗しましたが、ご質問内容は社内に到達しています。ご連絡がない場合はお電話（TEL 03-6433-5383）でお問い合わせください。`,
+    },
     attemptSubjects: [
       "【Webお問い合わせ】サービスについて",
       "【株式会社JQIT】お問い合わせを受け付けました",

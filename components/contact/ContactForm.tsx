@@ -75,6 +75,14 @@ export function ContactForm() {
           Thank you
         </p>
         <h2 className="palt text-2xl font-bold text-ink">送信が完了しました。</h2>
+        {state.formError && (
+          <p
+            role="alert"
+            className="mt-4 border border-brand bg-brand/5 px-4 py-3 text-sm font-semibold text-brand"
+          >
+            {state.formError}
+          </p>
+        )}
         <p className="mt-3.5 text-sm leading-[1.9] text-muted">
           お問い合わせありがとうございます。担当者より折り返しご連絡いたします。
         </p>

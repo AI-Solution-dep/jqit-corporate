@@ -242,6 +242,11 @@ export async function processContactSubmission(
       logger.error(
         "[contact] 受付メールの送信に失敗しました（社内通知は送信済み）",
       );
+      return {
+        status: "success",
+        fieldErrors: {},
+        formError: `お問い合わせを受け付けました。受け取り確認メールの送信に失敗しましたが、ご質問内容は社内に到達しています。ご連絡がない場合はお電話（TEL ${siteConfig.tel}）でお問い合わせください。`,
+      };
     }
   } else if (env.NODE_ENV === "production") {
     logger.error(
