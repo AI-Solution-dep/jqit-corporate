@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Anton, Inter, JetBrains_Mono, Noto_Sans_JP } from "next/font/google";
 import { SiteFooter } from "@/components/layout/SiteFooter";
+import { PublicSiteChrome } from "@/components/layout/PublicSiteChrome";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { GoogleAnalytics } from "@/components/seo/GoogleAnalytics";
 import { JsonLd } from "@/components/seo/JsonLd";
@@ -213,11 +214,11 @@ export default function RootLayout({
         >
           本文へスキップ
         </a>
-        <SiteHeader />
+        <PublicSiteChrome><SiteHeader /></PublicSiteChrome>
         <main id="main" className="flex-1">
           {children}
         </main>
-        <SiteFooter />
+        <PublicSiteChrome><SiteFooter /></PublicSiteChrome>
       </body>
     </html>
   );

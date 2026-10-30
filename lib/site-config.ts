@@ -47,6 +47,17 @@ export const siteConfig = {
   },
 } as const;
 
+/** 限定案内ページ用。jqit-hearing / jqit-proposal の担当者欄（2026-10-29確認）。
+ * globalNav / footerNav から参照しない。 */
+export const introductionContacts = {
+  salesEmail: "sales@jqit.co.jp",
+  members: [
+    { role: "営業窓口", name: "髙橋 和樹", reading: "たかはし かずき", title: "SES/SI事業部　事業責任者補佐", scope: "ご相談・お見積り・ご契約", email: "k.takahashi@jqit.co.jp", phone: "080-4470-2812" },
+    { role: "統括", name: "宮本 尚寛", reading: "みやもと たかひろ", title: "取締役　AIソリューション事業 統括", scope: "全体方針・体制・プロジェクトの推進", email: "t.miyamoto@jqit.co.jp", phone: "080-4910-6040" },
+    { role: "開発リーダー", name: "諏訪 敦大", reading: "すわ のぶひろ", title: "AIソリューション事業部", scope: "仕様・進捗・技術のご相談", email: "n.suwa@jqit.co.jp", phone: null },
+  ],
+} as const;
+
 export type CertificationBadge = {
   label: string;
   /** 公式ロゴ画像（既存HPで正式に掲示しているもののみ）。無い認証はテキスト表記 */
