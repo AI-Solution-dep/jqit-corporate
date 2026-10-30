@@ -52,7 +52,7 @@ export default function IntroductionPage() {
       </header>
       <div className={styles.page} id="intro-top">
         <div className={styles.hero}>
-          <Image className={styles.heroImage} src="/hero-customer-workshop.webp" alt="" fill sizes="100vw" priority />
+          <Image className={styles.heroImage} src="/hero-team.png" alt="" fill sizes="(max-width: 760px) 100vw, 48vw" priority />
           <div className={styles.heroCopy}>
             <p className={styles.eyebrow}>JQIT ／ COMPANY PROFILE</p>
             <h1>技術をつなぎ、<br /><em>事業の前進</em>を<br />ともにつくる。</h1>
