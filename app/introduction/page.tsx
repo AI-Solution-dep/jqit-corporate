@@ -3,6 +3,7 @@
 // 出典：jqit-hearing の会社紹介・担当者欄、jqit-proposal の伴走支援・開発体制。
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import { createPageMetadata } from "@/lib/seo";
 import { certificationBadges, introductionContacts, siteConfig } from "@/lib/site-config";
 import styles from "./introduction.module.css";
@@ -106,7 +107,7 @@ export default function IntroductionPage() {
           <div className={styles.sharedContact}><div><strong>担当者が分からない方へ</strong><p>営業部共通窓口で承ります。</p></div><a href={`mailto:${introductionContacts.salesEmail}`}><ContactIcon />{introductionContacts.salesEmail}</a></div>
         </section>
 
-        <footer className={styles.footer}><div><strong>{siteConfig.name}</strong><p>{siteConfig.address}</p><a href={siteConfig.telHref}>代表電話：{siteConfig.tel}</a></div><div><p>設立：{siteConfig.founded}年12月 ／ 資本金：{siteConfig.capital}</p><p>{siteConfig.certifications[4]}</p><a href="/privacy-policy">プライバシーポリシー</a><small>© {new Date().getFullYear()} JQIT Co., Ltd.</small></div></footer>
+        <footer className={styles.footer}><div><strong>{siteConfig.name}</strong><p>{siteConfig.address}</p><a href={siteConfig.telHref}>代表電話：{siteConfig.tel}</a></div><div><p>設立：{siteConfig.founded}年12月 ／ 資本金：{siteConfig.capital}</p><p>{siteConfig.certifications[4]}</p><div><Link href="/">JQITのホームページへ <span aria-hidden="true">→</span></Link></div><a href="/privacy-policy">プライバシーポリシー</a><small>© {new Date().getFullYear()} JQIT Co., Ltd.</small></div></footer>
       </div>
     </>
   );
