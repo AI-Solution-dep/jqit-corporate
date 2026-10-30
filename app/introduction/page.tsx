@@ -52,10 +52,10 @@ export default function IntroductionPage() {
       </header>
       <div className={styles.page} id="intro-top">
         <div className={styles.hero}>
-          <Image className={styles.heroImage} src="/hero-team.png" alt="" fill sizes="(max-width: 760px) 100vw, 48vw" priority />
+          <Image className={styles.heroImage} src="/introduction/hero-sunny-architecture.webp" alt="" fill sizes="100vw" priority />
           <div className={styles.heroCopy}>
             <p className={styles.eyebrow}>JQIT ／ COMPANY PROFILE</p>
-            <h1>技術をつなぎ、<br /><em>事業の前進</em>を<br />ともにつくる。</h1>
+            <h1><span>事業と技術をつなぎ</span><span><em>伴走パートナー</em>として</span><span>ともに歩む。</span></h1>
             <p className={styles.heroEnglish}>PEOPLE. TECHNOLOGY. PARTNERSHIP.</p>
             <p className={styles.lead}>AI・開発・インフラ・QA。<br />4つの専門領域で、ご相談から現場への定着まで。</p>
             <div className={styles.heroActions}><a className={styles.primaryLink} href="#projects">開発実績を見る <span aria-hidden="true">→</span></a><a className={styles.textLink} href="#team">チームを知る ↓</a></div>
