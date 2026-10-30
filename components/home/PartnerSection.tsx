@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { Kicker } from "@/components/ui/Kicker";
@@ -16,6 +17,9 @@ export function PartnerSection() {
             <p className="mt-4 max-w-[560px] text-sm leading-[1.95] text-body">
               SES・受託開発・品質保証の領域で、技術力を高め合える企業様との協業を歓迎します。
             </p>
+            <div className="mt-7">
+              <Button href="/contact">協業について相談する</Button>
+            </div>
           </div>
         </FadeIn>
       </Container>
