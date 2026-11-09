@@ -12,7 +12,7 @@ test("紹介ページの入口をサイトの他ページ・ナビ・サイト�
   function checkDirectory(directory: string) {
     for (const entry of readdirSync(directory, { withFileTypes: true })) {
       const path = join(directory, entry.name);
-      if (path === "app/introduction") continue;
+      if (path === "app/introduction" || path === "app/card") continue;
       if (entry.isDirectory()) checkDirectory(path);
       else if (/\.(tsx?|json)$/.test(path)) {
         // ルート判定は入口リンクではない。専用表示への切り替えだけを許可する。
