@@ -1,0 +1,15 @@
+BEGIN:VCARD
+VERSION:3.0
+N:宮本;尚寛;;;
+FN:宮本 尚寛
+X-PHONETIC-LAST-NAME:みやもと
+X-PHONETIC-FIRST-NAME:たかひろ
+ORG:株式会社JQIT;AIソリューション事業 統括
+TITLE:取締役
+TEL;TYPE=CELL:080-4910-6040
+TEL;TYPE=WORK:03-5577-6105
+EMAIL:t.miyamoto@jqit.co.jp
+ADR;TYPE=WORK:;;東京都千代田区内神田1-4-13 THE GATE Otemachi 3階
+ ;;;101-0047;日本
+URL:https://www.jqit.co.jp
+END:VCARD
