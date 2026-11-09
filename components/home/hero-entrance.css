@@ -1,0 +1,16 @@
+/* 写真は常時表示し、確定した文字・操作部の順序だけを制御する。 */
+[data-home-entrance] > section:first-of-type .hero-rise { animation:none; opacity:1; }
+[data-home-entrance] > section:first-of-type .hero-media-drift { animation:none; }
+[data-home-entrance] > section:first-of-type .hero-media-slide { transition:none; }
+@keyframes jqit-copy-fallback { to { opacity:1; } }
+@keyframes jqit-controls-fallback { to { visibility:visible; } }
+[data-home-entrance][data-top-initial=pending] > section:first-of-type .hero-rise { opacity:0; animation:jqit-copy-fallback 1ms 2200ms forwards; }
+[data-home-entrance][data-top-initial=pending] [aria-label="トップ画像の切り替え"] { visibility:hidden; animation:jqit-controls-fallback 1ms 2200ms forwards; }
+body:has([data-home-entrance][data-top-initial=pending]) > header { visibility:hidden; animation:jqit-controls-fallback 1ms 2200ms forwards; }
+.top-type-host { color:transparent; }
+.top-type-host > :not([data-top-glyph]) { color:transparent !important; }
+@media(prefers-reduced-motion:reduce) {
+  [data-home-entrance][data-top-initial=pending] > section:first-of-type .hero-rise { opacity:1; animation:none; }
+  [data-home-entrance][data-top-initial=pending] [aria-label="トップ画像の切り替え"] { visibility:visible; animation:none; }
+  body:has([data-home-entrance][data-top-initial=pending]) > header { visibility:visible; }
+}
