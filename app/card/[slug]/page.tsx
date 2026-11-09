@@ -34,6 +34,7 @@ export default async function CardPage({ params }: Props) {
   const card = findCard((await params).slug);
   if (!card) notFound();
   const url = cardUrl(card.slug);
+  const addressLines = siteConfig.addressLines.flatMap(line => line.replace(/^(〒\S+) /, "$1\n").split("\n"));
   const qr = await QRCode.toDataURL(url, { width: 320, margin: 4, errorCorrectionLevel: "M", color: { dark: "#14140f", light: "#ffffff" } });
 
   return <div className={styles.page}>
@@ -55,7 +56,7 @@ export default async function CardPage({ params }: Props) {
           <div><dt>メール</dt><dd><a href={`mailto:${card.email}`}>{card.email}</a></dd></div>
           <div><dt>携帯</dt><dd><a href={`tel:${card.mobile.replaceAll("-", "")}`}>{card.mobile}</a></dd></div>
           <div><dt>会社</dt><dd><a href={siteConfig.telHref}>{siteConfig.tel}</a></dd></div>
-          <div><dt>所在地</dt><dd>{siteConfig.addressLines.map(line => <span key={line}>{line}</span>)}</dd></div>
+          <div><dt>所在地</dt><dd>{addressLines.map(line => <span key={line}>{line}</span>)}</dd></div>
           <div><dt>Web</dt><dd><a href={siteConfig.url}>{siteConfig.url}</a></dd></div>
         </dl>
         <section className={styles.section} aria-labelledby="message-heading"><h2 id="message-heading">ひとこと</h2><p>{card.message}</p><ul className={styles.tags}>{card.tags.map(tag => <li key={tag}>{tag}</li>)}</ul></section>
