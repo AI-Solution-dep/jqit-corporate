@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="750" viewBox="0 0 1200 750">
+<title>ITS健保への加入決定を伝えるJQITオリジナル案内画像</title>
+<rect width="1200" height="750" fill="#fff"/>
+<path d="M80 110H160" stroke="#e60012" stroke-width="6"/>
+<text x="184" y="124" font-family="sans-serif" font-size="42" fill="#77736d">福利厚生</text>
+<text x="76" y="330" font-family="sans-serif" font-weight="700" font-size="156" fill="#14140f">ITS健保</text>
+<text x="80" y="475" font-family="sans-serif" font-weight="700" font-size="96" fill="#e60012">加入決定</text>
+<text x="80" y="620" font-family="sans-serif" font-size="39" fill="#57534d">関東ITソフトウェア健康保険組合</text>
+<g transform="translate(895 190)" fill="none" stroke="#e60012" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
+<path d="M0 35 90 0 180 35V125C180 205 90 260 90 260S0 205 0 125Z"/>
+<path d="M48 122 76 151 133 90"/>
+</g>
+</svg>
