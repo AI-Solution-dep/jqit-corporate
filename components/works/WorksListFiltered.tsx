@@ -64,7 +64,7 @@ export function WorksListFiltered({ items }: { items: Item[] }) {
             href={`/works/${w.id}`}
             className="group flex flex-col border-b border-line pb-8"
           >
-            <span className="relative block aspect-[16/10] overflow-hidden bg-cream">
+            <span className={`relative block aspect-[16/10] overflow-hidden bg-cream ${w.isDiagram ? "" : "brand-media"}`}>
               {w.eyecatch ? (
                 <Image
                   src={w.eyecatch.url}

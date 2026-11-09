@@ -178,7 +178,7 @@ export default async function WorkDetailPage({ params }: Props) {
             </span>
           </div>
 
-          <h1 className="palt text-[32px] font-bold leading-[1.4] tracking-[-0.02em] text-ink min-[720px]:text-[42px]">
+          <h1 className="brand-article-title palt text-[32px] font-bold leading-[1.4] tracking-[-0.02em] text-ink min-[720px]:text-[42px]">
             {work.title}
           </h1>
 
@@ -187,7 +187,7 @@ export default async function WorkDetailPage({ params }: Props) {
           )}
 
           {work.eyecatch && (
-            <div className="relative mt-10 aspect-[16/9] overflow-hidden bg-cream">
+            <div className={`relative mt-10 aspect-[16/9] overflow-hidden bg-cream ${work.isDiagram ? "" : "brand-article-media"}`}>
               <Image
                 src={work.eyecatch.url}
                 alt={work.title}

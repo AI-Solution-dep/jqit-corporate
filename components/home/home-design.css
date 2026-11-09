@@ -1,0 +1,116 @@
+/* 比較で確定したTOPの曲線・大小・余白。登場演出とは別に管理する。 */
+
+.jqit-wave-divider { display:block; height:64px; overflow:hidden; pointer-events:none; line-height:0; }
+.jqit-wave-divider > svg { display:block; width:100%; height:100%; }
+@media(max-width:719px) {
+  .jqit-wave-divider { height:36px; }
+}
+.home-design { --wave-blush:#fff0f3; --wave-mist:#f7f8fa; }
+.home-design > section:first-child { border-bottom-color:transparent; }
+.home-design > section:first-child::after { content:none; }
+.home-design #hero-visuals { clip-path:none; }
+.home-design > #news { background:var(--wave-blush); padding-top:48px; padding-bottom:76px; border-radius:0 0 min(15vw,220px) 0; }
+.home-design > #about { position:relative; background:#fff; border-top-color:transparent; padding-top:80px; padding-bottom:88px; }
+.home-design > #about > div { position:relative; }
+.home-design #about .grid.border { border-radius:8px 76px 8px 8px; overflow:hidden; }
+.home-design > #business { background:var(--wave-mist); border-radius:140px 0 0 0; padding-top:76px; padding-bottom:88px; }
+.home-design #business img { border-radius:0 42% 0 0; }
+.home-design #business .min-\[900px\]\:order-2 img { border-radius:42% 0 0 0; }
+.home-design #business img + span { bottom:16px; }
+.home-design > #service { background:#fff; border-top-color:transparent; padding-top:88px; padding-bottom:88px; }
+.home-design #service article { border-radius:8px 112px 8px 8px; }
+.home-design #service .grid > .reveal:nth-child(2) article { border-radius:112px 8px 8px 8px; }
+.home-design > #tech-culture { border-radius:0 160px 0 0; padding-top:88px; padding-bottom:72px; }
+.home-design #tech-culture .grid { background:transparent; border:none; gap:16px; }
+.home-design #tech-culture .grid > a { border:1px solid #ffffff26; border-radius:0 36px 0 0; }
+.home-design #tech-culture .grid > a:nth-child(even) { border-radius:0 0 0 36px; }
+.home-design > #partner { background:var(--wave-blush); border-bottom-color:transparent; border-radius:0 0 0 140px; padding-top:56px; padding-bottom:76px; }
+body:has(.home-design) > footer { border-top-color:transparent; }
+@media(max-width:719px) {
+  .home-design > #news { padding-top:28px; padding-bottom:48px; border-bottom-right-radius:72px; }
+  .home-design > #about { padding-top:52px; padding-bottom:56px; }
+  .home-design #about .grid.border { border-top-right-radius:48px; }
+  .home-design > #business { padding-top:52px; padding-bottom:56px; border-top-left-radius:72px; }
+  .home-design > #service { padding-top:56px; padding-bottom:56px; }
+  .home-design #service article { border-top-right-radius:76px; }
+  .home-design #service .grid > .reveal:nth-child(2) article { border-top-left-radius:76px; border-top-right-radius:8px; }
+  .home-design > #tech-culture { padding-top:56px; padding-bottom:48px; border-top-right-radius:72px; }
+  .home-design > #partner { padding-top:36px; padding-bottom:56px; border-bottom-left-radius:72px; }
+}
+.home-design #news p[aria-hidden] { font-size:clamp(48px,6.2vw,88px); }
+.home-design > #news { padding-top:44px; padding-bottom:64px; }
+.home-design > #about { padding-top:104px; padding-bottom:112px; }
+.home-design > #business { padding-top:88px; padding-bottom:128px; }
+.home-design > #service { padding-top:104px; padding-bottom:128px; }
+.home-design #service p[aria-hidden] { font-size:clamp(50px,8vw,112px); }
+@media(min-width:1000px) {
+  .home-design #about > div > .grid { grid-template-columns:1.12fr .88fr; gap:100px; }
+  .home-design #about .grid.border { margin-top:60px; }
+  .home-design #business > div { max-width:1320px; padding-inline:48px; }
+  .home-design #business > div > .space-y-16 { display:grid; gap:144px; }
+  .home-design #business > div > .space-y-16 > .reveal { margin:0; }
+  .home-design #business > div > .space-y-16 > .reveal:first-child { grid-template-columns:minmax(0,1.4fr) minmax(0,.85fr); align-items:start; gap:52px; }
+  .home-design #business > div > .space-y-16 > .reveal:first-child > div:last-child { padding-top:72px; }
+  .home-design #business > div > .space-y-16 > .reveal:nth-child(2) { grid-template-columns:minmax(0,1fr) clamp(340px,34vw,480px); align-items:start; gap:104px; }
+  .home-design #business > div > .space-y-16 > .reveal:nth-child(2) > div:first-child { margin-top:64px; }
+  .home-design #business > div > .space-y-16 > .reveal:nth-child(2) > div:last-child { padding-left:64px; padding-top:8px; }
+  .home-design #service > div > .grid { grid-template-columns:1fr; gap:0; margin-top:64px; }
+  .home-design #service article { display:grid; grid-template-columns:1.15fr 1fr; }
+  .home-design #service article > div:first-child { height:auto; min-height:440px; padding:44px; justify-content:center; }
+  .home-design #service article > div:first-child img { height:auto; max-height:360px; object-fit:contain; }
+  .home-design #service article > div:last-child { padding:44px; }
+  .home-design #service > div > .grid > .reveal:nth-child(2) { width:86%; justify-self:end; margin-top:72px; }
+  .home-design #service > div > .grid > .reveal:nth-child(2) article { grid-template-columns:.95fr 1.05fr; }
+  .home-design #service > div > .grid > .reveal:nth-child(2) article > div:first-child { order:2; height:100%; min-height:360px; padding:0; }
+  .home-design #service > div > .grid > .reveal:nth-child(2) article > div:first-child img { height:100%; max-height:none; object-fit:cover; }
+  .home-design #service > div > .grid > .reveal:nth-child(2) article > div:last-child { order:1; }
+}
+@media(max-width:999px) {
+  .home-design > #about { padding-top:64px; padding-bottom:64px; }
+  .home-design > #business { padding-top:56px; padding-bottom:72px; }
+  .home-design #business > div > .space-y-16 { display:grid; gap:96px; }
+  .home-design #business > div > .space-y-16 > .reveal { grid-template-columns:1fr; gap:28px; margin:0; }
+  .home-design #business > div > .space-y-16 > .reveal > div { order:initial; }
+  .home-design #business > div > .space-y-16 > .reveal:nth-child(2) > div:first-child { width:78%; justify-self:end; }
+  .home-design #business > div > .space-y-16 > .reveal:nth-child(2) > div:last-child { width:92%; }
+  .home-design > #service { padding-top:64px; padding-bottom:72px; }
+  .home-design #service > div > .grid { grid-template-columns:1fr; gap:40px; }
+  .home-design #service > div > .grid > .reveal:nth-child(2) { width:92%; justify-self:end; }
+}
+@media(max-width:999px) {
+  .home-design #business > div > .space-y-16 > .reveal > div:first-child { margin-bottom:34px; }
+}
+
+@media(min-width:1000px) {
+  .home-design #about .grid.border article { padding:24px; }
+  .home-design #about .grid.border h3 { font-size:16px; text-wrap:balance; }
+}
+.home-design > #tech-culture { border-radius:0; padding-top:72px; padding-bottom:64px; }
+.home-design #tech-culture p[aria-hidden] { font-size:clamp(40px,7vw,100px); }
+.home-design > #about { padding-top:80px; padding-bottom:80px; }
+.home-design #about p[aria-hidden] { font-size:clamp(44px,8vw,112px); }
+.home-design > #business { border-top-left-radius:88px; padding-bottom:96px; }
+.home-design > #service { padding-top:88px; padding-bottom:88px; }
+.home-design #service > div > .grid > .reveal:nth-child(2) { margin-top:56px; }
+@media(min-width:1000px) {
+  .home-design #business > div > .space-y-16 { gap:112px; }
+  .home-design #about .grid.border { margin-top:40px; }
+}
+@media(max-width:999px) {
+  .home-design > #about { padding-top:52px; padding-bottom:56px; }
+  .home-design > #business { padding-bottom:56px; }
+  .home-design #business > div > .space-y-16 { gap:72px; }
+  .home-design #business > div > .space-y-16 > .reveal > div:first-child { margin-bottom:0; }
+  .home-design > #service { padding-top:56px; padding-bottom:56px; }
+  .home-design #service > div > .grid > .reveal:nth-child(2) { margin-top:0; }
+  .home-design > #tech-culture { padding-top:48px; padding-bottom:48px; }
+}
+.home-design > #tech-culture { background:#f3f0eb; color:#292821; }
+.home-design #tech-culture [class*="text-white/"] { color:#666157; }
+.home-design #tech-culture [class~="text-white"] { color:#292821; }
+.home-design #tech-culture p[aria-hidden] { color:rgb(72 61 45 / 7%); }
+.home-design #tech-culture .grid > a { background:#fffdf9; border-color:rgb(72 61 45 / 14%); }
+.home-design #tech-culture .grid > a:hover { background:#eee9e2; }
+.home-design #tech-culture .border-t { border-color:rgb(72 61 45 / 17%); }
+.home-design > .jqit-wave-divider { position:relative; }
+.home-design > .jqit-wave-divider > svg { position:absolute; top:-2px; height:calc(100% + 2px); }

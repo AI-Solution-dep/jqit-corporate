@@ -1,0 +1,35 @@
+/* JQIT共通：白・薄い赤・紙色と、一角だけの大きな曲線を使う。 */
+:root {
+  --jqit-blush: #fff0f3;
+  --jqit-mist: #f7f8fa;
+  --jqit-warm: #f3f0eb;
+  --surface-accent: var(--jqit-blush);
+  --surface-subtle: var(--jqit-mist);
+  --surface-warm: var(--jqit-warm);
+  --curve-media: clamp(48px,9vw,120px);
+  --curve-card: clamp(24px,4vw,48px);
+  --section-heading-size: clamp(28px,3vw,38px);
+  --motion-ease: cubic-bezier(.16,.84,.44,1);
+  --motion-short: 240ms;
+}
+.brand-page-header { isolation:isolate; border:0; border-bottom-right-radius:clamp(48px,9vw,128px); background:var(--surface-accent); }
+.brand-page-header::before { content:""; position:absolute; z-index:-1; width:clamp(360px,52vw,800px); aspect-ratio:1; right:-18%; top:-160%; border:2px solid rgb(230 0 18 / 8%); border-radius:50%; pointer-events:none; }
+.brand-page-header .brand-header-copy { padding-block:clamp(48px,5vw,72px); }
+.brand-page-header h1,.brand-page-header .brand-header-title { font-size:clamp(32px,4vw,46px); line-height:1.4; overflow-wrap:anywhere; }
+.brand-page-header .brand-header-copy { animation:brand-page-arrive 550ms var(--motion-ease) both; }
+@keyframes brand-page-arrive { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:none; } }
+.brand-photo { border-radius:0 var(--curve-media) 0 0; }
+.brand-photo--reverse { border-radius:var(--curve-media) 0 0 0; }
+.brand-card { border-radius:2px var(--curve-card) 2px 2px; background:#fff; overflow:hidden; }
+.brand-media { border-radius:2px var(--curve-card) 2px 2px; }
+.brand-article-media { border-radius:2px var(--curve-media) 2px 2px; }
+.brand-section-head h2 { font-size:var(--section-heading-size); }
+.brand-warm-band { background:var(--surface-warm); color:var(--color-ink); }
+.brand-warm-band [class*="text-white/"] { color:#666157; }
+.brand-warm-band [class~="bg-ink"] { background:var(--surface-warm); }
+.brand-warm-band [class*="border-white/"] { border-color:#ddd8cf; }
+.brand-warm-band [class*="bg-white/"] { background:#ddd8cf; }
+.brand-warm-band p[aria-hidden] { color:rgb(72 61 45 / 7%); }
+.brand-warm-band .grid > .reveal[class~="bg-ink"] { background:#fffdf9; border-radius:2px var(--curve-card) 2px 2px; }
+.brand-article-title { font-size:clamp(28px,3.7vw,44px); line-height:1.45; overflow-wrap:anywhere; }
+@media(prefers-reduced-motion:reduce) { .brand-page-header .brand-header-copy { animation:none; } }

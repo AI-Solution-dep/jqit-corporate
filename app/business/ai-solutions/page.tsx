@@ -255,11 +255,11 @@ export default function AiSolutionsPage() {
                 height={1086}
                 priority
                 sizes="(min-width: 1024px) 45vw, 100vw"
-                className="h-auto w-full rounded-xl object-cover"
+                className="brand-photo brand-photo--reverse h-auto w-full object-cover"
               />
               <span
                 aria-hidden
-                className="absolute -bottom-5 right-6 font-anton text-[72px] leading-none text-brand [text-shadow:0_0_2px_rgba(255,255,255,0.9),0_0_18px_rgba(255,255,255,0.95)] min-[720px]:text-[92px]"
+                className="absolute bottom-4 right-6 font-anton text-[72px] leading-none text-brand [text-shadow:0_0_2px_rgba(255,255,255,0.9),0_0_18px_rgba(255,255,255,0.95)] min-[720px]:text-[92px]"
               >
                 02
               </span>
@@ -367,7 +367,7 @@ export default function AiSolutionsPage() {
       </section>
 
       {/* NOVA — 自社プロダクト */}
-      <section className="relative overflow-hidden bg-ink py-20 text-white min-[720px]:py-[100px]">
+      <section className="brand-warm-band relative overflow-hidden py-20 min-[720px]:py-[100px]">
         <div className="pointer-events-none absolute -bottom-2 right-0 min-[720px]:-bottom-4">
           <DisplayText tone="white">NOVA</DisplayText>
         </div>

@@ -66,7 +66,7 @@ export function ColumnListFiltered({ items }: { items: Item[] }) {
           <Link
             key={c.id}
             href={`/column/${c.id}`}
-            className="brand-line-card group flex flex-col rounded-card border border-line px-6 py-7 min-[720px]:px-7"
+            className="brand-card brand-line-card group flex flex-col rounded-card border border-line px-6 py-7 min-[720px]:px-7"
           >
             <span className="flex flex-wrap items-center gap-x-3 gap-y-2">
               <time

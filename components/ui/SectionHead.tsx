@@ -16,7 +16,7 @@ export function SectionHead({
   className?: string;
 }) {
   return (
-    <FadeIn className={`${center ? "mx-auto text-center" : ""} ${className}`}>
+    <FadeIn className={`brand-section-head ${center ? "mx-auto text-center" : ""} ${className}`}>
       <Kicker className="mb-4">{kicker}</Kicker>
       <h2 className="palt text-[28px] font-bold leading-[1.4] tracking-[-0.02em] text-ink md:text-[38px]">
         {title}

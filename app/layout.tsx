@@ -7,6 +7,7 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { absoluteUrl, defaultSocialImage } from "@/lib/seo";
 import { siteConfig } from "@/lib/site-config";
 import "./globals.css";
+import "./brand.css";
 
 const notoSansJp = Noto_Sans_JP({
   subsets: ["latin"],
