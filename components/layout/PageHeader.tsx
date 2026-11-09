@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { DisplayText } from "@/components/ui/DisplayText";
+import { PageMotion } from "@/components/ui/PageMotion";
 
 export function PageHeader({
   title,
@@ -16,6 +17,7 @@ export function PageHeader({
 }) {
   return (
     <section className="brand-page-header relative overflow-hidden">
+      <PageMotion />
       {/* トップページと共通のディスプレイタイポ（縮小版）でデザイン言語を揃える */}
       <div className="pointer-events-none absolute -bottom-2 right-0 min-[720px]:-bottom-3">
         <DisplayText size="md">{en.toUpperCase()}</DisplayText>

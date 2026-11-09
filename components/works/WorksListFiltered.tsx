@@ -64,7 +64,7 @@ export function WorksListFiltered({ items }: { items: Item[] }) {
             href={`/works/${w.id}`}
             className="group flex flex-col border-b border-line pb-8"
           >
-            <span className={`relative block aspect-[16/10] overflow-hidden bg-cream ${w.isDiagram ? "" : "brand-media"}`}>
+            <span data-depth-photo={w.isDiagram ? undefined : ""} className={`relative block aspect-[16/10] overflow-hidden bg-cream ${w.isDiagram ? "" : "brand-media brand-photo-depth"}`}>
               {w.eyecatch ? (
                 <Image
                   src={w.eyecatch.url}
@@ -74,7 +74,7 @@ export function WorksListFiltered({ items }: { items: Item[] }) {
                   className={
                     w.isDiagram
                       ? "object-contain p-4"
-                      : "object-cover transition-transform duration-500 group-hover:scale-105"
+                      : "object-cover"
                   }
                 />
               ) : (

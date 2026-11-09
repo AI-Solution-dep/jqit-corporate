@@ -1,3 +1,4 @@
+import { PageMotion } from "@/components/ui/PageMotion";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -148,6 +149,7 @@ export default async function ColumnDetailPage({ params }: Props) {
 
   return (
     <>
+      <PageMotion />
       <JsonLd data={articleJsonLd} />
       <div className="border-b border-line bg-cream">
         <Container>

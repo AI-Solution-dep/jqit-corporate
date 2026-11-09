@@ -107,7 +107,7 @@ export default function CorporateVisionPage() {
       <SubNav group="Company" items={companySubNav} />
 
       {/* 企業理念 */}
-      <section className="bg-paper py-20 min-[720px]:py-[92px]">
+      <section data-depth-scene="ring" className="bg-paper py-20 min-[720px]:py-[92px]">
         <Container>
           <SectionHead kicker="Philosophy" title="企業理念" className="mb-10" />
           <FadeIn className="max-w-[860px]">
@@ -119,47 +119,39 @@ export default function CorporateVisionPage() {
               私たちは、デジタル技術の力で顧客と社会に新たな価値を創造し、持続可能な未来の実現に貢献します。
             </p>
           </FadeIn>
-          <FadeIn className="mt-12 grid grid-cols-1 gap-px border border-line bg-line min-[900px]:grid-cols-3">
+          <div className="vision-philosophy mt-16">
             {philosophy.map((p) => (
-              <div key={p.en} className="ethos-card bg-white px-8 py-9">
-                <p className="mb-4 font-mono text-[13px] font-semibold uppercase tracking-[0.12em] text-brand">
-                  {p.en}
-                </p>
-                <h3 className="ethos-card-label palt text-[20px] font-bold leading-[1.5] text-ink">
+              <FadeIn key={p.en} className="vision-philosophy-row">
+                <p className="text-[15px] font-semibold text-brand">{p.en}</p>
+                <h3 className="palt text-[22px] font-bold leading-[1.65] text-ink min-[900px]:text-[28px]">
                   {p.title}
                 </h3>
-              </div>
+              </FadeIn>
             ))}
-          </FadeIn>
+          </div>
         </Container>
       </section>
 
       {/* 6つの行動指針 */}
-      <section className="border-t border-line bg-cream py-20 min-[720px]:py-[88px]">
-        <Container>
-          <SectionHead
-            kicker="Value"
-            title={
-              <>
-                6つの<span className="text-brand">行動指針</span>
-              </>
-            }
-            lead="当社は以下の6つの行動指針を軸に、事業活動を推進してまいります。"
-            className="mb-11"
-          />
-          <FadeIn className="grid grid-cols-1 gap-px border border-line bg-line min-[720px]:grid-cols-2 min-[1024px]:grid-cols-3">
-            {values.map((v, i) => (
-              <div key={v.title} className="ethos-card bg-white px-7 py-8">
-                <p className="ethos-value-no mb-3.5 font-mono text-[13px] font-semibold text-brand">
-                  {String(i + 1).padStart(2, "0")}
-                </p>
-                <h3 className="ethos-card-label palt text-[17px] font-bold leading-[1.6] text-ink">
+      <section data-depth-scene="square" className="border-t border-line bg-cream py-20 min-[720px]:py-[88px]">
+        <Container className="vision-values-layout">
+          <div className="vision-values-intro">
+            <SectionHead
+              kicker="Value"
+              title="6つの行動指針"
+              lead="当社は以下の6つの行動指針を軸に、事業活動を推進してまいります。"
+            />
+          </div>
+          <dl className="vision-values">
+            {values.map((v) => (
+              <FadeIn key={v.title} className="vision-value">
+                <dt className="palt text-[24px] font-bold leading-[1.6] tracking-[-0.02em] text-ink min-[900px]:text-[30px]">
                   {v.title}
-                </h3>
-                <p className="mt-3 text-[13.5px] leading-[1.95] text-muted">{v.body}</p>
-              </div>
+                </dt>
+                <dd className="mt-5 text-[15px] leading-[2.15] text-body">{v.body}</dd>
+              </FadeIn>
             ))}
-          </FadeIn>
+          </dl>
         </Container>
       </section>
 
@@ -180,28 +172,18 @@ export default function CorporateVisionPage() {
               2025年度中に業務基幹システムを刷新し、AI機能を搭載したデータ基盤を構築。営業データと経営データの精度向上と連携強化により、迅速かつ的確な経営判断を可能にします。
             </p>
           </FadeIn>
-          <div className="mt-11 grid grid-cols-1 gap-6 min-[900px]:grid-cols-2">
+          <div className="mt-16 space-y-14">
             {dxKpis.map((kpi) => (
-              <FadeIn key={kpi.no} className="border border-line bg-white">
-                <div className="flex items-baseline gap-4 border-b border-line px-7 py-5">
-                  <span className="font-mono text-[12px] font-semibold tracking-[0.1em] text-brand">
-                    指標{kpi.no}
-                  </span>
-                  <h3 className="palt text-[17px] font-bold text-ink">{kpi.title}</h3>
-                </div>
-                <div className="px-7 py-2">
+              <FadeIn key={kpi.no} className="vision-kpi">
+                <h3 className="palt text-[22px] font-bold leading-[1.6] text-ink">{kpi.title}</h3>
+                <dl>
                   {kpi.items.map((item) => (
-                    <div
-                      key={item.label}
-                      className="grid grid-cols-1 gap-1 border-b border-line py-4 last:border-b-0 min-[600px]:grid-cols-[1fr_auto] min-[600px]:items-baseline min-[600px]:gap-4"
-                    >
-                      <p className="text-[14px] leading-[1.8] text-ink">{item.label}</p>
-                      <p className="font-mono text-[12px] tracking-[0.04em] text-muted">
-                        目標: {item.target}
-                      </p>
+                    <div key={item.label} className="vision-kpi-row">
+                      <dt className="text-[14px] leading-[1.8] text-ink">{item.label}</dt>
+                      <dd className="text-[14px] font-semibold leading-[1.8] text-body">目標: {item.target}</dd>
                     </div>
                   ))}
-                </div>
+                </dl>
               </FadeIn>
             ))}
           </div>
@@ -212,16 +194,14 @@ export default function CorporateVisionPage() {
       <section className="border-t border-line bg-cream py-20 min-[720px]:py-[88px]">
         <Container>
           <SectionHead kicker="Structure" title="推進体制" className="mb-10" />
-          <FadeIn className="grid grid-cols-1 gap-px border border-line bg-line min-[900px]:grid-cols-2">
+          <div className="vision-structure">
             {structure.map((s) => (
-              <div key={s.title} className="bg-white px-8 py-9">
-                <h3 className="palt text-[18px] font-bold leading-[1.6] text-ink">
-                  {s.title}
-                </h3>
-                <p className="mt-3.5 text-[14px] leading-[2.05] text-body">{s.body}</p>
-              </div>
+              <FadeIn key={s.title} className="vision-structure-item">
+                <h3 className="palt text-[22px] font-bold leading-[1.6] text-ink">{s.title}</h3>
+                <p className="mt-5 text-[15px] leading-[2.1] text-body">{s.body}</p>
+              </FadeIn>
             ))}
-          </FadeIn>
+          </div>
         </Container>
       </section>
 

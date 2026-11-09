@@ -8,6 +8,7 @@ import { Container } from "@/components/ui/Container";
 import { DisplayText } from "@/components/ui/DisplayText";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { Kicker } from "@/components/ui/Kicker";
+import { PhotoDepth } from "@/components/ui/PhotoDepth";
 import { SectionHead } from "@/components/ui/SectionHead";
 import { createBreadcrumbJsonLd, createPageMetadata } from "@/lib/seo";
 import { siteConfig } from "@/lib/site-config";
@@ -229,7 +230,7 @@ export default function ItSolutionsPage() {
       <SubNav group="Business" items={businessSubNav} />
 
       {/* INTRO */}
-      <section className="overflow-hidden bg-paper py-20 min-[720px]:py-[96px]">
+      <section data-depth-scene="ring" className="overflow-hidden bg-paper py-20 min-[720px]:py-[96px]">
         <Container>
           <div className="grid grid-cols-1 items-center gap-12 min-[1024px]:grid-cols-[1.05fr_0.95fr] min-[1024px]:gap-16">
             <FadeIn>
@@ -245,6 +246,7 @@ export default function ItSolutionsPage() {
               </p>
             </FadeIn>
             <FadeIn className="relative">
+              <PhotoDepth className="brand-photo">
               <Image
                 src="/natural-tech-it.webp"
                 alt="自然光の入るオフィスでシステム設計を議論するエンジニア"
@@ -252,14 +254,9 @@ export default function ItSolutionsPage() {
                 height={1086}
                 priority
                 sizes="(min-width: 1024px) 45vw, 100vw"
-                className="brand-photo h-auto w-full object-cover"
+                className="h-auto w-full object-cover"
               />
-              <span
-                aria-hidden
-                className="absolute bottom-4 left-6 font-anton text-[72px] leading-none text-brand [text-shadow:0_0_2px_rgba(255,255,255,0.9),0_0_18px_rgba(255,255,255,0.95)] min-[720px]:text-[92px]"
-              >
-                01
-              </span>
+              </PhotoDepth>
             </FadeIn>
           </div>
 
@@ -414,23 +411,9 @@ export default function ItSolutionsPage() {
             className="mb-10"
           />
           <FadeIn>
-            <ul className="grid grid-cols-1 gap-px border border-line bg-line min-[720px]:grid-cols-2">
-              {qaProjectExamples.map((project, index) => (
-                <li
-                  key={project}
-                  className={`flex items-baseline gap-4 bg-white px-6 py-5 ${
-                    index === qaProjectExamples.length - 1
-                      ? "min-[720px]:col-span-2"
-                      : ""
-                  }`}
-                >
-                  <span className="font-mono text-[11px] font-semibold text-brand">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-                  <span className="text-[14px] font-semibold leading-[1.8] text-ink">
-                    {project}
-                  </span>
-                </li>
+            <ul className="project-experience-list">
+              {qaProjectExamples.map((project) => (
+                <li key={project} className="text-[15px] font-semibold leading-[1.9] text-ink">{project}</li>
               ))}
             </ul>
           </FadeIn>
@@ -446,42 +429,22 @@ export default function ItSolutionsPage() {
             lead="すべての工程を一括でも、検証のみ・運用のみといった一部の工程からでもお請けできます。"
             className="mb-12"
           />
-          <FadeIn className="grid grid-cols-1 gap-px border border-line bg-line min-[720px]:grid-cols-2 min-[1024px]:grid-cols-5">
-            {steps.map((s, i) => (
-              <div
-                key={s.no}
-                className={`brand-line-card relative bg-white px-6 py-7 min-[1024px]:px-5 ${
-                  i === steps.length - 1
-                    ? "min-[720px]:col-span-2 min-[1024px]:col-span-1"
-                    : ""
-                }`}
-              >
-                <div className="flex items-baseline justify-between">
-                  <span className="brand-line-no font-mono text-[13px] font-semibold text-brand">
-                    {s.no}
-                  </span>
-                  {/* 矢印は横並び（5カラム）時のみ。縦積みでは視線の流れと矛盾するため隠す */}
-                  {i < steps.length - 1 && (
-                    <span
-                      aria-hidden
-                      className="hidden font-mono text-[13px] text-muted/50 min-[1024px]:inline"
-                    >
-                      →
-                    </span>
-                  )}
-                </div>
-                <h3 className="brand-line-label palt mt-3.5 text-[16px] font-bold text-ink">
-                  {s.title}
-                </h3>
-                <p className="mt-2.5 text-[12.5px] leading-[1.9] text-muted">{s.body}</p>
-              </div>
+          <ol className="delivery-timeline">
+            {steps.map((s) => (
+              <li key={s.no}>
+                <FadeIn className="delivery-step">
+                  <span className="delivery-step-number">{s.no}</span>
+                  <h3 className="palt text-[20px] font-bold leading-[1.6] text-ink">{s.title}</h3>
+                  <p className="text-[14px] leading-[2] text-body">{s.body}</p>
+                </FadeIn>
+              </li>
             ))}
-          </FadeIn>
+          </ol>
         </Container>
       </section>
 
       {/* STRENGTHS — ダークバンド */}
-      <section className="brand-warm-band relative overflow-hidden py-20 min-[720px]:py-[96px]">
+      <section data-depth-scene="square" className="brand-warm-band relative overflow-hidden py-20 min-[720px]:py-[96px]">
         <div className="pointer-events-none absolute -bottom-2 right-0 min-[720px]:-bottom-4">
           <DisplayText tone="white">STRENGTH</DisplayText>
         </div>

@@ -1,3 +1,4 @@
+import { PageMotion } from "@/components/ui/PageMotion";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -158,6 +159,7 @@ export default async function NewsDetailPage({ params }: Props) {
 
   return (
     <>
+      <PageMotion />
       <JsonLd data={articleJsonLd} />
       {faqJsonLd && <JsonLd data={faqJsonLd} />}
       {/* 記事詳細は記事タイトルが主役。汎用PageHeaderは使わずパンくずのみの軽量帯にする */}
