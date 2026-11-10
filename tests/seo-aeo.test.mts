@@ -54,12 +54,21 @@ test("SEO-03 static sitemap entries carry substantive modification dates", () =>
 test("SEO-06 sitemap picks up newly published articles without a redeploy", () => {
   const source = read("app/sitemap.ts");
 
-  assert.match(source, /export const revalidate = 3600/);
   // コメント中の注意書きは拾わないよう、行頭の宣言だけを見る
+  assert.match(
+    source,
+    /^export const dynamic = "force-dynamic";$/m,
+    "sitemap.ts の revalidate（ISR）は本番の Vercel で効かず、デプロイ時の固定ファイルのままだった（2026-11-10）",
+  );
   assert.doesNotMatch(
     source,
-    /^export const dynamic/m,
+    /^export const dynamic = "force-static"/m,
     "force-static だと再デプロイするまで sitemap が古いままになる",
+  );
+  assert.doesNotMatch(
+    source,
+    /^export const revalidate/m,
+    "force-dynamic と並べると、効かない ISR を頼りにしているように読める",
   );
 });
 

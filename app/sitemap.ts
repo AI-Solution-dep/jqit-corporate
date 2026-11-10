@@ -5,10 +5,14 @@ import { isInstagramRepost } from "@/lib/news-seo-overrides";
 import { siteConfig } from "@/lib/site-config";
 import { getWorksList } from "@/lib/works";
 
-// microCMS の記事を取り込むので ISR で再検証する。既定は revalidate=false（再検証しない）。
-// ⚠️ dynamic = "force-static" を付けると再デプロイするまで更新されない。
-// 2026-09-29 の本番で、9/28 公開の記事が sitemap に載らず（Age 39時間・lastmod 9/11）確認済み。
-export const revalidate = 3600;
+// microCMS の記事を取り込むので、アクセスのたびに作る（Vercel の関数で実行する）。
+// ⚠️ force-static は不可。ビルド時の内容に固定される（2026-09-29 の本番で確認）。
+// ⚠️ revalidate = 3600（ISR）も効かなかった。ビルドの一覧には「1h」と出るのに、本番の Vercel は
+//    /sitemap.xml をデプロイ時の固定ファイルとして配り続けた（2026-11-10 に確認: 当日公開の記事が
+//    載らず、応答は kix1 の拠点だけで関数を通らず、中身は 10/30 のデプロイ時と1バイトも違わない）。
+//    同じ書き方の app/llms.txt/route.ts は kix1::iad1 で作り直されるので、メタデータの sitemap.ts 特有の扱い。
+// サイトマップを取りに来るのは主に検索エンジンで、1回あたり microCMS を3回呼ぶだけなので負荷は小さい。
+export const dynamic = "force-dynamic";
 
 // サイト構造や主要導線を含む静的ページの最終更新日。
 const STATIC_PAGE_LAST_MODIFIED = new Date("2026-08-12T00:00:00+09:00");
