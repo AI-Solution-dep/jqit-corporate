@@ -38,7 +38,7 @@ export function PageMotion() {
     const schedule = () => { if (!frame) frame = requestAnimationFrame(paint); };
     const collect = () => {
       const authored = Array.from(main.querySelectorAll<HTMLElement>(":scope > section[data-depth-scene]"));
-      const first = main.querySelector<HTMLElement>(":scope > section:not(.brand-page-header)");
+      const first = main.querySelector<HTMLElement>(":scope > section:not(.brand-page-header):not(.site-closing-cta)");
       sections = authored.length ? authored : first ? [first] : [];
       // data-depth-scene は "route"（ルート線）か "plane"（一角だけ曲げた薄赤の面）。続くセクションは左右を入れ替える。
       sections.forEach((section, index) => {

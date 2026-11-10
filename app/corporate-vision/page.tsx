@@ -111,7 +111,7 @@ export default function CorporateVisionPage() {
         <Container>
           <SectionHead kicker="Philosophy" title="企業理念" className="mb-10" />
           <FadeIn className="max-w-[860px]">
-            <p className="palt text-[26px] font-bold leading-[1.6] tracking-[-0.02em] text-ink min-[720px]:text-[34px]">
+            <p className="vision-statement palt text-[26px] font-bold leading-[1.6] tracking-[-0.02em] text-ink min-[720px]:text-[34px]">
               『挑戦と革新で、顧客の<span className="text-brand">未来</span>
               を切り拓く。』
             </p>

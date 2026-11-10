@@ -139,3 +139,82 @@
   .column-editorial-entry { display:flex; flex-direction:column; padding-block:28px; }
   .column-editorial-entry > span:first-child { flex-direction:row; margin-bottom:16px; }
 }
+
+/* ===== ページ遷移の幕（components/layout/PageCurtain.tsx） =====
+   淡赤の面がヘッダーの下を覆い、右下の曲線を先頭にして上へ抜ける。サイト内遷移のときだけ出る。
+   最初の約3割は止めておく：遷移直後はまだ前のスクロール位置で新しいページが描かれるため、
+   ページ先頭へ戻り終わるまで覆い隠してから抜ける。 */
+.page-curtain { position:fixed; inset:73px 0 0 0; z-index:45; pointer-events:none; background:var(--surface-accent); border-bottom-right-radius:var(--curve-section); animation:page-curtain-out 940ms var(--motion-ease) both; }
+@keyframes page-curtain-out { 0%,30% { transform:translateY(0); } 100% { transform:translateY(-104%); } }
+/* html の scroll-behavior:smooth のままだと、遷移のたびにページ先頭まで約1秒かけて流れる。幕の間は即座に戻す。 */
+html:has(.page-curtain) { scroll-behavior:auto; }
+/* 遷移後は #main にフォーカスを移す（PageCurtain）。プログラムからのフォーカスなので枠は出さない。 */
+#main:focus { outline:none; }
+html[data-page-entering] .brand-page-header .brand-header-copy { animation-delay:520ms; }
+html[data-page-entering] .brand-header-photo { animation-delay:640ms; }
+
+/* ===== 全ページ末尾の相談導線（components/layout/SiteClosingCta.tsx） =====
+   紙色の帯（暗い帯は目立ちすぎるため不採用）。帯の曲線ルールどおり右下だけを曲げ、白いフッターへ渡す。 */
+.site-closing-cta { position:relative; overflow:hidden; background:var(--surface-warm); color:var(--color-ink); border-bottom-right-radius:var(--curve-section); padding-top:clamp(72px,9vw,128px); }
+.site-closing-cta-inner { display:grid; grid-template-columns:minmax(0,1.5fr) minmax(0,.7fr); gap:48px; align-items:end; }
+.site-closing-cta-kicker { display:inline-flex; align-items:center; gap:10px; font-size:11px; letter-spacing:.24em; text-transform:uppercase; color:var(--color-muted); }
+.site-closing-cta-kicker > span { width:24px; height:2px; background:var(--color-brand); }
+.site-closing-cta h2 { margin-top:24px; font-size:clamp(30px,4.4vw,58px); font-weight:700; line-height:1.4; letter-spacing:-.02em; }
+.site-closing-cta h2 span { color:var(--color-brand); }
+.site-closing-cta-lead { max-width:34em; margin-top:24px; font-size:15px; line-height:2; color:var(--color-body); word-break:auto-phrase; }
+.site-closing-cta-actions { justify-self:end; text-align:right; }
+.site-closing-cta-tel { display:inline-flex; align-items:baseline; gap:12px; font-size:clamp(24px,2.4vw,32px); font-weight:700; letter-spacing:.02em; color:var(--color-ink); }
+.site-closing-cta-tel > span { font-size:11px; letter-spacing:.2em; color:var(--color-muted); }
+.site-closing-cta-hours { margin-top:6px; font-size:12px; color:var(--color-muted); }
+.site-closing-cta-link { display:flex; align-items:center; justify-content:space-between; gap:24px; margin-top:clamp(48px,6vw,80px); padding:clamp(20px,2.4vw,32px) max(24px, calc((100vw - 1160px) / 2 + 24px)) clamp(28px,3.2vw,44px); border-top:1px solid rgb(72 61 45 / 16%); color:var(--color-ink); transition:color .45s var(--motion-ease); }
+/* 見出しと同じ和文ゴシック。Anton（背景の透かし英字用）は黒で出すと浮くため使わない。 */
+.site-closing-cta-word { font-size:clamp(24px,2.8vw,38px); font-weight:700; line-height:1.4; letter-spacing:-.01em; }
+.site-closing-cta-arrow { width:clamp(36px,4vw,56px); flex-shrink:0; transition:transform .55s var(--motion-ease); }
+.site-closing-cta-arrow svg { display:block; width:100%; height:auto; }
+.site-closing-cta-link:hover,.site-closing-cta-link:focus-visible { color:var(--color-brand); }
+.site-closing-cta-link:hover .site-closing-cta-arrow,.site-closing-cta-link:focus-visible .site-closing-cta-arrow { transform:translateX(clamp(8px,1.2vw,20px)); }
+.site-closing-cta-tel:hover { color:var(--color-brand); }
+/* TOPはパートナー帯（薄赤・右下R）の直後に来る。角の外側に白が出ないよう、紙色の帯を角の下へ潜らせる。 */
+.home-design > #partner { position:relative; z-index:1; }
+#main > .home-design + .site-closing-cta { margin-top:calc(var(--curve-section) * -1); padding-top:calc(clamp(72px,9vw,128px) + var(--curve-section)); }
+@media(max-width:719px) {
+  .site-closing-cta-inner { grid-template-columns:1fr; gap:32px; }
+  .site-closing-cta-actions { justify-self:start; text-align:left; }
+  .site-closing-cta-lead { font-size:14px; }
+}
+
+/* ===== ホバーの細かい動き =====
+   マウス操作の端末だけ。写真はわずかに寄り、カードは曲げた角が少し大きくなる。フッターのリンクは下線が左から伸びる。 */
+@media (hover:hover) and (prefers-reduced-motion:no-preference) {
+  #main a img:not(.object-contain) { transition:scale .8s var(--motion-ease); }
+  #main a:hover img:not(.object-contain) { scale:1.04; }
+  .brand-card,.brand-media,.home-design #tech-culture .grid > a { transition:border-radius .5s var(--motion-ease), background-color .3s; }
+  a:hover .brand-media, a.brand-card:hover, a:hover > .brand-card,
+  .home-design #tech-culture .grid > a:hover { border-top-right-radius:calc(var(--curve-card) * 1.8); }
+  footer a:not(:has(img,svg)) { background:linear-gradient(currentColor,currentColor) 0 100% / 0 1px no-repeat; transition:background-size .35s var(--motion-ease), color .3s; }
+  footer a:not(:has(img,svg)):hover { background-size:100% 1px; }
+}
+
+/* ===== ページごとの見せ場（スクロール連動。対応ブラウザだけ。非対応・reduced-motion では静止したまま読める） ===== */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion:no-preference) {
+    /* ビジョン：企業理念の言葉が左から現れ、3つの定義は画面の中央に来た行から濃くなる。 */
+    /* 画面に入りきった時点で表示を終える（止まっている画面で文字が欠けたままにならないように）。 */
+    .vision-statement { animation:scene-mask linear both; animation-timeline:view(); animation-range:entry 0% entry 100%; }
+    .vision-philosophy-row h3 { animation:scene-ink linear both; animation-timeline:view(); animation-range:cover 25% cover 48%; }
+    /* IT：開発の流れの縦線が、読み進めた分だけ赤く伸び、通過した工程の点が赤くなる。 */
+    .delivery-timeline { position:relative; }
+    .delivery-timeline::after { content:""; position:absolute; z-index:0; left:-1px; top:0; bottom:0; width:2px; background:var(--color-brand); transform-origin:top; animation:scene-line linear both; animation-timeline:view(); animation-range:cover 25% cover 75%; }
+    .delivery-step::before { z-index:1; animation:scene-dot linear both; animation-timeline:view(); animation-range:cover 35% cover 45%; }
+    /* AI：NOVAの画面が手前へせり上がり、特徴の項目が順に濃くなる。 */
+    .nova-shot { animation:scene-rise linear both; animation-timeline:view(); animation-range:entry 0% cover 42%; }
+    .nova-features li { animation:scene-fill linear both; animation-timeline:view(); animation-range:entry 100% cover 50%; }
+  }
+}
+@keyframes scene-mask { from { clip-path:inset(0 100% 0 0); } to { clip-path:inset(0 0 0 0); } }
+@keyframes scene-ink { from { color:#c9c4c6; } to { color:var(--color-ink); } }
+@keyframes scene-line { from { transform:scaleY(0); } to { transform:scaleY(1); } }
+@keyframes scene-dot { from { background:#e9cdd2; scale:.6; } to { background:var(--color-brand); scale:1; } }
+@keyframes scene-rise { from { transform:translateY(56px) scale(.92) rotate(-1.5deg); opacity:.4; } to { transform:none; opacity:1; } }
+@keyframes scene-fill { from { opacity:.3; } to { opacity:1; } }
+@media(prefers-reduced-motion:reduce) { .page-curtain { display:none; } }

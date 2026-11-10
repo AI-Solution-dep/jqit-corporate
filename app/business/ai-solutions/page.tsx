@@ -392,7 +392,7 @@ export default function AiSolutionsPage() {
                 width={748}
                 height={438}
                 sizes="(min-width: 1024px) 50vw, 100vw"
-                className="h-auto w-full rounded-xl border border-white/10 object-cover"
+                className="nova-shot h-auto w-full rounded-xl border border-white/10 object-cover"
               />
             </FadeIn>
           </div>
