@@ -118,7 +118,7 @@ export default function AboutPage() {
       <SubNav group="Company" items={companySubNav} />
 
       {/* MESSAGE — 代表写真は署名横の小さなアイコンに留め、メインビジュアルは企業イメージとして扱う */}
-      <section data-depth-scene="ring" id="message" className="bg-paper">
+      <section data-depth-scene="route" id="message" className="bg-paper">
         <PhotoDepth className="relative">
           <Image
             src="/natural-tech-about.webp"

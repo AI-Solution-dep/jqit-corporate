@@ -23,7 +23,8 @@ export function PageMotion() {
         const progress = Math.max(-1, Math.min(1, (height / 2 - rect.top) / (height + rect.height / 2)));
         const fade = Math.max(0, Math.min(1, (height * .25 - rect.top) / (height + rect.height * .3)));
         section.style.setProperty("--depth-opacity", `${media.matches ? 1 : 1 - fade * .9}`);
-        section.style.setProperty("--depth-x", `${media.matches ? 0 : progress * (section.dataset.depthPattern === "square" ? -40 : 24)}px`);
+        // 面は本文の外側の余白に収めているので、横には動かさない。
+        section.style.setProperty("--depth-x", `${media.matches || section.dataset.depthPattern === "plane" ? 0 : progress * 24}px`);
         section.style.setProperty("--depth-y", `${media.matches ? 0 : progress * 100}px`);
       });
       photos.forEach((photo, index) => {
@@ -39,8 +40,10 @@ export function PageMotion() {
       const authored = Array.from(main.querySelectorAll<HTMLElement>(":scope > section[data-depth-scene]"));
       const first = main.querySelector<HTMLElement>(":scope > section:not(.brand-page-header)");
       sections = authored.length ? authored : first ? [first] : [];
-      sections.forEach((section) => {
-        section.dataset.depthPattern = section.dataset.depthScene || (pathname.includes("policy") ? "frame" : "ring");
+      // data-depth-scene は "route"（ルート線）か "plane"（一角だけ曲げた薄赤の面）。続くセクションは左右を入れ替える。
+      sections.forEach((section, index) => {
+        section.dataset.depthPattern = section.dataset.depthScene === "plane" ? "plane" : "route";
+        section.dataset.depthSide = index % 2 ? "left" : "right";
       });
       photos = Array.from(main.querySelectorAll<HTMLElement>("[data-depth-photo]"));
       schedule();
@@ -62,6 +65,7 @@ export function PageMotion() {
       media.removeEventListener("change", schedule);
       sections.forEach((section) => {
         delete section.dataset.depthPattern;
+        delete section.dataset.depthSide;
         section.style.removeProperty("--depth-y");
         section.style.removeProperty("--depth-x");
         section.style.removeProperty("--depth-opacity");

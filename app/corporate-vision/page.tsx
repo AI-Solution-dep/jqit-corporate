@@ -107,7 +107,7 @@ export default function CorporateVisionPage() {
       <SubNav group="Company" items={companySubNav} />
 
       {/* 企業理念 */}
-      <section data-depth-scene="ring" className="bg-paper py-20 min-[720px]:py-[92px]">
+      <section data-depth-scene="route" className="bg-paper py-20 min-[720px]:py-[92px]">
         <Container>
           <SectionHead kicker="Philosophy" title="企業理念" className="mb-10" />
           <FadeIn className="max-w-[860px]">
@@ -133,7 +133,7 @@ export default function CorporateVisionPage() {
       </section>
 
       {/* 6つの行動指針 */}
-      <section data-depth-scene="square" className="border-t border-line bg-cream py-20 min-[720px]:py-[88px]">
+      <section data-depth-scene="plane" className="border-t border-line bg-cream py-20 min-[720px]:py-[88px]">
         <Container className="vision-values-layout">
           <div className="vision-values-intro">
             <SectionHead

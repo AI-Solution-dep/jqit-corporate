@@ -1,6 +1,9 @@
+import Image from "next/image";
 import Link from "next/link";
 import { DisplayText } from "@/components/ui/DisplayText";
 import { PageMotion } from "@/components/ui/PageMotion";
+import { PhotoDepth } from "@/components/ui/PhotoDepth";
+import { pageHeaderContent } from "@/lib/page-header-content";
 
 export function PageHeader({
   title,
@@ -15,14 +18,20 @@ export function PageHeader({
   /** ページ本体に別の h1 がある場合は "p" を指定（h1重複の回避） */
   titleAs?: "h1" | "p";
 }) {
+  // 記事詳細（current あり）はタイトルが主役なので、リード文と写真を出さない。
+  const content = current ? undefined : pageHeaderContent[en];
+  const photo = content?.photo;
   return (
-    <section className="brand-page-header relative overflow-hidden">
+    <section className={`brand-page-header relative overflow-hidden ${photo ? "brand-page-header--photo" : ""}`}>
       <PageMotion />
-      {/* トップページと共通のディスプレイタイポ（縮小版）でデザイン言語を揃える */}
-      <div className="pointer-events-none absolute -bottom-2 right-0 min-[720px]:-bottom-3">
-        <DisplayText size="md">{en.toUpperCase()}</DisplayText>
-      </div>
-      <div className="brand-header-copy relative mx-auto w-full max-w-[1160px] px-6 pb-12 pt-14 min-[720px]:pb-[58px] min-[720px]:pt-16">
+      {/* トップページと共通のディスプレイタイポ（縮小版）。写真がある帯では写真と競わせない。 */}
+      {!photo && (
+        <div className="pointer-events-none absolute -bottom-2 right-0 min-[720px]:-bottom-3">
+          <DisplayText size="md">{en.toUpperCase()}</DisplayText>
+        </div>
+      )}
+      <div className="brand-header-inner relative mx-auto w-full max-w-[1160px] px-6">
+      <div className="brand-header-copy relative pb-12 pt-14 min-[720px]:pb-[58px] min-[720px]:pt-16">
         <nav
           aria-label="パンくずリスト"
           className="mb-5 font-mono text-[11px] tracking-[0.14em] text-muted"
@@ -63,6 +72,21 @@ export function PageHeader({
             {en}
           </span>
         </div>
+        {content?.lead && <p className="brand-header-lead">{content.lead}</p>}
+      </div>
+      {photo && (
+        <PhotoDepth className="brand-header-photo">
+          <Image
+            src={photo.src}
+            alt={photo.alt}
+            fill
+            priority
+            sizes="(min-width: 1000px) 520px, 100vw"
+            className="object-cover"
+            style={{ objectPosition: photo.position ?? "50% 50%" }}
+          />
+        </PhotoDepth>
+      )}
       </div>
     </section>
   );

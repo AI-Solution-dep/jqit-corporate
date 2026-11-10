@@ -1,4 +1,3 @@
-import { SectionWave } from "@/components/ui/SectionWave";
 import "./home-design.css";
 import { AboutSection } from "@/components/home/AboutSection";
 import { BusinessSection } from "@/components/home/BusinessSection";
@@ -13,14 +12,12 @@ export function HomeDesign() {
   return (
     <>
       <Hero />
-      <SectionWave from="paper" to="blush" />
       <NewsSection />
       <AboutSection />
       <BusinessSection />
       <ServiceSection />
       <PurposeBand />
       <TechCultureSection />
-      <SectionWave from="warm" to="blush" reverse />
       <PartnerSection />
     </>
   );

@@ -1,41 +1,32 @@
-/* 比較で確定したTOPの曲線・大小・余白。登場演出とは別に管理する。 */
-
-.jqit-wave-divider { display:block; height:64px; overflow:hidden; pointer-events:none; line-height:0; }
-.jqit-wave-divider > svg { display:block; width:100%; height:100%; }
-@media(max-width:719px) {
-  .jqit-wave-divider { height:36px; }
-}
+/* 比較で確定したTOPの曲線・大小・余白。登場演出とは別に管理する。
+   曲線は app/brand.css の曲線ルールのトークンだけを使う。 */
 .home-design { --wave-blush:#fff0f3; --wave-mist:#f7f8fa; }
 .home-design > section:first-child { border-bottom-color:transparent; }
 .home-design > section:first-child::after { content:none; }
 .home-design #hero-visuals { clip-path:none; }
-.home-design > #news { background:var(--wave-blush); padding-top:48px; padding-bottom:76px; border-radius:0 0 min(15vw,220px) 0; }
+.home-design > #news { background:var(--wave-blush); padding-top:48px; padding-bottom:76px; border-radius:0 0 var(--curve-section) 0; }
 .home-design > #about { position:relative; background:#fff; border-top-color:transparent; padding-top:80px; padding-bottom:88px; }
 .home-design > #about > div { position:relative; }
-.home-design #about .grid.border { border-radius:8px 76px 8px 8px; overflow:hidden; }
-.home-design > #business { background:var(--wave-mist); border-radius:140px 0 0 0; padding-top:76px; padding-bottom:88px; }
-.home-design #business img { border-radius:0 42% 0 0; }
-.home-design #business .min-\[900px\]\:order-2 img { border-radius:42% 0 0 0; }
+.home-design #about .grid.border { border-radius:var(--curve-base) var(--curve-card) var(--curve-base) var(--curve-base); overflow:hidden; }
+.home-design > #business { background:var(--wave-mist); border-radius:0 0 var(--curve-section) 0; padding-top:76px; padding-bottom:88px; }
+.home-design #business img { border-radius:0 var(--curve-media) 0 0; }
+.home-design #business .min-\[900px\]\:order-2 img { border-radius:var(--curve-media) 0 0 0; }
 .home-design #business img + span { bottom:16px; }
 .home-design > #service { background:#fff; border-top-color:transparent; padding-top:88px; padding-bottom:88px; }
-.home-design #service article { border-radius:8px 112px 8px 8px; }
-.home-design #service .grid > .reveal:nth-child(2) article { border-radius:112px 8px 8px 8px; }
-.home-design > #tech-culture { border-radius:0 160px 0 0; padding-top:88px; padding-bottom:72px; }
+.home-design #service article { border-radius:var(--curve-base) var(--curve-media) var(--curve-base) var(--curve-base); }
+.home-design #service .grid > .reveal:nth-child(2) article { border-radius:var(--curve-media) var(--curve-base) var(--curve-base) var(--curve-base); }
+.home-design > #tech-culture { padding-top:88px; padding-bottom:72px; }
 .home-design #tech-culture .grid { background:transparent; border:none; gap:16px; }
-.home-design #tech-culture .grid > a { border:1px solid #ffffff26; border-radius:0 36px 0 0; }
-.home-design #tech-culture .grid > a:nth-child(even) { border-radius:0 0 0 36px; }
-.home-design > #partner { background:var(--wave-blush); border-bottom-color:transparent; border-radius:0 0 0 140px; padding-top:56px; padding-bottom:76px; }
+.home-design #tech-culture .grid > a { border:1px solid #ffffff26; border-radius:var(--curve-base) var(--curve-card) var(--curve-base) var(--curve-base); }
+.home-design > #partner { background:var(--wave-blush); border-bottom-color:transparent; border-radius:0 0 var(--curve-section) 0; padding-top:56px; padding-bottom:76px; }
 body:has(.home-design) > footer { border-top-color:transparent; }
 @media(max-width:719px) {
-  .home-design > #news { padding-top:28px; padding-bottom:48px; border-bottom-right-radius:72px; }
+  .home-design > #news { padding-top:28px; padding-bottom:48px; }
   .home-design > #about { padding-top:52px; padding-bottom:56px; }
-  .home-design #about .grid.border { border-top-right-radius:48px; }
-  .home-design > #business { padding-top:52px; padding-bottom:56px; border-top-left-radius:72px; }
+  .home-design > #business { padding-top:52px; padding-bottom:56px; }
   .home-design > #service { padding-top:56px; padding-bottom:56px; }
-  .home-design #service article { border-top-right-radius:76px; }
-  .home-design #service .grid > .reveal:nth-child(2) article { border-top-left-radius:76px; border-top-right-radius:8px; }
-  .home-design > #tech-culture { padding-top:56px; padding-bottom:48px; border-top-right-radius:72px; }
-  .home-design > #partner { padding-top:36px; padding-bottom:56px; border-bottom-left-radius:72px; }
+  .home-design > #tech-culture { padding-top:56px; padding-bottom:48px; }
+  .home-design > #partner { padding-top:36px; padding-bottom:56px; }
 }
 .home-design #news p[aria-hidden] { font-size:clamp(48px,6.2vw,88px); }
 .home-design > #news { padding-top:44px; padding-bottom:64px; }
@@ -85,11 +76,11 @@ body:has(.home-design) > footer { border-top-color:transparent; }
   .home-design #about .grid.border article { padding:24px; }
   .home-design #about .grid.border h3 { font-size:16px; text-wrap:balance; }
 }
-.home-design > #tech-culture { border-radius:0; padding-top:72px; padding-bottom:64px; }
+.home-design > #tech-culture { padding-top:72px; padding-bottom:64px; }
 .home-design #tech-culture p[aria-hidden] { font-size:clamp(40px,7vw,100px); }
 .home-design > #about { padding-top:80px; padding-bottom:80px; }
 .home-design #about p[aria-hidden] { font-size:clamp(44px,8vw,112px); }
-.home-design > #business { border-top-left-radius:88px; padding-bottom:96px; }
+.home-design > #business { padding-bottom:96px; }
 .home-design > #service { padding-top:88px; padding-bottom:88px; }
 .home-design #service > div > .grid > .reveal:nth-child(2) { margin-top:56px; }
 @media(min-width:1000px) {
@@ -112,5 +103,9 @@ body:has(.home-design) > footer { border-top-color:transparent; }
 .home-design #tech-culture .grid > a { background:#fffdf9; border-color:rgb(72 61 45 / 14%); }
 .home-design #tech-culture .grid > a:hover { background:#eee9e2; }
 .home-design #tech-culture .border-t { border-color:rgb(72 61 45 / 17%); }
-.home-design > .jqit-wave-divider { position:relative; }
-.home-design > .jqit-wave-divider > svg { position:absolute; top:-2px; height:calc(100% + 2px); }
+/* 紙色の帯は右下の角で次の薄赤の帯へ渡す。角の外側に白が出ないよう、次の帯を下へ潜らせる。 */
+.home-design > #tech-culture { position:relative; z-index:1; border-radius:0 0 var(--curve-section) 0; }
+.home-design > #partner { margin-top:calc(var(--curve-section) * -1); padding-top:calc(56px + var(--curve-section)); }
+@media(max-width:719px) {
+  .home-design > #partner { padding-top:calc(36px + var(--curve-section)); }
+}

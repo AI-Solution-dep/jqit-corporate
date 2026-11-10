@@ -5,12 +5,12 @@ import "./home-scroll-depth.css";
 
 type Plane = { element: HTMLElement; anchor: HTMLElement; rate: number; limit: number; xRate: number; imageFrame?: HTMLElement };
 
-// 全セクションに同じ装飾を繰り返さず、写真や本文の密度に合わせて数を変える。
+// 模様は曲線ルール内の2種類だけ：角の丸い線（ルート）と、一角だけ曲げた薄赤の面。
 const backgroundLayers: Record<string, readonly { shape: string; rate: number; xRate: number }[]> = {
-  about: [{ shape: "about-frame", rate: 0.10, xRate: 0 }],
+  about: [{ shape: "about-route", rate: 0.10, xRate: 0 }],
   business: [
-    { shape: "business-blush-block", rate: -0.08, xRate: 0.04 },
-    { shape: "business-circle", rate: 0.16, xRate: -0.06 },
+    { shape: "business-route", rate: 0.12, xRate: -0.05 },
+    { shape: "business-plane", rate: -0.08, xRate: 0.04 },
   ],
   service: [],
   "tech-culture": [{ shape: "culture-route", rate: 0.08, xRate: 0.04 }],
@@ -63,9 +63,9 @@ export function HomeScrollDepth({ enabled }: { enabled: boolean }) {
           geometry.className = "jqit-depth-geometry";
           background.appendChild(geometry);
           backgroundWindow.appendChild(background);
-          const targetSelector = shape === "about-frame" ? ".grid.border"
-            : shape === "business-circle" ? ".space-y-16 > .reveal:first-child > div:first-child"
-            : shape === "business-blush-block" ? ".space-y-16 > .reveal:nth-child(2) > div:first-child"
+          const targetSelector = shape === "about-route" ? ".grid.border"
+            : shape === "business-route" ? ".space-y-16 > .reveal:first-child > div:first-child"
+            : shape === "business-plane" ? ".space-y-16 > .reveal:nth-child(2) > div:first-child"
             : ".grid";
           const target = section.querySelector<HTMLElement>(targetSelector);
           if (target) placements.push({ element: background, section, target, shape });
@@ -102,17 +102,24 @@ export function HomeScrollDepth({ enabled }: { enabled: boolean }) {
         }
         const targetY = box.top - sectionBox.top - visualOffset;
         const targetX = box.left - sectionBox.left;
-        if (shape === "about-frame") return { element, left: targetX + 20, top: targetY - (mobile ? 40 : 64), width: box.width + (mobile ? 100 : 180), height: box.height + (mobile ? 60 : 90) };
-        if (shape === "business-circle") {
-          const size = box.width * 1.18;
-          return { element, left: targetX - box.width * 0.13, top: targetY + (mobile ? 12 : 24), width: size, height: size };
+        if (shape === "about-route") {
+          // 会社情報ブロックの右上から画面端へ抜ける線。
+          const width = box.width * (mobile ? 1.1 : 1.5);
+          return { element, left: targetX + box.width * 0.35, top: targetY - (mobile ? 48 : 80), width, height: width * 460 / 560 };
         }
-        if (shape === "business-blush-block") {
-          const size = box.width * 1.3;
-          return { element, left: targetX - (mobile ? 24 : 48), top: targetY + (mobile ? 24 : 32), width: size, height: size };
+        if (shape === "business-route") {
+          // 01の写真の背面から画面左端へ抜ける線。本文の列には掛けない。左右反転して置く。
+          const width = box.width * 0.95;
+          return { element, left: targetX - box.width * (mobile ? 0.6 : 0.5), top: targetY + box.height * 0.15, width, height: width * 460 / 560 };
         }
+        if (shape === "business-plane") {
+          // 02の写真の背面に、写真と同じ左上の曲線を持つ薄赤の面。
+          const size = box.width * 1.2;
+          return { element, left: targetX - (mobile ? 24 : 56), top: targetY + (mobile ? 28 : 40), width: size, height: size * 0.92 };
+        }
+        // カルチャーカードの角に線が触れないよう、カード列の右上の外側へ逃がす。
         const width = mobile ? 560 : 700;
-        return { element, left: targetX + box.width - (mobile ? 140 : 220), top: targetY - (mobile ? 180 : 260), width, height: width * 460 / 560 };
+        return { element, left: targetX + box.width - (mobile ? 90 : 120), top: targetY - (mobile ? 220 : 320), width, height: width * 460 / 560 };
       });
       layouts.forEach(({ element, left, top, width, height }) => {
         element.style.left = `${left}px`;
@@ -161,10 +168,6 @@ export function HomeScrollDepth({ enabled }: { enabled: boolean }) {
         if (isBackground && moving) {
           const geometry = element.querySelector<HTMLElement>(".jqit-depth-geometry")!;
           const shape = bounds.get(geometry)!;
-          if (window.innerWidth < 1000 && element.dataset.depthShape === "about-frame") {
-            // 縦並びでは、枠の上辺を会社情報ブロック直前の余白から本文へ戻さない。
-            position.y = Math.max(0, Math.min(24, position.y));
-          }
           // 横は画面端へ自然に抜けさせ、上下だけセクション内に保つ。
           const previousY = parseFloat(element.style.getPropertyValue("--depth-y")) || 0;
           position.y = Math.max(rect.top + 16 - shape.top + previousY, Math.min(rect.bottom - 16 - shape.bottom + previousY, position.y));

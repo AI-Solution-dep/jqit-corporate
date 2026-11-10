@@ -222,7 +222,7 @@ export default function AiSolutionsPage() {
       <SubNav group="Business" items={businessSubNav} />
 
       {/* INTRO */}
-      <section data-depth-scene="ring" className="overflow-hidden bg-paper py-20 min-[720px]:py-[96px]">
+      <section data-depth-scene="route" className="overflow-hidden bg-paper py-20 min-[720px]:py-[96px]">
         <Container>
           <div className="grid grid-cols-1 items-center gap-12 min-[1024px]:grid-cols-[1.05fr_0.95fr] min-[1024px]:gap-16">
             <FadeIn>
@@ -355,7 +355,7 @@ export default function AiSolutionsPage() {
       </section>
 
       {/* NOVA — 自社プロダクト */}
-      <section data-depth-scene="square" className="brand-warm-band relative overflow-hidden py-20 min-[720px]:py-[100px]">
+      <section data-depth-scene="plane" className="brand-warm-band relative overflow-hidden py-20 min-[720px]:py-[100px]">
         <div className="pointer-events-none absolute -bottom-2 right-0 min-[720px]:-bottom-4">
           <DisplayText tone="white">NOVA</DisplayText>
         </div>
