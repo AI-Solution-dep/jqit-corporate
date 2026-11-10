@@ -38,6 +38,13 @@ section[id] {
   scroll-margin-top: 80px;
 }
 
+/* ページ遷移時、Next.js は新しいページの最初の要素（見出し帯など #main の直下）を
+   scrollIntoView で画面上端へ合わせる。固定ヘッダー（73px）の下に潜らないよう、
+   ヘッダー分の余白を取ってページ最上部に止める。 */
+#main > * {
+  scroll-margin-top: 80px;
+}
+
 /* 見出し用: 約物詰め（YakuHanJP相当をOpenType機能で） */
 .palt {
   font-feature-settings: "palt";
