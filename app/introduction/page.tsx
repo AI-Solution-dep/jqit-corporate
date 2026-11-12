@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 };
 
 const leaders = [
-  { field: "AI", title: "AIソリューション事業部長", name: "宮本 尚寛", image: "leader-miyamoto", scope: ["AIシステムの開発", "既存業務へのAI導入"], tech: ["Python", "FastAPI", "LLM API", "RAG"], crop: "miyamoto" },
+  { field: "AI", title: "取締役　AIソリューション事業 統括", name: "宮本 尚寛", image: "leader-miyamoto", scope: ["AIシステムの開発", "既存業務へのAI導入"], tech: ["Python", "FastAPI", "LLM API", "RAG"], crop: "miyamoto" },
   { field: "開発", title: "開発事業部長", name: "大野 健", image: "leader-ohno", scope: ["Web・モバイルアプリ", "設計から運用保守まで"], tech: ["Java", "TypeScript", "React", "Next.js"], crop: "ohno" },
   { field: "インフラ", title: "インフラ事業部長", name: "嵐 亮太", image: "leader-arashi", scope: ["オンプレ・クラウド基盤", "設計・構築・運用"], tech: ["AWS", "Azure", "オンプレミス"], crop: "arashi" },
   { field: "QA", title: "QA事業部長", name: "岩崎 顕儀", image: "leader-iwasaki", scope: ["品質保証・テスト設計", "テスト自動化"], tech: ["品質計画", "第三者検証", "自動化"], crop: "iwasaki" },
@@ -90,7 +90,7 @@ export default function IntroductionPage() {
           <div className={styles.sectionHead}><p className={styles.eyebrow}>開発体制</p><h2 id="team-heading"><span>4つの専門領域が</span><span>ひとつのチームに。</span></h2></div>
           <div className={styles.leaderGrid}>{leaders.map((leader) => <article className={styles.leader} key={leader.field}>
             <div className={styles.portrait} data-person={leader.crop}><Image src={`/introduction/${leader.image}.webp`} alt={leader.name} width={300} height={300} sizes="(max-width: 760px) 44vw, 250px" /></div>
-            <p className={styles.field}>{leader.field}</p><h3>{leader.name}</h3><p className={styles.jobTitle}>事業部長</p><p className={styles.scope}>{leader.scope.map(item => <span key={item}>{item}</span>)}</p>
+            <p className={styles.field}>{leader.field}</p><h3>{leader.name}</h3><p className={styles.jobTitle}>{leader.crop === "miyamoto" ? leader.title : "事業部長"}</p><p className={styles.scope}>{leader.scope.map(item => <span key={item}>{item}</span>)}</p>
           </article>)}</div>
           <details className={styles.more}><summary>担当範囲・技術を見る</summary><div className={styles.expertise}>{leaders.map((leader) => <div key={leader.field}><h3>{leader.field}</h3><p>{leader.scope.join(" ／ ")}</p><p className={styles.note}>{leader.tech.join(" ／ ")}</p></div>)}</div></details>
           <div className={styles.projectTeam}>

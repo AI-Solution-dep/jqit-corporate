@@ -1,6 +1,6 @@
 /* コーポレートサイト共通の色・書体・罫線を使う限定会社案内。 */
 .page { color:var(--color-ink); }
-.page [id] { scroll-margin-top:104px; }
+.page [id] { scroll-margin-top:188px; }
 .page em { font-style:normal; color:var(--color-brand); }
 .header { position:sticky; top:0; z-index:40; background:#fff; border-bottom:1px solid var(--color-line); }
 .headerInner { max-width:1160px; padding:0 24px; margin:auto; height:76px; display:flex; align-items:center; gap:32px; }
@@ -148,34 +148,46 @@
 @media(prefers-reduced-motion:reduce) { .page { scroll-behavior:auto; } }
 .portrait[data-person='miyamoto'] img,.portrait[data-person='iwasaki'] img { transform:scale(1.1); transform-origin:50% 35%; }
 
-/* 読む位置と実際の章を結び付ける。大きなStepアイコンではなく、項目と進み具合を静かに残す。 */
-.readingLayout { display:grid; grid-template-columns:208px minmax(0,1fr); align-items:start; gap:32px; max-width:1440px; padding-inline:24px; margin-inline:auto; }
+/* 現在項目は上帯へ。大きな経路は塗らず、本文操作を奪わない。 */
+.readingLayout { display:block; max-width:1240px; margin-inline:auto; }
 .story { min-width:0; }
-.chapterNav { position:sticky; top:108px; align-self:start; padding:36px 8px 28px 0; --chapter-progress:0; }
-.chapterEyebrow { color:var(--color-muted); font-size:10px; letter-spacing:.08em; margin-bottom:16px; }
-.chapterTitle { font-size:clamp(20px,1.8vw,26px); font-weight:700; letter-spacing:-.03em; line-height:1.5; animation:chapter-arrive .3s var(--motion-ease); }
-.chapterLead { color:var(--color-muted); font-size:12px; line-height:1.95; margin-top:12px; min-height:72px; max-width:15em; }
-.chapterLinks { position:relative; margin-top:28px; }
-.chapterLinks ol { list-style:none; padding:0; margin:0; }
-.chapterLinks::before { content:''; position:absolute; left:4px; top:22px; bottom:22px; width:1px; background:#f0c6cd; }
-.chapterLinks a { position:relative; display:flex; align-items:center; gap:16px; min-height:48px; color:var(--color-muted); font-size:12px; transition:color .24s; }
-.chapterLinks a:hover,.chapterLinks a[aria-current] { color:var(--color-brand); }
-.chapterLinks a[aria-current] { font-weight:700; }
-.chapterPoint { width:9px; height:9px; flex-shrink:0; border:1px solid #e7aeb7; border-radius:50%; background:#fff; transition:background-color .25s, border-color .25s; }
-.chapterLinks a[aria-current] .chapterPoint { background:var(--color-brand); border-color:var(--color-brand); box-shadow:0 0 0 5px var(--surface-accent,#fff0f3); }
-.chapterShort { display:none; }
-.chapterProgress { height:2px; background:#eee9e6; margin-top:28px; overflow:hidden; }
-.chapterProgress > span { display:block; height:100%; background:var(--color-brand); transform-origin:left; transform:scaleX(var(--chapter-progress)); }
-.chapterHint { margin-top:18px; color:var(--color-muted); font-size:10px; line-height:1.8; }
-.chapterHint span { display:inline-block; margin-left:8px; }
-@keyframes chapter-arrive { from { opacity:.4; transform:translateY(6px); } to { opacity:1; transform:none; } }
+.chapterNav { position:sticky; top:76px; z-index:35; min-height:100px; padding:16px 44px; display:flex; align-items:center; justify-content:space-between; gap:32px; background:#fff; border-bottom:1px solid #efdce0; }
+.chapterOrbit { position:fixed; pointer-events:none; width:560px; height:560px; left:calc(max(0px,(100vw - 1240px) / 2) + 44px - 565px); top:calc(50vh - 200px); opacity:0; transition:opacity .3s; }
+.chapterNav[data-visible='true'] .chapterOrbit { opacity:1; }
+.chapterOrbit svg { width:100%; height:100%; overflow:visible; stroke:#e60012; stroke-opacity:.17; stroke-width:.8; }
+.chapterOrbit .orbitActive { fill:var(--color-brand); fill-opacity:.55; stroke:none; transform-origin:160px 160px; transform:rotate(var(--chapter-angle)); transition:transform .8s cubic-bezier(.22,1,.36,1); }
+.chapterMenu { position:relative; flex-shrink:0; }
+.chapterMenu summary { display:flex; align-items:center; gap:16px; cursor:pointer; list-style:none; }
+.chapterMenu summary::-webkit-details-marker { display:none; }
+.chapterMenu summary:focus-visible { outline:2px solid var(--color-brand); outline-offset:6px; }
+.chapterSymbol { display:grid; place-items:center; flex-shrink:0; width:54px; height:54px; border-radius:50%; color:#fff; background:var(--color-brand); animation:chapter-symbol .55s cubic-bezier(.22,1,.36,1) both; }
+.chapterSymbol svg { width:32px; height:32px; }
+.chapterCurrent { display:grid; grid-template-columns:auto auto; column-gap:22px; align-items:baseline; animation:chapter-arrive .45s var(--motion-ease) both; }
+.chapterEyebrow { color:var(--color-muted); font-size:12px; grid-column:1 / -1; margin-bottom:4px; }
+.chapterTitle { font-size:30px; font-weight:700; line-height:1.3; letter-spacing:-.04em; white-space:nowrap; }
+.chapterMenuHint { color:var(--color-muted); font-size:12px; white-space:nowrap; }
+.chapterMenuHint > span { color:var(--color-brand); margin-left:6px; }
+.chapterStops { display:flex; align-items:center; gap:24px; }
+.chapterStops > span { display:flex; flex-direction:column; align-items:center; gap:10px; font-size:12px; color:var(--color-muted); }
+.chapterStops i { width:6px; height:6px; border:1px solid #d7a7af; border-radius:50%; }
+.chapterStops > span[data-active] { color:var(--color-brand); font-weight:700; }
+.chapterStops > span[data-active] i { background:var(--color-brand); border-color:var(--color-brand); box-shadow:0 0 0 5px #fff0f3; }
+.chapterLinks { position:absolute; top:calc(100% + 20px); left:0; width:264px; padding:14px 20px; border:1px solid #efd5db; border-radius:4px 28px 4px 4px; background:#fff; box-shadow:0 8px 30px rgb(80 24 33 / 8%); }
+.chapterLinks ol { margin:0; padding:0; list-style:none; }
+.chapterLinks a { display:flex; align-items:center; gap:14px; min-height:48px; font-size:14px; }
+.chapterLinks a[aria-current] { color:var(--color-brand); font-weight:700; }
+.chapterLinks a:focus-visible { outline:2px solid var(--color-brand); outline-offset:2px; }
+.chapterPoint { width:7px; height:7px; border-radius:50%; border:1px solid #eaa7b2; }
+.chapterLinks a[aria-current] .chapterPoint { background:var(--color-brand); border-color:var(--color-brand); }
+@keyframes chapter-arrive { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:none; } }
+@keyframes chapter-symbol { from { opacity:.3; transform:scale(.82) rotate(-20deg); } to { opacity:1; transform:none; } }
 
 /* 構図・写真・曲線を本体に揃える。黒帯と均等な箱の反復を減らす。 */
 .hero { border-bottom-right-radius:var(--curve-section); background:var(--surface-accent,#fff0f3); }
 .heroImage { border-bottom-right-radius:var(--curve-section); }
 .trustStrip { padding-block:44px; }
 .trustStrip b { font-family:var(--font-sans); font-weight:700; font-size:44px; letter-spacing:-.04em; }
-.story .section { position:relative; isolation:isolate; overflow:clip; padding:64px 44px 80px; scroll-margin-top:96px; }
+.story .section { position:relative; isolation:isolate; overflow:clip; padding:64px 44px 80px; scroll-margin-top:180px; }
 .story .section[data-section='projects'] { background:#fff; }
 .story .section[data-section='team'] { border-bottom-right-radius:var(--curve-section); }
 .story .section[data-section='process'] { background:#fff; }
@@ -230,7 +242,6 @@
 .sharedContact a { font-size:18px; }
 
 @media(min-width:1100px) and (max-width:1279px) {
-  .readingLayout { grid-template-columns:180px minmax(0,1fr); gap:16px; }
   .story .section { padding-inline:28px; }
   .leaderGrid { gap:14px; }
   .leader h3 { font-size:20px; }
@@ -239,33 +250,15 @@
   .teamLinks small { font-size:11px; }
 }
 @media(max-width:1099px) {
-  .readingLayout { display:block; padding:0; }
-  .chapterNav { position:sticky; top:76px; z-index:30; padding:14px 24px 0; background:rgb(255 255 255 / 96%); border-bottom:1px solid var(--color-line); backdrop-filter:blur(10px); }
-  .chapterCurrent { display:flex; align-items:baseline; gap:16px; }
-  .chapterEyebrow { margin:0; font-size:10px; }
-  .chapterTitle { font-size:16px; }
-  .chapterLead,.chapterHint { display:none; }
-  .chapterLinks { margin-top:6px; }
-  .chapterLinks::before,.chapterPoint { display:none; }
-  .chapterLinks ol { display:grid; grid-template-columns:repeat(4,1fr); }
-  .chapterLinks a { justify-content:center; min-height:44px; font-size:12px; border-bottom:2px solid transparent; }
-  .chapterLinks a[aria-current] { border-color:var(--color-brand); }
-  .chapterLinks a > span:not(.chapterShort) { display:none; }
-  .chapterShort { display:inline; }
-  .chapterProgress { margin-top:0; height:1px; margin-inline:-24px; }
-  .story .section { padding-inline:max(24px,calc((100% - 1000px) / 2)); scroll-margin-top:180px; }
+  .story .section { padding-inline:max(24px,calc((100% - 1000px) / 2)); scroll-margin-top:188px; }
 }
 @media(max-width:760px) {
-  .page [id] { scroll-margin-top:164px; }
+  .page [id] { scroll-margin-top:180px; }
   .hero { border-bottom-right-radius:var(--curve-section); }
   .heroImage { border-bottom:0; border-bottom-right-radius:var(--curve-section); }
   .trustStrip { padding-block:28px; }
   .trustStrip b { font-size:32px; }
-  .chapterNav { top:68px; padding-top:10px; }
-  .chapterCurrent { gap:12px; }
-  .chapterEyebrow { font-size:9px; }
-  .chapterTitle { font-size:15px; }
-  .story .section { padding:44px 24px 56px; scroll-margin-top:160px; }
+  .story .section { padding:44px 24px 56px; scroll-margin-top:180px; }
   .story .section::before { right:-430px; width:520px; opacity:calc(var(--intro-flow-opacity,1) * .6); }
   .display { font-size:clamp(44px,12vw,72px); }
   .featuredWork { grid-template-columns:1fr; padding:28px 0; }
@@ -290,8 +283,6 @@
   .sharedContact a { font-size:18px; }
 }
 @media(prefers-reduced-motion:reduce) {
-  .chapterTitle { animation:none; }
-  .chapterLinks a,.chapterPoint { transition:none; }
   .story .section::before { transform:none; background-image:url('/brand/flow-route-static.svg'); }
 }
 
@@ -312,3 +303,37 @@
   .trustStrip .expertiseStat { font-size:clamp(9px,2.9vw,11px); }
   .trustStrip .expertiseStat b { font-size:clamp(24px,7.5vw,30px); margin-right:2px; }
 }
+
+@media(max-width:1099px) {
+  .chapterNav { padding-inline:24px; }
+  .chapterStops { gap:16px; }
+  .chapterStops > span { font-size:0; }
+  .chapterStops i { width:8px; height:8px; }
+  .chapterTitle { font-size:28px; }
+}
+@media(max-width:760px) {
+  .chapterNav { top:68px; min-height:92px; padding:12px 24px; gap:12px; }
+  .chapterOrbit { display:none; }
+  .chapterMenu { flex-shrink:1; min-width:0; }
+  .chapterMenu summary { gap:12px; }
+  .chapterSymbol { width:44px; height:44px; }
+  .chapterSymbol svg { width:26px; height:26px; }
+  .chapterCurrent { column-gap:12px; }
+  .chapterEyebrow { display:none; }
+  .chapterTitle { font-size:24px; grid-column:1 / -1; }
+  .chapterMenuHint { margin-top:4px; }
+  .chapterStops { gap:10px; }
+  .chapterStops i { width:6px; height:6px; }
+  .chapterLinks { width:260px; top:calc(100% + 16px); }
+}
+@media(prefers-reduced-motion:reduce) {
+  .chapterOrbit,.chapterOrbit .orbitActive { transition:none; }
+  .chapterCurrent,.chapterSymbol { animation:none; }
+}
+@media print { .chapterNav { display:none; } }
+
+/* 紹介ページの章表示と共通の停止ボタンを重ねない。 */
+:global(body):has(.page) :global(.flow-animation-control) { left:auto; right:16px; bottom:16px; }
+@media(max-width:760px) { :global(body):has(.page) :global(.flow-animation-control) { right:12px; bottom:12px; max-width:150px; } }
+
+@media(max-width:1279px) { .chapterOrbit { display:none; } }
