@@ -1,0 +1,150 @@
+[
+  {
+    "width": 1440,
+    "id": "projects",
+    "active": "#projects",
+    "overflow": false
+  },
+  {
+    "width": 1440,
+    "id": "team",
+    "active": "#team",
+    "overflow": false
+  },
+  {
+    "width": 1440,
+    "id": "process",
+    "active": "#process",
+    "overflow": false
+  },
+  {
+    "width": 1440,
+    "id": "contacts",
+    "active": "#contacts",
+    "overflow": false
+  },
+  {
+    "width": 1440,
+    "id": "projects",
+    "active": "#projects",
+    "overflow": false
+  },
+  {
+    "width": 1440,
+    "links": [
+      "mailto:k.takahashi@jqit.co.jp",
+      "tel:08044702812",
+      "mailto:t.miyamoto@jqit.co.jp",
+      "tel:08049106040",
+      "mailto:n.suwa@jqit.co.jp",
+      "mailto:sales@jqit.co.jp",
+      "tel:0355776105"
+    ],
+    "robots": "noindex, nofollow",
+    "h1": 1
+  },
+  {
+    "width": 375,
+    "id": "projects",
+    "active": "#projects",
+    "overflow": false
+  },
+  {
+    "width": 375,
+    "id": "team",
+    "active": "#team",
+    "overflow": false
+  },
+  {
+    "width": 375,
+    "id": "process",
+    "active": "#process",
+    "overflow": false
+  },
+  {
+    "width": 375,
+    "id": "contacts",
+    "active": "#contacts",
+    "overflow": false
+  },
+  {
+    "width": 375,
+    "id": "projects",
+    "active": "#projects",
+    "overflow": false
+  },
+  {
+    "width": 375,
+    "links": [
+      "mailto:k.takahashi@jqit.co.jp",
+      "tel:08044702812",
+      "mailto:t.miyamoto@jqit.co.jp",
+      "tel:08049106040",
+      "mailto:n.suwa@jqit.co.jp",
+      "mailto:sales@jqit.co.jp",
+      "tel:0355776105"
+    ],
+    "robots": "noindex, nofollow",
+    "h1": 1
+  },
+  {
+    "width": 768,
+    "id": "projects",
+    "active": "#projects",
+    "overflow": false
+  },
+  {
+    "width": 768,
+    "id": "team",
+    "active": "#team",
+    "overflow": false
+  },
+  {
+    "width": 768,
+    "id": "process",
+    "active": "#process",
+    "overflow": false
+  },
+  {
+    "width": 768,
+    "id": "contacts",
+    "active": "#contacts",
+    "overflow": false
+  },
+  {
+    "width": 768,
+    "id": "projects",
+    "active": "#projects",
+    "overflow": false
+  },
+  {
+    "width": 768,
+    "links": [
+      "mailto:k.takahashi@jqit.co.jp",
+      "tel:08044702812",
+      "mailto:t.miyamoto@jqit.co.jp",
+      "tel:08049106040",
+      "mailto:n.suwa@jqit.co.jp",
+      "mailto:sales@jqit.co.jp",
+      "tel:0355776105"
+    ],
+    "robots": "noindex, nofollow",
+    "h1": 1
+  },
+  {
+    "mode": {
+      "javaScriptEnabled": false
+    },
+    "overflow": false,
+    "navLinks": 4,
+    "text": "まずは、お話を聞かせてください。"
+  },
+  {
+    "mode": {
+      "reducedMotion": "reduce"
+    },
+    "overflow": false,
+    "navLinks": 4,
+    "text": "まずは、お話を聞かせてください。"
+  }
+]
