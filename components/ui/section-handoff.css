@@ -1,0 +1,45 @@
+/* 内容の見出しを引き継ぐ位置。専用の左カラムや追跡アイコンは作らない。 */
+.reading-handoff { position:sticky; top:var(--handoff-header,72px); z-index:35; color:var(--color-ink); background:#fff; border-bottom:1px solid #e8dadd; }
+.reading-handoff-inner { max-width:1160px; margin-inline:auto; min-height:108px; padding:12px 24px; display:flex; align-items:center; gap:32px; }
+.reading-handoff-current { flex:1; min-width:0; }
+.reading-handoff:not([data-transferring="true"]) .reading-handoff-caption { visibility:hidden; }
+.reading-handoff-caption { font-size:12px; line-height:1.5; color:var(--color-brand); font-weight:600; margin-bottom:4px; }
+.reading-handoff-target { height:64px; max-width:760px; position:relative; }
+.reading-handoff-target > span { display:block; font-size:28px; font-weight:700; line-height:1.4; opacity:var(--handoff-fallback,1); }
+.reading-handoff-flying { position:fixed!important; left:0!important; top:0!important; padding:0!important; margin:0!important; opacity:1!important; visibility:hidden; pointer-events:none; transform-origin:top left; z-index:1; text-wrap:initial; }
+.reading-handoff-menu { position:relative; flex-shrink:0; }
+.reading-handoff-menu summary { list-style:none; display:flex; align-items:center; gap:24px; min-height:48px; padding:0 8px; cursor:pointer; font-size:14px; }
+.reading-handoff-menu summary::-webkit-details-marker { display:none; }
+.reading-handoff-menu summary > span { color:var(--color-brand); font-size:22px; }
+.reading-handoff-menu summary:focus-visible,.reading-handoff-menu a:focus-visible { outline:2px solid var(--color-brand); outline-offset:4px; }
+.reading-handoff-menu nav { position:absolute; right:0; top:calc(100% + 14px); width:250px; padding:12px 24px; background:#fff; border:1px solid #e8dadd; border-top-right-radius:32px; box-shadow:0 12px 24px rgb(55 30 36 / 7%); }
+.reading-handoff-menu ol { padding:0; margin:0; list-style:none; }
+.reading-handoff-menu a { display:flex; align-items:center; min-height:48px; font-size:14px; border-bottom:1px solid #eee5e6; }
+.reading-handoff-menu li:last-child a { border:0; }
+.reading-handoff-menu a[aria-current] { color:var(--color-brand); font-weight:700; }
+.reading-handoff[data-finished='true'] .reading-handoff-target { opacity:0; }
+/* 大きな面の端が写真・本文の背後を通る。枠・影・独立したカードは付けない。 */
+[data-reading-scene] { position:relative!important; isolation:isolate; overflow:clip; scroll-margin-top:200px!important; }
+#main [data-reading-scene] > .reading-plane { position:absolute; z-index:-1; pointer-events:none; max-width:none; padding:0; margin:0; }
+#main [data-reading-scene] > .reading-plane--back { z-index:-2; }
+.reading-plane--back { left:-16%; top:8%; width:94%; height:84%; min-height:380px; background:#fce7ec; border-radius:0 min(34vw,480px) 0 0; transform:translate3d(var(--reading-back-x,0px),var(--reading-back-y,0px),0) rotate(-7deg); }
+.reading-plane--front { right:-20%; top:30%; width:85%; height:90%; min-height:380px; background:#fff; border-radius:min(30vw,420px) 0 0 0; transform:translate3d(var(--reading-front-x,0px),var(--reading-front-y,0px),0) rotate(5deg); }
+[data-reading-scene='1'] > .reading-plane--back { left:auto; right:-12%; top:3%; width:83%; background:#f8e1e7; border-radius:min(36vw,500px) 0 0 0; rotate:9deg; }
+[data-reading-scene='1'] > .reading-plane--front { right:auto; left:-20%; top:45%; width:100%; background:#f5f1ec; border-radius:0 min(28vw,380px) 0 0; rotate:-9deg; }
+[data-reading-scene='2'] > .reading-plane--back { top:26%; left:-22%; width:110%; height:68%; border-radius:0 min(40vw,560px) 0 0; rotate:4deg; }
+[data-reading-scene='2'] > .reading-plane--front { top:65%; right:-10%; width:96%; height:65%; rotate:-4deg; }
+@media(max-width:759px) {
+ .reading-handoff { top:var(--handoff-mobile-header,72px); }
+ .reading-handoff-inner { min-height:96px; padding-block:8px; gap:16px; }
+ .reading-handoff-target { height:56px; }
+ .reading-handoff-target > span { font-size:24px; }
+ .reading-handoff-caption { font-size:12px; }
+ .reading-handoff-menu summary { padding:0; gap:12px; font-size:12px; }
+ [data-reading-scene] { scroll-margin-top:180px!important; }
+ .reading-plane--back { width:125%; left:-45%; min-height:360px; border-top-right-radius:220px; }
+ .reading-plane--front { width:120%; right:-40%; border-top-left-radius:200px; }
+ [data-reading-scene='1'] > .reading-plane--back { right:-45%; width:125%; border-top-left-radius:220px; }
+ [data-reading-scene='1'] > .reading-plane--front { left:-45%; width:130%; }
+}
+@media(prefers-reduced-motion:reduce) { .reading-plane { transform:none; rotate:none!important; } }
+@media print { .reading-handoff,.reading-plane { display:none; } [data-reading-scene] h2 { opacity:1!important; visibility:visible!important; } }

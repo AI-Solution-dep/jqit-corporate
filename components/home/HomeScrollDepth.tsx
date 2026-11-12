@@ -7,13 +7,7 @@ type Plane = { element: HTMLElement; anchor: HTMLElement; rate: number; limit: n
 
 // 背景は薄赤の流線。線上の丸は共通SVG内の経路アニメーションで動く。
 const backgroundLayers: Record<string, readonly { shape: string; rate: number; xRate: number }[]> = {
-  about: [{ shape: "about-route", rate: 0.10, xRate: 0 }],
-  business: [
-    { shape: "business-route", rate: 0.12, xRate: -0.05 },
-    { shape: "business-flow", rate: -0.08, xRate: 0.04 },
-  ],
-  service: [],
-  "tech-culture": [{ shape: "culture-route", rate: 0.08, xRate: 0.04 }],
+  about: [], business: [], service: [], "tech-culture": [],
 };
 
 /** 冒頭の確定演出には触れず、下のセクションだけにスクロールによる奥行きを付ける。 */

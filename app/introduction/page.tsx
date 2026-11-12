@@ -7,7 +7,6 @@ import Link from "next/link";
 import { createPageMetadata } from "@/lib/seo";
 import { certificationBadges, introductionContacts, siteConfig } from "@/lib/site-config";
 import styles from "./introduction.module.css";
-import { FlowAnimationControl } from "@/components/ui/FlowAnimationControl";
 import { ChapterNav } from "./ChapterNav";
 
 export const metadata: Metadata = {
@@ -45,7 +44,6 @@ function ProcessIcon({ step }: { step: number }) {
 export default function IntroductionPage() {
   return (
     <>
-      <FlowAnimationControl />
       <header className={styles.header}>
         <div className={styles.headerInner}>
           <a href="#intro-top" aria-label="紹介ページの先頭へ" className={styles.logo}><Image src="/jqit-logo.png" alt="JQIT" width={425} height={118} priority /><span>COMPANY PROFILE</span></a>
