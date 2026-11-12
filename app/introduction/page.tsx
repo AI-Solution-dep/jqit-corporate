@@ -9,6 +9,9 @@ import { certificationBadges, introductionContacts, siteConfig } from "@/lib/sit
 import styles from "./introduction.module.css";
 import { ChapterNav } from "./ChapterNav";
 import { TeamDiagram } from "./TeamDiagram";
+import { ProjectCases } from "./ProjectCases";
+
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   ...createPageMetadata({ title: "実績と開発体制のご紹介", description: "JQITの開発実績、4つの専門領域と責任者、導入の進め方、担当者の連絡先をご紹介します。", path: "/introduction" }),
@@ -21,11 +24,6 @@ const leaders = [
   { field: "開発", title: "開発事業部長", name: "大野 健", image: "leader-ohno", scope: ["Web・モバイルアプリ", "設計から運用保守まで"], tech: ["Java", "TypeScript", "React", "Next.js"], crop: "ohno" },
   { field: "インフラ", title: "インフラ事業部長", name: "嵐 亮太", image: "leader-arashi", scope: ["オンプレ・クラウド基盤", "設計・構築・運用"], tech: ["AWS", "Azure", "オンプレミス"], crop: "arashi" },
   { field: "QA", title: "QA事業部長", name: "岩崎 顕儀", image: "leader-iwasaki", scope: ["品質保証・テスト設計", "テスト自動化"], tech: ["品質計画", "第三者検証", "自動化"], crop: "iwasaki" },
-];
-
-const cases = [
-  { category: "教育機関向け", title: "いじめ対応支援AI", image: "ill-counsel", task: "相談内容の整理と報告", development: "相談の分析・報告書作成を支援するAI", output: "相談内容の分析結果・報告書", flow: ["相談内容", "AIによる分析", "報告書"] },
-  { category: "営業業務向け", title: "営業リスト自動作成AI", image: "ill-saleslist", task: "日々の営業先の選定", development: "リスト自動作成・見込みのスコアリング", output: "営業リスト・成約見込みのスコア", flow: ["営業先の情報", "リスト化・評価", "営業リスト"] },
 ];
 
 function ContactIcon({ phone = false }: { phone?: boolean }) {
@@ -71,17 +69,13 @@ export default function IntroductionPage() {
         <section className={styles.section} data-section="projects" id="projects" aria-labelledby="projects-heading">
           <div className={styles.display} aria-hidden="true">WORKS</div>
           <div className={styles.sectionHead}><p className={styles.eyebrow}>開発実績</p><h2 id="projects-heading"><span>業務の課題を</span><span><em>動く仕組み</em>に。</span></h2></div>
+          <ProjectCases />
           <article className={styles.featuredWork}>
             <div><p className={styles.eyebrow}>自社プロダクト ／ SES業界</p><h3>NOVA</h3><p className={styles.featuredLead}>案件と人材をつなぐ<br />AIマッチングサービス。</p><a className={styles.textLink} href={siteConfig.links.nova} target="_blank" rel="noopener noreferrer">NOVA製品サイト <span aria-hidden="true">↗</span><span className="sr-only">（新しいタブで開きます）</span></a></div>
             <div className={styles.productDetail}><ol className={styles.flow}>{["案件・人材を管理", "AIでマッチング", "候補を確認"].map((step) => <li key={step}>{step}</li>)}</ol><Image src="/nova-product-2026-08c.png" alt="NOVAの案件一覧。案件情報を一つの画面で確認できます" width={1496} height={876} sizes="(max-width: 760px) 90vw, 45vw" /></div>
           </article>
-          <div className={styles.caseGrid}>{cases.map((work) => <article className={styles.case} key={work.title}>
-            <div className={styles.caseVisual}><Image src={`/introduction/${work.image}.webp`} alt="" width={640} height={427} sizes="(max-width: 760px) 90vw, 45vw" /></div>
-            <p className={styles.eyebrow}>{work.category}</p><h3>{work.title}</h3>
-            <ol className={styles.flow}>{work.flow.map((step) => <li key={step}>{step}</li>)}</ol>
-            <details className={styles.more}><summary aria-label={`${work.title}の開発内容を見る`}>開発内容を見る</summary><dl className={styles.facts}><div><dt>対象業務</dt><dd>{work.task}</dd></div><div><dt>開発内容</dt><dd>{work.development}</dd></div><div><dt>出力</dt><dd>{work.output}</dd></div></dl></details>
-          </article>)}</div>
-          <p className={styles.note}>画面は製品紹介用、イラストは用途のイメージです。</p>
+
+          <p className={styles.note}>画面は自社プロダクトNOVAの製品紹介用です。</p>
         </section>
 
         <section className={styles.section} data-section="team" id="team" aria-labelledby="team-heading">
