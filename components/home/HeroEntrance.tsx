@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useLayoutEffect } from "react";
 import "./hero-entrance.css";
 
 export type HeroEntranceVariant = "current" | "motion" | "curve";
@@ -30,7 +30,7 @@ function characterRegions(element: HTMLElement) {
 
 /** 確定した登場順と速度を、トップ本体と比較画面で共有する。 */
 export function HeroEntrance({ variant = "motion", preview = false }: { variant?: HeroEntranceVariant; preview?: boolean }) {
-  useEffect(() => {
+  useLayoutEffect(() => {
     const originalScrollRestoration = window.history.scrollRestoration;
     if (preview) window.history.scrollRestoration = "manual";
     const root = document.querySelector<HTMLElement>(preview ? "[data-top-variant]" : "[data-home-entrance]");
@@ -47,6 +47,8 @@ export function HeroEntrance({ variant = "motion", preview = false }: { variant?
     const carouselControls = hero.querySelector<HTMLElement>('[aria-label="トップ画像の切り替え"]');
     const inertTargets = [header, button, carouselControls].filter((element): element is HTMLElement => Boolean(element));
     const originalInert = inertTargets.map(element => element.inert);
+    // キャッシュからの再表示でも、前回のreadyを引き継がず登場を準備する。
+    root.dataset.topInitial = variant === "motion" && !reduce.matches ? "pending" : "ready";
     let animations: Animation[] = [];
     let glyphLayers: { line: HTMLElement; style: string | null; layers: HTMLElement[] }[] = [];
     const restoreText = () => {
@@ -59,6 +61,8 @@ export function HeroEntrance({ variant = "motion", preview = false }: { variant?
       glyphLayers = [];
     };
     let active = true;
+    let starting = true;
+    let entryFrame = 0;
     let timer: ReturnType<typeof setTimeout> | undefined;
     let fontTimer: ReturnType<typeof setTimeout> | undefined;
 
@@ -151,11 +155,14 @@ export function HeroEntrance({ variant = "motion", preview = false }: { variant?
     // アンカー・履歴の復帰位置や、ユーザー自身のスクロールを優先する。
     const shouldSkip = () => !preview && (Boolean(window.location.hash) || window.scrollY > 32);
     const onScroll = () => {
-      if (shouldSkip() && root.dataset.playback !== "complete") { cancel(); report("complete"); }
+      if (!starting && shouldSkip() && root.dataset.playback !== "complete") { cancel(); report("complete"); }
     };
     window.addEventListener("scroll", onScroll, { passive: true });
     async function start() {
-      if (shouldSkip()) { cancel(); report("complete"); return; }
+      // Next.jsのリンク遷移時のスクロール復元が済んでから開始位置を判断する。
+      await new Promise<void>(resolve => { entryFrame = requestAnimationFrame(() => { entryFrame = requestAnimationFrame(() => resolve()); }); });
+      if (!active) return;
+      if (shouldSkip()) { starting = false; cancel(); report("complete"); return; }
       // 本文とは無関係な画像のloadを待たず、フォントも長時間待たない。
       const fontsReady = await Promise.race([
         document.fonts.ready.then(() => true),
@@ -163,7 +170,8 @@ export function HeroEntrance({ variant = "motion", preview = false }: { variant?
       ]);
       window.clearTimeout(fontTimer);
       if (!active || !root) return;
-      if (!fontsReady || shouldSkip() || (!preview && lines[0] && getComputedStyle(lines[0]).opacity === "1")) {
+      starting = false;
+      if (!fontsReady || shouldSkip()) {
         cancel(); report(reduce.matches ? "reduced" : "complete"); return;
       }
       if (preview) window.scrollTo({ top: 0, behavior: "instant" });
@@ -175,7 +183,7 @@ export function HeroEntrance({ variant = "motion", preview = false }: { variant?
       }
     }
     void start();
-    return () => { active = false; cancel(); window.removeEventListener("message", onMessage); reduce.removeEventListener("change", onPreference); window.removeEventListener("scroll", onScroll); window.clearTimeout(fontTimer); if (preview) window.history.scrollRestoration = originalScrollRestoration; };
+    return () => { active = false; cancelAnimationFrame(entryFrame); cancel(); window.removeEventListener("message", onMessage); reduce.removeEventListener("change", onPreference); window.removeEventListener("scroll", onScroll); window.clearTimeout(fontTimer); if (preview) window.history.scrollRestoration = originalScrollRestoration; };
   }, [variant, preview]);
   return null;
 }

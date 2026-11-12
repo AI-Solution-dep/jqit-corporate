@@ -21,15 +21,16 @@ if (typeof window !== "undefined") {
  */
 export function PageCurtain() {
   const pathname = usePathname();
-  return <Curtain key={pathname} />;
+  return <Curtain key={pathname} home={pathname === "/"} />;
 }
 
-function Curtain() {
+function Curtain({ home }: { home: boolean }) {
   // 初期値の時点で決める：遷移かどうか、幕を出すかどうか。
   const navigatedRef = useRef(hasMounted);
   const [visible, setVisible] = useState(
     () =>
       hasMounted &&
+      !home &&
       !isHistoryNavigation &&
       !window.matchMedia("(prefers-reduced-motion: reduce)").matches,
   );
