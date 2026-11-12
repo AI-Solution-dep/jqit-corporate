@@ -8,6 +8,7 @@ import { createPageMetadata } from "@/lib/seo";
 import { certificationBadges, introductionContacts, siteConfig } from "@/lib/site-config";
 import styles from "./introduction.module.css";
 import { ChapterNav } from "./ChapterNav";
+import { TeamDiagram } from "./TeamDiagram";
 
 export const metadata: Metadata = {
   ...createPageMetadata({ title: "実績と開発体制のご紹介", description: "JQITの開発実績、4つの専門領域と責任者、導入の進め方、担当者の連絡先をご紹介します。", path: "/introduction" }),
@@ -91,14 +92,7 @@ export default function IntroductionPage() {
             <p className={styles.field}>{leader.field}</p><h3>{leader.name}</h3><p className={styles.jobTitle}>{leader.crop === "miyamoto" ? leader.title : "事業部長"}</p><p className={styles.scope}>{leader.scope.map(item => <span key={item}>{item}</span>)}</p>
           </article>)}</div>
           <details className={styles.more}><summary>担当範囲・技術を見る</summary><div className={styles.expertise}>{leaders.map((leader) => <div key={leader.field}><h3>{leader.field}</h3><p>{leader.scope.join(" ／ ")}</p><p className={styles.note}>{leader.tech.join(" ／ ")}</p></div>)}</div></details>
-          <div className={styles.projectTeam}>
-            <div className={styles.clientNode}>お客さま <span>課題・目標・現場の声</span></div>
-            <p className={styles.connector}>相談・共有 <span aria-hidden="true">↕</span> 提案・報告</p>
-            <div className={styles.teamLinks}>{introductionContacts.members.map((person, i) => <a key={person.email} href={`#contact-${i}`}><span>{person.role}</span><strong>{person.name}</strong><small>{person.scope}</small><span className={styles.teamArrow} aria-hidden="true">↗</span></a>)}</div>
-            <p className={styles.connector}>方針・仕様を共有 <span aria-hidden="true">↕</span> 専門領域から検証</p>
-            <div className={styles.disciplines}>{leaders.map(leader => <span key={leader.field}>{leader.field}</span>)}</div>
-            <p className={styles.teamCaption}>窓口と専門チームが連携し、設計・開発から品質確認・運用まで。</p>
-          </div>
+          <TeamDiagram />
           <aside className={styles.credentials} aria-label="JQITの認証・評価"><div className={styles.badges}>{certificationBadges.filter((badge) => badge.image).map((badge) => <figure key={badge.label}><Image src={badge.image!.src} alt={badge.label} width={badge.image!.width} height={badge.image!.height} sizes="(max-width: 760px) 40vw, 220px" /><figcaption>{badge.label.startsWith("2026年度") ? <>2026年度 財界<br /><span style={{ whiteSpace: "nowrap" }}>BEST AI 100</span></> : badge.label}</figcaption></figure>)}</div></aside>
         </section>
 
