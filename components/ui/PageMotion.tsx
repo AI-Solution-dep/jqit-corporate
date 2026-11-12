@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
+import { FlowAnimationControl } from "./FlowAnimationControl";
 
 /** 下層の背景はゆっくり、写真は小さく逆方向へ。文字と写真の枠は固定する。 */
 export function PageMotion() {
@@ -23,8 +24,8 @@ export function PageMotion() {
         const progress = Math.max(-1, Math.min(1, (height / 2 - rect.top) / (height + rect.height / 2)));
         const fade = Math.max(0, Math.min(1, (height * .25 - rect.top) / (height + rect.height * .3)));
         section.style.setProperty("--depth-opacity", `${media.matches ? 1 : 1 - fade * .9}`);
-        // 面は本文の外側の余白に収めているので、横には動かさない。
-        section.style.setProperty("--depth-x", `${media.matches || section.dataset.depthPattern === "plane" ? 0 : progress * 24}px`);
+        // 本文の外縁に置いた流線だけを緩やかに動かす。
+        section.style.setProperty("--depth-x", `${media.matches ? 0 : progress * 24}px`);
         section.style.setProperty("--depth-y", `${media.matches ? 0 : progress * 100}px`);
       });
       photos.forEach((photo, index) => {
@@ -40,9 +41,9 @@ export function PageMotion() {
       const authored = Array.from(main.querySelectorAll<HTMLElement>(":scope > section[data-depth-scene]"));
       const first = main.querySelector<HTMLElement>(":scope > section:not(.brand-page-header):not(.site-closing-cta)");
       sections = authored.length ? authored : first ? [first] : [];
-      // data-depth-scene は "route"（ルート線）か "plane"（一角だけ曲げた薄赤の面）。続くセクションは左右を入れ替える。
+      // 背景の形は流線に統一。続くセクションは左右を入れ替える。
       sections.forEach((section, index) => {
-        section.dataset.depthPattern = section.dataset.depthScene === "plane" ? "plane" : "route";
+        section.dataset.depthPattern = "route";
         section.dataset.depthSide = index % 2 ? "left" : "right";
       });
       photos = Array.from(main.querySelectorAll<HTMLElement>("[data-depth-photo]"));
@@ -74,5 +75,5 @@ export function PageMotion() {
     };
   }, [pathname]);
 
-  return null;
+  return <FlowAnimationControl />;
 }

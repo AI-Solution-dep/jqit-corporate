@@ -2,14 +2,14 @@
 [data-scroll-depth] > #about,[data-scroll-depth] > #business,[data-scroll-depth] > #service,[data-scroll-depth] > #tech-culture { position:relative; isolation:isolate; }
 [data-depth-plane] { transform:translate3d(var(--depth-x,0px),var(--depth-y,0px),0); transition:none; }
 .jqit-depth-window { position:absolute; inset:0; z-index:-1; overflow:clip; pointer-events:none; }
-/* 模様はルート線と一角だけ曲げた薄赤の面。情報ブロック・写真から少しずらした背面に置く。 */
+/* 薄赤の流線と、その線上を滑る丸。本文より奥へ置く。 */
 .jqit-depth-backdrop { position:absolute; pointer-events:none; }
 .jqit-depth-geometry { position:absolute; inset:0; }
 .jqit-depth-backdrop--about-route .jqit-depth-geometry,
-.jqit-depth-backdrop--business-route .jqit-depth-geometry { background:url('/brand/culture-route.svg') center / 100% 100% no-repeat; }
+.jqit-depth-backdrop--business-route .jqit-depth-geometry { background:url('/brand/flow-route.svg') center / 100% 100% no-repeat; }
 .jqit-depth-backdrop--business-route .jqit-depth-geometry { scale:-1 1; }
-.jqit-depth-backdrop--business-plane .jqit-depth-geometry { background:#fcebee; border-radius:var(--curve-section) var(--curve-base) var(--curve-base) var(--curve-base); }
-.jqit-depth-backdrop--culture-route .jqit-depth-geometry { border:0; background:url('/brand/culture-route.svg') center / 100% 100% no-repeat; }
+.jqit-depth-backdrop--business-flow .jqit-depth-geometry { background:url('/brand/flow-route.svg') center / 100% 100% no-repeat; }
+.jqit-depth-backdrop--culture-route .jqit-depth-geometry { border:0; background:url('/brand/flow-route.svg') center / 100% 100% no-repeat; }
 [data-depth-plane=photo],[data-depth-plane=card],[data-depth-plane=foreground] { position:relative; z-index:1; }
 /* 番号の絶対配置を維持。写真内の余白から出ない、小さな相対移動。 */
 [data-depth-plane=foreground] { position:absolute; }
@@ -29,7 +29,7 @@
 
 @media(max-width:719px) {
   .jqit-depth-backdrop--culture-route { opacity:0.5; }
-  /* スマホは本文が写真の真下に来るため、事業の線と面は本文に掛かる。置かない。 */
+  /* スマホは本文が写真の真下に来るため、事業の流線は本文に掛かる。置かない。 */
   .jqit-depth-backdrop--business-route,
-  .jqit-depth-backdrop--business-plane { display:none; }
+  .jqit-depth-backdrop--business-flow { display:none; }
 }

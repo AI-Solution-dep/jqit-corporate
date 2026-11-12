@@ -2,6 +2,7 @@ import "./home-design.css";
 import { AboutSection } from "@/components/home/AboutSection";
 import { BusinessSection } from "@/components/home/BusinessSection";
 import { Hero } from "@/components/home/Hero";
+import { HomeFlowTransition } from "@/components/home/HomeFlowTransition";
 import { NewsSection } from "@/components/home/NewsSection";
 import { PartnerSection } from "@/components/home/PartnerSection";
 import { PurposeBand } from "@/components/home/PurposeBand";
@@ -12,6 +13,7 @@ export function HomeDesign() {
   return (
     <>
       <Hero />
+      <HomeFlowTransition />
       <NewsSection />
       <AboutSection />
       <BusinessSection />

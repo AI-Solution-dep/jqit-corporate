@@ -444,7 +444,7 @@ export default function ItSolutionsPage() {
       </section>
 
       {/* STRENGTHS — ダークバンド */}
-      <section data-depth-scene="plane" className="brand-warm-band relative overflow-hidden py-20 min-[720px]:py-[96px]">
+      <section data-depth-scene="route" className="brand-warm-band relative overflow-hidden py-20 min-[720px]:py-[96px]">
         <div className="pointer-events-none absolute -bottom-2 right-0 min-[720px]:-bottom-4">
           <DisplayText tone="white">STRENGTH</DisplayText>
         </div>

@@ -1,6 +1,6 @@
 /* JQIT共通：白・薄い赤・紙色と、一角だけの大きな曲線を使う。
    曲線ルール（docs/design/site-design.md「曲線ルール」）:
-   形は「一角だけ大きく曲げる」の1種類。残りの角は --curve-base。波・正円・四角の装飾は使わない。
+   枠・帯・写真は「一角だけ大きく曲げる」。残りの角は --curve-base。背景は薄赤の流線、TOPの接続はスクロール連動の波線を使う。
    大きさは 帯=--curve-section / 写真=--curve-media / カード=--curve-card の3段階。
    向きは 帯=右下（次の帯へ渡す角）、写真・カード=右上。左右反転レイアウトだけ左上。 */
 :root {
@@ -51,29 +51,19 @@
 }
 @media(prefers-reduced-motion:reduce) { .brand-page-header .brand-header-copy { animation:none; } .brand-header-photo { animation:none; } }
 
-/* 下層は、内容の手前に装飾を置かず、セクションの外縁に角の丸い線（ルート）を1本だけ置く。 */
+/* 下層は、セクションの外縁に薄赤の流線を1本だけ置く。線上の丸もSVG内で制御する。 */
 #main section[data-depth-pattern] { position:relative; isolation:isolate; overflow:clip; }
 #main section[data-depth-pattern]::before {
   content:""; position:absolute; z-index:-1; pointer-events:none;
   width:clamp(480px,54vw,820px); aspect-ratio:560 / 460;
   top:clamp(80px,12vh,160px); right:clamp(-420px,-22vw,-200px);
-  background:url('/brand/culture-route.svg') center / 100% 100% no-repeat;
+  background:url('/brand/flow-route.svg') center / 100% 100% no-repeat;
   transform:translate3d(var(--depth-x,0px),var(--depth-y,0px),0);
   opacity:var(--depth-opacity,1);
 }
 /* 同じページで続くときは左右を入れ替え、同じ位置に並べない。
    scale:-1 1 は transform より後に効くため、左側の線は横の動きも反転する（画面の外へ向かって動く。意図どおり）。 */
 #main section[data-depth-side="left"]::before { right:auto; left:clamp(-420px,-22vw,-200px); scale:-1 1; top:auto; bottom:9%; }
-/* 暖色帯は線では弱いので、一角だけ曲げた薄赤の面を画面端から差し込む。
-   面は本文の下に敷かない：画面に見える幅を本文コンテナ（1160px＋左右24px）の外側の余白に収める。
-   画面の内側に見える角だけを曲げる（左から差し込むなら右上、右からなら左上）。 */
-#main section[data-depth-pattern="plane"]::before {
-  --plane-size:520px; --plane-visible:max(40px, calc((100vw - 1208px) / 2));
-  width:var(--plane-size); aspect-ratio:1; background:#fbe4e9; scale:none;
-  border-radius:var(--curve-base) var(--curve-section) var(--curve-base) var(--curve-base);
-}
-#main section[data-depth-pattern="plane"][data-depth-side="left"]::before { left:calc(var(--plane-visible) - var(--plane-size)); }
-#main section[data-depth-pattern="plane"][data-depth-side="right"]::before { right:calc(var(--plane-visible) - var(--plane-size)); border-radius:var(--curve-section) var(--curve-base) var(--curve-base) var(--curve-base); }
 /* 写真と枠が同時に泳がないよう、枠と文章は文書の位置に固定。 */
 .brand-photo-depth { overflow:hidden; }
 .brand-photo-depth > img { transform:translate3d(0,var(--photo-y,0px),0) scale(1.09); }
@@ -107,10 +97,8 @@
 .delivery-step-number { font-size:13px; line-height:2.5; color:var(--color-brand); }
 .delivery-timeline li:last-child .delivery-step { padding-bottom:0; }
 @media(max-width:719px) {
-  #main section[data-depth-pattern]::before { width:460px; right:-340px; opacity:calc(var(--depth-opacity,1) * .6); }
-  #main section[data-depth-side="left"]::before { right:auto; left:-340px; }
-  /* スマホは余白が24pxしかなく、面が本文に掛かるため出さない。 */
-  #main section[data-depth-pattern="plane"]::before { display:none; }
+  #main section[data-depth-pattern]::before { width:460px; right:-230px; opacity:calc(var(--depth-opacity,1) * .6); }
+  #main section[data-depth-side="left"]::before { right:auto; left:-230px; }
   .vision-philosophy-row { grid-template-columns:1fr; gap:12px; padding:28px 0; }
   .vision-values-layout { grid-template-columns:1fr; gap:56px; }
   .vision-values-intro { position:static; }
@@ -218,3 +206,23 @@ html[data-page-entering] .brand-header-photo { animation-delay:640ms; }
 @keyframes scene-rise { from { transform:translateY(56px) scale(.92) rotate(-1.5deg); opacity:.4; } to { transform:none; opacity:1; } }
 @keyframes scene-fill { from { opacity:.3; } to { opacity:1; } }
 @media(prefers-reduced-motion:reduce) { .page-curtain { display:none; } }
+
+/* 線上の自動モーションだけを非表示にできる。スクロールの操作は妨げない。 */
+html[data-flow-paused="true"] #main section[data-depth-pattern]::before,
+html[data-flow-paused="true"] .jqit-depth-geometry {
+  background-image:url('/brand/flow-route-static.svg');
+}
+.flow-animation-control {
+  position:fixed; left:16px; bottom:64px; z-index:40;
+  display:inline-flex; align-items:center; gap:8px;
+  padding:9px 12px; border:1px solid #eadfe1; border-radius:2px;
+  background:rgb(255 255 255 / 94%); color:var(--color-muted);
+  font-size:11px; line-height:1.4; cursor:pointer;
+}
+.flow-animation-control:hover { color:var(--color-brand); border-color:var(--color-brand); }
+/* TOPの最初の画面に操作部を増やさない。スクロールを始めたら表示する。 */
+html[data-flow-controls="hidden"] .flow-animation-control { visibility:hidden; }
+@media(prefers-reduced-motion:reduce) {
+  .flow-animation-control { display:none; }
+  #main section[data-depth-pattern]::before,.jqit-depth-geometry { background-image:url('/brand/flow-route-static.svg'); }
+}

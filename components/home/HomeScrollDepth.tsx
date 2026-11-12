@@ -5,12 +5,12 @@ import "./home-scroll-depth.css";
 
 type Plane = { element: HTMLElement; anchor: HTMLElement; rate: number; limit: number; xRate: number; imageFrame?: HTMLElement };
 
-// 模様は曲線ルール内の2種類だけ：角の丸い線（ルート）と、一角だけ曲げた薄赤の面。
+// 背景は薄赤の流線。線上の丸は共通SVG内の経路アニメーションで動く。
 const backgroundLayers: Record<string, readonly { shape: string; rate: number; xRate: number }[]> = {
   about: [{ shape: "about-route", rate: 0.10, xRate: 0 }],
   business: [
     { shape: "business-route", rate: 0.12, xRate: -0.05 },
-    { shape: "business-plane", rate: -0.08, xRate: 0.04 },
+    { shape: "business-flow", rate: -0.08, xRate: 0.04 },
   ],
   service: [],
   "tech-culture": [{ shape: "culture-route", rate: 0.08, xRate: 0.04 }],
@@ -65,7 +65,7 @@ export function HomeScrollDepth({ enabled }: { enabled: boolean }) {
           backgroundWindow.appendChild(background);
           const targetSelector = shape === "about-route" ? ".grid.border"
             : shape === "business-route" ? ".space-y-16 > .reveal:first-child > div:first-child"
-            : shape === "business-plane" ? ".space-y-16 > .reveal:nth-child(2) > div:first-child"
+            : shape === "business-flow" ? ".space-y-16 > .reveal:nth-child(2) > div:first-child"
             : ".grid";
           const target = section.querySelector<HTMLElement>(targetSelector);
           if (target) placements.push({ element: background, section, target, shape });
@@ -112,14 +112,14 @@ export function HomeScrollDepth({ enabled }: { enabled: boolean }) {
           const width = box.width * 0.95;
           return { element, left: targetX - box.width * (mobile ? 0.6 : 0.5), top: targetY + box.height * 0.15, width, height: width * 460 / 560 };
         }
-        if (shape === "business-plane") {
-          // 02の写真の背面に、写真と同じ左上の曲線を持つ薄赤の面。
+        if (shape === "business-flow") {
+          // 02の写真の背面へ薄赤の流線を通す。
           const size = box.width * 1.2;
-          return { element, left: targetX - (mobile ? 24 : 56), top: targetY + (mobile ? 28 : 40), width: size, height: size * 0.92 };
+          return { element, left: targetX - (mobile ? 24 : 56), top: targetY + (mobile ? 28 : 40), width: size, height: size * 460 / 560 };
         }
         // カルチャーカードの角に線が触れないよう、カード列の右上の外側へ逃がす。
         const width = mobile ? 560 : 700;
-        return { element, left: targetX + box.width - (mobile ? 90 : 120), top: targetY - (mobile ? 220 : 320), width, height: width * 460 / 560 };
+        return { element, left: targetX + box.width - (mobile ? 220 : 120), top: targetY - (mobile ? 220 : 320), width, height: width * 460 / 560 };
       });
       layouts.forEach(({ element, left, top, width, height }) => {
         element.style.left = `${left}px`;

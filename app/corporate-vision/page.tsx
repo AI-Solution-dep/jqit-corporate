@@ -133,7 +133,7 @@ export default function CorporateVisionPage() {
       </section>
 
       {/* 6つの行動指針 */}
-      <section data-depth-scene="plane" className="border-t border-line bg-cream py-20 min-[720px]:py-[88px]">
+      <section data-depth-scene="route" className="border-t border-line bg-cream py-20 min-[720px]:py-[88px]">
         <Container className="vision-values-layout">
           <div className="vision-values-intro">
             <SectionHead
