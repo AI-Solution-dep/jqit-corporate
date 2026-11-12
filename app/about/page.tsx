@@ -29,7 +29,6 @@ export const metadata = createPageMetadata({
 const profile = [
   { k: "会社名", v: `${siteConfig.name}（${siteConfig.nameEn}）` },
   { k: "設立", v: "2024年12月6日" },
-  { k: "代表者", v: `代表取締役社長　${siteConfig.ceo}` },
   { k: "役員構成", v: [`代表取締役社長　${siteConfig.ceo}`, ...siteConfig.directors.map(({ role, name }) => `${role}　${name}`)].join("\n") },
   { k: "資本金", v: siteConfig.capital },
   { k: "所在地", v: siteConfig.address },
