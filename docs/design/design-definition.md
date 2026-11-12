@@ -231,3 +231,17 @@ CSS `animation-timeline:view()` 対応＋通常モーションの場合のみ。
 - **停止操作**: `FlowAnimationControl`の「丸の動きを止める」で `html[data-flow-paused=true]` を設定、丸のない静止SVGへ切り替える。「再開」で戻す。TOPはscrollY80px未満で操作部を隠す。reduced-motionでも静止SVGに切り替え、停止ボタンは出さない。
 
 実装: `components/home/HomeFlowTransition.tsx` / `home-flow-transition.css`、`components/ui/FlowAnimationControl.tsx`、共通背景は上表のHomeScrollDepth/PageMotion/CSS。
+
+## 14. 紹介ページのスクロール章ナビ（モック）
+
+`/introduction`は既存の限定紹介ページを使ったモック。内容・写真・担当者リンクは維持し、白/薄赤/紙色、一角の曲線、流線の背景を共通化する。URL案内・QRからの閲覧を想定し、noindex/nofollow・ナビ/サイトマップへの非掲載を維持する。
+
+- 章: 開発実績 / 開発体制 / 進め方 / 担当者・連絡先。装飾的なStepではなく、文書の実見出しを使う。
+- PC（1100px以上）: 左208pxのstickyナビ（top108px）。現在章名・短い説明・4章リンク・進捗を表示する。右に本文、間32px、全幅最大1440px。
+- 1099px以下: 独自ヘッダー直下のcompactナビ。現在章名と4つの短いタブに切り替え、本文を横へ圧迫しない。
+- 判定線は画面高35%（最低160px）。その線を上端が通過した最後の章を現在章とし、逆スクロールでも更新する。該当リンクにaria-current=location。
+- 進捗は `(現在章index + 章内進行度)/4`。クリックは通常のアンカーで、JS無効でも目次・本文を使える。章名の切替はopacity.4→1/Y6px→0・300ms。
+- 流線の背景は上下最大40px・距離係数.06で移動し、通過時に減衰。共通の停止操作で静止SVGへ切り替える。reduced-motionでは登場移動/背景移動を停止する。
+- 黒いチーム帯を紙色へ変更、写真は一角R、実績の大小と余白を変える。参考サイトの大きな丸・アイコン・Stepラベルの外形を複製しない。
+
+実装: `app/introduction/page.tsx` / `ChapterNav.tsx` / `introduction.module.css`。詳細は同ディレクトリの `DESIGN.md`。
