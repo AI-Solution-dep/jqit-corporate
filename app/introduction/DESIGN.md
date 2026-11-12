@@ -9,3 +9,5 @@
 - 数値定義はdocs/design/design-definition.mdの15節を参照。TOPの確定登場と主写真は変更しない。
 
 実装: page.tsx / ChapterNav.tsx / introduction.module.css、components/ui/SectionHandoff.tsx / section-handoff.css。
+
+体制図はTeamDiagramで企業の線画・相談/報告の往復・3担当者への分岐と4専門領域を図示。PCは横、600px以下は縦。連絡先データとアンカーを維持し、写真を架空生成しない。

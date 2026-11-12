@@ -1,0 +1,59 @@
+.diagram { margin-top:48px; padding-top:36px; border-top:1px solid #ddd8cf; }
+.map { display:grid; grid-template-columns:minmax(180px,.8fr) 90px minmax(0,1.5fr); align-items:center; column-gap:32px; }
+.customer { display:flex; flex-direction:column; align-items:center; text-align:center; }
+.customerDrawing { width:190px; height:auto; color:#4e4745; }
+.customer h3 { font-size:26px; font-weight:700; letter-spacing:-.02em; margin-top:12px; }
+.customer p { font-size:13px; line-height:1.8; color:var(--color-muted); margin-top:8px; }
+.exchange { display:flex; flex-direction:column; align-items:center; gap:10px; }
+.exchange span { font-size:12px; white-space:nowrap; color:var(--color-muted); }
+.exchange svg { width:90px; color:var(--color-brand); }
+.jqit { min-width:0; }
+.teamLabel { font-size:14px; font-weight:700; color:var(--color-brand); margin-bottom:10px; }
+.people { position:relative; padding-left:20px; }
+.people::before { content:''; position:absolute; top:44px; bottom:44px; left:0; width:1px; background:#d8b6bd; }
+.people a { position:relative; display:grid; grid-template-columns:48px minmax(0,1fr); gap:4px 16px; padding:18px 20px 18px 0; border-bottom:1px solid #ded4d0; }
+.people a::before { content:''; position:absolute; top:45px; left:-20px; width:20px; height:1px; background:#d8b6bd; }
+.roleDrawing { grid-column:1; grid-row:1 / 4; width:44px; height:44px; align-self:center; color:#4e4745; }
+.role { grid-column:2; color:var(--color-muted); font-size:12px; line-height:1.6; }
+.people strong { grid-column:2; font-size:24px; font-weight:700; line-height:1.4; }
+.people small { grid-column:2; color:var(--color-muted); font-size:12px; line-height:1.7; }
+.arrow { position:absolute; right:0; top:23px; color:var(--color-brand); font-size:17px; }
+.people a:hover strong { color:var(--color-brand); }
+.people a:focus-visible { outline:2px solid var(--color-brand); outline-offset:4px; }
+.expertBridge { display:flex; align-items:center; justify-content:center; gap:16px; padding:20px 0; }
+.expertBridge > span { font-size:25px; color:var(--color-brand); letter-spacing:4px; white-space:nowrap; }
+.expertBridge p { font-size:12px; line-height:1.7; color:var(--color-muted); }
+.mobileBreak { display:none; }
+.fields { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px; border-top:1px solid #d8b6bd; padding-top:22px; }
+.fields > div { display:flex; flex-direction:column; align-items:center; gap:10px; font-size:14px; font-weight:700; }
+.fields svg { width:30px; height:30px; color:var(--color-brand); }
+.diagram figcaption { font-size:13px; line-height:1.9; color:var(--color-muted); text-align:center; margin-top:28px; }
+@media(max-width:900px) {
+ .map { grid-template-columns:minmax(150px,.7fr) 66px minmax(0,1.4fr); gap:20px; }
+ .customerDrawing { width:160px; } .customer h3 { font-size:24px; }
+ .exchange svg { width:66px; }
+ .people a { column-gap:12px; } .people strong { font-size:22px; }
+ .fields { gap:8px; } .fields > div { font-size:12px; }
+}
+@media(max-width:600px) {
+ .diagram { margin-top:32px; padding-top:28px; }
+ .map { grid-template-columns:1fr; gap:0; }
+ .customer { flex-direction:row; justify-content:center; gap:16px; text-align:left; }
+ .customerDrawing { width:116px; }
+ .customer h3 { margin-top:0; font-size:25px; }
+ .customer p { font-size:12px; margin-top:6px; }
+ .exchange { flex-direction:row; justify-content:center; min-height:90px; gap:10px; }
+ .exchange span:first-child { order:3; }
+ .exchange span:last-child { order:1; }
+ .exchange svg { order:2; width:74px; height:46px; rotate:90deg; margin-inline:-8px; }
+ .teamLabel { margin-bottom:4px; }
+ .people { padding-left:16px; }
+ .people a { grid-template-columns:42px minmax(0,1fr); gap:4px 12px; padding-block:16px; }
+ .people a::before { left:-16px; width:16px; }
+ .roleDrawing { width:38px; height:38px; }
+ .people strong { font-size:23px; }
+ .expertBridge { padding-block:22px; gap:12px; }
+ .mobileBreak { display:block; }
+ .fields > div { font-size:13px; }
+ .diagram figcaption { font-size:12px; text-align:left; margin-top:24px; }
+}
