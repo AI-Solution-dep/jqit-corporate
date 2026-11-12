@@ -11,3 +11,5 @@
 実装: page.tsx / ChapterNav.tsx / introduction.module.css、components/ui/SectionHandoff.tsx / section-handoff.css。
 
 体制図はTeamDiagramで企業の線画・相談/報告の往復・3担当者への分岐と4専門領域を図示。PCは横、600px以下は縦。連絡先データとアンカーを維持し、写真を架空生成しない。
+
+顧客事例はProjectCasesが公開worksの2件を参照し、課題/担当開発/納品利用状況と詳細・相談リンクを常時表示。自社製品NOVAは後段へ分ける。期間・体制はデータがあるときだけ表示し、サンプル・欠落データは事例として出さない。CMSへの書込みは行わない。
