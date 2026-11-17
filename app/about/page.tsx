@@ -7,6 +7,7 @@ import { Container } from "@/components/ui/Container";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { Kicker } from "@/components/ui/Kicker";
 import { SectionHead } from "@/components/ui/SectionHead";
+import { TypeText } from "@/components/ui/TypeText";
 import { createBreadcrumbJsonLd, createPageMetadata } from "@/lib/seo";
 import { siteConfig } from "@/lib/site-config";
 
@@ -128,14 +129,25 @@ export default function AboutPage() {
         <Container>
           <FadeIn className="mx-auto max-w-[820px] py-16 min-[720px]:py-[84px]">
             <Kicker className="mb-5">Message</Kicker>
-            <h2 className="palt text-[28px] font-bold leading-[1.5] tracking-[-0.02em] text-ink min-[720px]:text-[36px]">
-              挑戦と革新で、顧客の<span className="text-brand">未来</span>
-              を切り拓く。
-            </h2>
+            {/* 見出し → 本文の順に、1文字ずつ打たれるように現れる（components/ui/TypeText.tsx） */}
+            <TypeText
+              as="h2"
+              className="palt text-[28px] font-bold leading-[1.5] tracking-[-0.02em] text-ink min-[720px]:text-[36px]"
+              segments={[
+                { text: "挑戦と革新で、顧客の" },
+                { text: "未来", className: "text-brand" },
+                { text: "を切り拓く。" },
+              ]}
+              interval={70}
+              delay={300}
+            />
             <div className="mt-9 border-l-2 border-brand pl-6 min-[720px]:pl-8">
-              <p className="text-[17px] leading-[2.1] text-body min-[720px]:text-[19px] min-[720px]:leading-[1.95]">
-                私たちJQITは、技術の力でお客様の“本質的な課題”を解決するITのプロフェッショナル集団です。表面的な要望に応えるだけでなく、その先にある課題の本質を捉え、解決まで伴走する。システム開発からAI活用まで、変化を恐れず挑戦と革新を続けることで、お客様と社会の未来を切り拓いてまいります。
-              </p>
+              <TypeText
+                className="text-[17px] leading-[2.1] text-body min-[720px]:text-[19px] min-[720px]:leading-[1.95]"
+                segments={[{ text: "私たちJQITは、技術の力でお客様の“本質的な課題”を解決するITのプロフェッショナル集団です。表面的な要望に応えるだけでなく、その先にある課題の本質を捉え、解決まで伴走する。システム開発からAI活用まで、変化を恐れず挑戦と革新を続けることで、お客様と社会の未来を切り拓いてまいります。" }]}
+                interval={26}
+                delay={1600}
+              />
             </div>
             <div className="mt-10 flex items-center gap-6">
               <Image

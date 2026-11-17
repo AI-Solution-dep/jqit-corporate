@@ -170,14 +170,25 @@ section[id] {
 .brand-line-row::before,
 .ethos-card::before,
 .ethos-value::before {
+  /* ホバーの線：左の縦線が伸び → 上下の線が右へ走り → 右の縦線が閉じて、四辺を囲う枠になる（0.36秒）。
+     4本の線は背景の4層で描き、層ごとの長さ（background-size）を keyframes で順に伸ばす。 */
   content: "";
   position: absolute;
-  inset: 0 auto 0 0;
-  width: 2px;
-  background: var(--color-brand);
-  transform: scaleY(0);
-  transform-origin: 50% 0;
-  transition: transform 0.32s cubic-bezier(0.16, 0.84, 0.44, 1);
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  --frame-w: 2px;
+  background:
+    linear-gradient(var(--color-brand), var(--color-brand)) left top / var(--frame-w) 0 no-repeat,
+    linear-gradient(var(--color-brand), var(--color-brand)) left top / 0 var(--frame-w) no-repeat,
+    linear-gradient(var(--color-brand), var(--color-brand)) left bottom / 0 var(--frame-w) no-repeat,
+    linear-gradient(var(--color-brand), var(--color-brand)) right top / var(--frame-w) 0 no-repeat;
+}
+@keyframes line-frame {
+  0% { background-size: var(--frame-w) 0, 0 var(--frame-w), 0 var(--frame-w), var(--frame-w) 0; }
+  30% { background-size: var(--frame-w) 100%, 0 var(--frame-w), 0 var(--frame-w), var(--frame-w) 0; }
+  78% { background-size: var(--frame-w) 100%, 100% var(--frame-w), 100% var(--frame-w), var(--frame-w) 0; }
+  100% { background-size: var(--frame-w) 100%, 100% var(--frame-w), 100% var(--frame-w), var(--frame-w) 100%; }
 }
 
 /* 行の左端に赤い縦線を出す（番号の列は2026-11-18に廃止。並列の項目に番号を振らない）。
@@ -210,7 +221,7 @@ section[id] {
   .brand-line-row:hover::before,
   .ethos-card:hover::before,
   .ethos-value:hover::before {
-    transform: scaleY(1);
+    animation: line-frame 0.36s cubic-bezier(0.4, 0, 0.2, 1) forwards;
   }
 
   .brand-line-card:hover .brand-line-label,
@@ -428,6 +439,15 @@ section[id] {
   .ethos-value:hover .ethos-value-label {
     transform: none;
   }
+
+  /* 動きを減らす設定では、伸ばさずに最初から枠を出す */
+  .brand-line-card:hover::before,
+  .brand-line-row:hover::before,
+  .ethos-card:hover::before,
+  .ethos-value:hover::before {
+    animation: none;
+    background-size: var(--frame-w) 100%, 100% var(--frame-w), 100% var(--frame-w), var(--frame-w) 100%;
+  }
 }
 
 /* ===== 子ページの背景の図形（components/layout/PageBackdrop.tsx・lib/page-backdrops.ts） =====
@@ -492,7 +512,17 @@ html:has(.page-curtain) { scroll-behavior: auto; }
   @media (prefers-reduced-motion: no-preference) {
     /* ビジョン：企業理念の一文が左から現れ（画面に入りきった時点で完了）、Purpose・Mission・Vision は中央に来たものから濃くなる */
     .vision-statement { animation: scene-mask linear both; animation-timeline: view(); animation-range: entry 0% entry 100%; }
-    .vision-philosophy h3 { animation: scene-ink linear both; animation-timeline: view(); animation-range: cover 25% cover 48%; }
+    /* 企業理念の円の線が描かれ、3つの円が順に現れる */
+    .philo-orbit { view-timeline-name: --philo; }
+    .philo-orbit-ring circle { animation: scene-draw linear both; animation-timeline: --philo; animation-range: entry 0% entry 90%; }
+    .philo-node { animation: scene-pop linear both; animation-timeline: --philo; animation-range: entry 20% entry 70%; }
+    .philo-node:nth-child(2) { animation-range: entry 35% entry 85%; }
+    .philo-node:nth-child(3) { animation-range: entry 50% entry 100%; }
+    /* DX指標：円をつなぐ線が左から伸び、円が順に現れる */
+    .kpi-chain::before { animation: scene-bar-x linear both; animation-timeline: view(); animation-range: entry 40% cover 40%; }
+    .kpi-item .kpi-circle { animation: scene-pop linear both; animation-timeline: view(); animation-range: entry 30% cover 30%; }
+    .kpi-item:nth-child(2) .kpi-circle { animation-range: entry 50% cover 36%; }
+    .kpi-item:nth-child(3) .kpi-circle { animation-range: entry 70% cover 42%; }
     /* IT：開発の流れの縦線が読み進めるにつれ上から赤く伸び、工程の点が画面の中ほどに来たものから赤くなる */
     .delivery-timeline::after { content: ""; position: absolute; left: -2px; top: 0; bottom: 0; width: 2px; background: var(--color-brand); transform-origin: top; animation: scene-bar-y linear both; animation-timeline: view(); animation-range: entry 60% cover 70%; }
     .delivery-step::before { animation: scene-dot linear both; animation-timeline: view(); animation-range: entry 100% cover 40%; }
@@ -502,7 +532,9 @@ html:has(.page-curtain) { scroll-behavior: auto; }
   }
 }
 @keyframes scene-mask { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
-@keyframes scene-ink { from { color: #c9c4c6; } to { color: var(--color-ink); } }
+@keyframes scene-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+@keyframes scene-pop { from { scale: .6; opacity: 0; } to { scale: 1; opacity: 1; } }
+@keyframes scene-bar-x { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 @keyframes scene-bar-y { from { transform: scaleY(0); } to { transform: scaleY(1); } }
 @keyframes scene-dot { from { background: #d9d5d6; scale: .7; } to { background: var(--color-brand); scale: 1; } }
 @keyframes scene-rise { from { transform: translateY(56px) scale(.92) rotate(-1.5deg); opacity: .4; } to { transform: none; opacity: 1; } }
@@ -522,20 +554,6 @@ html:has(.page-curtain) { scroll-behavior: auto; }
 
 /* ===== 子ページの箱の組み替え（箱を並べず、罫線・行・文章のまとまりで見せる） =====
    曲線は使わない（写真と見出し帯だけの決まり）。並列の項目に番号は振らない。 */
-/* ビジョン：企業理念は「Purpose / Mission / Vision」を左に置いた定義の行 */
-.vision-philosophy { max-width: 1000px; }
-.vision-philosophy-row { display: grid; grid-template-columns: 160px 1fr; align-items: baseline; gap: 32px; padding: 28px 0; border-top: 1px solid var(--color-line); }
-.vision-philosophy-row:last-child { border-bottom: 1px solid var(--color-line); }
-/* ビジョン：行動指針は、導入を左に残し（sticky）、右に6つの文章を段をずらして並べる */
-.vision-values-layout { display: grid; grid-template-columns: minmax(240px, .8fr) minmax(0, 1.2fr); gap: clamp(56px, 8vw, 120px); }
-.vision-values-intro { align-self: start; position: sticky; top: 120px; }
-.vision-value { max-width: 560px; padding-bottom: 44px; margin-bottom: 44px; border-bottom: 1px solid var(--color-line); }
-.vision-value:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: 0; }
-.vision-value:nth-child(even) { margin-left: clamp(16px, 3vw, 48px); }
-/* ビジョン：DX指標は、左に指標名・右に「施策 → 目標」の定義リスト */
-.vision-kpi { display: grid; grid-template-columns: .8fr 1.5fr; gap: 56px; }
-.vision-kpi-row { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; padding: 18px 0; border-bottom: 1px solid var(--color-line); }
-.vision-kpi-row:first-child { padding-top: 0; }
 /* ビジョン：推進体制は文章のまとまり。2つ目以降を右へずらす */
 .vision-structure { max-width: 900px; margin-left: auto; }
 .vision-structure-item { padding-block: 32px 40px; }
@@ -569,13 +587,6 @@ html:has(.page-curtain) { scroll-behavior: auto; }
 .official-source-list li { border-bottom: 1px solid var(--color-line); }
 .official-source-list a { display: flex; justify-content: space-between; align-items: baseline; gap: 24px; padding: 20px 0; }
 @media (max-width: 719px) {
-  .vision-philosophy-row { grid-template-columns: 1fr; gap: 8px; padding: 22px 0; }
-  .vision-values-layout { grid-template-columns: 1fr; gap: 40px; }
-  .vision-values-intro { position: static; }
-  .vision-value { padding-bottom: 32px; margin-bottom: 32px; }
-  .vision-value:nth-child(even) { margin-left: 16px; }
-  .vision-kpi { grid-template-columns: 1fr; gap: 20px; }
-  .vision-kpi-row { grid-template-columns: 1fr; gap: 4px; }
   .vision-structure-item + .vision-structure-item { margin-left: 0; }
   .delivery-step { grid-template-columns: 40px minmax(0, 1fr); gap: 6px 12px; padding-left: 22px; padding-bottom: 36px; }
   .delivery-step p { grid-column: 2; }
@@ -583,4 +594,72 @@ html:has(.page-curtain) { scroll-behavior: auto; }
   .column-editorial-entry > span:first-child { flex-direction: row; margin-bottom: 12px; }
   .official-source-list a { display: block; }
   .official-source-list a > span { display: block; }
+}
+
+/* ===== ビジョン：円と円の線でつないだ図（文字の多さを減らす） ===== */
+/* 企業理念：左に理念の一文、右に Purpose・Mission・Vision の3つの円を1つの円の線の上に置く */
+.philo-layout { display: grid; gap: 48px; align-items: center; }
+@media (min-width: 1024px) { .philo-layout { grid-template-columns: 1fr 1fr; gap: 64px; } }
+.philo-orbit { position: relative; width: 100%; max-width: 520px; aspect-ratio: 1; margin-inline: auto; }
+.philo-orbit-ring { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+/* pathLength と破線で線を描くので、vector-effect: non-scaling-stroke は使わない（破線の長さが画面の単位になり崩れる）。太さは viewBox の単位 */
+.philo-orbit-ring circle { fill: none; stroke: #e5c9cf; stroke-width: .32; stroke-dasharray: 1; stroke-dashoffset: 0; }
+.philo-orbit-core { position: absolute; left: 50%; top: 54%; width: 22%; aspect-ratio: 1; translate: -50% -50%; display: grid; place-items: center; border-radius: 50%; background: var(--color-brand); color: #fff; font-weight: 700; font-size: clamp(12px, 1.5vw, 17px); line-height: 1.4; text-align: center; }
+.philo-node, .value-orbit-node, .kpi-item dt { word-break: keep-all; overflow-wrap: anywhere; }
+.philo-node { position: absolute; width: 36%; aspect-ratio: 1; translate: -50% -50%; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 4%; border: 1.5px solid #e2d6d9; border-radius: 50%; background: #fff; text-align: center; }
+.philo-node:nth-child(1) { left: 50%; top: 20%; }
+.philo-node:nth-child(2) { left: 79.4%; top: 71%; }
+.philo-node:nth-child(3) { left: 20.6%; top: 71%; }
+
+/* 行動指針：6つの円を円の線でつなぎ、選んだ円まで線が赤く伸びる（components/vision/ValueOrbit.tsx） */
+.value-orbit { position: relative; max-width: 640px; margin-inline: auto; }
+.value-orbit-figure { position: relative; width: 100%; aspect-ratio: 1; }
+.value-orbit-ring { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.value-orbit-ring circle { fill: none; }
+.value-orbit-ring-base { stroke: #e6dcdf; stroke-width: .3; }
+.value-orbit-ring-progress { stroke: var(--color-brand); stroke-width: .55; transition: stroke-dasharray .6s cubic-bezier(.16, .84, .44, 1); }
+.value-orbit-core { position: absolute; left: 50%; top: 50%; translate: -50% -50%; font-family: var(--font-mono); font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--color-muted); }
+.value-orbit-node {
+  position: absolute; width: 22%; aspect-ratio: 1; translate: -50% -50%; display: grid; place-items: center; padding: 6px;
+  border: 1.5px solid #e2d6d9; border-radius: 50%; background: #fff; color: var(--color-ink);
+  font-size: clamp(10.5px, 1.45vw, 14px); font-weight: 700; line-height: 1.45; text-align: center; cursor: pointer;
+  transition: background-color .3s, color .3s, border-color .3s, scale .3s cubic-bezier(.16, .84, .44, 1);
+}
+.value-orbit-node[data-state="passed"] { border-color: var(--color-brand); }
+.value-orbit-node[data-state="active"] { background: var(--color-brand); border-color: var(--color-brand); color: #fff; scale: 1.1; }
+.value-orbit-node:focus-visible { outline: 2px solid var(--color-brand); outline-offset: 3px; }
+@media (hover: hover) { .value-orbit-node:not([data-state="active"]):hover { border-color: var(--color-brand); color: var(--color-brand); } }
+/* 説明は6つとも重ねて置き（高さは一番長いものに揃う）、選んだものだけ見せる */
+.value-orbit-detail { display: grid; margin-top: 28px; }
+.value-orbit-text { grid-area: 1 / 1; opacity: 0; visibility: hidden; transition: opacity .35s, visibility .35s; }
+.value-orbit-text[data-active] { opacity: 1; visibility: visible; }
+@media (min-width: 720px) {
+  .value-orbit-core { display: none; }
+  .value-orbit-detail { position: absolute; left: 50%; top: 50%; width: 44%; margin: 0; translate: -50% -50%; text-align: center; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .value-orbit-ring-progress, .value-orbit-node, .value-orbit-text { transition: none; }
+}
+
+/* DX指標：目標値を大きく入れた3つの円を線でつなぐ */
+.kpi-group { display: grid; gap: 28px; align-items: center; }
+@media (min-width: 900px) { .kpi-group { grid-template-columns: 240px 1fr; gap: 48px; } }
+.kpi-chain { --kpi-size: clamp(92px, 14vw, 168px); position: relative; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(12px, 3vw, 40px); }
+.kpi-chain::before { content: ""; position: absolute; left: 16.6%; right: 16.6%; top: calc(var(--kpi-size) / 2); height: 1.5px; background: #e5c9cf; transform-origin: left; }
+.kpi-item { position: relative; display: flex; flex-direction: column-reverse; justify-content: flex-end; align-items: center; }
+.kpi-circle { width: var(--kpi-size); aspect-ratio: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 10px; border: 1.5px solid var(--color-brand); border-radius: 50%; background: #fff; text-align: center; }
+.kpi-figure { font-family: var(--font-anton); font-size: clamp(26px, 3.4vw, 44px); line-height: 1; color: var(--color-brand); white-space: nowrap; }
+.kpi-figure small { margin-left: 2px; font-family: var(--font-sans); font-size: .36em; font-weight: 700; color: var(--color-ink); }
+.kpi-when { margin-top: 8px; font-size: clamp(9.5px, .9vw, 11.5px); line-height: 1.35; color: var(--color-muted); }
+
+/* ===== 1文字ずつ打たれる文章（components/ui/TypeText.tsx） =====
+   既定は隠し、JS が動かないときは約2.5秒後に全文を出す（安全弁）。
+   画面に入るまでは隠したまま（waiting）、入ったら --type-d の順に1文字ずつ現れる（play）。 */
+.type-char { opacity: 0; animation: type-fallback 1ms 2.5s forwards; }
+.type-text[data-type="waiting"] .type-char { animation: none; }
+.type-text[data-type="play"] .type-char { animation: type-in .16s ease-out var(--type-d) forwards; }
+@keyframes type-in { from { opacity: 0; translate: 0 .18em; } to { opacity: 1; translate: 0 0; } }
+@keyframes type-fallback { to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  .type-char, .type-text[data-type] .type-char { opacity: 1; animation: none; }
 }
