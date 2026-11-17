@@ -735,25 +735,25 @@ h1, h2, .vision-statement, .brand-article-title { word-break: keep-all; overflow
 p, dd, li { text-wrap: pretty; }
 
 /* ===== 円の図の立体感（2026-11-18） =====
-   「影は使わない」の例外その2：円の図（行動指針・企業理念）だけ、紙の円が少し浮いている程度の立体感を付ける。
+   「影は使わない」の例外その2：円の図（行動指針・企業理念・DX指標）だけ、紙の円が少し浮いている程度の立体感を付ける。
    円の面は塗りのまま（明暗を付けない）にし、立体感は円の外側に落ちる影だけで出す。影は「接地の濃く小さい影」と「広く薄い影」の2層で、
    色は地に寄せた茶系（黒い影にしない）。 */
-.value-orbit-node, .philo-node {
+.value-orbit-node, .philo-node, .kpi-circle {
   background: #fff;
-  box-shadow: 0 1px 2px rgb(70 40 20 / 7%), 0 8px 18px -8px rgb(70 40 20 / 14%);
+  box-shadow: 0 2px 4px rgb(70 40 20 / 12%), 0 22px 48px -4px rgb(70 40 20 / 26%);
 }
 .value-orbit-node[data-state="passed"] { background: #fffaf6; }
 .value-orbit-node[data-state="active"] {
   background: var(--warm-strong);
-  box-shadow: 0 2px 3px rgb(140 45 10 / 16%), 0 12px 22px -10px rgb(140 45 10 / 32%);
+  box-shadow: 0 3px 6px rgb(140 45 10 / 22%), 0 26px 52px -6px rgb(140 45 10 / 42%);
 }
 .value-orbit-core {
   background: var(--color-ink);
-  box-shadow: 0 0 0 6px #fff, 0 0 0 7px var(--warm-line), 0 2px 3px 6px rgb(40 30 20 / 6%), 0 14px 26px -8px rgb(40 30 20 / 26%);
+  box-shadow: 0 0 0 6px #fff, 0 0 0 7px var(--warm-line), 0 3px 6px 6px rgb(40 30 20 / 10%), 0 28px 56px -4px rgb(40 30 20 / 34%);
 }
 .philo-orbit-core {
   background: var(--warm-strong);
-  box-shadow: 0 2px 3px rgb(140 45 10 / 16%), 0 12px 22px -10px rgb(140 45 10 / 32%);
+  box-shadow: 0 3px 6px rgb(140 45 10 / 22%), 0 26px 52px -6px rgb(140 45 10 / 42%);
 }
 @media (hover: hover) {
   .philo-node:hover { background: #fffaf6; }
