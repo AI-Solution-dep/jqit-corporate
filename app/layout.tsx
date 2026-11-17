@@ -3,7 +3,6 @@ import { Anton, Inter, JetBrains_Mono, Noto_Sans_JP } from "next/font/google";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { PublicSiteChrome } from "@/components/layout/PublicSiteChrome";
 import { SiteHeader } from "@/components/layout/SiteHeader";
-import { PublicSiteChrome } from "@/components/layout/PublicSiteChrome";
 import { GoogleAnalytics } from "@/components/seo/GoogleAnalytics";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { absoluteUrl, defaultSocialImage } from "@/lib/seo";
