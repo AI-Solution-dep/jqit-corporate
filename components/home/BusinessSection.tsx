@@ -81,7 +81,7 @@ export function BusinessSection() {
                   {b.tags.map((t) => (
                     <span
                       key={t}
-                      className="rounded-card border border-line px-2.5 py-1 text-[11px] font-semibold tracking-[0.02em] text-body"
+                      className="rounded-label border border-line px-2.5 py-1 text-[11px] font-semibold tracking-[0.02em] text-body"
                     >
                       {t}
                     </span>

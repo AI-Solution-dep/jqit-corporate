@@ -200,7 +200,7 @@ export default async function ColumnDetailPage({ params }: Props) {
             {column.tags.map((tag) => (
               <span
                 key={tag}
-                className="rounded-card border border-line px-2.5 py-[3px] text-[11px] font-semibold tracking-[0.06em] text-muted"
+                className="rounded-label border border-line px-2.5 py-[3px] text-[11px] font-semibold tracking-[0.06em] text-muted"
               >
                 {tag}
               </span>

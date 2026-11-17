@@ -101,7 +101,7 @@ export function ServiceSection() {
                       href={service.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="group inline-flex min-h-12 w-full items-center justify-center gap-3 rounded-card bg-ink px-7 py-[14px] text-sm font-bold tracking-[0.02em] text-white transition-colors hover:bg-warm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand min-[600px]:w-fit"
+                      className="group inline-flex min-h-12 w-full items-center justify-center gap-3 rounded-button bg-ink px-7 py-[14px] text-sm font-bold tracking-[0.02em] text-white transition-colors hover:bg-warm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand min-[600px]:w-fit"
                     >
                       <span>{service.cta}</span>
                       <span

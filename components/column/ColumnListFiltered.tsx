@@ -48,7 +48,7 @@ export function ColumnListFiltered({ items }: { items: Item[] }) {
                 type="button"
                 aria-pressed={selected}
                 onClick={() => setActive(t)}
-                className={`rounded-card border px-3.5 py-1.5 font-mono text-[12px] tracking-[0.06em] transition-colors ${
+                className={`rounded-button border px-3.5 py-1.5 font-mono text-[12px] tracking-[0.06em] transition-colors ${
                   selected
                     ? "border-warm-strong bg-warm-strong font-semibold text-white"
                     : "border-line text-muted hover:border-warm hover:text-warm-ink"
@@ -79,7 +79,7 @@ export function ColumnListFiltered({ items }: { items: Item[] }) {
               {c.tags.slice(0, 3).map((tag) => (
                 <span
                   key={tag}
-                  className="rounded-card border border-line px-2.5 py-[3px] text-[11px] font-semibold tracking-[0.06em] text-muted"
+                  className="rounded-label border border-line px-2.5 py-[3px] text-[11px] font-semibold tracking-[0.06em] text-muted"
                 >
                   {tag}
                 </span>

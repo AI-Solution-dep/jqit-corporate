@@ -210,7 +210,7 @@ export default async function NewsDetailPage({ params }: Props) {
                 更新 {formatNewsDate(modifiedDate)}
               </time>
             )}
-            <span className="rounded-card border border-warm px-2.5 py-[3px] text-[11px] font-semibold tracking-[0.06em] text-warm-ink">
+            <span className="rounded-label border border-warm px-2.5 py-[3px] text-[11px] font-semibold tracking-[0.06em] text-warm-ink">
               {news.category}
             </span>
           </div>
@@ -354,7 +354,7 @@ export default async function NewsDetailPage({ params }: Props) {
                     <span className="font-mono text-[13px] tracking-[0.06em] text-muted">
                       {formatNewsDate(n.date)}
                     </span>
-                    <span className="justify-self-start rounded-card border border-warm px-2.5 py-[3px] text-[11px] font-semibold tracking-[0.06em] text-warm-ink">
+                    <span className="justify-self-start rounded-label border border-warm px-2.5 py-[3px] text-[11px] font-semibold tracking-[0.06em] text-warm-ink">
                       {n.category}
                     </span>
                     <span className="col-span-3 text-[15px] leading-[1.7] text-ink min-[720px]:col-span-1">

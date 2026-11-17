@@ -174,10 +174,10 @@ export default async function WorkDetailPage({ params }: Props) {
           )}
 
           <div className="mb-5 flex flex-wrap items-center gap-2">
-            <span className="rounded-card border border-warm px-2.5 py-[3px] text-[11px] font-semibold tracking-[0.06em] text-warm-ink">
+            <span className="rounded-label border border-warm px-2.5 py-[3px] text-[11px] font-semibold tracking-[0.06em] text-warm-ink">
               {work.serviceType}
             </span>
-            <span className="rounded-card border border-line px-2.5 py-[3px] text-[11px] font-semibold tracking-[0.06em] text-muted">
+            <span className="rounded-label border border-line px-2.5 py-[3px] text-[11px] font-semibold tracking-[0.06em] text-muted">
               {work.industry}
             </span>
           </div>
@@ -246,7 +246,7 @@ export default async function WorkDetailPage({ params }: Props) {
                 {work.techStack.map((tech) => (
                   <li
                     key={tech}
-                    className="rounded-card border border-line px-3 py-[5px] font-mono text-[12px] tracking-[0.04em] text-body"
+                    className="rounded-label border border-line px-3 py-[5px] font-mono text-[12px] tracking-[0.04em] text-body"
                   >
                     {tech}
                   </li>
@@ -308,7 +308,7 @@ export default async function WorkDetailPage({ params }: Props) {
                     href={`/works/${w.id}`}
                     className="flex flex-col gap-2 border-b border-line px-1 py-[18px] transition-[background-color,box-shadow] duration-300 hover:bg-white hover:shadow-hover-lift min-[720px]:flex-row min-[720px]:items-center min-[720px]:gap-5"
                   >
-                    <span className="w-[130px] shrink-0 justify-self-start rounded-card border border-warm px-2.5 py-[3px] text-center text-[11px] font-semibold tracking-[0.06em] text-warm-ink">
+                    <span className="w-[130px] shrink-0 justify-self-start rounded-label border border-warm px-2.5 py-[3px] text-center text-[11px] font-semibold tracking-[0.06em] text-warm-ink">
                       {w.serviceType}
                     </span>
                     <span className="flex-1 text-[15px] leading-[1.7] text-ink">

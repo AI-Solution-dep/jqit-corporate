@@ -108,7 +108,7 @@ export function SiteFooter() {
             ) : (
               <span
                 key={c.label}
-                className="rounded-card border border-line px-3 py-1.5 font-mono text-[10px] tracking-[0.08em] text-muted"
+                className="rounded-label border border-line px-3 py-1.5 font-mono text-[10px] tracking-[0.08em] text-muted"
               >
                 {c.label}
               </span>

@@ -86,10 +86,10 @@ export function WorksListFiltered({ items }: { items: Item[] }) {
             </span>
 
             <span className="mt-5 flex flex-wrap items-center gap-2">
-              <span className="rounded-card border border-warm px-2.5 py-[3px] text-[11px] font-semibold tracking-[0.06em] text-warm-ink">
+              <span className="rounded-label border border-warm px-2.5 py-[3px] text-[11px] font-semibold tracking-[0.06em] text-warm-ink">
                 {w.serviceType}
               </span>
-              <span className="rounded-card border border-line px-2.5 py-[3px] text-[11px] font-semibold tracking-[0.06em] text-muted">
+              <span className="rounded-label border border-line px-2.5 py-[3px] text-[11px] font-semibold tracking-[0.06em] text-muted">
                 {w.industry}
               </span>
             </span>

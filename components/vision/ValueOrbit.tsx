@@ -73,9 +73,28 @@ export function ValueOrbit({ values }: { values: readonly Value[] }) {
             className="value-orbit-ring-progress"
             style={{ strokeDasharray: `${active * 100} ${count * 100}` }}
           />
+          {/* 中心の円から6つの円へ伸びる線。選んでいる円への線だけ濃く描き直す */}
+          {values.map((v, i) => {
+            const a = (-90 + (360 / count) * i) * (Math.PI / 180);
+            const from = 13;
+            const to = 29;
+            return (
+              <line
+                key={`${v.title}-spoke`}
+                x1={50 + from * Math.cos(a)}
+                y1={50 + from * Math.sin(a)}
+                x2={50 + to * Math.cos(a)}
+                y2={50 + to * Math.sin(a)}
+                pathLength={1}
+                className="value-orbit-spoke"
+                data-active={i === active || undefined}
+              />
+            );
+          })}
         </svg>
-        <p className="value-orbit-core" aria-hidden>
-          Value
+        <p className="value-orbit-core palt" aria-hidden>
+          <span className="value-orbit-core-en">JQIT</span>
+          行動指針
         </p>
         {values.map((v, i) => (
           <button
@@ -105,13 +124,21 @@ export function ValueOrbit({ values }: { values: readonly Value[] }) {
             <p className="value-orbit-en" aria-hidden>
               {v.en}
             </p>
-            <h3 className="palt mt-2 text-[21px] font-bold leading-[1.55] text-ink min-[720px]:text-[24px]">
+            <h3 className="palt mt-2 text-[22px] font-bold leading-[1.55] text-ink min-[1024px]:text-[30px]">
               <Phrase text={v.title} />
             </h3>
             <span aria-hidden className="value-orbit-rule" />
-            <p className="text-[14px] leading-[2] text-body">{v.body}</p>
+            <p className="text-[14.5px] leading-[2.05] text-body min-[1024px]:text-[16px]">{v.body}</p>
           </div>
         ))}
+        <div className="value-orbit-nav" style={{ gridArea: "2 / 1" }}>
+          <button type="button" onClick={() => select((active - 1 + count) % count)}>
+            <span aria-hidden>←</span> 前の指針
+          </button>
+          <button type="button" onClick={() => select((active + 1) % count)}>
+            次の指針 <span aria-hidden>→</span>
+          </button>
+        </div>
       </div>
     </div>
   );

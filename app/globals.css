@@ -27,6 +27,11 @@
   --font-anton: var(--font-anton-face), sans-serif;
 
   --radius-card: 2px;
+  /* 角丸（2026-11-18、業務画面の雛形 demo-ui-template の段階に合わせる。基準 --radius 0.55rem）
+     ボタン・入力欄・絞り込み = md（基準×0.8 ≒ 7px）、ラベル・タグ = sm（基準×0.6 ≒ 5px）。
+     写真・見出し帯の「一角だけ大きく曲げる」曲線とは別の、操作部品の小さな角丸。 */
+  --radius-button: 7px;
+  --radius-label: 5px;
   /* ホバーで白く浮かせるときの影。存在感は控えめにする */
   --shadow-hover-lift: 0 10px 28px rgb(20 20 15 / 7%);
 }
@@ -621,13 +626,21 @@ html:has(.page-curtain) { scroll-behavior: auto; }
 .philo-node:nth-child(3) { left: 20.6%; top: 71%; }
 
 /* 行動指針：6つの円を円の線でつなぎ、選んだ円まで線が赤く伸びる（components/vision/ValueOrbit.tsx） */
-.value-orbit { position: relative; max-width: 640px; margin-inline: auto; }
+.value-orbit { position: relative; max-width: 560px; margin-inline: auto; }
 .value-orbit-figure { position: relative; width: 100%; aspect-ratio: 1; }
 .value-orbit-ring { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
 .value-orbit-ring circle { fill: none; }
 .value-orbit-ring-base { stroke: var(--warm-line); stroke-width: .3; }
 .value-orbit-ring-progress { stroke: var(--warm-mid); stroke-width: .55; transition: stroke-dasharray .6s cubic-bezier(.16, .84, .44, 1); }
-.value-orbit-core { position: absolute; left: 50%; top: 50%; translate: -50% -50%; font-family: var(--font-mono); font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--color-muted); }
+.value-orbit-core {
+  position: absolute; left: 50%; top: 50%; width: 24%; aspect-ratio: 1; translate: -50% -50%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
+  border-radius: 50%; background: var(--warm-strong); color: #fff; font-weight: 700; font-size: clamp(12px, 1.4vw, 17px); line-height: 1.3;
+}
+.value-orbit-core-en { font-family: var(--font-mono); font-size: .62em; font-weight: 600; letter-spacing: .16em; opacity: .8; }
+.value-orbit-spoke { stroke: var(--warm-line); stroke-width: .3; stroke-dasharray: 1; stroke-dashoffset: 0; }
+.value-orbit-spoke[data-active] { stroke: var(--warm-mid); stroke-width: .7; animation: spoke-draw .5s cubic-bezier(.16, .84, .44, 1); }
+@keyframes spoke-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+@media (prefers-reduced-motion: reduce) { .value-orbit-spoke[data-active] { animation: none; } }
 .value-orbit-node {
   position: absolute; width: 22%; aspect-ratio: 1; translate: -50% -50%; display: grid; place-items: center; padding: 6px;
   border: 1.5px solid var(--warm-line); border-radius: 50%; background: #fff; color: var(--color-ink);
@@ -642,10 +655,6 @@ html:has(.page-curtain) { scroll-behavior: auto; }
 .value-orbit-detail { display: grid; margin-top: 28px; }
 .value-orbit-text { grid-area: 1 / 1; opacity: 0; visibility: hidden; transition: opacity .35s, visibility .35s; }
 .value-orbit-text[data-active] { opacity: 1; visibility: visible; }
-@media (min-width: 720px) {
-  .value-orbit-core { display: none; }
-  .value-orbit-detail { position: absolute; left: 50%; top: 50%; width: 44%; margin: 0; translate: -50% -50%; text-align: center; }
-}
 @media (prefers-reduced-motion: reduce) {
   .value-orbit-ring-progress, .value-orbit-node, .value-orbit-text { transition: none; }
 }
@@ -707,14 +716,19 @@ h1, h2, .vision-statement, .brand-article-title { word-break: keep-all; overflow
 .value-orbit-rule { display: block; width: 32px; height: 2px; margin: 14px 0; background: var(--warm-mid); }
 .value-orbit-text { translate: 0 10px; transition: opacity .4s, visibility .4s, translate .5s cubic-bezier(.16, .84, .44, 1); }
 .value-orbit-text[data-active] { translate: 0 0; }
-@media (max-width: 719px) {
+@media (max-width: 1023px) {
   .value-orbit-detail { padding-left: 18px; border-left: 2px solid var(--warm-line); }
 }
-@media (min-width: 720px) {
-  .value-orbit-figure::before {
-    content: ""; position: absolute; inset: 21%; border-radius: 50%;
-    background: radial-gradient(circle at 50% 40%, #fff 0%, #fff7f0 62%, var(--warm-soft) 100%);
-    box-shadow: inset 0 0 0 1px var(--warm-line);
-  }
-  .value-orbit-rule { margin-inline: auto; }
+/* PC は「左に円の輪、右に説明」の2列。説明を輪の中に入れない（円の中に円の面を重ねると不自然なため） */
+@media (min-width: 1024px) {
+  .value-orbit { display: grid; grid-template-columns: minmax(0, 560px) minmax(0, 1fr); gap: 72px; align-items: center; max-width: none; }
+  .value-orbit-detail { margin-top: 0; padding-left: 32px; border-left: 2px solid var(--warm-line); }
 }
+.value-orbit-nav { display: flex; gap: 10px; margin-top: 28px; }
+.value-orbit-nav button {
+  display: inline-flex; align-items: center; gap: 8px; padding: 9px 16px; border: 1px solid var(--color-line); border-radius: var(--radius-button);
+  background: #fff; font-size: 13px; font-weight: 600; color: var(--color-ink); cursor: pointer; transition: border-color .25s, color .25s;
+}
+@media (hover: hover) { .value-orbit-nav button:hover { border-color: var(--warm-mid); color: var(--color-warm-ink); } }
+/* 本文の最後の行に1〜2文字だけ残る改行（「はか/る。」など）を避ける（対応ブラウザだけ） */
+p, dd, li { text-wrap: pretty; }
