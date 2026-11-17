@@ -9,7 +9,6 @@ import { Container } from "@/components/ui/Container";
 import { DisplayText } from "@/components/ui/DisplayText";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { Kicker } from "@/components/ui/Kicker";
-import { PhotoDepth } from "@/components/ui/PhotoDepth";
 import { SectionHead } from "@/components/ui/SectionHead";
 import { createBreadcrumbJsonLd, createPageMetadata } from "@/lib/seo";
 import { siteConfig } from "@/lib/site-config";
@@ -222,7 +221,7 @@ export default function AiSolutionsPage() {
       <SubNav group="Business" items={businessSubNav} />
 
       {/* INTRO */}
-      <section data-depth-scene="route" className="overflow-hidden bg-paper py-20 min-[720px]:py-[96px]">
+      <section className="overflow-hidden bg-paper py-20 min-[720px]:py-[96px]">
         <Container>
           <div className="grid grid-cols-1 items-center gap-12 min-[1024px]:grid-cols-[1.05fr_0.95fr] min-[1024px]:gap-16">
             <FadeIn>
@@ -249,7 +248,6 @@ export default function AiSolutionsPage() {
               </div>
             </FadeIn>
             <FadeIn className="relative">
-              <PhotoDepth className="brand-photo brand-photo--reverse">
               <Image
                 src="/natural-tech-ai.webp"
                 alt="AIデータ可視化を前に分析するメンバー"
@@ -257,9 +255,14 @@ export default function AiSolutionsPage() {
                 height={1086}
                 priority
                 sizes="(min-width: 1024px) 45vw, 100vw"
-                className="h-auto w-full object-cover"
+                className="h-auto w-full rounded-xl object-cover"
               />
-              </PhotoDepth>
+              <span
+                aria-hidden
+                className="absolute -bottom-5 right-6 font-anton text-[72px] leading-none text-brand [text-shadow:0_0_2px_rgba(255,255,255,0.9),0_0_18px_rgba(255,255,255,0.95)] min-[720px]:text-[92px]"
+              >
+                02
+              </span>
             </FadeIn>
           </div>
 
@@ -308,9 +311,14 @@ export default function AiSolutionsPage() {
               <FadeIn
                 key={s.no}
                 id={s.id}
-                className="brand-line-row group grid scroll-mt-24 grid-cols-1 gap-5 border-b border-line py-10 first:border-t min-[900px]:grid-cols-[1fr_1.35fr] min-[900px]:gap-10 min-[900px]:py-12"
+                className="brand-line-row group grid scroll-mt-24 grid-cols-1 gap-5 border-b border-line py-10 first:border-t min-[900px]:grid-cols-[120px_1.05fr_1.35fr] min-[900px]:gap-10 min-[900px]:py-12"
               >
-
+                <span
+                  aria-hidden
+                  className="brand-line-no font-anton text-[44px] leading-[0.9] text-ink/15 transition-colors duration-300 group-hover:text-brand min-[900px]:text-[56px]"
+                >
+                  {s.no}
+                </span>
                 <div>
                   <p className="mb-2 font-mono text-[10px] uppercase tracking-[0.2em] text-muted">
                     {s.en}
@@ -332,11 +340,15 @@ export default function AiSolutionsPage() {
                     </div>
                   )}
                 </div>
-                <div className="service-detail-list">
+                <div
+                  className={`grid grid-cols-1 gap-px self-start border border-line bg-line ${
+                    s.items.length > 1 ? "min-[600px]:grid-cols-2" : ""
+                  }`}
+                >
                   {s.items.map((item) => (
                     <div
                       key={item.head}
-                      className="service-detail-item"
+                      className="brand-line-card bg-white px-6 py-6 min-[720px]:px-7"
                     >
                       <h4 className="brand-line-label palt flex items-baseline gap-3 text-[15px] font-bold text-ink">
                         <span aria-hidden className="h-px w-4 shrink-0 translate-y-[-3px] bg-brand" />
@@ -355,7 +367,7 @@ export default function AiSolutionsPage() {
       </section>
 
       {/* NOVA — 自社プロダクト */}
-      <section data-depth-scene="route" className="brand-warm-band relative overflow-hidden py-20 min-[720px]:py-[100px]">
+      <section className="relative overflow-hidden bg-ink py-20 text-white min-[720px]:py-[100px]">
         <div className="pointer-events-none absolute -bottom-2 right-0 min-[720px]:-bottom-4">
           <DisplayText tone="white">NOVA</DisplayText>
         </div>
@@ -374,11 +386,21 @@ export default function AiSolutionsPage() {
               <p className="mt-6 text-[14.5px] leading-[2.05] text-white/80">
                 NOVAは、届いた案件・人材メールをAIが自動で構造化し、タグスコアとAI判定の2段階マッチングで候補と「なぜ合うか」の判断理由まで提示するSES特化のAIマッチングシステムです。契約終了アラートによる先回り営業、提案メールのAI起草まで、メール1通が提案になるまでを一気通貫で支えます。
               </p>
-              <ul className="nova-features mt-8">
-                {novaFeatures.map((f) => (
-                  <li key={f} className="text-[14px] font-semibold leading-[1.8]">{f}</li>
+              <div className="mt-8 grid grid-cols-2 gap-px border border-white/15 bg-white/15 min-[600px]:grid-cols-3">
+                {novaFeatures.map((f, i) => (
+                  <div key={f} className="bg-ink px-4 py-3.5">
+                    <p className="font-mono text-[10px] text-brand">
+                      {String(i + 1).padStart(2, "0")}
+                    </p>
+                    <p className="palt mt-1 text-[13.5px] font-bold">{f}</p>
+                  </div>
                 ))}
-              </ul>
+                <div className="flex min-h-[64px] items-center bg-ink px-4 py-3.5">
+                  <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-white/40">
+                    All in One
+                  </p>
+                </div>
+              </div>
               <div className="mt-9">
                 <Button href={siteConfig.links.nova} external>
                   NOVA 製品サイトへ
@@ -392,7 +414,7 @@ export default function AiSolutionsPage() {
                 width={748}
                 height={438}
                 sizes="(min-width: 1024px) 50vw, 100vw"
-                className="nova-shot h-auto w-full rounded-xl border border-white/10 object-cover"
+                className="h-auto w-full rounded-xl border border-white/10 object-cover"
               />
             </FadeIn>
           </div>

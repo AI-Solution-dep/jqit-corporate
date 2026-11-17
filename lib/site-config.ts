@@ -25,7 +25,6 @@ export const siteConfig = {
   founded: 2024,
   foundedDate: "2024-12-06",
   ceo: "山田 周作",
-  directors: [{ role: "取締役", name: "宮本 尚寛" }],
   capital: "1,000万円",
   employees: "106名（2026年4月時点）",
 
@@ -49,8 +48,8 @@ export const siteConfig = {
 } as const;
 
 /** 限定案内ページ用。jqit-hearing / jqit-proposal の担当者欄（2026-10-29確認）。
- * globalNav / footerNav から参照しない。
- * URL を知っていれば誰でも見られるページなので、個人の携帯番号・メールは載せない（2026-11-18）。
+ * globalNav / footerNav から参照しない。 */
+/* URL を知っていれば誰でも見られるページなので、個人の携帯番号・メールは載せない（2026-11-18）。
  * 連絡は営業部の共通窓口・代表電話・お問い合わせフォームに集約する。 */
 export const introductionContacts = {
   salesEmail: "sales@jqit.co.jp",
