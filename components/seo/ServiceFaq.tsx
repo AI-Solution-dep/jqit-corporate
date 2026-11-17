@@ -42,12 +42,12 @@ export function ServiceFaq({ items }: ServiceFaqProps) {
             回答本文は閉じていても HTML に存在する（構造化データ・検索の評価に影響しない）。
           */}
           <div className="border-t border-line">
-            {items.map((item, index) => (
+            {items.map((item) => (
               <FadeIn key={item.question} className="border-b border-line">
                 <details className="group">
                   <summary className="flex cursor-pointer list-none items-start gap-3 py-6 transition-colors hover:text-brand min-[800px]:py-7 [&::-webkit-details-marker]:hidden">
                     <span className="mt-[3px] font-mono text-[12px] text-brand">
-                      Q{String(index + 1).padStart(2, "0")}
+                      Q
                     </span>
                     <h3 className="palt flex-1 text-[16px] font-bold leading-[1.8] text-ink transition-colors group-hover:text-brand">
                       {item.question}

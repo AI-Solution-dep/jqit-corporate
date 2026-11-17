@@ -122,8 +122,9 @@ export default function PrivacyPolicyPage() {
           {sections.map((s, i) => (
             <FadeIn key={s.title} className="mt-12">
               <h2 className="flex items-baseline gap-4 border-b border-line pb-4">
-                <span className="font-mono text-[13px] font-semibold tracking-[0.1em] text-brand">
-                  {String(i + 1).padStart(2, "0")}
+                {/* 規程の条項番号。「01」ではなく文書らしい「1.」の形で、見出しと同じ書体にする */}
+                <span className="palt text-[19px] font-bold tabular-nums text-ink min-[720px]:text-[21px]">
+                  {i + 1}.
                 </span>
                 <span className="palt text-[19px] font-bold tracking-[-0.01em] text-ink min-[720px]:text-[21px]">
                   {s.title}

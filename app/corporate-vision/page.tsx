@@ -69,7 +69,7 @@ const values = [
 
 const dxKpis = [
   {
-    no: "01",
+    label: "Productivity",
     title: "社内業務の生産性向上",
     items: [
       { label: "事務工数削減率", target: "2025年度までに ▲40％" },
@@ -78,7 +78,7 @@ const dxKpis = [
     ],
   },
   {
-    no: "02",
+    label: "Data & Management",
     title: "経営革新・データ活用",
     items: [
       { label: "データ基盤稼働率", target: "2025年度中に 100％" },
@@ -148,11 +148,8 @@ export default function CorporateVisionPage() {
             className="mb-11"
           />
           <FadeIn className="grid grid-cols-1 gap-px border border-line bg-line min-[720px]:grid-cols-2 min-[1024px]:grid-cols-3">
-            {values.map((v, i) => (
+            {values.map((v) => (
               <div key={v.title} className="ethos-card bg-white px-7 py-8">
-                <p className="ethos-value-no mb-3.5 font-mono text-[13px] font-semibold text-brand">
-                  {String(i + 1).padStart(2, "0")}
-                </p>
                 <h3 className="ethos-card-label palt text-[17px] font-bold leading-[1.6] text-ink">
                   {v.title}
                 </h3>
@@ -182,10 +179,10 @@ export default function CorporateVisionPage() {
           </FadeIn>
           <div className="mt-11 grid grid-cols-1 gap-6 min-[900px]:grid-cols-2">
             {dxKpis.map((kpi) => (
-              <FadeIn key={kpi.no} className="border border-line bg-white">
+              <FadeIn key={kpi.title} className="border border-line bg-white">
                 <div className="flex items-baseline gap-4 border-b border-line px-7 py-5">
-                  <span className="font-mono text-[12px] font-semibold tracking-[0.1em] text-brand">
-                    指標{kpi.no}
+                  <span className="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-brand">
+                    {kpi.label}
                   </span>
                   <h3 className="palt text-[17px] font-bold text-ink">{kpi.title}</h3>
                 </div>

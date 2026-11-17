@@ -7,7 +7,6 @@ import { Kicker } from "@/components/ui/Kicker";
 
 const businesses = [
   {
-    no: "01",
     en: "IT Solutions",
     title: "ITソリューション事業",
     body: "システム構築の要件定義から運用保守まで。受託開発（SI）とSESにより、Web・業務システム開発、インフラ構築、QA・第三者検証をワンストップで提供します。",
@@ -22,7 +21,6 @@ const businesses = [
     ],
   },
   {
-    no: "02",
     en: "AI Solutions",
     title: "AIソリューション事業",
     body: "生成AIの導入支援・コンサルティングからAIシステム開発まで。大規模言語モデルを中心に、企業のAI活用を全面的にサポートします。",
@@ -52,7 +50,7 @@ export function BusinessSection() {
         <div className="space-y-16 min-[900px]:space-y-24">
           {businesses.map((b, i) => (
             <FadeIn
-              key={b.no}
+              key={b.en}
               className="grid grid-cols-1 items-center gap-8 min-[900px]:grid-cols-[1.05fr_0.95fr] min-[900px]:gap-16"
             >
               {/* 写真（偶数行は右へ） */}
@@ -65,14 +63,6 @@ export function BusinessSection() {
                   sizes="(min-width: 900px) 50vw, 100vw"
                   className="h-auto w-full rounded-xl object-cover"
                 />
-                <span
-                  aria-hidden
-                  className={`absolute -bottom-4 font-anton text-[64px] leading-none text-brand [text-shadow:0_0_2px_rgba(255,255,255,0.9),0_0_18px_rgba(255,255,255,0.95)] min-[720px]:-bottom-5 min-[720px]:text-[84px] ${
-                    i % 2 === 1 ? "right-6" : "left-6"
-                  }`}
-                >
-                  {b.no}
-                </span>
               </div>
 
               {/* テキスト */}

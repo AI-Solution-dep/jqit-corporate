@@ -50,21 +50,18 @@ const siFeatures = [
 /** サービス領域（既存HPの実コンテンツ） */
 const fields = [
   {
-    no: "01",
     title: "システム＆アプリ開発",
     en: "Development",
     tags: ["Web系", "スマホアプリ", "社内システム"],
     body: "Web系、スマホアプリ、社内システム系などのソフトウェアを要件定義・設計・コーディング・テスト・保守運用まで行います。フロントエンドやサーバサイドのプログラマーはもちろん、システムエンジニアも多数在籍しています。",
   },
   {
-    no: "02",
     title: "インフラ（サーバ / ネットワーク）",
     en: "Infrastructure",
     tags: ["ネットワーク", "サーバ", "ミドルウェア", "監視"],
     body: "要件定義からシステムの規模や環境に合わせて、ネットワーク・サーバ・ミドルウェアの導入や企画、設計から運用保守、監視業務まで、ITインフラにかかわる業務を幅広く担います。",
   },
   {
-    no: "03",
     title: "QA（第三者検証）",
     en: "Quality Assurance",
     tags: ["第三者検証", "ユーザー観点", "網羅的なテスト・評価"],
@@ -254,12 +251,6 @@ export default function ItSolutionsPage() {
                 sizes="(min-width: 1024px) 45vw, 100vw"
                 className="h-auto w-full rounded-xl object-cover"
               />
-              <span
-                aria-hidden
-                className="absolute -bottom-5 left-6 font-anton text-[72px] leading-none text-brand [text-shadow:0_0_2px_rgba(255,255,255,0.9),0_0_18px_rgba(255,255,255,0.95)] min-[720px]:text-[92px]"
-              >
-                01
-              </span>
             </FadeIn>
           </div>
 
@@ -370,15 +361,9 @@ export default function ItSolutionsPage() {
           <div>
             {fields.map((f) => (
               <FadeIn
-                key={f.no}
-                className="brand-line-row group grid grid-cols-1 gap-4 border-b border-line py-9 first:border-t min-[900px]:grid-cols-[120px_1.1fr_1.3fr] min-[900px]:gap-10 min-[900px]:py-11"
+                key={f.en}
+                className="brand-line-row group grid grid-cols-1 gap-4 border-b border-line py-9 first:border-t min-[900px]:grid-cols-[1.1fr_1.3fr] min-[900px]:gap-10 min-[900px]:py-11"
               >
-                <span
-                  aria-hidden
-                  className="brand-line-no font-anton text-[44px] leading-[0.9] text-ink/15 transition-colors duration-300 group-hover:text-brand min-[900px]:text-[56px]"
-                >
-                  {f.no}
-                </span>
                 <div>
                   <p className="mb-2 font-mono text-[10px] uppercase tracking-[0.2em] text-muted">
                     {f.en}
@@ -424,9 +409,7 @@ export default function ItSolutionsPage() {
                       : ""
                   }`}
                 >
-                  <span className="font-mono text-[11px] font-semibold text-brand">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
+                  <span aria-hidden className="h-px w-3 shrink-0 translate-y-[-3px] bg-brand" />
                   <span className="text-[14px] font-semibold leading-[1.8] text-ink">
                     {project}
                   </span>
@@ -511,7 +494,6 @@ export default function ItSolutionsPage() {
 
       {/* NEXT — AIソリューション事業へ */}
       <NextBusinessBand
-        no="02"
         en="AI Solutions"
         title="AIソリューション事業"
         href="/business/ai-solutions"

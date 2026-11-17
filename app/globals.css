@@ -173,14 +173,10 @@ section[id] {
   transition: transform 0.32s cubic-bezier(0.16, 0.84, 0.44, 1);
 }
 
-.brand-line-row::before {
-  left: 64px;
-}
-
-@media (min-width: 900px) {
-  .brand-line-row::before {
-    left: 132px;
-  }
+/* 行の左端に赤い縦線を出す（番号の列は2026-11-18に廃止。並列の項目に番号を振らない）。
+   赤い線が見出しの文字に重ならないよう、行の左右に内側の余白を取る。ホバーの白い背景もこの余白まで広がる。 */
+.brand-line-row {
+  padding-inline: clamp(18px, 2.2vw, 32px);
 }
 
 .brand-line-label,

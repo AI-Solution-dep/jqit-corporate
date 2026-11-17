@@ -36,7 +36,6 @@ const facts = [
 /** 提供サービス */
 const services = [
   {
-    no: "01",
     id: "ai-agent",
     en: "AI Agent Development",
     title: "AIエージェント開発・RAG構築",
@@ -53,7 +52,6 @@ const services = [
     ],
   },
   {
-    no: "02",
     id: "ai-consulting",
     en: "AI Enablement",
     title: "AI導入支援・AI推進コンサル事業",
@@ -71,7 +69,6 @@ const services = [
     tags: ["AIエージェント", "業務自動化", "内製化支援", "AI推進体制"],
   },
   {
-    no: "03",
     id: "ai-product",
     en: "AI Product",
     title: "AIサービス開発",
@@ -257,12 +254,6 @@ export default function AiSolutionsPage() {
                 sizes="(min-width: 1024px) 45vw, 100vw"
                 className="h-auto w-full rounded-xl object-cover"
               />
-              <span
-                aria-hidden
-                className="absolute -bottom-5 right-6 font-anton text-[72px] leading-none text-brand [text-shadow:0_0_2px_rgba(255,255,255,0.9),0_0_18px_rgba(255,255,255,0.95)] min-[720px]:text-[92px]"
-              >
-                02
-              </span>
             </FadeIn>
           </div>
 
@@ -309,16 +300,10 @@ export default function AiSolutionsPage() {
           <div>
             {services.map((s) => (
               <FadeIn
-                key={s.no}
+                key={s.en}
                 id={s.id}
-                className="brand-line-row group grid scroll-mt-24 grid-cols-1 gap-5 border-b border-line py-10 first:border-t min-[900px]:grid-cols-[120px_1.05fr_1.35fr] min-[900px]:gap-10 min-[900px]:py-12"
+                className="brand-line-row group grid scroll-mt-24 grid-cols-1 gap-5 border-b border-line py-10 first:border-t min-[900px]:grid-cols-[1.05fr_1.35fr] min-[900px]:gap-10 min-[900px]:py-12"
               >
-                <span
-                  aria-hidden
-                  className="brand-line-no font-anton text-[44px] leading-[0.9] text-ink/15 transition-colors duration-300 group-hover:text-brand min-[900px]:text-[56px]"
-                >
-                  {s.no}
-                </span>
                 <div>
                   <p className="mb-2 font-mono text-[10px] uppercase tracking-[0.2em] text-muted">
                     {s.en}
@@ -387,12 +372,10 @@ export default function AiSolutionsPage() {
                 NOVAは、届いた案件・人材メールをAIが自動で構造化し、タグスコアとAI判定の2段階マッチングで候補と「なぜ合うか」の判断理由まで提示するSES特化のAIマッチングシステムです。契約終了アラートによる先回り営業、提案メールのAI起草まで、メール1通が提案になるまでを一気通貫で支えます。
               </p>
               <div className="mt-8 grid grid-cols-2 gap-px border border-white/15 bg-white/15 min-[600px]:grid-cols-3">
-                {novaFeatures.map((f, i) => (
+                {novaFeatures.map((f) => (
                   <div key={f} className="bg-ink px-4 py-3.5">
-                    <p className="font-mono text-[10px] text-brand">
-                      {String(i + 1).padStart(2, "0")}
-                    </p>
-                    <p className="palt mt-1 text-[13.5px] font-bold">{f}</p>
+                    <span aria-hidden className="block h-1.5 w-1.5 bg-brand" />
+                    <p className="palt mt-2 text-[13.5px] font-bold">{f}</p>
                   </div>
                 ))}
                 <div className="flex min-h-[64px] items-center bg-ink px-4 py-3.5">
@@ -425,7 +408,6 @@ export default function AiSolutionsPage() {
 
       {/* NEXT — ITソリューション事業へ */}
       <NextBusinessBand
-        no="01"
         en="IT Solutions"
         title="ITソリューション事業"
         href="/business/it-solutions"
