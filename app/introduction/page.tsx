@@ -68,7 +68,7 @@ export default function IntroductionPage() {
           <div className={styles.sectionHead}><p className={styles.eyebrow}>01 ／ 開発実績</p><h2 id="projects-heading"><span>業務の課題を</span><span><em>動く仕組み</em>に。</span></h2></div>
           <article className={styles.featuredWork}>
             <div><p className={styles.eyebrow}>自社プロダクト ／ SES業界</p><h3>NOVA</h3><p className={styles.featuredLead}>案件と人材をつなぐ<br />AIマッチングサービス。</p><a className={styles.textLink} href={siteConfig.links.nova} target="_blank" rel="noopener noreferrer">NOVA製品サイト <span aria-hidden="true">↗</span><span className="sr-only">（新しいタブで開きます）</span></a></div>
-            <div className={styles.productDetail}><ol className={styles.flow}>{["案件・人材を管理", "AIでマッチング", "候補を確認"].map((step) => <li key={step}>{step}</li>)}</ol><Image src="/nova-product-2026-08c.png" alt="NOVAの案件一覧。案件情報を一つの画面で確認できます" width={1496} height={876} sizes="(max-width: 760px) 90vw, 45vw" /></div>
+            <div className={styles.productDetail}><ol className={styles.flow}>{["案件・人材を管理", "AIでマッチング", "候補を確認"].map((step) => <li key={step}>{step}</li>)}</ol><Image src="/nova-product-logo.png" alt="NOVAの案件一覧。案件情報を一つの画面で確認できます" width={1496} height={876} sizes="(max-width: 760px) 90vw, 45vw" /></div>
           </article>
           <div className={styles.caseGrid}>{cases.map((work) => <article className={styles.case} key={work.title}>
             <div className={styles.caseVisual}><Image src={`/introduction/${work.image}.webp`} alt="" width={640} height={427} sizes="(max-width: 760px) 90vw, 45vw" /></div>

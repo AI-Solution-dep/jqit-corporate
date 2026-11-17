@@ -68,9 +68,7 @@ export function BusinessSection() {
                   {b.en}
                 </p>
                 <h3 className="palt mt-2 text-[26px] font-bold tracking-[-0.02em] text-white min-[720px]:text-[32px]">
-                  <Link href={b.href} className="biz-panel-link">
-                    {b.title}
-                  </Link>
+                  {b.title}
                 </h3>
                 <p className="mt-4 max-w-[440px] text-[14px] leading-[2] text-white/85">{b.body}</p>
                 <div className="mt-5 flex flex-wrap gap-2">
@@ -98,9 +96,10 @@ export function BusinessSection() {
                     ))}
                   </ul>
                 )}
-                <span aria-hidden className="biz-panel-more">
-                  詳しく見る <span className="biz-panel-arrow">→</span>
-                </span>
+                {/* 行き先が分かる文言のリンク。パネル全体を押せるよう、このリンクの当たり判定をパネルいっぱいに広げる */}
+                <Link href={b.href} className="biz-panel-more biz-panel-link">
+                  {b.title}を詳しく見る <span aria-hidden className="biz-panel-arrow">→</span>
+                </Link>
               </div>
             </div>
           ))}

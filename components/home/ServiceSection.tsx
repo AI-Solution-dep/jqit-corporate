@@ -55,7 +55,7 @@ export function ServiceSection() {
               <div className={`service-stack-media ${index % 2 === 1 ? "photo-curve--reverse" : "photo-curve"} ${service.id === "nova" ? "service-stack-media--product" : ""}`}>
                 {service.id === "nova" ? (
                   <Image
-                    src="/nova-product-2026-08c.png"
+                    src="/nova-product-logo.png"
                     alt="NOVA 管理画面 — AIマッチングアシスタントと案件一覧"
                     width={748}
                     height={438}
