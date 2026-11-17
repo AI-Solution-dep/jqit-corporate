@@ -998,8 +998,6 @@ p, dd, li { text-wrap: pretty; }
   .kpi-item:nth-of-type(1)::before { content: ""; position: absolute; left: 50%; bottom: -18px; width: 1.5px; height: 18px; background: #e8b896; }
 }
 
-/* ===== 会社情報：要点の円（DX指標の作りを流用。左の見出しの列は使わない） ===== */
-.kpi-group.about-facts { display: block; max-width: 820px; margin-inline: auto; }
 
 /* ===== 会社情報：沿革（線でつないだ円の年表。PC は横、スマホは縦） ===== */
 .history-line { position: relative; margin: 0; padding: 0; list-style: none; display: grid; gap: 28px; }

@@ -71,13 +71,6 @@ const history = [
   { date: "2026年度", title: "財界「BEST AI 100」" },
 ] as const;
 
-/** 会社概要の要点（表の上に円で見せる。値は表と同じ） */
-const facts = [
-  { figure: "106", unit: "名", label: "従業員数", note: "2026年4月時点" },
-  { figure: "2", unit: "事業", label: "IT・AI", note: "ITソリューション／AIソリューション" },
-  { figure: "1,000", unit: "万円", label: "資本金", note: "" },
-] as const;
-
 const officialSources = [
   {
     label: "ISTQB® Gold パートナー認定",
@@ -190,28 +183,6 @@ export default function AboutPage() {
       <section className="border-t border-line bg-paper py-20 min-[720px]:py-[92px]">
         <Container>
           <SectionHead kicker="Company Profile" title="会社概要" className="mb-10" />
-          {/* 要点を円で（DX指標と同じ作り：主な数字を大きく、残り2つを小さく、中心を線で結ぶ） */}
-          <FadeIn className="kpi-group about-facts mb-14">
-            <dl className="kpi-chain">
-              <svg className="kpi-lines" viewBox="0 0 100 200" preserveAspectRatio="none" aria-hidden>
-                <polyline points="16.67,100 83.33,100" />
-              </svg>
-              {facts.map((f) => (
-                <div key={f.label} className="kpi-item">
-                  <dt className="palt mt-4 text-center text-[12.5px] font-semibold leading-[1.6] text-ink min-[720px]:text-[13.5px]">
-                    {f.label}
-                    {f.note && <span className="kpi-when">{f.note}</span>}
-                  </dt>
-                  <dd className="kpi-circle">
-                    <span className="kpi-figure">
-                      {f.figure}
-                      <small>{f.unit}</small>
-                    </span>
-                  </dd>
-                </div>
-              ))}
-            </dl>
-          </FadeIn>
           <FadeIn className="border-t border-ink">
             {profile.map((row) => (
               <div
