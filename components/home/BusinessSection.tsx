@@ -47,14 +47,14 @@ export function BusinessSection() {
           </h2>
         </FadeIn>
 
-        <div className="space-y-16 min-[900px]:space-y-24">
+        <div className="space-y-20 min-[1024px]:space-y-28">
           {businesses.map((b, i) => (
             <FadeIn
               key={b.en}
-              className="grid grid-cols-1 items-center gap-8 min-[900px]:grid-cols-[1.05fr_0.95fr] min-[900px]:gap-16"
+              className={`service-row ${i % 2 === 1 ? "service-row--reverse" : ""}`}
             >
-              {/* 写真（偶数行は右へ） */}
-              <div className={`relative overflow-hidden ${i % 2 === 1 ? "photo-curve--reverse min-[900px]:order-2" : "photo-curve"}`}>
+              {/* 写真（2つ目は右へ）。サービス欄と同じ型で、2つの写真は同じ大きさにそろえる */}
+              <div className={`service-row-media ${i % 2 === 1 ? "photo-curve--reverse" : "photo-curve"}`}>
                 <Image
                   src={b.image}
                   alt={b.alt}
@@ -62,12 +62,12 @@ export function BusinessSection() {
                   height={1086}
                   sizes="(min-width: 900px) 50vw, 100vw"
                   data-photo-slide
-                  className="h-auto w-full object-cover"
+                  className="h-full w-full object-cover"
                 />
               </div>
 
               {/* テキスト */}
-              <div className={i % 2 === 1 ? "min-[900px]:order-1" : ""}>
+              <div>
                 <p className="mb-3 font-mono text-[11px] uppercase tracking-[0.2em] text-warm-ink">
                   {b.en}
                 </p>
