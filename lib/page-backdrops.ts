@@ -4,7 +4,7 @@
  * - 途中で別の模様に差し替えない（地が別物に変わって見えるため）。ページごとに組み合わせを変えて変化を出す。
  * - 塗りの図形に、枠線だけの図形を1つ混ぜて軽さを出す（線の図形を増やしすぎない）。
  *   枠線は太め（PC 約10px・スマホ 6px）。細いと「線の模様」に見えて塗りの図形と釣り合わない。
- * - 色は薄く、存在感は控えめにする。動きの速さと量は「普通に気づく」程度にする（控えめにしない）。
+ * - 色はかなり薄く、存在感は控えめにする（2026-11-18、さらに約半分に下げた）。動きの速さと量は「普通に気づく」程度にする（控えめにしない）。
  * TOP（独自のヒーロー演出）と /introduction（専用デザイン）は対象外。
  */
 export type BackdropKind = "circle" | "square" | "triangle";
@@ -35,36 +35,36 @@ export const backdropTones: Record<BackdropTone, string> = {
 
 /** 円が主役（会社・方針系） */
 const circleLed: BackdropShape[] = [
-  { kind: "circle", tone: "pink", alpha: 0.12, left: 60, top: 6, size: 54, axis: "y", dur: 9 },
-  { kind: "square", tone: "warm", alpha: 0.32, outline: true, left: -16, top: 46, size: 40, rotate: -8, axis: "x", dur: 11, reverse: true },
-  { kind: "triangle", tone: "red", alpha: 0.07, left: 40, top: 70, size: 12, rotate: 12, axis: "x", dur: 7 },
+  { kind: "circle", tone: "pink", alpha: 0.066, left: 60, top: 6, size: 54, axis: "y", dur: 9 },
+  { kind: "square", tone: "warm", alpha: 0.176, outline: true, left: -16, top: 46, size: 40, rotate: -8, axis: "x", dur: 11, reverse: true },
+  { kind: "triangle", tone: "red", alpha: 0.039, left: 40, top: 70, size: 12, rotate: 12, axis: "x", dur: 7 },
 ];
 
 /** 四角が主役（IT事業） */
 const squareLed: BackdropShape[] = [
-  { kind: "square", tone: "warm", alpha: 0.22, left: 58, top: 10, size: 46, rotate: 10, axis: "x", dur: 10 },
-  { kind: "circle", tone: "pink", alpha: 0.24, outline: true, left: -14, top: 44, size: 38, axis: "y", dur: 9, reverse: true },
-  { kind: "square", tone: "red", alpha: 0.06, left: 36, top: 76, size: 10, rotate: -14, axis: "y", dur: 7 },
+  { kind: "square", tone: "warm", alpha: 0.121, left: 58, top: 10, size: 46, rotate: 10, axis: "x", dur: 10 },
+  { kind: "circle", tone: "pink", alpha: 0.132, outline: true, left: -14, top: 44, size: 38, axis: "y", dur: 9, reverse: true },
+  { kind: "square", tone: "red", alpha: 0.033, left: 36, top: 76, size: 10, rotate: -14, axis: "y", dur: 7 },
 ];
 
 /** 三角が主役（AI事業） */
 const triangleLed: BackdropShape[] = [
-  { kind: "triangle", tone: "pink", alpha: 0.14, left: 54, top: 8, size: 52, rotate: 10, axis: "x", dur: 10 },
-  { kind: "circle", tone: "warm", alpha: 0.32, outline: true, left: -12, top: 40, size: 36, axis: "y", dur: 10, reverse: true },
-  { kind: "square", tone: "red", alpha: 0.05, left: 8, top: 12, size: 9, rotate: 14, axis: "y", dur: 7 },
+  { kind: "triangle", tone: "pink", alpha: 0.077, left: 54, top: 8, size: 52, rotate: 10, axis: "x", dur: 10 },
+  { kind: "circle", tone: "warm", alpha: 0.176, outline: true, left: -12, top: 40, size: 36, axis: "y", dur: 10, reverse: true },
+  { kind: "square", tone: "red", alpha: 0.028, left: 8, top: 12, size: 9, rotate: 14, axis: "y", dur: 7 },
 ];
 
 /** 一覧・記事（実績・ニュース・コラム）。本文を読む場所なので大きい図形を端に寄せる */
 const listing: BackdropShape[] = [
-  { kind: "circle", tone: "warm", alpha: 0.2, left: 66, top: 18, size: 46, axis: "y", dur: 10 },
-  { kind: "triangle", tone: "pink", alpha: 0.24, outline: true, left: -18, top: 50, size: 40, rotate: -12, axis: "x", dur: 11, reverse: true },
-  { kind: "circle", tone: "red", alpha: 0.06, left: 84, top: 74, size: 9, axis: "x", dur: 7 },
+  { kind: "circle", tone: "warm", alpha: 0.11, left: 66, top: 18, size: 46, axis: "y", dur: 10 },
+  { kind: "triangle", tone: "pink", alpha: 0.132, outline: true, left: -18, top: 50, size: 40, rotate: -12, axis: "x", dur: 11, reverse: true },
+  { kind: "circle", tone: "red", alpha: 0.033, left: 84, top: 74, size: 9, axis: "x", dur: 7 },
 ];
 
 /** お問い合わせ・規約。フォームや本文の邪魔をしないよう、図形を端に寄せて数を絞る */
 const quiet: BackdropShape[] = [
-  { kind: "circle", tone: "pink", alpha: 0.1, left: 70, top: 10, size: 44, axis: "y", dur: 10 },
-  { kind: "square", tone: "warm", alpha: 0.3, outline: true, left: -20, top: 56, size: 34, rotate: -10, axis: "x", dur: 12, reverse: true },
+  { kind: "circle", tone: "pink", alpha: 0.055, left: 70, top: 10, size: 44, axis: "y", dur: 10 },
+  { kind: "square", tone: "warm", alpha: 0.165, outline: true, left: -20, top: 56, size: 34, rotate: -10, axis: "x", dur: 12, reverse: true },
 ];
 
 /** パスの先頭一致で選ぶ。上から順に判定する。 */
