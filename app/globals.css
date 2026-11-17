@@ -784,3 +784,13 @@ p, dd, li { text-wrap: pretty; }
   .trust-badges li > div { grid-row: 1 / span 2; }
   .trust-badges li h3 { margin-top: 0; }
 }
+
+/* ===== TOP：サービス（2つを横に並べて見比べる型。事業欄の左右交互と型を変える） ===== */
+.service-pair { display: grid; gap: 56px; }
+.service-pair-media { position: relative; overflow: hidden; aspect-ratio: 4 / 3; background: #f1efeb; }
+.service-pair-media--product { background: var(--warm-soft); }
+@media (min-width: 1024px) {
+  .service-pair { grid-template-columns: 1fr 1fr; gap: 0; }
+  .service-pair-item { padding-right: 56px; }
+  .service-pair-item + .service-pair-item { padding-right: 0; padding-left: 56px; border-left: 1px solid var(--color-line); }
+}

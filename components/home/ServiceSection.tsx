@@ -48,11 +48,12 @@ export function ServiceSection() {
           </p>
         </FadeIn>
 
-        {/* 箱に入れず、写真と文章を左右交互に置いた2つの段にする（写真は一角だけ曲げる） */}
-        <div className="mt-14 space-y-20 min-[1024px]:mt-16 min-[1024px]:space-y-28">
-          {services.map((service, index) => (
-            <FadeIn key={service.id} className={`service-row ${index % 2 === 1 ? "service-row--reverse" : ""}`}>
-              <div className={`service-row-media ${index % 2 === 1 ? "photo-curve--reverse" : "photo-curve"}`}>
+        {/* 事業欄（写真と文章の左右交互）と見分けられるよう、サービスは2つを横に並べて見比べる型にする。
+            箱には入れず、間を縦の罫線で区切る。画像は上、文章は下 */}
+        <div className="service-pair mt-14 min-[1024px]:mt-16">
+          {services.map((service) => (
+            <FadeIn key={service.id} className="service-pair-item">
+              <div className={`service-pair-media photo-curve ${service.id === "nova" ? "service-pair-media--product" : ""}`}>
                 {service.id === "nova" ? (
                   <Image
                     src="/nova-product-2026-08c.png"
@@ -72,14 +73,14 @@ export function ServiceSection() {
                 )}
               </div>
 
-              <div>
+              <div className="mt-8">
                 <p className="font-mono text-[12px] font-semibold uppercase tracking-[0.14em] text-warm-ink">
                   {service.label} — {service.name}
                 </p>
-                <h3 className="palt mt-3 text-[24px] font-bold leading-[1.5] text-ink min-[720px]:text-[30px]">
+                <h3 className="palt mt-3 text-[22px] font-bold leading-[1.5] text-ink min-[720px]:text-[26px]">
                   {service.heading}
                 </h3>
-                <p className="mt-5 text-[15px] leading-[2.05] text-body">{service.description}</p>
+                <p className="mt-4 text-[14.5px] leading-[2] text-body">{service.description}</p>
                 <ul className="nova-features mt-7">
                   {service.features.map((feature) => (
                     <li key={feature} className="text-[14px] font-bold leading-[1.8] text-ink">
