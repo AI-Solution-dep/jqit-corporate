@@ -48,72 +48,62 @@ export function ServiceSection() {
           </p>
         </FadeIn>
 
-        <div className="mt-10 grid grid-cols-1 gap-6 min-[1024px]:grid-cols-2">
-          {services.map((service) => (
-            <FadeIn key={service.id}>
-              <article className="flex h-full flex-col overflow-hidden border border-line bg-white">
+        {/* 箱に入れず、写真と文章を左右交互に置いた2つの段にする（写真は一角だけ曲げる） */}
+        <div className="mt-14 space-y-20 min-[1024px]:mt-16 min-[1024px]:space-y-28">
+          {services.map((service, index) => (
+            <FadeIn key={service.id} className={`service-row ${index % 2 === 1 ? "service-row--reverse" : ""}`}>
+              <div className={`service-row-media ${index % 2 === 1 ? "photo-curve--reverse" : "photo-curve"}`}>
                 {service.id === "nova" ? (
-                  <div className="flex h-[220px] items-center bg-[#f4f4f2] p-6 min-[720px]:h-[280px] min-[720px]:p-8">
-                    <Image
-                      src="/nova-product-2026-08c.png"
-                      alt="NOVA 管理画面 — AIマッチングアシスタントと案件一覧"
-                      width={748}
-                      height={438}
-                      className="h-full w-full object-contain"
-                    />
-                  </div>
+                  <Image
+                    src="/nova-product-2026-08c.png"
+                    alt="NOVA 管理画面 — AIマッチングアシスタントと案件一覧"
+                    width={748}
+                    height={438}
+                    className="h-full w-full object-contain p-6 min-[720px]:p-10"
+                  />
                 ) : (
-                  <div className="h-[220px] overflow-hidden bg-[#f4f4f2] min-[720px]:h-[280px]">
-                    <Image
-                      src="/business-ai.png"
-                      alt="AI導入について画面を見ながら相談する担当者"
-                      width={1536}
-                      height={1365}
-                      className="h-full w-full object-cover object-center"
-                    />
-                  </div>
+                  <Image
+                    src="/business-ai.png"
+                    alt="AI導入について画面を見ながら相談する担当者"
+                    width={1536}
+                    height={1365}
+                    className="h-full w-full object-cover object-center"
+                  />
                 )}
+              </div>
 
-                <div className="flex flex-1 flex-col p-7 min-[720px]:p-8">
-                  <Kicker className="mb-4">{service.label}</Kicker>
-                  <p className="font-mono text-[12px] font-semibold uppercase tracking-[0.12em] text-warm-ink">
-                    {service.name}
-                  </p>
-                  <h3 className="palt mt-2 text-[22px] font-bold leading-[1.5] text-ink">
-                    {service.heading}
-                  </h3>
-                  <p className="mt-4 text-[14px] leading-[2] text-body">
-                    {service.description}
-                  </p>
-                  <ul className="mt-6 space-y-3">
-                    {service.features.map((feature) => (
-                      <li
-                        key={feature}
-                        className="flex items-center gap-3 text-[14px] font-semibold text-ink"
-                      >
-                        <span aria-hidden className="h-0.5 w-5 shrink-0 bg-warm" />
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
-                  <div className="mt-auto pt-8">
-                    <a
-                      href={service.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group inline-flex min-h-12 w-full items-center justify-center gap-3 rounded-button bg-ink px-7 py-[14px] text-sm font-bold tracking-[0.02em] text-white transition-colors hover:bg-warm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand min-[600px]:w-fit"
+              <div>
+                <p className="font-mono text-[12px] font-semibold uppercase tracking-[0.14em] text-warm-ink">
+                  {service.label} — {service.name}
+                </p>
+                <h3 className="palt mt-3 text-[24px] font-bold leading-[1.5] text-ink min-[720px]:text-[30px]">
+                  {service.heading}
+                </h3>
+                <p className="mt-5 text-[15px] leading-[2.05] text-body">{service.description}</p>
+                <ul className="nova-features mt-7">
+                  {service.features.map((feature) => (
+                    <li key={feature} className="text-[14px] font-bold leading-[1.8] text-ink">
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+                <div className="mt-9">
+                  <a
+                    href={service.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group inline-flex min-h-12 w-full items-center justify-center gap-3 rounded-button bg-ink px-7 py-[14px] text-sm font-bold tracking-[0.02em] text-white transition-colors hover:bg-warm-strong focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand min-[600px]:w-fit"
+                  >
+                    <span>{service.cta}</span>
+                    <span
+                      aria-hidden
+                      className="font-mono transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
                     >
-                      <span>{service.cta}</span>
-                      <span
-                        aria-hidden
-                        className="font-mono transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
-                      >
-                        ↗
-                      </span>
-                    </a>
-                  </div>
+                      ↗
+                    </span>
+                  </a>
                 </div>
-              </article>
+              </div>
             </FadeIn>
           ))}
         </div>

@@ -758,3 +758,29 @@ p, dd, li { text-wrap: pretty; }
 @media (hover: hover) {
   .philo-node:hover { background: #fffaf6; }
 }
+
+/* ===== TOP：サービス（写真と文章を左右交互に置いた段。箱に入れない） ===== */
+.service-row { display: grid; gap: 32px; align-items: center; }
+.service-row-media { position: relative; overflow: hidden; aspect-ratio: 16 / 11; background: #f1efeb; }
+@media (min-width: 1024px) {
+  .service-row { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 72px; }
+  .service-row--reverse { grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); }
+  .service-row--reverse .service-row-media { order: 2; }
+}
+
+/* ===== TOP：組織と認証（タイルに入れず、大きな数字とロゴの並び） ===== */
+.trust-figure { display: flex; align-items: flex-end; gap: 22px; padding-bottom: 28px; border-bottom: 1px solid var(--color-line); }
+.trust-figure-number { white-space: nowrap; font-family: var(--font-anton); font-size: clamp(72px, 9vw, 112px); line-height: .85; color: var(--warm-strong); }
+.trust-figure-number small { margin-left: 4px; font-family: var(--font-sans); font-size: .26em; font-weight: 700; color: var(--color-ink); }
+.trust-badges { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.trust-badges li { padding: 26px 20px 4px; }
+.trust-badges h3, .trust-figure h3 { word-break: keep-all; overflow-wrap: anywhere; }
+.trust-badges li:first-child { padding-left: 0; }
+.trust-badges li + li { border-left: 1px solid var(--color-line); }
+@media (max-width: 719px) {
+  .trust-badges { grid-template-columns: 1fr; }
+  .trust-badges li { display: grid; grid-template-columns: 112px 1fr; column-gap: 18px; align-items: center; padding: 18px 0; border-bottom: 1px solid var(--color-line); }
+  .trust-badges li + li { border-left: 0; }
+  .trust-badges li > div { grid-row: 1 / span 2; }
+  .trust-badges li h3 { margin-top: 0; }
+}
