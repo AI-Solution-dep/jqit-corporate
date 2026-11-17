@@ -787,65 +787,83 @@ p, dd, li { text-wrap: pretty; }
   .service-stack-text { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 64px; margin-top: 40px; align-items: end; }
 }
 
-/* ===== TOP：事業（ITとAIの2枚の写真パネル）
-   ホバーでパネルの幅を変えると文字の折り返しが変わって崩れるため、形は変えず写真の寄りと矢印だけ動かす ===== */
-.biz-split { position: relative; display: flex; flex-direction: column; gap: 12px; }
-.biz-panel { position: relative; overflow: hidden; display: flex; flex-direction: column; isolation: isolate; background: var(--color-ink); }
-.biz-panel-media { position: relative; height: 240px; overflow: hidden; }
-.biz-panel-photo { transition: scale .9s cubic-bezier(.16, .84, .44, 1); }
-.biz-panel-body { position: relative; flex: 1; width: 100%; padding: 32px 24px 28px; }
-/* パネル全体を押せるようにする（見出しのリンクを広げる）。中の小さなリンクは前面に出して個別に押せるようにする */
-.biz-panel-link::after { content: ""; position: absolute; inset: 0; z-index: 1; }
-.biz-panel-link:focus-visible { outline: none; }
-.biz-panel:has(.biz-panel-link:focus-visible) { outline: 2px solid var(--warm-mid); outline-offset: 3px; }
-.biz-panel-sublinks { position: relative; z-index: 2; }
-.biz-panel-more { display: inline-flex; align-items: center; gap: 10px; margin-top: 22px; padding-top: 14px; border-top: 1px solid rgb(255 255 255 / 25%); font-family: var(--font-mono); font-size: 12px; font-weight: 600; letter-spacing: .14em; color: #fff; }
-.biz-panel-arrow { transition: translate .35s cubic-bezier(.16, .84, .44, 1); }
-@media (min-width: 1024px) {
-  .biz-split { flex-direction: row; gap: 14px; }
-  .biz-panel { flex: 1 1 0; }
-  .biz-panel-media { height: 340px; }
-  .biz-panel-body { padding: 48px 44px 40px; }
-  @media (hover: hover) {
-    .biz-panel:hover .biz-panel-photo { scale: 1.05; }
-    .biz-panel:hover .biz-panel-arrow { translate: 6px 0; }
-  }
+/* ===== TOP：事業（左に固定した「IT・AI・実装と運用」の円の図、右に2つの事業）
+   同じ大きさの箱を左右に並べない。図は読んでいる事業に合わせて選択が切り替わり、押すとその事業へ移る ===== */
+.biz-layout { display: grid; gap: 16px; }
+/* スマホは図だけをヘッダーの下に固定し、見出しは図の上に置く */
+.biz-head-sp { display: block; }
+.biz-aside { position: sticky; top: 72px; z-index: 5; margin-inline: -24px; padding: 0 24px; background: rgb(250 249 247 / 94%); backdrop-filter: blur(6px); }
+.biz-head { display: none; }
+.biz-list { display: grid; gap: 96px; }
+.biz-map { position: relative; height: 64px; }
+.biz-map-lines { position: absolute; inset: 0; width: 100%; height: 100%; }
+.biz-map-lines line { stroke: var(--warm-line); stroke-width: 1.5; vector-effect: non-scaling-stroke; transition: stroke .4s; }
+.biz-map-lines line[data-active] { stroke: var(--warm-strong); stroke-width: 2; }
+.biz-map-node {
+  position: absolute; top: 50%; translate: -50% -50%; width: 44px; aspect-ratio: 1; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
+  background: #fff; border: 1.5px solid #e2d6d9; color: var(--color-ink); cursor: pointer;
+  box-shadow: 0 2px 4px rgb(70 40 20 / 12%), 0 18px 36px -8px rgb(70 40 20 / 24%);
+  transition: background-color .4s, border-color .4s, color .4s, scale .4s cubic-bezier(.16, .84, .44, 1);
 }
-@media (prefers-reduced-motion: reduce) {
-  .biz-panel-photo, .biz-panel-arrow { transition: none; }
+.biz-map-node--it { left: 18%; }
+.biz-map-node--ai { left: 82%; }
+.biz-map-node[aria-pressed="true"] { background: var(--warm-soft); border-color: var(--warm-mid); color: var(--warm-strong); scale: 1.06; }
+.biz-map-node:focus-visible { outline: 2px solid var(--warm-strong); outline-offset: 3px; }
+@media (hover: hover) { .biz-map-node:hover { border-color: var(--warm-mid); } }
+.biz-map-short { font-family: var(--font-anton); font-size: 18px; line-height: 1; }
+.biz-map-en { display: none; font-family: var(--font-mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--color-muted); }
+.biz-map-core {
+  position: absolute; left: 50%; top: 50%; translate: -50% -50%; width: 30px; aspect-ratio: 1; border-radius: 50%; display: grid; place-items: center; text-align: center;
+  background: #fff; border: 1px solid rgb(20 20 15 / 15%); color: var(--color-ink); font-size: 13px; font-weight: 700; line-height: 1.35;
+  box-shadow: 0 2px 4px rgb(70 40 20 / 10%), 0 12px 24px -8px rgb(70 40 20 / 20%);
 }
-
-/* ===== TOP：事業の「2つの円の重なり」（IT と AI。白い円＋外側の影、重なり（レンズ形）だけ暖色で塗る） ===== */
-.biz-venn { margin: 0 auto 64px; max-width: 760px; }
-.biz-venn-figure { position: relative; aspect-ratio: 760 / 440; }
-.biz-venn-svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
-.biz-venn-it, .biz-venn-ai { fill: #fff; filter: drop-shadow(0 18px 30px rgb(70 40 20 / 18%)) drop-shadow(0 2px 3px rgb(70 40 20 / 8%)); }
-.biz-venn-it { stroke: #d9d4cf; stroke-width: 1.5; }
-.biz-venn-ai { stroke: var(--warm-mid); stroke-width: 1.5; }
-.biz-venn-lens { fill: var(--warm-strong); }
-/* 文字は重なりの外側に置く（円の位置は viewBox の座標を % に直した値） */
-.biz-venn-label { position: absolute; top: 50%; translate: 0 -50%; display: grid; gap: 12px; }
-.biz-venn-label--it { left: 9%; }
-.biz-venn-label--ai { left: 66%; }
-.biz-venn-en { font-family: var(--font-anton); font-size: clamp(34px, 6vw, 64px); line-height: .9; color: var(--color-ink); }
-.biz-venn-label--ai .biz-venn-en { color: var(--warm-strong); }
-.biz-venn-label ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 6px; font-size: clamp(11.5px, 1.6vw, 15px); font-weight: 700; color: var(--color-body); }
-.biz-venn-label li { display: flex; align-items: center; gap: 8px; }
-.biz-venn-label li::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--warm-mid); flex-shrink: 0; }
-/* 重なりの中は縦書きで（幅の狭いレンズ形に収める） */
-.biz-venn-core { position: absolute; left: 50%; top: 50%; translate: -50% -50%; margin: 0; writing-mode: vertical-rl; color: #fff; font-size: clamp(13px, 2.2vw, 20px); font-weight: 700; letter-spacing: .14em; }
+.biz-map-core-text { display: none; }
+.biz-map-core-label { position: absolute; left: 50%; top: calc(50% + 18px); translate: -50% 0; font-size: 10px; font-weight: 700; letter-spacing: .06em; color: var(--color-muted); white-space: nowrap; }
+.biz-map-caption { display: none; }
+.biz-item { scroll-margin-top: 190px; }
+.biz-item-photo { overflow: hidden; aspect-ratio: 358 / 260; }
+.biz-photo-curve-bl { border-radius: 0 0 0 var(--radius-photo); }
+.biz-caps { margin: 24px 0 0; padding: 0; list-style: none; border-top: 1px solid var(--color-line); }
+.biz-cap { position: relative; isolation: isolate; display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: 16px; align-items: baseline; padding: 16px 0; border-bottom: 1px solid var(--color-line); }
+/* ホバーの背景は罫線より左右に少し広げる（罫線は写真の端にそろえたまま） */
+.biz-cap::before { content: ""; position: absolute; inset: 0 -12px; z-index: -1; background: rgb(253 232 215 / 50%); opacity: 0; transition: opacity .2s; }
+.biz-cap-head { grid-column: 1; font-size: 15px; font-weight: 700; color: var(--color-ink); transition: color .25s; }
+.biz-cap-note { grid-column: 1; margin-top: 2px; font-size: 13px; line-height: 1.7; color: var(--color-body); }
+.biz-cap-arrow { grid-column: 2; grid-row: 1 / span 2; align-self: center; font-family: var(--font-mono); color: var(--color-muted); transition: translate .2s ease-out, color .2s; }
+@media (hover: hover) {
+  .biz-cap:hover::before { opacity: 1; }
+  .biz-cap:hover .biz-cap-head { color: var(--color-warm-ink); }
+  .biz-cap:hover .biz-cap-arrow { color: var(--warm-strong); translate: 4px 0; }
+}
+/* 写真は読み進めると下から浮かび上がる */
 @media (prefers-reduced-motion: no-preference) {
   @supports (animation-timeline: view()) {
-    .biz-venn-figure { view-timeline-name: --venn; }
-    .biz-venn-it { animation: venn-from-left linear both; animation-timeline: --venn; animation-range: entry 10% cover 45%; }
-    .biz-venn-ai { animation: venn-from-right linear both; animation-timeline: --venn; animation-range: entry 10% cover 45%; }
-    .biz-venn-label--it { animation: venn-label-left linear both; animation-timeline: --venn; animation-range: entry 10% cover 45%; }
-    .biz-venn-label--ai { animation: venn-label-right linear both; animation-timeline: --venn; animation-range: entry 10% cover 45%; }
-    .biz-venn-lens, .biz-venn-core { animation: venn-lens linear both; animation-timeline: --venn; animation-range: cover 35% cover 50%; }
+    .biz-item-photo { animation: biz-rise linear both; animation-timeline: view(); animation-range: entry 0% entry 70%; }
   }
 }
-@keyframes venn-from-left { from { translate: -60px 0; opacity: .2; } }
-@keyframes venn-from-right { from { translate: 60px 0; opacity: .2; } }
-@keyframes venn-label-left { from { translate: -60px -50%; opacity: .2; } to { translate: 0 -50%; opacity: 1; } }
-@keyframes venn-label-right { from { translate: 60px -50%; opacity: .2; } to { translate: 0 -50%; opacity: 1; } }
-@keyframes venn-lens { from { opacity: 0; } to { opacity: 1; } }
+@keyframes biz-rise { from { translate: 0 24px; opacity: .3; } to { translate: 0 0; opacity: 1; } }
+@media (min-width: 1024px) {
+  .biz-head-sp { display: none; }
+  .biz-layout { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 72px; align-items: start; }
+  .biz-aside { top: 120px; margin: 0; padding: 0; background: none; backdrop-filter: none; }
+  .biz-head { display: block; }
+  .biz-map { height: 200px; margin-top: 56px; }
+  .biz-map-node { width: 150px; }
+  .biz-map-node--it { left: 17%; }
+  .biz-map-node--ai { left: 83%; }
+  .biz-map-short { font-size: 48px; }
+  .biz-map-core-text { display: block; }
+  .biz-map-core-label { display: none; }
+  .biz-map-caption { display: block; margin-top: 32px; font-size: 15px; font-weight: 700; color: var(--color-ink); }
+  .biz-map-caption-text { display: inline-block; animation: biz-caption .25s ease-out; }
+  .biz-map-en { display: block; }
+  .biz-map-core { width: 80px; }
+  .biz-item { scroll-margin-top: 120px; }
+  .biz-list { gap: 160px; }
+  .biz-item-photo { aspect-ratio: 680 / 500; }
+}
+@media (prefers-reduced-motion: reduce) { .biz-map-node, .biz-map-lines line { transition: none; } }
+@keyframes biz-caption { from { opacity: 0; translate: 0 6px; } to { opacity: 1; translate: 0 0; } }
+/* 事業欄を表示している間は、背景の図形を薄くする（BusinessSection が #main に data-backdrop-dim を付ける） */
+.page-backdrop { transition: opacity .4s; }
+#main[data-backdrop-dim] .page-backdrop { opacity: .45; }
