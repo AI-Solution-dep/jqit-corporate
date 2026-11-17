@@ -194,7 +194,7 @@ export default function AboutPage() {
           <FadeIn className="kpi-group about-facts mb-14">
             <dl className="kpi-chain">
               <svg className="kpi-lines" viewBox="0 0 100 200" preserveAspectRatio="none" aria-hidden>
-                <polyline points="16.67,100 50,130 83.33,130" />
+                <polyline points="16.67,100 83.33,100" />
               </svg>
               {facts.map((f) => (
                 <div key={f.label} className="kpi-item">

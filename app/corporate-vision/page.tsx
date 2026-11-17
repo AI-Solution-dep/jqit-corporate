@@ -208,9 +208,9 @@ export default function CorporateVisionPage() {
                 </div>
                 {/* 各項目は dt（指標名）を先に書き、表示は CSS で円の下に回す */}
                 <dl className="kpi-chain">
-                  {/* 円の中心どうしを結ぶ線（PC）。主な指標の中心から、30px 下にそろえた小さい2つの中心へ */}
+                  {/* 円の中心どうしを結ぶ水平の線（PC）。3つの円の中心は同じ高さ */}
                   <svg className="kpi-lines" viewBox="0 0 100 200" preserveAspectRatio="none" aria-hidden>
-                    <polyline points="16.67,100 50,130 83.33,130" />
+                    <polyline points="16.67,100 83.33,100" />
                   </svg>
                   {kpi.items.map((item) => (
                     <div key={plainPhrase(item.label)} className="kpi-item">
