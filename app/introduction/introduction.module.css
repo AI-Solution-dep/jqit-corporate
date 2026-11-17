@@ -112,6 +112,12 @@
 .contact svg,.sharedContact svg { flex-shrink:0; }
 .sharedContact { background:var(--color-ink); color:white; padding:30px 32px; margin-top:40px; display:flex; align-items:center; justify-content:space-between; gap:24px; }
 .sharedContact p { font-size:13px; color:#c4c4ba; margin-top:8px; }
+.contactScope { padding-top:14px; border-top:1px solid var(--color-line); font-size:14px; line-height:1.8; color:var(--color-body); }
+.sharedContactLinks { display:flex; flex-wrap:wrap; justify-content:flex-end; gap:12px 28px; }
+.sharedContactLinks a { display:inline-flex; align-items:center; gap:10px; font-size:15px; font-weight:700; }
+.sharedContactLinks a small { font-size:11px; font-weight:400; color:var(--color-muted); margin-left:4px; }
+.sharedContactLinks a:hover { color:var(--color-brand); }
+@media(max-width:760px) { .sharedContactLinks { justify-content:flex-start; flex-direction:column; align-items:flex-start; } }
 .sharedContact a { display:flex; align-items:center; gap:16px; min-height:48px; font-size:22px; font-weight:600; }
 .footer { padding:48px max(24px,calc((100% - 1112px)/2)); border-top:1px solid var(--color-line); display:grid; grid-template-columns:1fr 1fr; gap:40px; font-size:12px; line-height:2; }
 .footer img { margin-bottom:20px; }

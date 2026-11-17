@@ -90,7 +90,7 @@ export default function IntroductionPage() {
           <div className={styles.projectTeam}>
             <div className={styles.clientNode}>お客さま <span>課題・目標・現場の声</span></div>
             <p className={styles.connector}>相談・共有 <span aria-hidden="true">↕</span> 提案・報告</p>
-            <div className={styles.teamLinks}>{introductionContacts.members.map((person, i) => <a key={person.email} href={`#contact-${i}`}><span>{person.role}</span><strong>{person.name}</strong><small>{person.scope}</small><span className={styles.teamArrow} aria-hidden="true">↗</span></a>)}</div>
+            <div className={styles.teamLinks}>{introductionContacts.members.map((person, i) => <a key={person.name} href={`#contact-${i}`}><span>{person.role}</span><strong>{person.name}</strong><small>{person.scope}</small><span className={styles.teamArrow} aria-hidden="true">↗</span></a>)}</div>
             <p className={styles.connector}>方針・仕様を共有 <span aria-hidden="true">↕</span> 専門領域から検証</p>
             <div className={styles.disciplines}>{leaders.map(leader => <span key={leader.field}>{leader.field}</span>)}</div>
             <p className={styles.teamCaption}>窓口と専門チームが連携し、設計・開発から品質確認・運用まで。</p>
@@ -108,12 +108,19 @@ export default function IntroductionPage() {
         <section className={styles.section} data-section="contacts" id="contacts" aria-labelledby="contacts-heading">
           <div className={styles.display} aria-hidden="true">CONTACT</div>
           <div className={styles.sectionHead}><p className={styles.eyebrow}>04 ／ 担当者・連絡先</p><h2 id="contacts-heading"><span>まずは、</span><span>お話を聞かせてください。</span></h2></div>
-          <div className={styles.contactGrid}>{introductionContacts.members.map((person, i) => <article id={`contact-${i}`} className={styles.contact} key={person.email}>
+          <div className={styles.contactGrid}>{introductionContacts.members.map((person, i) => <article id={`contact-${i}`} className={styles.contact} key={person.name}>
             <p className={styles.eyebrow}>{person.role}</p><h3>{person.name}<span>{person.reading}</span></h3><p className={styles.jobTitle}>{person.title}</p>
-            <a href={`mailto:${person.email}`}><ContactIcon /><span><small>メールを送る</small>{person.email}</span></a>
-            {person.phone && <a href={`tel:${person.phone.replaceAll('-', '')}`}><ContactIcon phone /><span><small>電話する</small>{person.phone}</span></a>}
+            <p className={styles.contactScope}>{person.scope}</p>
           </article>)}</div>
-          <div className={styles.sharedContact}><div><strong>担当者が分からない方へ</strong><p>営業部共通窓口で承ります。</p></div><a href={`mailto:${introductionContacts.salesEmail}`}><ContactIcon />{introductionContacts.salesEmail}</a></div>
+          {/* 個人の連絡先は載せず、担当者への取り次ぎは共通窓口で受ける。 */}
+          <div className={styles.sharedContact}>
+            <div><strong>ご連絡は営業部の共通窓口へ</strong><p>担当者の名前をお書き添えいただければ、そのまま取り次ぎます。</p></div>
+            <div className={styles.sharedContactLinks}>
+              <a href={`mailto:${introductionContacts.salesEmail}`}><ContactIcon />{introductionContacts.salesEmail}</a>
+              <a href={siteConfig.telHref}><ContactIcon phone />{siteConfig.tel}<small>{siteConfig.businessHours}</small></a>
+              <a href="/contact">お問い合わせフォーム<span aria-hidden="true"> →</span></a>
+            </div>
+          </div>
         </section>
 
         <footer className={styles.footer}><div><Image src="/jqit-logo.png" alt={siteConfig.name} width={130} height={36} /><p>{siteConfig.address}</p><a href={siteConfig.telHref}>代表電話：{siteConfig.tel}</a></div><div><p>設立：{siteConfig.founded}年12月 ／ 資本金：{siteConfig.capital}</p><p>{siteConfig.certifications[4]}</p><div><Link href="/">JQITのホームページへ <span aria-hidden="true">→</span></Link></div><a href="/privacy-policy">プライバシーポリシー</a><small>© {new Date().getFullYear()} JQIT Co., Ltd.</small></div></footer>
