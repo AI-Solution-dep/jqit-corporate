@@ -6,7 +6,6 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { ServiceFaq, type ServiceFaqItem } from "@/components/seo/ServiceFaq";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
-import { DisplayText } from "@/components/ui/DisplayText";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { Kicker } from "@/components/ui/Kicker";
 import { SectionHead } from "@/components/ui/SectionHead";
@@ -86,14 +85,8 @@ const services = [
   },
 ];
 
-/** NOVA が一元管理する領域（製品の実機能） */
-const novaFeatures = [
-  "メール自動取込",
-  "AI 2段階マッチング",
-  "案件・人材・BP管理",
-  "契約終了アラート",
-  "提案メールAI起草",
-];
+/** NOVA の流れ（メール1通が提案になるまで。製品の実機能） */
+const novaFlow = ["メール自動取込", "AIが構造化", "2段階マッチング", "提案メールAI起草"];
 
 const faqs: readonly ServiceFaqItem[] = [
   {
@@ -231,20 +224,8 @@ export default function AiSolutionsPage() {
               <p className="mt-7 max-w-[520px] text-[15px] leading-[2.1] text-body">
                 AIシステムの受託開発、AI導入支援・AI推進コンサル、AIサービス開発の3つの領域で、企業のAI活用を支援します。大規模言語モデルやAIエージェントを中心に、導入の伴走から自社サービス開発まで一貫して対応します。
               </p>
-              <div className="mt-7 flex flex-wrap gap-2">
-                {["AI受託開発", "AIエージェント導入", "業務自動化", "内製化支援", "NOVA"].map(
-                  (t) => (
-                    <span
-                      key={t}
-                      className="rounded-label border border-line px-2.5 py-1 text-[11px] font-semibold tracking-[0.02em] text-body"
-                    >
-                      {t}
-                    </span>
-                  ),
-                )}
-              </div>
             </FadeIn>
-            <FadeIn className="photo-curve--reverse relative overflow-hidden">
+            <FadeIn className="photo-curve relative overflow-hidden">
               <Image
                 src="/natural-tech-ai.webp"
                 alt="AIデータ可視化を前に分析するメンバー"
@@ -284,9 +265,6 @@ export default function AiSolutionsPage() {
 
       {/* SERVICES — 提供サービス */}
       <section className="relative overflow-hidden border-t border-line bg-cream py-20 min-[720px]:py-[96px]">
-        <div className="pointer-events-none absolute -top-3 right-0">
-          <DisplayText size="md">SERVICES</DisplayText>
-        </div>
         <Container className="relative">
           <SectionHead
             kicker="Service"
@@ -334,7 +312,7 @@ export default function AiSolutionsPage() {
                         <span aria-hidden className="h-px w-4 shrink-0 translate-y-[-3px] bg-warm" />
                         {item.head}
                       </h4>
-                      <p className="mt-2.5 text-[13px] leading-[1.95] text-muted">
+                      <p className="mt-2.5 text-[13.5px] leading-[1.95] text-[#5c5a55]">
                         {item.body}
                       </p>
                     </div>
@@ -348,11 +326,8 @@ export default function AiSolutionsPage() {
 
       {/* NOVA — 自社プロダクト */}
       <section className="relative overflow-hidden bg-ink py-20 text-white min-[720px]:py-[100px]">
-        <div className="pointer-events-none absolute -bottom-2 right-0 min-[720px]:-bottom-4">
-          <DisplayText tone="white">NOVA</DisplayText>
-        </div>
         <Container className="relative">
-          <div className="grid grid-cols-1 items-center gap-12 min-[1024px]:grid-cols-[1fr_1fr] min-[1024px]:gap-16">
+          <div className="grid grid-cols-1 items-start gap-12 min-[1024px]:grid-cols-[0.8fr_1.2fr] min-[1024px]:gap-14">
             <FadeIn>
               <p className="mb-4 flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.2em] text-warm">
                 <span aria-hidden className="h-px w-6 bg-warm" />
@@ -366,14 +341,18 @@ export default function AiSolutionsPage() {
               <p className="mt-6 text-[14.5px] leading-[2.05] text-white/80">
                 NOVAは、届いた案件・人材メールをAIが自動で構造化し、タグスコアとAI判定の2段階マッチングで候補と「なぜ合うか」の判断理由まで提示するSES特化のAIマッチングシステムです。契約終了アラートによる先回り営業、提案メールのAI起草まで、メール1通が提案になるまでを一気通貫で支えます。
               </p>
-              {/* 特徴は箱にせず、番号のない短いリストにする */}
-              <ul className="nova-features mt-8">
-                {novaFeatures.map((f) => (
-                  <li key={f} className="palt text-[14px] font-bold leading-[1.8]">
-                    {f}
+              {/* メール1通が提案になるまでの流れを、番号付きの円4つでつなぐ（順番に意味があるので番号を振る） */}
+              <ol className="nova-flow2">
+                {novaFlow.map((f, i) => (
+                  <li key={f}>
+                    <span className="nova-flow2-node">{String(i + 1).padStart(2, "0")}</span>
+                    <span className="nova-flow2-label palt">{f}</span>
                   </li>
                 ))}
-              </ul>
+              </ol>
+              <p className="mt-5 text-[13px] leading-[1.9] text-white/65">
+                ほかに、案件・人材・BP の一元管理と、契約終了アラートによる先回り営業にも対応します。
+              </p>
               <div className="mt-9">
                 <Button href={siteConfig.links.nova} external>
                   NOVA 製品サイトへ
@@ -387,7 +366,7 @@ export default function AiSolutionsPage() {
                 width={748}
                 height={438}
                 sizes="(min-width: 1024px) 50vw, 100vw"
-                className="nova-shot h-auto w-full rounded-xl border border-white/10 object-cover"
+                className="nova-shot h-auto w-full object-contain min-[1024px]:mt-10"
               />
             </FadeIn>
           </div>

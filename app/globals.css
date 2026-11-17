@@ -1007,3 +1007,133 @@ p, dd, li { text-wrap: pretty; }
   .access-layout { grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: 64px; align-items: center; }
   .access-map { min-height: 440px; }
 }
+
+/* ===== 事業ページ：よくあるご質問（最初の6問＋「ほかのご質問」） ===== */
+.faq-more-toggle {
+  display: inline-flex; align-items: center; gap: 12px; margin-top: 28px; padding: 12px 20px; list-style: none; cursor: pointer;
+  border: 1px solid var(--color-line); border-radius: var(--radius-button); background: #fff; font-size: 14px; font-weight: 700; color: var(--color-ink);
+  transition: border-color .25s, color .25s;
+}
+.faq-more-toggle::-webkit-details-marker { display: none; }
+.faq-more-icon { position: relative; width: 10px; height: 10px; }
+.faq-more-icon::before, .faq-more-icon::after { content: ""; position: absolute; left: 0; top: 50%; width: 10px; height: 1.5px; background: currentColor; translate: 0 -50%; transition: rotate .3s; }
+.faq-more-icon::after { rotate: 90deg; }
+.faq-more[open] .faq-more-icon::after { rotate: 0deg; }
+.faq-more[open] .faq-more-toggle { order: 2; }
+.faq-more { display: flex; flex-direction: column; }
+.faq-more[open] > div { order: 1; }
+@media (hover: hover) { .faq-more-toggle:hover { border-color: var(--warm-mid); color: var(--color-warm-ink); } }
+
+.engage-cols { display: grid; gap: 56px; }
+@media (min-width: 900px) { .engage-cols { grid-template-columns: 1fr 1fr; gap: 64px; } }
+.engage-list { margin: 20px 0 0; padding: 0; list-style: none; border-top: 1px solid var(--color-line); }
+.engage-list li { display: flex; gap: 12px; align-items: baseline; padding: 13px 0; border-bottom: 1px solid var(--color-line); font-size: 14px; line-height: 1.8; color: var(--color-ink); }
+.engage-list li::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--warm-mid); flex-shrink: 0; translate: 0 -2px; }
+
+/* ===== IT事業：QA の行に添える実績（小さなラベル） ===== */
+.qa-proof { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0 0; padding: 0; list-style: none; }
+.qa-proof li { padding: 4px 10px; border-radius: var(--radius-label); background: var(--warm-soft); font-size: 12px; font-weight: 600; color: var(--color-ink); }
+
+/* ===== IT事業：開発の流れ（PC は円5つを水平線で結ぶ。スマホは縦のタイムラインのまま） ===== */
+@media (min-width: 1024px) {
+  .delivery-circles { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px; max-width: none; margin: 0; border-left: 0; }
+  .delivery-circles::after { left: 10%; right: 10%; top: 28px; bottom: auto; width: auto; height: 1.5px; background: #e8b896; transform-origin: left; }
+  .delivery-circles::before { content: ""; position: absolute; left: 10%; right: 10%; top: 28px; height: 1.5px; background: var(--warm-line); }
+  .delivery-circles .delivery-step { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 0; padding: 0; }
+  .delivery-circles .delivery-step::before { display: none; }
+  .delivery-circles .delivery-step-number {
+    position: relative; z-index: 1; width: 56px; aspect-ratio: 1; border-radius: 50%; display: grid; place-items: center; line-height: 1;
+    background: #fff; border: 1px solid var(--warm-line); font-size: 14px; color: var(--warm-strong);
+    box-shadow: 0 2px 4px rgb(70 40 20 / 12%), 0 18px 36px -6px rgb(70 40 20 / 24%);
+  }
+  .delivery-circles h3 { margin-top: 16px; }
+  .delivery-circles p { margin-top: 6px; max-width: 14em; font-size: 13px; line-height: 1.85; }
+}
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) and (min-width: 1024px) {
+    .delivery-circles::after { animation-name: scene-bar-x; }
+  }
+}
+
+.strength-certs { display: flex; flex-wrap: wrap; gap: 10px; margin: 40px 0 0; padding: 0; list-style: none; }
+.strength-certs li { padding: 6px 14px; border: 1px solid rgb(255 255 255 / 22%); border-radius: var(--radius-label); font-size: 12px; font-weight: 600; color: rgb(255 255 255 / 80%); }
+
+/* ===== AI事業：NOVA の流れ（暗い帯の上に、番号付きの円4つを線でつなぐ） ===== */
+.nova-flow2 { position: relative; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; margin: 32px 0 0; padding: 0; list-style: none; }
+.nova-flow2::before { content: ""; position: absolute; left: 12.5%; right: 12.5%; top: 26px; height: 1.5px; background: rgb(240 140 58 / 60%); }
+.nova-flow2 li { position: relative; display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center; }
+.nova-flow2-node {
+  width: 52px; aspect-ratio: 1; border-radius: 50%; display: grid; place-items: center;
+  background: #fff; color: var(--warm-strong); font-family: var(--font-mono); font-size: 13px; font-weight: 700;
+  box-shadow: 0 0 0 5px rgb(255 255 255 / 8%), 0 16px 32px -8px rgb(0 0 0 / 55%);
+}
+.nova-flow2 li:last-child .nova-flow2-node { background: var(--warm-strong); color: #fff; }
+.nova-flow2-label { font-size: 12.5px; font-weight: 700; line-height: 1.5; color: #fff; word-break: keep-all; overflow-wrap: anywhere; }
+
+/* ===== 事業ページ：2回目のデザインレビューの反映（2026-11-18） ===== */
+/* IT 開発の流れ：円を少し大きく。線が届いた円から順に縁が暖色になって寄る */
+@media (min-width: 1024px) {
+  .delivery-circles .delivery-step-number { width: 64px; }
+  .delivery-circles::before, .delivery-circles::after { top: 32px; }
+}
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) and (min-width: 1024px) {
+    .delivery-circles .delivery-step-number { animation: step-on linear both; animation-timeline: view(); animation-range: entry 80% cover 35%; }
+    .delivery-circles .delivery-step:nth-child(2) .delivery-step-number { animation-range: entry 90% cover 40%; }
+    .delivery-circles .delivery-step:nth-child(3) .delivery-step-number { animation-range: entry 100% cover 45%; }
+    .delivery-circles .delivery-step:nth-child(4) .delivery-step-number { animation-range: cover 20% cover 50%; }
+    .delivery-circles .delivery-step:nth-child(5) .delivery-step-number { animation-range: cover 25% cover 55%; }
+  }
+}
+@keyframes step-on { from { border-color: var(--warm-line); scale: 1; } to { border-color: var(--warm-mid); scale: 1.06; } }
+/* 質問：「ほかのご質問」は箱にせず、行と同じ見た目（＋印は右端） */
+.faq-more-toggle {
+  display: flex; justify-content: space-between; width: 100%; margin-top: 0; padding: 24px 0; border: 0; border-bottom: 1px solid var(--color-line); border-radius: 0; background: none; font-size: 15px;
+}
+.faq-more-icon { width: 12px; height: 12px; margin-right: clamp(18px, 2.2vw, 32px); }
+.faq-more-icon::before, .faq-more-icon::after { width: 12px; }
+/* AI NOVA：スマホは流れを2つずつ2段に（名前が途中で折れないように） */
+@media (max-width: 719px) {
+  .nova-flow2 { grid-template-columns: 1fr 1fr; row-gap: 22px; }
+  .nova-flow2::before { display: none; }
+  .nova-flow2-node { width: 48px; }
+  .nova-flow2-label { font-size: 12px; }
+}
+
+/* IT 強み：認証のラベルは中央に、縁を明るく */
+.strength-certs { justify-content: center; }
+.strength-certs li { border-color: rgb(255 255 255 / 40%); }
+
+/* ===== IT事業：関わり方（5つの工程の帯に、SES と SI が担う範囲を塗る） ===== */
+.scope-band { display: grid; gap: 10px; margin: 0 auto 56px; }
+.scope-row { display: grid; grid-template-columns: 112px repeat(5, minmax(0, 1fr)); align-items: center; column-gap: 6px; position: relative; }
+.scope-row--head { padding-bottom: 6px; border-bottom: 1px solid var(--color-line); }
+.scope-step { font-size: 13px; font-weight: 700; color: var(--color-ink); text-align: center; word-break: keep-all; overflow-wrap: anywhere; }
+.scope-label { display: flex; flex-direction: column; font-family: var(--font-anton); font-size: 28px; line-height: 1; color: var(--warm-strong); transition: color .25s; }
+.scope-label span { margin-top: 6px; font-family: var(--font-sans); font-size: 12px; font-weight: 700; color: var(--color-ink); }
+@media (hover: hover) { .scope-label:hover { color: var(--color-warm-ink); } }
+.scope-cell { height: 44px; border-radius: var(--radius-label); }
+.scope-cell--pick { background: var(--warm-soft); border: 1px dashed #e8b896; }
+.scope-cell--all { grid-column: 2 / -1; background: var(--warm-strong); }
+.scope-note { position: absolute; top: 50%; translate: 0 -50%; font-size: 13px; font-weight: 700; pointer-events: none; }
+/* SES の注記は区切った枠の上に重ねず、帯の下に置く */
+.scope-note--ses { position: static; translate: none; grid-column: 2 / -1; margin-top: 6px; color: var(--color-warm-ink); }
+.scope-note--si { left: calc(112px + 18px); color: #fff; }
+@media (prefers-reduced-motion: no-preference) {
+  .reveal[data-hidden="false"] .scope-cell--all { animation: scope-grow .7s cubic-bezier(.16, .84, .44, 1) .15s both; transform-origin: left; }
+}
+@keyframes scope-grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@media (max-width: 719px) {
+  .scope-row { grid-template-columns: 64px repeat(5, minmax(0, 1fr)); column-gap: 3px; }
+  .scope-step { font-size: 10px; line-height: 1.35; }
+  .scope-label { font-size: 22px; }
+  .scope-label span { font-size: 10px; }
+  .scope-cell { height: 40px; }
+  .scope-note { position: static; translate: none; grid-column: 2 / -1; margin-top: 6px; font-size: 11.5px; }
+  .scope-note--si { color: var(--color-warm-ink); }
+}
+
+/* ===== IT事業：選ばれ続ける理由（大きな見出しと短い文の2段） ===== */
+.strength-cols { display: grid; gap: 40px; margin-top: 48px; }
+.strength-col { padding-top: 24px; border-top: 2px solid rgb(240 140 58 / 70%); }
+@media (min-width: 900px) { .strength-cols { grid-template-columns: 1fr 1fr; gap: 64px; } }
