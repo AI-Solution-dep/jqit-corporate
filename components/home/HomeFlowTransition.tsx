@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { FlowAnimationControl } from "@/components/ui/FlowAnimationControl";
 import "./home-flow-transition.css";
 
 /** 写真とコピーには触れず、TOPの下でスクロールを次の内容へつなぐ。 */
@@ -40,7 +39,6 @@ export function HomeFlowTransition() {
 
   return (
     <div ref={ref} className="home-flow-transition" aria-hidden="true">
-      <FlowAnimationControl />
       <svg viewBox="0 0 1440 240" preserveAspectRatio="none" fill="none">
         <path pathLength="1" d="M-80 142C160-8 350 10 556 132S910 254 1110 116S1360 20 1520 86" />
         <path pathLength="1" d="M-80 160C160 10 350 28 556 150S910 272 1110 134S1360 38 1520 104" />

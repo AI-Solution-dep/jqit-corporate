@@ -2,7 +2,6 @@
 
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
-import { FlowAnimationControl } from "./FlowAnimationControl";
 
 /** 下層の背景はゆっくり、写真は小さく逆方向へ。文字と写真の枠は固定する。 */
 export function PageMotion() {
@@ -75,5 +74,5 @@ export function PageMotion() {
     };
   }, [pathname]);
 
-  return <FlowAnimationControl />;
+  return null;
 }
