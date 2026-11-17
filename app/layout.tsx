@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Anton, Inter, JetBrains_Mono, Noto_Sans_JP } from "next/font/google";
 import { SiteFooter } from "@/components/layout/SiteFooter";
+import { PageBackdrop } from "@/components/layout/PageBackdrop";
 import { PublicSiteChrome } from "@/components/layout/PublicSiteChrome";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { GoogleAnalytics } from "@/components/seo/GoogleAnalytics";
@@ -215,7 +216,9 @@ export default function RootLayout({
           本文へスキップ
         </a>
         <PublicSiteChrome><SiteHeader /></PublicSiteChrome>
-        <main id="main" className="flex-1">
+        {/* relative + isolate：背景の図形（PageBackdrop）を本文の後ろ・ページの地の上に置くための重なり順の基準 */}
+        <main id="main" className="relative isolate flex-1">
+          <PageBackdrop />
           {children}
         </main>
         <PublicSiteChrome><SiteFooter /></PublicSiteChrome>

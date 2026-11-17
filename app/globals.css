@@ -31,7 +31,8 @@ body {
   font-family: var(--font-sans);
   color: var(--color-ink);
   background: var(--color-paper);
-  overflow-x: hidden;
+  /* 横はみ出し防止。hidden だと body がスクロール領域扱いになり sticky（背景の図形）が効かないため clip にする */
+  overflow-x: clip;
 }
 
 section[id] {
@@ -419,3 +420,22 @@ section[id] {
     transform: none;
   }
 }
+
+/* ===== 子ページの背景の図形（components/layout/PageBackdrop.tsx・lib/page-backdrops.ts） =====
+   #main 全体を覆う線路の中の、高さ0の sticky 層に図形を置き、最初から最後まで画面についてこさせる。
+   z-index:-1（#main は isolate）で本文の後ろ・ページの地の上に置く。フッターは #main の外なので図形はそこで終わる。 */
+.page-backdrop { position: absolute; inset: 0; z-index: -1; overflow: clip; pointer-events: none; }
+.page-backdrop-stage { position: sticky; top: 0; height: 0; }
+.page-backdrop-mover { position: absolute; display: block; aspect-ratio: 1; will-change: transform; }
+.page-backdrop-shape { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.page-backdrop-move-x { animation: page-backdrop-x 10s ease-in-out infinite alternate; }
+.page-backdrop-move-y { animation: page-backdrop-y 8s ease-in-out infinite alternate; }
+@keyframes page-backdrop-x { from { transform: translateX(min(-6vw, -48px)); } to { transform: translateX(max(6vw, 48px)); } }
+@keyframes page-backdrop-y { from { transform: translateY(max(-10vh, -90px)); } to { transform: translateY(min(10vh, 90px)); } }
+@media (prefers-reduced-motion: reduce) { .page-backdrop-move-x, .page-backdrop-move-y { animation: none; } }
+
+/* 背景の図形があるページでは、白い帯は透かし、紙色の帯は半透明にして図形を見せる。
+   暗い帯（bg-ink）や写真の帯はそのまま（図形は隠れる）。従来の点と線の模様（TechBackdrop）は重ねない。 */
+#main[data-backdrop] > section.bg-paper { background: transparent; }
+#main[data-backdrop] > section.bg-cream { background: rgb(250 249 247 / 60%); }
+#main[data-backdrop] [data-tech-backdrop] { display: none; }
