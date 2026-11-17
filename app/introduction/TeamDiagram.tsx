@@ -42,7 +42,7 @@ export function TeamDiagram() {
       </div>
       <div className={styles.jqit}>
         <p className={styles.teamLabel}>JQITの担当チーム</p>
-        <div className={styles.people}>{introductionContacts.members.map((person, index) => <a key={person.email} href={`#contact-${index}`}>
+        <div className={styles.people}>{introductionContacts.members.map((person, index) => <a key={person.name} href={`#contact-${index}`}>
           <RoleDrawing index={index} />
           <span className={styles.role}>{person.role}</span><strong>{person.name}</strong><small>{person.scope}</small>
           <span className={styles.arrow} aria-hidden="true">↗</span>

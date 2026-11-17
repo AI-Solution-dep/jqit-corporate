@@ -100,12 +100,19 @@ export default function IntroductionPage() {
         <section className={styles.section} data-section="contacts" id="contacts" aria-labelledby="contacts-heading">
           <div className={styles.display} aria-hidden="true">CONTACT</div>
           <div className={styles.sectionHead}><p className={styles.eyebrow}>担当者・連絡先</p><h2 id="contacts-heading"><span>まずは、</span><span>お話を聞かせてください。</span></h2></div>
-          <div className={styles.contactGrid}>{introductionContacts.members.map((person, i) => <article id={`contact-${i}`} className={styles.contact} key={person.email}>
+          <div className={styles.contactGrid}>{introductionContacts.members.map((person, i) => <article id={`contact-${i}`} className={styles.contact} key={person.name}>
             <p className={styles.eyebrow}>{person.role}</p><h3>{person.name}<span>{person.reading}</span></h3><p className={styles.jobTitle}>{person.title}</p>
-            <a href={`mailto:${person.email}`}><ContactIcon /><span><small>メールを送る</small>{person.email}</span></a>
-            {person.phone && <a href={`tel:${person.phone.replaceAll('-', '')}`}><ContactIcon phone /><span><small>電話する</small>{person.phone}</span></a>}
+            <p className={styles.contactScope}>{person.scope}</p>
           </article>)}</div>
-          <div className={styles.sharedContact}><div><strong>担当者が分からない方へ</strong><p>営業部共通窓口で承ります。</p></div><a href={`mailto:${introductionContacts.salesEmail}`}><ContactIcon />{introductionContacts.salesEmail}</a></div>
+          {/* 個人の連絡先は載せず、担当者への取り次ぎは共通窓口で受ける。 */}
+          <div className={styles.sharedContact}>
+            <div><strong>ご連絡は営業部の共通窓口へ</strong><p>担当者の名前をお書き添えいただければ、そのまま取り次ぎます。</p></div>
+            <div className={styles.sharedContactLinks}>
+              <a href={`mailto:${introductionContacts.salesEmail}`}><ContactIcon />{introductionContacts.salesEmail}</a>
+              <a href={siteConfig.telHref}><ContactIcon phone />{siteConfig.tel}<small>{siteConfig.businessHours}</small></a>
+              <a href="/contact">お問い合わせフォーム<span aria-hidden="true"> →</span></a>
+            </div>
+          </div>
         </section>
 
           </div>
