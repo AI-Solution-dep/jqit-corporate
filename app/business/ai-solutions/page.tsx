@@ -326,16 +326,10 @@ export default function AiSolutionsPage() {
                     </div>
                   )}
                 </div>
-                <div
-                  className={`grid grid-cols-1 gap-px self-start border border-line bg-line ${
-                    s.items.length > 1 ? "min-[600px]:grid-cols-2" : ""
-                  }`}
-                >
+                {/* 詳細は箱にせず、見出しと文章を罫線で区切って縦に並べる */}
+                <div className="service-detail-list self-start">
                   {s.items.map((item) => (
-                    <div
-                      key={item.head}
-                      className="brand-line-card bg-white px-6 py-6 min-[720px]:px-7"
-                    >
+                    <div key={item.head} className="service-detail-item">
                       <h4 className="brand-line-label palt flex items-baseline gap-3 text-[15px] font-bold text-ink">
                         <span aria-hidden className="h-px w-4 shrink-0 translate-y-[-3px] bg-brand" />
                         {item.head}
@@ -372,19 +366,14 @@ export default function AiSolutionsPage() {
               <p className="mt-6 text-[14.5px] leading-[2.05] text-white/80">
                 NOVAは、届いた案件・人材メールをAIが自動で構造化し、タグスコアとAI判定の2段階マッチングで候補と「なぜ合うか」の判断理由まで提示するSES特化のAIマッチングシステムです。契約終了アラートによる先回り営業、提案メールのAI起草まで、メール1通が提案になるまでを一気通貫で支えます。
               </p>
-              <div className="nova-features mt-8 grid grid-cols-2 gap-px border border-white/15 bg-white/15 min-[600px]:grid-cols-3">
+              {/* 特徴は箱にせず、番号のない短いリストにする */}
+              <ul className="nova-features mt-8">
                 {novaFeatures.map((f) => (
-                  <div key={f} className="bg-ink px-4 py-3.5">
-                    <span aria-hidden className="block h-1.5 w-1.5 bg-brand" />
-                    <p className="palt mt-2 text-[13.5px] font-bold">{f}</p>
-                  </div>
+                  <li key={f} className="palt text-[14px] font-bold leading-[1.8]">
+                    {f}
+                  </li>
                 ))}
-                <div className="flex min-h-[64px] items-center bg-ink px-4 py-3.5">
-                  <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-white/40">
-                    All in One
-                  </p>
-                </div>
-              </div>
+              </ul>
               <div className="mt-9">
                 <Button href={siteConfig.links.nova} external>
                   NOVA 製品サイトへ

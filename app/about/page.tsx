@@ -177,7 +177,7 @@ export default function AboutPage() {
       {/* PRIMARY SOURCES — 外部の一次情報で許認可・専門性を検証可能にする */}
       <section className="border-t border-line bg-paper pb-20 min-[720px]:pb-[92px]">
         <Container>
-          <FadeIn className="border border-line bg-cream px-7 py-8 min-[720px]:px-9">
+          <FadeIn className="pt-16 min-[720px]:pt-[84px]">
             <Kicker className="mb-4">Official Sources</Kicker>
             <h2 className="palt text-[22px] font-bold tracking-[-0.02em] text-ink min-[720px]:text-[26px]">
               第三者機関で確認できる認定・許可
@@ -185,19 +185,20 @@ export default function AboutPage() {
             <p className="mt-3 max-w-[720px] text-[13.5px] leading-[1.95] text-body">
               当社が掲示する認定・許可のうち、公開されている公式情報へのリンクです。
             </p>
-            <ul className="mt-6 grid grid-cols-1 gap-px border border-line bg-line min-[760px]:grid-cols-2">
+            {/* 箱にせず、罫線で区切ったリンクの一覧（左に認定名、右に発行元） */}
+            <ul className="official-source-list mt-8">
               {officialSources.map((source) => (
-                <li key={source.href} className="bg-white px-6 py-5">
+                <li key={source.href}>
                   <a
                     href={source.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group block"
+                    className="group"
                   >
                     <span className="palt text-[15px] font-bold leading-[1.7] text-ink transition-colors group-hover:text-brand">
                       {source.label}
                     </span>
-                    <span className="mt-1.5 block text-[11.5px] leading-[1.7] text-muted">
+                    <span className="shrink-0 text-[12px] leading-[1.7] text-muted">
                       {source.organization} ↗
                     </span>
                   </a>

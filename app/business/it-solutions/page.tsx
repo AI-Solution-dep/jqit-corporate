@@ -399,21 +399,12 @@ export default function ItSolutionsPage() {
             lead="守秘義務に配慮し、公開可能な範囲で業種・検証領域のみ掲載しています。"
             className="mb-10"
           />
+          {/* 箱にせず、罫線で区切った一覧にする */}
           <FadeIn>
-            <ul className="grid grid-cols-1 gap-px border border-line bg-line min-[720px]:grid-cols-2">
-              {qaProjectExamples.map((project, index) => (
-                <li
-                  key={project}
-                  className={`flex items-baseline gap-4 bg-white px-6 py-5 ${
-                    index === qaProjectExamples.length - 1
-                      ? "min-[720px]:col-span-2"
-                      : ""
-                  }`}
-                >
-                  <span aria-hidden className="h-px w-3 shrink-0 translate-y-[-3px] bg-brand" />
-                  <span className="text-[14px] font-semibold leading-[1.8] text-ink">
-                    {project}
-                  </span>
+            <ul className="project-experience-list">
+              {qaProjectExamples.map((project) => (
+                <li key={project} className="text-[15px] font-semibold leading-[1.9] text-ink">
+                  {project}
                 </li>
               ))}
             </ul>
@@ -430,37 +421,16 @@ export default function ItSolutionsPage() {
             lead="すべての工程を一括でも、検証のみ・運用のみといった一部の工程からでもお請けできます。"
             className="mb-12"
           />
-          <FadeIn className="process-steps grid grid-cols-1 gap-px border border-line bg-line min-[720px]:grid-cols-2 min-[1024px]:grid-cols-5">
-            {steps.map((s, i) => (
-              <div
-                key={s.no}
-                className={`brand-line-card relative bg-white px-6 py-7 min-[1024px]:px-5 ${
-                  i === steps.length - 1
-                    ? "min-[720px]:col-span-2 min-[1024px]:col-span-1"
-                    : ""
-                }`}
-              >
-                <div className="flex items-baseline justify-between">
-                  <span className="brand-line-no font-mono text-[13px] font-semibold text-brand">
-                    {s.no}
-                  </span>
-                  {/* 矢印は横並び（5カラム）時のみ。縦積みでは視線の流れと矛盾するため隠す */}
-                  {i < steps.length - 1 && (
-                    <span
-                      aria-hidden
-                      className="hidden font-mono text-[13px] text-muted/50 min-[1024px]:inline"
-                    >
-                      →
-                    </span>
-                  )}
-                </div>
-                <h3 className="brand-line-label palt mt-3.5 text-[16px] font-bold text-ink">
-                  {s.title}
-                </h3>
-                <p className="mt-2.5 text-[12.5px] leading-[1.9] text-muted">{s.body}</p>
-              </div>
+          {/* 縦のタイムライン。見せ場：読み進めるにつれ縦線が赤く伸び、工程の点が赤くなる（globals.css） */}
+          <ol className="delivery-timeline">
+            {steps.map((s) => (
+              <li key={s.no} className="delivery-step">
+                <span className="delivery-step-number font-mono font-semibold">{s.no}</span>
+                <h3 className="palt text-[19px] font-bold leading-[1.6] text-ink">{s.title}</h3>
+                <p className="text-[14px] leading-[2] text-body">{s.body}</p>
+              </li>
             ))}
-          </FadeIn>
+          </ol>
         </Container>
       </section>
 

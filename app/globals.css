@@ -493,20 +493,18 @@ html:has(.page-curtain) { scroll-behavior: auto; }
     /* ビジョン：企業理念の一文が左から現れ（画面に入りきった時点で完了）、Purpose・Mission・Vision は中央に来たものから濃くなる */
     .vision-statement { animation: scene-mask linear both; animation-timeline: view(); animation-range: entry 0% entry 100%; }
     .vision-philosophy h3 { animation: scene-ink linear both; animation-timeline: view(); animation-range: cover 25% cover 48%; }
-    /* IT：開発の流れの各工程の上辺に、赤い線が読み進めるにつれて左の工程から順に伸びる */
-    .process-steps > div::after { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 2px; background: var(--color-brand); transform-origin: left; animation: scene-bar linear both; animation-timeline: view(); animation-range: entry 70% cover 45%; }
-    .process-steps > div:nth-child(2)::after { animation-range: entry 85% cover 50%; }
-    .process-steps > div:nth-child(3)::after { animation-range: entry 100% cover 55%; }
-    .process-steps > div:nth-child(4)::after { animation-range: cover 30% cover 60%; }
-    .process-steps > div:nth-child(5)::after { animation-range: cover 35% cover 65%; }
+    /* IT：開発の流れの縦線が読み進めるにつれ上から赤く伸び、工程の点が画面の中ほどに来たものから赤くなる */
+    .delivery-timeline::after { content: ""; position: absolute; left: -2px; top: 0; bottom: 0; width: 2px; background: var(--color-brand); transform-origin: top; animation: scene-bar-y linear both; animation-timeline: view(); animation-range: entry 60% cover 70%; }
+    .delivery-step::before { animation: scene-dot linear both; animation-timeline: view(); animation-range: entry 100% cover 40%; }
     /* AI：NOVA の画面がせり上がり、特徴が順に濃くなる */
     .nova-shot { animation: scene-rise linear both; animation-timeline: view(); animation-range: entry 0% cover 42%; }
-    .nova-features > div { animation: scene-fill linear both; animation-timeline: view(); animation-range: entry 100% cover 50%; }
+    .nova-features > li { animation: scene-fill linear both; animation-timeline: view(); animation-range: entry 100% cover 50%; }
   }
 }
 @keyframes scene-mask { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
 @keyframes scene-ink { from { color: #c9c4c6; } to { color: var(--color-ink); } }
-@keyframes scene-bar { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes scene-bar-y { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+@keyframes scene-dot { from { background: #d9d5d6; scale: .7; } to { background: var(--color-brand); scale: 1; } }
 @keyframes scene-rise { from { transform: translateY(56px) scale(.92) rotate(-1.5deg); opacity: .4; } to { transform: none; opacity: 1; } }
 @keyframes scene-fill { from { opacity: .3; } to { opacity: 1; } }
 
@@ -521,3 +519,68 @@ html:has(.page-curtain) { scroll-behavior: auto; }
 .photo-curve { border-radius: 0 var(--radius-photo) 0 0; }
 .photo-curve--reverse { border-radius: var(--radius-photo) 0 0 0; }
 .band-curve { border-bottom-right-radius: var(--radius-band); }
+
+/* ===== 子ページの箱の組み替え（箱を並べず、罫線・行・文章のまとまりで見せる） =====
+   曲線は使わない（写真と見出し帯だけの決まり）。並列の項目に番号は振らない。 */
+/* ビジョン：企業理念は「Purpose / Mission / Vision」を左に置いた定義の行 */
+.vision-philosophy { max-width: 1000px; }
+.vision-philosophy-row { display: grid; grid-template-columns: 160px 1fr; align-items: baseline; gap: 32px; padding: 28px 0; border-top: 1px solid var(--color-line); }
+.vision-philosophy-row:last-child { border-bottom: 1px solid var(--color-line); }
+/* ビジョン：行動指針は、導入を左に残し（sticky）、右に6つの文章を段をずらして並べる */
+.vision-values-layout { display: grid; grid-template-columns: minmax(240px, .8fr) minmax(0, 1.2fr); gap: clamp(56px, 8vw, 120px); }
+.vision-values-intro { align-self: start; position: sticky; top: 120px; }
+.vision-value { max-width: 560px; padding-bottom: 44px; margin-bottom: 44px; border-bottom: 1px solid var(--color-line); }
+.vision-value:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: 0; }
+.vision-value:nth-child(even) { margin-left: clamp(16px, 3vw, 48px); }
+/* ビジョン：DX指標は、左に指標名・右に「施策 → 目標」の定義リスト */
+.vision-kpi { display: grid; grid-template-columns: .8fr 1.5fr; gap: 56px; }
+.vision-kpi-row { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; padding: 18px 0; border-bottom: 1px solid var(--color-line); }
+.vision-kpi-row:first-child { padding-top: 0; }
+/* ビジョン：推進体制は文章のまとまり。2つ目以降を右へずらす */
+.vision-structure { max-width: 900px; margin-left: auto; }
+.vision-structure-item { padding-block: 32px 40px; }
+.vision-structure-item:first-child { padding-top: 0; }
+.vision-structure-item + .vision-structure-item { margin-left: 12%; border-top: 1px solid var(--color-line); }
+/* AI：サービスの詳細は罫線で区切った縦の並び、NOVA の特徴は番号のない短いリスト */
+.service-detail-item { padding-block: 22px; border-bottom: 1px solid var(--color-line); }
+.service-detail-item:first-child { padding-top: 0; }
+.service-detail-item:last-child { border-bottom: 0; padding-bottom: 0; }
+.nova-features { display: flex; flex-wrap: wrap; gap: 12px 28px; }
+.nova-features li { display: flex; align-items: baseline; gap: 10px; }
+.nova-features li::before { content: ""; width: 6px; height: 6px; background: var(--color-brand); flex-shrink: 0; translate: 0 -2px; }
+/* IT：QA実績は罫線で区切った一覧 */
+.project-experience-list { max-width: 880px; border-top: 1px solid var(--color-line); }
+.project-experience-list li { display: flex; gap: 18px; align-items: baseline; padding: 20px 0; border-bottom: 1px solid var(--color-line); }
+.project-experience-list li::before { content: ""; width: 6px; height: 6px; background: var(--color-brand); flex-shrink: 0; translate: 0 -2px; }
+/* IT：開発の流れは縦のタイムライン（番号は順番に意味があるので残す） */
+.delivery-timeline { position: relative; max-width: 960px; margin-left: auto; border-left: 2px solid #ecdfe2; }
+.delivery-step { position: relative; display: grid; grid-template-columns: 56px minmax(0, .85fr) minmax(0, 1.4fr); gap: 24px; padding: 0 0 44px 36px; }
+.delivery-step:last-child { padding-bottom: 0; }
+.delivery-step::before { content: ""; position: absolute; z-index: 1; width: 12px; height: 12px; border-radius: 50%; background: var(--color-brand); left: -7px; top: 9px; }
+.delivery-step-number { font-size: 13px; line-height: 2.4; color: var(--color-brand); }
+/* コラム一覧：左に日付・タグ、右に題名・抜粋・続きを読む */
+.column-editorial-list { border-top: 1px solid var(--color-line); }
+.column-editorial-entry { display: grid; grid-template-columns: 200px minmax(0, 1fr); column-gap: 48px; padding: 36px 0; border-bottom: 1px solid var(--color-line); }
+.column-editorial-entry > span:first-child { grid-column: 1; grid-row: 1 / span 3; align-self: start; flex-direction: column; align-items: flex-start; }
+.column-editorial-entry > span:not(:first-child) { grid-column: 2; }
+.column-editorial-entry > span:nth-child(2) { margin-top: 0; max-width: 32em; }
+/* 認証情報：左に認定名、右に発行元のリンク行 */
+.official-source-list { border-top: 1px solid var(--color-line); }
+.official-source-list li { border-bottom: 1px solid var(--color-line); }
+.official-source-list a { display: flex; justify-content: space-between; align-items: baseline; gap: 24px; padding: 20px 0; }
+@media (max-width: 719px) {
+  .vision-philosophy-row { grid-template-columns: 1fr; gap: 8px; padding: 22px 0; }
+  .vision-values-layout { grid-template-columns: 1fr; gap: 40px; }
+  .vision-values-intro { position: static; }
+  .vision-value { padding-bottom: 32px; margin-bottom: 32px; }
+  .vision-value:nth-child(even) { margin-left: 16px; }
+  .vision-kpi { grid-template-columns: 1fr; gap: 20px; }
+  .vision-kpi-row { grid-template-columns: 1fr; gap: 4px; }
+  .vision-structure-item + .vision-structure-item { margin-left: 0; }
+  .delivery-step { grid-template-columns: 40px minmax(0, 1fr); gap: 6px 12px; padding-left: 22px; padding-bottom: 36px; }
+  .delivery-step p { grid-column: 2; }
+  .column-editorial-entry { display: flex; flex-direction: column; padding-block: 28px; }
+  .column-editorial-entry > span:first-child { flex-direction: row; margin-bottom: 12px; }
+  .official-source-list a { display: block; }
+  .official-source-list a > span { display: block; }
+}
