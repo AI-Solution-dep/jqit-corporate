@@ -7,7 +7,6 @@ import { Container } from "@/components/ui/Container";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { Kicker } from "@/components/ui/Kicker";
 import { SectionHead } from "@/components/ui/SectionHead";
-import { Phrase, plainPhrase } from "@/components/ui/Phrase";
 import { TypeText } from "@/components/ui/TypeText";
 import { createBreadcrumbJsonLd, createPageMetadata } from "@/lib/seo";
 import { siteConfig } from "@/lib/site-config";
@@ -60,16 +59,6 @@ const accessAddressLines = [
   "東京都千代田区内神田1-4-13",
   "THE GATE Otemachi 3階",
 ];
-
-/** 沿革（サイトのお知らせ・会社概要・公的な許可一覧に出ている出来事だけ。取得時期が分からないものは載せない） */
-const history = [
-  { date: "2024.12", title: "株式会社JQIT 設立" },
-  { date: "2026.03", title: "ISO/IEC 27001（ISMS）|認証取得" },
-  { date: "2026.03", title: "労働者派遣事業許可|（派13-318536）" },
-  { date: "2026.10", title: "本社を|THE GATE Otemachi へ|移転" },
-  { date: "2026.10", title: "関東ITソフトウェア|健康保険組合への|加入決定" },
-  { date: "2026年度", title: "財界「BEST AI 100」" },
-] as const;
 
 const officialSources = [
   {
@@ -193,25 +182,6 @@ export default function AboutPage() {
                 <p className="text-[15px] leading-[1.9] text-ink">{row.v}</p>
               </div>
             ))}
-          </FadeIn>
-        </Container>
-      </section>
-
-      {/* HISTORY — 沿革を、線でつないだ円の年表で見せる（PC は横、スマホは縦） */}
-      <section id="history" className="border-t border-line bg-paper py-20 min-[720px]:py-[92px]">
-        <Container>
-          <SectionHead kicker="History" title="沿革" className="mb-12" />
-          <FadeIn>
-            <ol className="history-line">
-              {history.map((h, i) => (
-                <li key={plainPhrase(h.title)} className="history-step" data-latest={i === history.length - 1 || undefined}>
-                  <span className="history-node">{h.date}</span>
-                  <span className="history-title palt">
-                    <Phrase text={h.title} />
-                  </span>
-                </li>
-              ))}
-            </ol>
           </FadeIn>
         </Container>
       </section>

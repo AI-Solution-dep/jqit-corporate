@@ -999,37 +999,6 @@ p, dd, li { text-wrap: pretty; }
 }
 
 
-/* ===== 会社情報：沿革（線でつないだ円の年表。PC は横、スマホは縦） ===== */
-.history-line { position: relative; margin: 0; padding: 0; list-style: none; display: grid; gap: 28px; }
-.history-line::before { content: ""; position: absolute; left: 40px; top: 40px; bottom: 40px; width: 1.5px; background: #e8b896; }
-.history-step { position: relative; display: grid; grid-template-columns: 80px minmax(0, 1fr); align-items: center; gap: 18px; }
-.history-node {
-  width: 80px; aspect-ratio: 1; border-radius: 50%; display: grid; place-items: center; text-align: center;
-  background: #fff; border: 1px solid var(--warm-line); font-family: var(--font-anton); font-size: 17px; letter-spacing: .02em; color: var(--warm-strong);
-  box-shadow: 0 2px 4px rgb(70 40 20 / 12%), 0 22px 48px -4px rgb(70 40 20 / 26%);
-}
-.history-step[data-latest] .history-node { background: var(--warm-strong); border-color: var(--warm-strong); color: #fff; }
-.history-title { font-size: 15px; font-weight: 700; line-height: 1.6; color: var(--color-ink); word-break: keep-all; overflow-wrap: anywhere; }
-@media (min-width: 1024px) {
-  .history-line { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 16px; }
-  .history-line::before { left: calc(100% / 12); right: calc(100% / 12); top: 52px; bottom: auto; width: auto; height: 1.5px; }
-  .history-step { grid-template-columns: 1fr; justify-items: center; align-items: start; text-align: center; gap: 18px; }
-  .history-node { width: 104px; font-size: 21px; }
-  .history-title { font-size: 14px; max-width: 12em; }
-}
-@media (prefers-reduced-motion: no-preference) {
-  .reveal[data-hidden="false"] .history-node { animation: kpi-pop .6s ease-out both; }
-  .reveal[data-hidden="false"] .history-step:nth-child(2) .history-node { animation-delay: .1s; }
-  .reveal[data-hidden="false"] .history-step:nth-child(3) .history-node { animation-delay: .2s; }
-  .reveal[data-hidden="false"] .history-step:nth-child(4) .history-node { animation-delay: .3s; }
-  .reveal[data-hidden="false"] .history-step:nth-child(5) .history-node { animation-delay: .4s; }
-  .reveal[data-hidden="false"] .history-step:nth-child(6) .history-node { animation-delay: .5s; }
-}
-@media (hover: hover) {
-  .history-node { transition: transform .3s cubic-bezier(.16, .84, .44, 1), box-shadow .3s; }
-  .history-step:hover .history-node { transform: scale(1.06); box-shadow: 0 4px 8px rgb(70 40 20 / 14%), 0 30px 60px -6px rgb(70 40 20 / 32%); }
-}
-
 /* ===== 会社情報：アクセス（箱に入れず、地図と住所の行） ===== */
 .access-layout { display: grid; gap: 36px; }
 .access-map { position: relative; overflow: hidden; min-height: 300px; background: #fff; }
