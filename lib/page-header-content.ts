@@ -3,6 +3,7 @@
  * 写真は同じページの最初のセクションと重ならないものを選ぶ。
  * ヒーロー用の合成素材（白地に斜めの切り抜き）は枠に収めると白地が写るため使わない。
  * public/page-header/ は既存写真を参考画像にして gpt-image-2.5 で生成した見出し帯専用の写真（2026-11-10）。
+ * 写っている人物は実在の社員ではないため、alt は「〜するイメージ」と書き、社員・スタッフ等の表現を使わない。
  * 法務ページは本文を読む場所なので写真を置かない。
  */
 export type PageHeaderContent = {
@@ -22,7 +23,7 @@ export const pageHeaderContent: Record<string, PageHeaderContent> = {
   },
   Vision: {
     lead: "挑戦と革新で、顧客の未来を切り拓く。その理念を、日々の行動指針とDXの取り組みに落とし込んでいます。",
-    photo: { src: "/page-header/vision.webp", alt: "夕暮れのオフィスから街を見渡す社員", position: "62% 50%" },
+    photo: { src: "/page-header/vision.webp", alt: "夕暮れのオフィスから街を見渡すイメージ", position: "62% 50%" },
   },
   "IT Solutions": {
     lead: "要件定義から運用保守まで。SES・受託開発・インフラ・QAを、ひとつのチームとして提供します。",
@@ -30,15 +31,15 @@ export const pageHeaderContent: Record<string, PageHeaderContent> = {
   },
   "AI Solutions": {
     lead: "生成AIの導入支援から、AIエージェント開発、自社サービスNOVAまで。現場で使えるAIを、業務に合わせてつくります。",
-    photo: { src: "/page-header/ai.webp", alt: "モニターのAIワークフローを確認するエンジニア", position: "60% 50%" },
+    photo: { src: "/page-header/ai.webp", alt: "モニターでAIの処理の流れを確認するイメージ", position: "60% 50%" },
   },
   Works: {
     lead: "お客様と取り組んだ、システム開発・AI導入の事例を紹介します。",
-    photo: { src: "/page-header/works.webp", alt: "お客様に提案内容を説明するコンサルタント", position: "62% 50%" },
+    photo: { src: "/page-header/works.webp", alt: "打ち合わせで提案内容を説明するイメージ", position: "62% 50%" },
   },
   News: {
     lead: "プレスリリース、イベント、社内の取り組みなど、JQITの「今」をお届けします。",
-    photo: { src: "/page-header/news.webp", alt: "朝のオフィスを歩きながら話す社員" },
+    photo: { src: "/page-header/news.webp", alt: "朝のオフィスで話しながら歩くイメージ" },
   },
   Column: {
     lead: "現場のエンジニアが、開発・AI・品質保証の知見を発信しています。",
@@ -46,7 +47,7 @@ export const pageHeaderContent: Record<string, PageHeaderContent> = {
   },
   Contact: {
     lead: "ご相談の段階は問いません。課題の整理からでも、お気軽にお問い合わせください。",
-    photo: { src: "/page-header/contact.webp", alt: "来訪者の相談に応じるスタッフ", position: "60% 50%" },
+    photo: { src: "/page-header/contact.webp", alt: "丸テーブルで相談を受けるイメージ", position: "60% 50%" },
   },
   "Privacy Policy": {
     lead: "お客様、採用応募者、取引先の皆さまの個人情報の取り扱いについて定めています。",

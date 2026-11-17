@@ -37,7 +37,6 @@ export function HeroEntrance({ variant = "motion", preview = false }: { variant?
     const hero = root?.querySelector<HTMLElement>("section");
     if (!root || !hero) return;
     root.querySelector<HTMLButtonElement>('button[aria-label="画像の自動切り替えを一時停止"]')?.click();
-    const header = document.querySelector<HTMLElement>("body > header");
     const lines = Array.from(hero.querySelectorAll<HTMLElement>("h1 > .hero-rise"));
     const extras = Array.from(hero.querySelectorAll<HTMLElement>(".hero-rise")).filter(element => !lines.includes(element));
     const button = extras.find(element => element.querySelector('a[href="/#business"]'));
@@ -45,7 +44,8 @@ export function HeroEntrance({ variant = "motion", preview = false }: { variant?
     const supporting = extras.filter(element => element !== button && element !== kicker);
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
     const carouselControls = hero.querySelector<HTMLElement>('[aria-label="トップ画像の切り替え"]');
-    const inertTargets = [header, button, carouselControls].filter((element): element is HTMLElement => Boolean(element));
+    // ヘッダーは演出の対象にしない。ナビゲーションは開いた瞬間から見えて操作できるようにする。
+    const inertTargets = [button, carouselControls].filter((element): element is HTMLElement => Boolean(element));
     const originalInert = inertTargets.map(element => element.inert);
     // キャッシュからの再表示でも、前回のreadyを引き継がず登場を準備する。
     root.dataset.topInitial = variant === "motion" && !reduce.matches ? "pending" : "ready";
@@ -129,10 +129,9 @@ export function HeroEntrance({ variant = "motion", preview = false }: { variant?
         type(line, cursor, 150, 200);
         cursor += count * 150 + (index < lines.length - 1 ? 400 : 0);
       });
-      // 説明を受け止める間を置き、最後にナビゲーションと行動ボタンを戻す。
+      // 説明を受け止める間を置き、最後に行動ボタンと画像の操作部を見せる。
       supporting.forEach(element => fade(element, cursor + 180, 550));
       const finalStart = cursor + 900;
-      if (header) fade(header, finalStart, 650);
       if (button) fade(button, finalStart + 100, 650);
       if (carouselControls) fade(carouselControls, finalStart + 100, 650);
       root.dataset.copyEnd = String(cursor);
