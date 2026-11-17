@@ -733,3 +733,28 @@ h1, h2, .vision-statement, .brand-article-title { word-break: keep-all; overflow
 @media (hover: hover) { .value-orbit-nav button:hover { border-color: var(--warm-mid); color: var(--color-warm-ink); } }
 /* 本文の最後の行に1〜2文字だけ残る改行（「はか/る。」など）を避ける（対応ブラウザだけ） */
 p, dd, li { text-wrap: pretty; }
+
+/* ===== 円の図の立体感（2026-11-18） =====
+   「影は使わない」の例外その2：円の図（行動指針・企業理念）だけ、紙の円が少し浮いている程度の立体感を付ける。
+   円の面は塗りのまま（明暗を付けない）にし、立体感は円の外側に落ちる影だけで出す。影は「接地の濃く小さい影」と「広く薄い影」の2層で、
+   色は地に寄せた茶系（黒い影にしない）。 */
+.value-orbit-node, .philo-node {
+  background: #fff;
+  box-shadow: 0 1px 2px rgb(70 40 20 / 7%), 0 8px 18px -8px rgb(70 40 20 / 14%);
+}
+.value-orbit-node[data-state="passed"] { background: #fffaf6; }
+.value-orbit-node[data-state="active"] {
+  background: var(--warm-strong);
+  box-shadow: 0 2px 3px rgb(140 45 10 / 16%), 0 12px 22px -10px rgb(140 45 10 / 32%);
+}
+.value-orbit-core {
+  background: var(--color-ink);
+  box-shadow: 0 0 0 6px #fff, 0 0 0 7px var(--warm-line), 0 2px 3px 6px rgb(40 30 20 / 6%), 0 14px 26px -8px rgb(40 30 20 / 26%);
+}
+.philo-orbit-core {
+  background: var(--warm-strong);
+  box-shadow: 0 2px 3px rgb(140 45 10 / 16%), 0 12px 22px -10px rgb(140 45 10 / 32%);
+}
+@media (hover: hover) {
+  .philo-node:hover { background: #fffaf6; }
+}
