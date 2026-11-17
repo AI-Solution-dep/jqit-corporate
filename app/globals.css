@@ -3,6 +3,7 @@
 /* ==========================================================================
    JQIT Corporate — デザイントークン（C案: フルゴシック・モダンテック）
    白基調 × 赤 #e60012 アクセント × 1px罫線。影は使わない。
+   例外：ホバーで白く浮かせるときだけ、ごく薄い影（--shadow-hover-lift）を使う（2026-11-18）。
    ========================================================================== */
 
 @theme {
@@ -21,6 +22,8 @@
   --font-anton: var(--font-anton-face), sans-serif;
 
   --radius-card: 2px;
+  /* ホバーで白く浮かせるときの影。存在感は控えめにする */
+  --shadow-hover-lift: 0 10px 28px rgb(20 20 15 / 7%);
 }
 
 html {
@@ -152,6 +155,7 @@ section[id] {
   overflow: hidden;
   transition:
     background-color 0.28s ease,
+    box-shadow 0.28s ease,
     color 0.28s ease;
 }
 
@@ -194,7 +198,9 @@ section[id] {
   .brand-line-row:hover,
   .ethos-card:hover,
   .ethos-value:hover {
-    background: var(--color-cream);
+    /* ホバーは白く明るくし、ごく薄い影で少し浮かせる（紙色だと背景の図形を隠してくすんで見えるため） */
+    background: #fff;
+    box-shadow: var(--shadow-hover-lift);
   }
 
   .brand-line-card:hover::before,

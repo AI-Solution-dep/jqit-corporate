@@ -306,7 +306,7 @@ export default async function WorkDetailPage({ params }: Props) {
                   <Link
                     key={w.id}
                     href={`/works/${w.id}`}
-                    className="flex flex-col gap-2 border-b border-line px-1 py-[18px] transition-colors hover:bg-cream min-[720px]:flex-row min-[720px]:items-center min-[720px]:gap-5"
+                    className="flex flex-col gap-2 border-b border-line px-1 py-[18px] transition-[background-color,box-shadow] duration-300 hover:bg-white hover:shadow-hover-lift min-[720px]:flex-row min-[720px]:items-center min-[720px]:gap-5"
                   >
                     <span className="w-[130px] shrink-0 justify-self-start rounded-card border border-brand px-2.5 py-[3px] text-center text-[11px] font-semibold tracking-[0.06em] text-brand">
                       {w.serviceType}

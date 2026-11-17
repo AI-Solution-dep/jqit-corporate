@@ -59,7 +59,7 @@ export function NewsListFiltered({ items }: { items: Item[] }) {
           <Link
             key={n.id}
             href={`/news/${n.id}`}
-            className="group grid grid-cols-[auto_auto_1fr] items-center gap-x-4 gap-y-3 border-b border-line px-1 py-[18px] transition-colors hover:bg-cream min-[720px]:grid-cols-[96px_130px_110px_1fr_auto] min-[720px]:gap-6 min-[720px]:py-[22px]"
+            className="group grid grid-cols-[auto_auto_1fr] items-center gap-x-4 gap-y-3 border-b border-line px-1 py-[18px] transition-[background-color,box-shadow] duration-300 hover:bg-white hover:shadow-hover-lift min-[720px]:grid-cols-[96px_130px_110px_1fr_auto] min-[720px]:gap-6 min-[720px]:py-[22px]"
           >
             {n.eyecatch ? (
               <span className="relative col-span-3 block aspect-[16/10] overflow-hidden bg-cream min-[720px]:col-span-1 min-[720px]:h-[58px] min-[720px]:w-[92px]">

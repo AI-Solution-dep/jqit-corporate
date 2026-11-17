@@ -349,7 +349,7 @@ export default async function NewsDetailPage({ params }: Props) {
                   <Link
                     key={n.id}
                     href={`/news/${n.id}`}
-                    className="grid grid-cols-[auto_auto_1fr] items-center gap-x-4 gap-y-2.5 border-b border-line px-1 py-[18px] transition-colors hover:bg-cream min-[720px]:grid-cols-[120px_104px_1fr_auto] min-[720px]:gap-5"
+                    className="grid grid-cols-[auto_auto_1fr] items-center gap-x-4 gap-y-2.5 border-b border-line px-1 py-[18px] transition-[background-color,box-shadow] duration-300 hover:bg-white hover:shadow-hover-lift min-[720px]:grid-cols-[120px_104px_1fr_auto] min-[720px]:gap-5"
                   >
                     <span className="font-mono text-[13px] tracking-[0.06em] text-muted">
                       {formatNewsDate(n.date)}

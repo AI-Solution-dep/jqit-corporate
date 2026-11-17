@@ -316,7 +316,7 @@ export default async function ColumnDetailPage({ params }: Props) {
                   <Link
                     key={c.id}
                     href={`/column/${c.id}`}
-                    className="flex flex-col gap-2 border-b border-line px-1 py-[18px] transition-colors hover:bg-cream min-[720px]:flex-row min-[720px]:items-center min-[720px]:gap-5"
+                    className="flex flex-col gap-2 border-b border-line px-1 py-[18px] transition-[background-color,box-shadow] duration-300 hover:bg-white hover:shadow-hover-lift min-[720px]:flex-row min-[720px]:items-center min-[720px]:gap-5"
                   >
                     <span className="w-[110px] shrink-0 font-mono text-[13px] tracking-[0.06em] text-muted">
                       {formatColumnDate(c.date)}
