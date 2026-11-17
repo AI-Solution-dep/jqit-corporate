@@ -244,7 +244,7 @@ export default function AiSolutionsPage() {
                 )}
               </div>
             </FadeIn>
-            <FadeIn className="relative overflow-hidden rounded-xl">
+            <FadeIn className="photo-curve--reverse relative overflow-hidden">
               <Image
                 src="/natural-tech-ai.webp"
                 alt="AIデータ可視化を前に分析するメンバー"

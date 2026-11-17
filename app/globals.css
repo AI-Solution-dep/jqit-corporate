@@ -509,3 +509,15 @@ html:has(.page-curtain) { scroll-behavior: auto; }
 @keyframes scene-bar { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 @keyframes scene-rise { from { transform: translateY(56px) scale(.92) rotate(-1.5deg); opacity: .4; } to { transform: none; opacity: 1; } }
 @keyframes scene-fill { from { opacity: .3; } to { opacity: 1; } }
+
+/* ===== 写真と見出し帯の曲線（一角だけ大きく曲げる） =====
+   曲線は1種類。写真と見出し帯だけに使う（カード・帯には使わない。背景の整った図形と喧嘩させないため）。
+   値は @theme ではなく :root に置く（@theme の変数は Tailwind のクラスで使われないと出力されないため）。 */
+:root {
+  --radius-photo: clamp(48px, 9vw, 120px);
+  --radius-band: clamp(64px, 10vw, 144px);
+}
+/* 写真は右上（左右を反転したレイアウトでは左上）、見出し帯は右下を曲げる。残りの角は直角。 */
+.photo-curve { border-radius: 0 var(--radius-photo) 0 0; }
+.photo-curve--reverse { border-radius: var(--radius-photo) 0 0 0; }
+.band-curve { border-bottom-right-radius: var(--radius-band); }

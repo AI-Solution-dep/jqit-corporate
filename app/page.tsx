@@ -2,6 +2,7 @@ import { AboutSection } from "@/components/home/AboutSection";
 import { BusinessSection } from "@/components/home/BusinessSection";
 import { Hero } from "@/components/home/Hero";
 import { HeroEntrance } from "@/components/home/HeroEntrance";
+import "@/components/home/home-layout.css";
 import { NewsSection } from "@/components/home/NewsSection";
 import { PartnerSection } from "@/components/home/PartnerSection";
 import { PurposeBand } from "@/components/home/PurposeBand";

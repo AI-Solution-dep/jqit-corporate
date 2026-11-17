@@ -54,7 +54,7 @@ export function BusinessSection() {
               className="grid grid-cols-1 items-center gap-8 min-[900px]:grid-cols-[1.05fr_0.95fr] min-[900px]:gap-16"
             >
               {/* 写真（偶数行は右へ） */}
-              <div className={`relative overflow-hidden rounded-xl ${i % 2 === 1 ? "min-[900px]:order-2" : ""}`}>
+              <div className={`relative overflow-hidden ${i % 2 === 1 ? "photo-curve--reverse min-[900px]:order-2" : "photo-curve"}`}>
                 <Image
                   src={b.image}
                   alt={b.alt}
