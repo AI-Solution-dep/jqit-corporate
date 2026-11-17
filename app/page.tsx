@@ -1,17 +1,26 @@
-import { HeroEntrance } from "@/components/home/HeroEntrance";
-import { HomeDesign } from "@/components/home/HomeDesign";
-import { HomeScrollDepth } from "@/components/home/HomeScrollDepth";
+import { AboutSection } from "@/components/home/AboutSection";
+import { BusinessSection } from "@/components/home/BusinessSection";
+import { Hero } from "@/components/home/Hero";
+import { NewsSection } from "@/components/home/NewsSection";
+import { PartnerSection } from "@/components/home/PartnerSection";
+import { PurposeBand } from "@/components/home/PurposeBand";
+import { ServiceSection } from "@/components/home/ServiceSection";
+import { TechCultureSection } from "@/components/home/TechCultureSection";
 
 // microCMS のニュースを定期再取得（ISR）
 export const revalidate = 60;
 
 export default function HomePage() {
   return (
-    <div className="home-design" data-home-entrance data-scroll-depth="pending" data-top-initial="pending">
-      <HomeDesign />
-      <noscript><style>{`[data-home-entrance] .hero-rise{opacity:1!important}[data-home-entrance] [aria-label="トップ画像の切り替え"]{visibility:visible!important}body:has([data-home-entrance])>header{visibility:visible!important}`}</style></noscript>
-      <HomeScrollDepth enabled />
-      <HeroEntrance />
-    </div>
+    <>
+      <Hero />
+      <NewsSection />
+      <AboutSection />
+      <BusinessSection />
+      <ServiceSection />
+      <PurposeBand />
+      <TechCultureSection />
+      <PartnerSection />
+    </>
   );
 }

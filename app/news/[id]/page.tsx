@@ -1,4 +1,3 @@
-import { PageMotion } from "@/components/ui/PageMotion";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -163,7 +162,6 @@ export default async function NewsDetailPage({ params }: Props) {
 
   return (
     <>
-      <PageMotion />
       <JsonLd data={articleJsonLd} />
       {faqJsonLd && <JsonLd data={faqJsonLd} />}
       {/* 記事詳細は記事タイトルが主役。汎用PageHeaderは使わずパンくずのみの軽量帯にする */}
@@ -216,7 +214,7 @@ export default async function NewsDetailPage({ params }: Props) {
               {news.category}
             </span>
           </div>
-          <h1 className="brand-article-title palt border-b border-line pb-8 text-[36px] font-bold leading-[1.35] tracking-[-0.02em] text-ink min-[720px]:text-[44px]">
+          <h1 className="palt border-b border-line pb-8 text-[36px] font-bold leading-[1.35] tracking-[-0.02em] text-ink min-[720px]:text-[44px]">
             {displayTitle}
           </h1>
           <p className="mt-4 text-[12px] leading-[1.8] text-muted">
@@ -224,7 +222,7 @@ export default async function NewsDetailPage({ params }: Props) {
             {authorRole ? `（${authorRole}）` : ""}
           </p>
           {news.eyecatch && (
-            <div className={`relative mt-10 aspect-[16/9] overflow-hidden bg-cream ${isBadgeImage(news.eyecatch.url) ? "" : "brand-article-media"}`}>
+            <div className="relative mt-10 aspect-[16/9] overflow-hidden bg-cream">
               <Image
                 src={news.eyecatch.url}
                 alt={displayTitle}

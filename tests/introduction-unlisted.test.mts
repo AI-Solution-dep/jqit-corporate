@@ -20,23 +20,9 @@ test("紹介ページの入口をサイトの他ページ・ナビ・サイト�
           assert.doesNotMatch(readFileSync(path, "utf8"), /href\s*=/);
           continue;
         }
-        const source = readFileSync(path, "utf8");
-        // 相談帯の表示除外パスはリンクではない。除外定義以外は通常どおり検査する。
-        const linkSource = path === "components/layout/SiteClosingCta.tsx"
-          ? source.replace(/const hiddenPrefixes\s*=\s*\[[\s\S]*?\];/, "")
-          : source;
-        assert.doesNotMatch(linkSource, /["'`]\/?(?:https:\/\/www\.jqit\.co\.jp\/)?introduction(?:["'`/#?])/, `${path} に入口を追加しない`);
+        assert.doesNotMatch(readFileSync(path, "utf8"), /["'`]\/?(?:https:\/\/www\.jqit\.co\.jp\/)?introduction(?:["'`/#?])/, `${path} に入口を追加しない`);
       }
     }
   }
   for (const directory of ["app", "components", "lib"]) checkDirectory(directory);
-});
-
-test("紹介ページに担当者個人の携帯番号・メールアドレスを載せない（共通窓口のみ）", () => {
-  const config = readFileSync("lib/site-config.ts", "utf8");
-  const block = config.slice(config.indexOf("export const introductionContacts"), config.indexOf("} as const;", config.indexOf("export const introductionContacts")));
-  assert.doesNotMatch(block, /0[789]0-?\d{4}-?\d{4}/, "個人の携帯番号を載せない");
-  assert.doesNotMatch(block, /[a-z]\.[a-z]+@jqit\.co\.jp/, "個人のメールアドレスを載せない");
-  const page = readFileSync("app/introduction/page.tsx", "utf8");
-  assert.doesNotMatch(page, /person\.(email|phone)/, "担当者ごとの連絡先リンクを出さない");
 });

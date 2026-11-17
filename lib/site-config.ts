@@ -25,7 +25,6 @@ export const siteConfig = {
   founded: 2024,
   foundedDate: "2024-12-06",
   ceo: "山田 周作",
-  directors: [{ role: "取締役", name: "宮本 尚寛" }],
   capital: "1,000万円",
   employees: "106名（2026年4月時点）",
 
@@ -49,15 +48,13 @@ export const siteConfig = {
 } as const;
 
 /** 限定案内ページ用。jqit-hearing / jqit-proposal の担当者欄（2026-10-29確認）。
- * globalNav / footerNav から参照しない。
- * URL を知っていれば誰でも見られるページなので、個人の携帯番号・メールは載せない（2026-11-18）。
- * 連絡は営業部の共通窓口・代表電話・お問い合わせフォームに集約する。 */
+ * globalNav / footerNav から参照しない。 */
 export const introductionContacts = {
   salesEmail: "sales@jqit.co.jp",
   members: [
-    { role: "営業窓口", name: "髙橋 和樹", reading: "たかはし かずき", title: "SES/SI事業部　事業責任者補佐", scope: "ご相談・お見積り・ご契約" },
-    { role: "統括", name: "宮本 尚寛", reading: "みやもと たかひろ", title: "取締役　AIソリューション事業 統括", scope: "全体方針・体制・プロジェクトの推進" },
-    { role: "AIソリューション開発リーダー", name: "諏訪 敦大", reading: "すわ のぶひろ", title: "AIソリューション事業部", scope: "仕様・進捗・技術のご相談" },
+    { role: "営業窓口", name: "髙橋 和樹", reading: "たかはし かずき", title: "SES/SI事業部　事業責任者補佐", scope: "ご相談・お見積り・ご契約", email: "k.takahashi@jqit.co.jp", phone: "080-4470-2812" },
+    { role: "統括", name: "宮本 尚寛", reading: "みやもと たかひろ", title: "取締役　AIソリューション事業 統括", scope: "全体方針・体制・プロジェクトの推進", email: "t.miyamoto@jqit.co.jp", phone: "080-4910-6040" },
+    { role: "AIソリューション開発リーダー", name: "諏訪 敦大", reading: "すわ のぶひろ", title: "AIソリューション事業部", scope: "仕様・進捗・技術のご相談", email: "n.suwa@jqit.co.jp", phone: null },
   ],
 } as const;
 

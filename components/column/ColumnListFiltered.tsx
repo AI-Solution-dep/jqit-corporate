@@ -61,12 +61,12 @@ export function ColumnListFiltered({ items }: { items: Item[] }) {
         </div>
       )}
 
-      <div className="column-editorial-list mt-7">
+      <div className="mt-7 grid grid-cols-1 gap-[18px] min-[900px]:grid-cols-2">
         {shown.map((c) => (
           <Link
             key={c.id}
             href={`/column/${c.id}`}
-            className="column-editorial-entry group"
+            className="brand-line-card group flex flex-col rounded-card border border-line px-6 py-7 min-[720px]:px-7"
           >
             <span className="flex flex-wrap items-center gap-x-3 gap-y-2">
               <time
