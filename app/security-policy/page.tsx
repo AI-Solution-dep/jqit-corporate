@@ -4,7 +4,9 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { Container } from "@/components/ui/Container";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { createPageMetadata, createWebPageJsonLd } from "@/lib/seo";
-import { siteConfig } from "@/lib/site-config";
+import { certificationBadges, siteConfig } from "@/lib/site-config";
+import Image from "next/image";
+import Link from "next/link";
 
 const pageDescription =
   "株式会社JQITの情報セキュリティ基本方針。情報資産の適切な運用管理体制の構築・維持のための方針を定めています。";
@@ -24,6 +26,21 @@ const securityJsonLd = createWebPageJsonLd({
     { name: "情報セキュリティ基本方針", path: "/security-policy" },
   ],
 });
+
+const isms = certificationBadges.find((b) => b.label.includes("27001")) as {
+  label: string;
+  image: { src: string; width: number; height: number };
+};
+const ismsNewsPath = "/news/iso27001-isms-20260306";
+/** 認証の要点。登録番号・審査機関は公開情報が手元に無いため載せない（推測で書かない） */
+const ismsFacts = [
+  { k: "規格", v: "ISO/IEC 27001（情報セキュリティマネジメントシステム）" },
+  { k: "取得", v: "2026年3月" },
+  {
+    k: "内容",
+    v: "情報資産を適切に管理・保護する体制が、国際規格に基づいて構築・運用されていることについて、第三者機関の認証を受けています。本方針はこの体制の土台です。",
+  },
+];
 
 type PolicySection = {
   title: string;
@@ -108,6 +125,42 @@ export default function SecurityPolicyPage() {
             <p className="text-[15px] leading-[2.1] text-body">
               当社における情報セキュリティの適切な運用管理体制の構築・維持を目的として、ここに情報セキュリティ基本方針を定めます。
             </p>
+          </FadeIn>
+
+          {/* ISMS 認証。方針の本文より先に、第三者認証を受けていることが分かるように置く */}
+          <FadeIn className="mt-12 grid grid-cols-1 items-center gap-7 border-y border-ink py-9 min-[720px]:grid-cols-[200px_1fr] min-[720px]:gap-10">
+            <Image
+              src={isms.image.src}
+              alt="ISO/IEC 27001（ISMS）認証マーク"
+              width={isms.image.width}
+              height={isms.image.height}
+              className="h-auto w-[180px] min-[720px]:w-[200px]"
+            />
+            <div>
+              <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-warm-ink">
+                ISMS Certification
+              </p>
+              <h2 className="palt mt-2 text-[20px] font-bold leading-[1.6] text-ink min-[720px]:text-[22px]">
+                ISO/IEC 27001（ISMS）認証を取得しています
+              </h2>
+              <dl className="mt-5 border-t border-line text-[14px] leading-[1.9]">
+                {ismsFacts.map((f) => (
+                  <div
+                    key={f.k}
+                    className="grid grid-cols-1 gap-1 border-b border-line py-3 min-[560px]:grid-cols-[96px_1fr] min-[560px]:gap-4"
+                  >
+                    <dt className="font-mono text-[11px] tracking-[0.14em] text-muted min-[560px]:leading-[2.4]">{f.k}</dt>
+                    <dd className="text-body">{f.v}</dd>
+                  </div>
+                ))}
+              </dl>
+              <Link
+                href={ismsNewsPath}
+                className="mt-5 inline-flex items-center gap-2 text-[13px] font-semibold text-ink underline underline-offset-4 transition-colors hover:text-warm-ink"
+              >
+                認証取得のお知らせを見る <span aria-hidden>→</span>
+              </Link>
+            </div>
           </FadeIn>
 
           {sections.map((s, i) => (

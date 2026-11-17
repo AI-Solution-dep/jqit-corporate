@@ -15,6 +15,11 @@
   --color-paper: #ffffff;
   --color-cream: #faf9f7;
   --color-line: #e7e5e0;
+  /* 暖色（2026-11-18）。飾りの線・印・ホバー・タグ・数字に使う。ブランドの赤は見出しの強調語・ロゴ・ボタン・ナビ・見出しの印だけ。
+     warm-ink は文字用（白・紙色の上で 4.5 以上）。:root の --warm-* と同じ値。 */
+  --color-warm: #f08c3a;
+  --color-warm-strong: #d9480f;
+  --color-warm-ink: #c2410c;
 
   --font-sans: var(--font-noto-sans-jp), var(--font-inter), system-ui, sans-serif;
   --font-en: var(--font-inter), system-ui, sans-serif;
@@ -235,7 +240,7 @@ section[id] {
   .brand-line-row:hover .brand-line-no,
   .ethos-card:hover .ethos-value-no,
   .ethos-value:hover .ethos-value-no {
-    color: var(--color-brand-dark);
+    color: var(--color-warm-ink);
   }
 }
 
@@ -278,7 +283,7 @@ section[id] {
 }
 
 .news-body a {
-  color: var(--color-brand);
+  color: var(--color-warm-ink);
   text-decoration: underline;
   text-underline-offset: 3px;
 }
@@ -307,7 +312,7 @@ section[id] {
 
 .news-body blockquote {
   margin-block: 1.8em;
-  border-left: 2px solid var(--color-brand);
+  border-left: 2px solid var(--color-warm);
   padding-left: 1.2em;
   color: var(--color-muted);
 }
@@ -515,9 +520,6 @@ html:has(.page-curtain) { scroll-behavior: auto; }
     /* 企業理念の円の線が描かれ、3つの円が順に現れる */
     .philo-orbit { view-timeline-name: --philo; }
     .philo-orbit-ring circle { animation: scene-draw linear both; animation-timeline: --philo; animation-range: entry 0% entry 90%; }
-    .philo-node { animation: scene-pop linear both; animation-timeline: --philo; animation-range: entry 20% entry 70%; }
-    .philo-node:nth-child(2) { animation-range: entry 35% entry 85%; }
-    .philo-node:nth-child(3) { animation-range: entry 50% entry 100%; }
     /* DX指標：円をつなぐ線が左から伸び、円が順に現れる */
     .kpi-chain::before { animation: scene-bar-x linear both; animation-timeline: view(); animation-range: entry 40% cover 40%; }
     .kpi-item .kpi-circle { animation: scene-pop linear both; animation-timeline: view(); animation-range: entry 30% cover 30%; }
@@ -612,7 +614,7 @@ html:has(.page-curtain) { scroll-behavior: auto; }
 /* pathLength と破線で線を描くので、vector-effect: non-scaling-stroke は使わない（破線の長さが画面の単位になり崩れる）。太さは viewBox の単位 */
 .philo-orbit-ring circle { fill: none; stroke: var(--warm-line); stroke-width: .32; stroke-dasharray: 1; stroke-dashoffset: 0; }
 .philo-orbit-core { position: absolute; left: 50%; top: 54%; width: 22%; aspect-ratio: 1; translate: -50% -50%; display: grid; place-items: center; border-radius: 50%; background: var(--warm-strong); color: #fff; font-weight: 700; font-size: clamp(12px, 1.5vw, 17px); line-height: 1.4; text-align: center; }
-.philo-node, .value-orbit-node, .kpi-item dt { word-break: keep-all; overflow-wrap: anywhere; }
+.philo-node, .value-orbit-node, .kpi-item dt, .kpi-when { word-break: keep-all; overflow-wrap: anywhere; }
 .philo-node { position: absolute; width: 36%; aspect-ratio: 1; translate: -50% -50%; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 4%; border: 1.5px solid var(--warm-line); border-radius: 50%; background: #fff; text-align: center; }
 .philo-node:nth-child(1) { left: 50%; top: 20%; }
 .philo-node:nth-child(2) { left: 79.4%; top: 71%; }
@@ -669,4 +671,50 @@ html:has(.page-curtain) { scroll-behavior: auto; }
 @keyframes type-fallback { to { opacity: 1; } }
 @media (prefers-reduced-motion: reduce) {
   .type-char, .type-text[data-type] .type-char { opacity: 1; animation: none; }
+}
+
+/* ===== 見出しの改行（2026-11-18） =====
+   語の途中（「切り拓/く。」など）で折り返さないよう、見出しは句読点・空白・<wbr> でだけ改行する。
+   1行に収まらない長い語だけは、はみ出さないよう途中でも折り返す（break-word は最小幅を変えないので段組みが崩れない）。 */
+h1, h2, .vision-statement, .brand-article-title { word-break: keep-all; overflow-wrap: break-word; }
+
+/* ===== 企業理念の円：3つの円がゆっくり円の線の上を回り、中心から波紋が広がる ===== */
+.philo-orbit dl { position: absolute; inset: 0; margin: 0; transform-origin: 50% 54%; }
+.philo-orbit-core::before, .philo-orbit-core::after {
+  content: ""; position: absolute; inset: 0; z-index: -1; border-radius: 50%; border: 1.5px solid var(--warm-mid); opacity: 0;
+}
+.philo-node { transition: background-color .3s, border-color .3s; }
+@media (hover: hover) { .philo-node:hover { background: #fff6ef; border-color: var(--warm-mid); } }
+@media (prefers-reduced-motion: no-preference) {
+  .philo-orbit dl { animation: philo-spin 36s linear infinite; }
+  .philo-node { animation: philo-counter 36s linear infinite; }
+  .philo-orbit:hover dl, .philo-orbit:hover .philo-node { animation-play-state: paused; }
+  .philo-orbit-core::before { animation: philo-ripple 3.2s cubic-bezier(.2, .6, .4, 1) infinite; }
+  .philo-orbit-core::after { animation: philo-ripple 3.2s cubic-bezier(.2, .6, .4, 1) 1.6s infinite; }
+  @supports (animation-timeline: view()) {
+    /* 登場（スクロール連動）と回転（時間）を重ねる。回転は rotate、登場は scale・opacity なので干渉しない */
+    .philo-node { animation: scene-pop linear both, philo-counter 36s linear infinite; animation-timeline: --philo, auto; animation-range: entry 20% entry 70%, normal; }
+    .philo-node:nth-child(2) { animation-range: entry 35% entry 85%, normal; }
+    .philo-node:nth-child(3) { animation-range: entry 50% entry 100%, normal; }
+  }
+}
+@keyframes philo-spin { to { rotate: 360deg; } }
+@keyframes philo-counter { to { rotate: -360deg; } }
+@keyframes philo-ripple { 0% { scale: 1; opacity: .7; } 100% { scale: 2.7; opacity: 0; } }
+
+/* ===== 行動指針の中央：淡い円の面に、英語の見出し・指針名・短い線・説明を置く ===== */
+.value-orbit-en { font-family: var(--font-mono); font-size: 11px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: var(--color-warm-ink); }
+.value-orbit-rule { display: block; width: 32px; height: 2px; margin: 14px 0; background: var(--warm-mid); }
+.value-orbit-text { translate: 0 10px; transition: opacity .4s, visibility .4s, translate .5s cubic-bezier(.16, .84, .44, 1); }
+.value-orbit-text[data-active] { translate: 0 0; }
+@media (max-width: 719px) {
+  .value-orbit-detail { padding-left: 18px; border-left: 2px solid var(--warm-line); }
+}
+@media (min-width: 720px) {
+  .value-orbit-figure::before {
+    content: ""; position: absolute; inset: 21%; border-radius: 50%;
+    background: radial-gradient(circle at 50% 40%, #fff 0%, #fff7f0 62%, var(--warm-soft) 100%);
+    box-shadow: inset 0 0 0 1px var(--warm-line);
+  }
+  .value-orbit-rule { margin-inline: auto; }
 }

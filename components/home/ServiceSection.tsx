@@ -76,7 +76,7 @@ export function ServiceSection() {
 
                 <div className="flex flex-1 flex-col p-7 min-[720px]:p-8">
                   <Kicker className="mb-4">{service.label}</Kicker>
-                  <p className="font-mono text-[12px] font-semibold uppercase tracking-[0.12em] text-brand">
+                  <p className="font-mono text-[12px] font-semibold uppercase tracking-[0.12em] text-warm-ink">
                     {service.name}
                   </p>
                   <h3 className="palt mt-2 text-[22px] font-bold leading-[1.5] text-ink">
@@ -91,7 +91,7 @@ export function ServiceSection() {
                         key={feature}
                         className="flex items-center gap-3 text-[14px] font-semibold text-ink"
                       >
-                        <span aria-hidden className="h-0.5 w-5 shrink-0 bg-brand" />
+                        <span aria-hidden className="h-0.5 w-5 shrink-0 bg-warm" />
                         {feature}
                       </li>
                     ))}
@@ -101,7 +101,7 @@ export function ServiceSection() {
                       href={service.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="group inline-flex min-h-12 w-full items-center justify-center gap-3 rounded-card bg-ink px-7 py-[14px] text-sm font-bold tracking-[0.02em] text-white transition-colors hover:bg-brand focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand min-[600px]:w-fit"
+                      className="group inline-flex min-h-12 w-full items-center justify-center gap-3 rounded-card bg-ink px-7 py-[14px] text-sm font-bold tracking-[0.02em] text-white transition-colors hover:bg-warm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand min-[600px]:w-fit"
                     >
                       <span>{service.cta}</span>
                       <span

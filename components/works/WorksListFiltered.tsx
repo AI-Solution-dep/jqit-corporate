@@ -47,7 +47,7 @@ export function WorksListFiltered({ items }: { items: Item[] }) {
               onClick={() => setActive(t)}
               className={`-mb-px border-b-2 pb-3 pt-1 font-mono text-[13px] tracking-[0.1em] transition-colors ${
                 selected
-                  ? "border-brand font-semibold text-ink"
+                  ? "border-warm font-semibold text-ink"
                   : "border-transparent text-muted hover:text-ink"
               }`}
             >
@@ -86,7 +86,7 @@ export function WorksListFiltered({ items }: { items: Item[] }) {
             </span>
 
             <span className="mt-5 flex flex-wrap items-center gap-2">
-              <span className="rounded-card border border-brand px-2.5 py-[3px] text-[11px] font-semibold tracking-[0.06em] text-brand">
+              <span className="rounded-card border border-warm px-2.5 py-[3px] text-[11px] font-semibold tracking-[0.06em] text-warm-ink">
                 {w.serviceType}
               </span>
               <span className="rounded-card border border-line px-2.5 py-[3px] text-[11px] font-semibold tracking-[0.06em] text-muted">
@@ -94,7 +94,7 @@ export function WorksListFiltered({ items }: { items: Item[] }) {
               </span>
             </span>
 
-            <span className="palt mt-4 text-[20px] font-bold leading-[1.55] tracking-[-0.02em] text-ink transition-colors group-hover:text-brand">
+            <span className="palt mt-4 text-[20px] font-bold leading-[1.55] tracking-[-0.02em] text-ink transition-colors group-hover:text-warm-ink">
               {w.title}
             </span>
 
@@ -116,7 +116,7 @@ export function WorksListFiltered({ items }: { items: Item[] }) {
                     <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-muted">
                       {m.label}
                     </span>
-                    <span className="mt-1 font-mono text-[20px] font-bold tracking-[-0.01em] text-brand">
+                    <span className="mt-1 font-mono text-[20px] font-bold tracking-[-0.01em] text-warm-ink">
                       {m.value}
                     </span>
                   </span>

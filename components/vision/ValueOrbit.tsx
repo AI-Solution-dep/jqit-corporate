@@ -1,9 +1,9 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Phrase, plainPhrase } from "@/components/ui/Phrase";
+import { Phrase } from "@/components/ui/Phrase";
 
-type Value = { title: string; body: string };
+type Value = { title: string; en: string; body: string };
 
 /** 自動で次の指針へ進む間隔（ミリ秒）。読み終わる前に変わらないよう長めに取る */
 const AUTO_ADVANCE_MS = 4800;
@@ -102,10 +102,14 @@ export function ValueOrbit({ values }: { values: readonly Value[] }) {
             data-active={i === active || undefined}
             aria-hidden={i !== active}
           >
-            <h3 className="palt text-[19px] font-bold leading-[1.6] text-ink min-[720px]:text-[21px]">
-              {plainPhrase(v.title)}
+            <p className="value-orbit-en" aria-hidden>
+              {v.en}
+            </p>
+            <h3 className="palt mt-2 text-[21px] font-bold leading-[1.55] text-ink min-[720px]:text-[24px]">
+              <Phrase text={v.title} />
             </h3>
-            <p className="mt-3 text-[14px] leading-[2] text-body">{v.body}</p>
+            <span aria-hidden className="value-orbit-rule" />
+            <p className="text-[14px] leading-[2] text-body">{v.body}</p>
           </div>
         ))}
       </div>

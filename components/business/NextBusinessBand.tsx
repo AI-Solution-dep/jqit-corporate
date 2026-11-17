@@ -36,14 +36,14 @@ export function NextBusinessBand({
       <div className="absolute inset-0 flex items-center">
         <div className="mx-auto w-full max-w-[1160px] px-6">
           <p className="mb-3 flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.2em] text-white/70">
-            <span aria-hidden className="h-px w-6 bg-brand" />
+            <span aria-hidden className="h-px w-6 bg-warm" />
             Next — {en}
           </p>
           <p className="palt flex flex-wrap items-center gap-x-5 gap-y-2 text-[28px] font-bold leading-[1.35] tracking-[-0.02em] text-white min-[720px]:text-[38px]">
             {title}
             <span
               aria-hidden
-              className="font-mono text-[24px] text-brand transition-transform duration-300 group-hover:translate-x-2 min-[720px]:text-[30px]"
+              className="font-mono text-[24px] text-warm-ink transition-transform duration-300 group-hover:translate-x-2 min-[720px]:text-[30px]"
             >
               →
             </span>

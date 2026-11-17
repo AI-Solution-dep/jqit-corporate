@@ -45,26 +45,32 @@ const philosophy = [
 const values = [
   {
     title: "顧客中心",
+    en: "Customer First",
     body: "常に顧客視点に立ち、お客様にとって真に価値のあるサービスを創造し提供する。",
   },
   {
     title: "デジタル化|社会への|貢献",
+    en: "Digital Society",
     body: "デジタル化を推進し、新たな価値創造を通じて社会の持続的発展に貢献する。",
   },
   {
     title: "技術探求と|挑戦",
+    en: "Exploration",
     body: "常に最新の技術を探求し、従来の枠を超えた革新的なソリューションに挑戦し続ける。",
   },
   {
     title: "学びと|自己実現",
+    en: "Self-Growth",
     body: "社員一人ひとりが学び続ける姿勢を持ち、常に最善を尽くすことで、自己成長と自己実現をはかる。",
   },
   {
     title: "利他の|精神",
+    en: "Altruism",
     body: "自己利益よりも他者の利益を優先し、共に成長する共生の文化を育む。",
   },
   {
     title: "人的資本を|育てる|文化",
+    en: "Human Capital",
     body: "従業員が安心して働き、成長できる環境を整え、従業員の意見を積極的に聞き取り、反映させることで、企業と従業員双方にとってより良い状態を目指す。",
   },
 ];
@@ -180,7 +186,7 @@ export default function CorporateVisionPage() {
             lead="当社は以下の柱でDXを推進し、社内変革と新たな価値創造を実現します。"
             className="mb-10"
           />
-          <FadeIn className="max-w-[860px] border-l-2 border-brand pl-6 min-[720px]:pl-8">
+          <FadeIn className="max-w-[860px] border-l-2 border-warm pl-6 min-[720px]:pl-8">
             <h3 className="palt text-[19px] font-bold leading-[1.6] text-ink">
               データ活用による経営革新
             </h3>
@@ -193,7 +199,7 @@ export default function CorporateVisionPage() {
             {dxKpis.map((kpi) => (
               <FadeIn key={kpi.title} className="kpi-group">
                 <div>
-                  <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-brand">
+                  <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-warm-ink">
                     {kpi.label}
                   </p>
                   <h3 className="palt mt-2 text-[20px] font-bold leading-[1.6] text-ink">

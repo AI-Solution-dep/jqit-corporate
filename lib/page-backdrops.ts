@@ -29,8 +29,9 @@ export type BackdropShape = {
 };
 
 export const backdropTones: Record<BackdropTone, string> = {
-  red: "230 0 18",
-  pink: "238 140 160",
+  // 2026-11-18 赤一色をやめ暖色にそろえた（red は名前だけ残し、オレンジ寄りの色にする）
+  red: "232 98 30",
+  pink: "244 164 112",
   warm: "205 172 128",
 };
 

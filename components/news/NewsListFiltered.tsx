@@ -45,7 +45,7 @@ export function NewsListFiltered({ items }: { items: Item[] }) {
               onClick={() => setActive(t)}
               className={`-mb-px border-b-2 pb-3 pt-1 font-mono text-[13px] tracking-[0.1em] transition-colors ${
                 selected
-                  ? "border-brand font-semibold text-ink"
+                  ? "border-warm font-semibold text-ink"
                   : "border-transparent text-muted hover:text-ink"
               }`}
             >
@@ -79,7 +79,7 @@ export function NewsListFiltered({ items }: { items: Item[] }) {
             <span className="font-mono text-[13px] tracking-[0.06em] text-muted">
               {n.date.replaceAll("-", ".")}
             </span>
-            <span className="justify-self-start rounded-card border border-brand px-2.5 py-[3px] text-[11px] font-semibold tracking-[0.06em] text-brand">
+            <span className="justify-self-start rounded-card border border-warm px-2.5 py-[3px] text-[11px] font-semibold tracking-[0.06em] text-warm-ink">
               {n.category}
             </span>
             <span className="col-span-3 text-[15px] leading-[1.7] text-ink min-[720px]:col-span-1">

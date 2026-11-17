@@ -41,7 +41,7 @@ export function TechCultureSection() {
         </FadeIn>
         <FadeIn className="mb-12 max-w-[680px]">
           <p className="mb-4 inline-flex items-center gap-2.5">
-            <span aria-hidden className="inline-block h-0.5 w-6 bg-brand" />
+            <span aria-hidden className="inline-block h-0.5 w-6 bg-warm" />
             <span className="font-mono text-[11px] uppercase tracking-[0.24em] text-white/50">
               Tech & Culture
             </span>
@@ -62,14 +62,14 @@ export function TechCultureSection() {
               rel="noopener noreferrer"
               className="group flex flex-col gap-3 bg-ink p-7 transition-colors hover:bg-[#1d1d17]"
             >
-              <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-brand">
+              <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-warm">
                 {c.en}
               </p>
               <p className="font-en text-[22px] font-semibold tracking-[-0.01em]">
                 {c.label}
                 <span
                   aria-hidden
-                  className="ml-2 inline-block font-mono text-sm text-white/40 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-brand"
+                  className="ml-2 inline-block font-mono text-sm text-white/40 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-warm-ink"
                 >
                   ↗
                 </span>
@@ -86,7 +86,7 @@ export function TechCultureSection() {
             href={siteConfig.links.recruit}
             target="_blank"
             rel="noopener noreferrer"
-            className="group inline-flex items-center gap-2.5 font-mono text-[13px] font-semibold tracking-[0.12em] text-white transition-colors hover:text-brand"
+            className="group inline-flex items-center gap-2.5 font-mono text-[13px] font-semibold tracking-[0.12em] text-white transition-colors hover:text-warm"
           >
             採用サイトへ
             <span

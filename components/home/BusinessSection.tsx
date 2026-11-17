@@ -68,7 +68,7 @@ export function BusinessSection() {
 
               {/* テキスト */}
               <div className={i % 2 === 1 ? "min-[900px]:order-1" : ""}>
-                <p className="mb-3 font-mono text-[11px] uppercase tracking-[0.2em] text-brand">
+                <p className="mb-3 font-mono text-[11px] uppercase tracking-[0.2em] text-warm-ink">
                   {b.en}
                 </p>
                 <h3 className="palt text-[24px] font-bold tracking-[-0.02em] text-ink min-[720px]:text-[30px]">
@@ -89,7 +89,7 @@ export function BusinessSection() {
                 </div>
                 <Link
                   href={b.href}
-                  className="group mt-7 inline-flex items-center gap-2.5 font-mono text-[13px] font-semibold tracking-[0.12em] text-ink transition-colors hover:text-brand"
+                  className="group mt-7 inline-flex items-center gap-2.5 font-mono text-[13px] font-semibold tracking-[0.12em] text-ink transition-colors hover:text-warm-ink"
                 >
                   {b.title}を詳しく見る
                   <span
@@ -105,9 +105,9 @@ export function BusinessSection() {
                       <li key={s.href}>
                         <Link
                           href={s.href}
-                          className="group inline-flex items-center gap-2 text-[13px] leading-[1.8] text-body underline-offset-4 transition-colors hover:text-brand hover:underline"
+                          className="group inline-flex items-center gap-2 text-[13px] leading-[1.8] text-body underline-offset-4 transition-colors hover:text-warm-ink hover:underline"
                         >
-                          <span aria-hidden className="h-px w-3 shrink-0 bg-brand" />
+                          <span aria-hidden className="h-px w-3 shrink-0 bg-warm" />
                           {s.label}
                         </Link>
                       </li>

@@ -153,7 +153,7 @@ export default function PrivacyPolicyPage() {
               {s.title === "お問い合わせ窓口" && (
                 <Link
                   href="/contact"
-                  className="mt-5 inline-flex text-sm font-semibold text-brand underline underline-offset-4"
+                  className="mt-5 inline-flex text-sm font-semibold text-warm-ink underline underline-offset-4"
                 >
                   お問い合わせフォームへ
                 </Link>

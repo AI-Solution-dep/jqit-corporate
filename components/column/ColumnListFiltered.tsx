@@ -50,8 +50,8 @@ export function ColumnListFiltered({ items }: { items: Item[] }) {
                 onClick={() => setActive(t)}
                 className={`rounded-card border px-3.5 py-1.5 font-mono text-[12px] tracking-[0.06em] transition-colors ${
                   selected
-                    ? "border-brand bg-brand font-semibold text-white"
-                    : "border-line text-muted hover:border-brand hover:text-brand"
+                    ? "border-warm-strong bg-warm-strong font-semibold text-white"
+                    : "border-line text-muted hover:border-warm hover:text-warm-ink"
                 }`}
               >
                 {t}
@@ -86,7 +86,7 @@ export function ColumnListFiltered({ items }: { items: Item[] }) {
               ))}
             </span>
 
-            <span className="palt mt-3.5 text-[21px] font-bold leading-[1.5] tracking-[-0.02em] text-ink transition-colors group-hover:text-brand min-[720px]:text-[22px]">
+            <span className="palt mt-3.5 text-[21px] font-bold leading-[1.5] tracking-[-0.02em] text-ink transition-colors group-hover:text-warm-ink min-[720px]:text-[22px]">
               {c.title}
             </span>
 
@@ -96,7 +96,7 @@ export function ColumnListFiltered({ items }: { items: Item[] }) {
               </span>
             )}
 
-            <span className="mt-5 inline-flex items-center gap-2 font-mono text-[12px] font-semibold tracking-[0.12em] text-ink transition-colors group-hover:text-brand">
+            <span className="mt-5 inline-flex items-center gap-2 font-mono text-[12px] font-semibold tracking-[0.12em] text-ink transition-colors group-hover:text-warm-ink">
               続きを読む
               <span
                 aria-hidden

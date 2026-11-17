@@ -140,13 +140,13 @@ export default async function WorkDetailPage({ params }: Props) {
             aria-label="パンくずリスト"
             className="py-6 font-mono text-[11px] tracking-[0.14em] text-muted"
           >
-            <Link href="/" className="transition-colors hover:text-brand">
+            <Link href="/" className="transition-colors hover:text-warm-ink">
               HOME
             </Link>
             <span aria-hidden className="mx-2">
               /
             </span>
-            <Link href="/works" className="transition-colors hover:text-brand">
+            <Link href="/works" className="transition-colors hover:text-warm-ink">
               WORKS
             </Link>
             <span aria-hidden className="mx-2">
@@ -165,7 +165,7 @@ export default async function WorkDetailPage({ params }: Props) {
       <section className="bg-paper pb-24 pt-12 min-[720px]:pt-14">
         <Container className="max-w-[860px]">
           {work.isSample && (
-            <p className="mb-8 border-l-2 border-brand bg-cream px-5 py-4 text-[13px] leading-[1.9] text-body">
+            <p className="mb-8 border-l-2 border-warm bg-cream px-5 py-4 text-[13px] leading-[1.9] text-body">
               <strong className="font-bold text-ink">
                 表示確認用のサンプルです。
               </strong>
@@ -174,7 +174,7 @@ export default async function WorkDetailPage({ params }: Props) {
           )}
 
           <div className="mb-5 flex flex-wrap items-center gap-2">
-            <span className="rounded-card border border-brand px-2.5 py-[3px] text-[11px] font-semibold tracking-[0.06em] text-brand">
+            <span className="rounded-card border border-warm px-2.5 py-[3px] text-[11px] font-semibold tracking-[0.06em] text-warm-ink">
               {work.serviceType}
             </span>
             <span className="rounded-card border border-line px-2.5 py-[3px] text-[11px] font-semibold tracking-[0.06em] text-muted">
@@ -220,11 +220,11 @@ export default async function WorkDetailPage({ params }: Props) {
           {work.metrics.length > 0 && (
             <div className="mt-12 grid grid-cols-1 gap-6 min-[560px]:grid-cols-3">
               {work.metrics.map((m) => (
-                <div key={m.label} className="border-t-2 border-brand pt-4">
+                <div key={m.label} className="border-t-2 border-warm pt-4">
                   <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-muted">
                     {m.label}
                   </p>
-                  <p className="palt mt-2 font-mono text-[30px] font-bold leading-none tracking-[-0.02em] text-brand">
+                  <p className="palt mt-2 font-mono text-[30px] font-bold leading-none tracking-[-0.02em] text-warm-ink">
                     {m.value}
                   </p>
                 </div>
@@ -260,7 +260,7 @@ export default async function WorkDetailPage({ params }: Props) {
               <p className="text-[14px] leading-[1.95] text-body">{businessLink.lead}</p>
               <Link
                 href={businessLink.href}
-                className="mt-4 inline-flex items-center gap-2 font-mono text-[13px] font-semibold tracking-[0.08em] text-brand transition-colors hover:text-ink"
+                className="mt-4 inline-flex items-center gap-2 font-mono text-[13px] font-semibold tracking-[0.08em] text-warm-ink transition-colors hover:text-ink"
               >
                 {businessLink.label}
                 <span aria-hidden>→</span>
@@ -283,7 +283,7 @@ export default async function WorkDetailPage({ params }: Props) {
           <div className="mt-14 border-t border-line pt-8">
             <Link
               href="/works"
-              className="group inline-flex items-center gap-2.5 font-mono text-[13px] font-semibold tracking-[0.12em] text-ink transition-colors hover:text-brand"
+              className="group inline-flex items-center gap-2.5 font-mono text-[13px] font-semibold tracking-[0.12em] text-ink transition-colors hover:text-warm-ink"
             >
               <span
                 aria-hidden
@@ -308,7 +308,7 @@ export default async function WorkDetailPage({ params }: Props) {
                     href={`/works/${w.id}`}
                     className="flex flex-col gap-2 border-b border-line px-1 py-[18px] transition-[background-color,box-shadow] duration-300 hover:bg-white hover:shadow-hover-lift min-[720px]:flex-row min-[720px]:items-center min-[720px]:gap-5"
                   >
-                    <span className="w-[130px] shrink-0 justify-self-start rounded-card border border-brand px-2.5 py-[3px] text-center text-[11px] font-semibold tracking-[0.06em] text-brand">
+                    <span className="w-[130px] shrink-0 justify-self-start rounded-card border border-warm px-2.5 py-[3px] text-center text-[11px] font-semibold tracking-[0.06em] text-warm-ink">
                       {w.serviceType}
                     </span>
                     <span className="flex-1 text-[15px] leading-[1.7] text-ink">

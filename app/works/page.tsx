@@ -41,7 +41,7 @@ export default async function WorksListPage() {
       <section className="bg-paper pb-16 pt-14 min-[720px]:pb-20 min-[720px]:pt-16">
         <Container>
           {hasSample && (
-            <p className="mb-10 border-l-2 border-brand bg-cream px-5 py-4 text-[13px] leading-[1.9] text-body">
+            <p className="mb-10 border-l-2 border-warm bg-cream px-5 py-4 text-[13px] leading-[1.9] text-body">
               <strong className="font-bold text-ink">表示確認用のサンプルです。</strong>
               microCMS に <code className="font-mono text-[12px]">works</code>{" "}
               エンドポイントを作成し、実績を1件登録すると実データに切り替わります。

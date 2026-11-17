@@ -331,7 +331,7 @@ export default function AiSolutionsPage() {
                   {s.items.map((item) => (
                     <div key={item.head} className="service-detail-item">
                       <h4 className="brand-line-label palt flex items-baseline gap-3 text-[15px] font-bold text-ink">
-                        <span aria-hidden className="h-px w-4 shrink-0 translate-y-[-3px] bg-brand" />
+                        <span aria-hidden className="h-px w-4 shrink-0 translate-y-[-3px] bg-warm" />
                         {item.head}
                       </h4>
                       <p className="mt-2.5 text-[13px] leading-[1.95] text-muted">
@@ -354,8 +354,8 @@ export default function AiSolutionsPage() {
         <Container className="relative">
           <div className="grid grid-cols-1 items-center gap-12 min-[1024px]:grid-cols-[1fr_1fr] min-[1024px]:gap-16">
             <FadeIn>
-              <p className="mb-4 flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.2em] text-brand">
-                <span aria-hidden className="h-px w-6 bg-brand" />
+              <p className="mb-4 flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.2em] text-warm">
+                <span aria-hidden className="h-px w-6 bg-warm" />
                 Our Product
               </p>
               <h2 className="palt text-[28px] font-bold leading-[1.45] tracking-[-0.02em] min-[720px]:text-[36px]">

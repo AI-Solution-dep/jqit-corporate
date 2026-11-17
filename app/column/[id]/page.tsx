@@ -158,13 +158,13 @@ export default async function ColumnDetailPage({ params }: Props) {
             aria-label="パンくずリスト"
             className="py-6 font-mono text-[11px] tracking-[0.14em] text-muted"
           >
-            <Link href="/" className="transition-colors hover:text-brand">
+            <Link href="/" className="transition-colors hover:text-warm-ink">
               HOME
             </Link>
             <span aria-hidden className="mx-2">
               /
             </span>
-            <Link href="/column" className="transition-colors hover:text-brand">
+            <Link href="/column" className="transition-colors hover:text-warm-ink">
               COLUMN
             </Link>
             <span aria-hidden className="mx-2">
@@ -240,13 +240,13 @@ export default async function ColumnDetailPage({ params }: Props) {
           />
 
           {column.qiitaUrl && (
-            <p className="mt-12 border-l-2 border-brand bg-cream px-5 py-4 text-[13px] leading-[1.9] text-body">
+            <p className="mt-12 border-l-2 border-warm bg-cream px-5 py-4 text-[13px] leading-[1.9] text-body">
               この記事は{" "}
               <a
                 href={column.qiitaUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-semibold text-brand underline underline-offset-4 transition-colors hover:text-ink"
+                className="font-semibold text-warm-ink underline underline-offset-4 transition-colors hover:text-ink"
               >
                 Qiita
               </a>{" "}
@@ -259,7 +259,7 @@ export default async function ColumnDetailPage({ params }: Props) {
               <p className="text-[14px] leading-[1.95] text-body">{businessLink.lead}</p>
               <Link
                 href={businessLink.href}
-                className="mt-4 inline-flex items-center gap-2 font-mono text-[13px] font-semibold tracking-[0.08em] text-brand transition-colors hover:text-ink"
+                className="mt-4 inline-flex items-center gap-2 font-mono text-[13px] font-semibold tracking-[0.08em] text-warm-ink transition-colors hover:text-ink"
               >
                 {businessLink.label}
                 <span aria-hidden>→</span>
@@ -282,7 +282,7 @@ export default async function ColumnDetailPage({ params }: Props) {
           <div className="mt-14 flex flex-wrap items-center justify-between gap-x-8 gap-y-5 border-t border-line pt-8">
             <Link
               href="/column"
-              className="group inline-flex items-center gap-2.5 font-mono text-[13px] font-semibold tracking-[0.12em] text-ink transition-colors hover:text-brand"
+              className="group inline-flex items-center gap-2.5 font-mono text-[13px] font-semibold tracking-[0.12em] text-ink transition-colors hover:text-warm-ink"
             >
               <span
                 aria-hidden
@@ -296,7 +296,7 @@ export default async function ColumnDetailPage({ params }: Props) {
               href={shareHref}
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex items-center gap-2.5 font-mono text-[13px] font-semibold tracking-[0.12em] text-ink transition-colors hover:text-brand"
+              className="group inline-flex items-center gap-2.5 font-mono text-[13px] font-semibold tracking-[0.12em] text-ink transition-colors hover:text-warm-ink"
             >
               この記事をXでシェア
               <span aria-hidden className="font-mono text-[11px] text-muted">

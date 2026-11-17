@@ -48,7 +48,7 @@ export function SiteFooter() {
                   href={s.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-mono text-[11px] tracking-[0.08em] text-muted transition-colors hover:text-brand"
+                  className="font-mono text-[11px] tracking-[0.08em] text-muted transition-colors hover:text-warm-ink"
                 >
                   {s.label}
                   <span aria-hidden className="ml-1">
@@ -61,7 +61,7 @@ export function SiteFooter() {
 
           {footerNav.map((col) => (
             <nav key={col.head} aria-label={col.head}>
-              <p className="mb-4 font-mono text-[10px] uppercase tracking-[0.2em] text-brand">
+              <p className="mb-4 font-mono text-[10px] uppercase tracking-[0.2em] text-warm-ink">
                 {col.head}
               </p>
               <div className="flex flex-col gap-3">
@@ -72,7 +72,7 @@ export function SiteFooter() {
                       href={link.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-[13px] text-body transition-colors hover:text-brand"
+                      className="text-[13px] text-body transition-colors hover:text-warm-ink"
                     >
                       {link.label}
                       <span aria-hidden className="ml-1 font-mono text-[10px] text-muted">
@@ -83,7 +83,7 @@ export function SiteFooter() {
                     <Link
                       key={link.label}
                       href={link.href}
-                      className="text-[13px] text-body transition-colors hover:text-brand"
+                      className="text-[13px] text-body transition-colors hover:text-warm-ink"
                     >
                       {link.label}
                     </Link>
@@ -123,13 +123,13 @@ export function SiteFooter() {
           <div className="flex gap-6">
             <Link
               href="/privacy-policy"
-              className="text-xs text-muted transition-colors hover:text-brand"
+              className="text-xs text-muted transition-colors hover:text-warm-ink"
             >
               プライバシーポリシー
             </Link>
             <a
               href="/sitemap.xml"
-              className="text-xs text-muted transition-colors hover:text-brand"
+              className="text-xs text-muted transition-colors hover:text-warm-ink"
             >
               サイトマップ
             </a>

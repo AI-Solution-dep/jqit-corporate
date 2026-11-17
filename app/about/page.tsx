@@ -141,7 +141,7 @@ export default function AboutPage() {
               interval={70}
               delay={300}
             />
-            <div className="mt-9 border-l-2 border-brand pl-6 min-[720px]:pl-8">
+            <div className="mt-9 border-l-2 border-warm pl-6 min-[720px]:pl-8">
               <TypeText
                 className="text-[17px] leading-[2.1] text-body min-[720px]:text-[19px] min-[720px]:leading-[1.95]"
                 segments={[{ text: "私たちJQITは、技術の力でお客様の“本質的な課題”を解決するITのプロフェッショナル集団です。表面的な要望に応えるだけでなく、その先にある課題の本質を捉え、解決まで伴走する。システム開発からAI活用まで、変化を恐れず挑戦と革新を続けることで、お客様と社会の未来を切り拓いてまいります。" }]}
@@ -207,7 +207,7 @@ export default function AboutPage() {
                     rel="noopener noreferrer"
                     className="group"
                   >
-                    <span className="palt text-[15px] font-bold leading-[1.7] text-ink transition-colors group-hover:text-brand">
+                    <span className="palt text-[15px] font-bold leading-[1.7] text-ink transition-colors group-hover:text-warm-ink">
                       {source.label}
                     </span>
                     <span className="shrink-0 text-[12px] leading-[1.7] text-muted">
@@ -243,7 +243,7 @@ export default function AboutPage() {
               </p>
               <div className="space-y-8">
                 <div>
-                  <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-brand">
+                  <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-warm-ink">
                     Address
                   </p>
                   <p className="mt-3 text-[15px] font-semibold leading-[1.9] text-ink min-[720px]:text-[17px]">
@@ -255,13 +255,13 @@ export default function AboutPage() {
                   </p>
                 </div>
                 <div>
-                  <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-brand">
+                  <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-warm-ink">
                     Train
                   </p>
                   <ul className="mt-3 space-y-3 text-[14px] leading-[1.9] text-body min-[720px]:text-[15px]">
                     {accessRoutes.map((route) => (
                       <li key={route} className="flex gap-3">
-                        <span aria-hidden className="mt-[0.75em] h-1.5 w-1.5 shrink-0 bg-brand" />
+                        <span aria-hidden className="mt-[0.75em] h-1.5 w-1.5 shrink-0 bg-warm" />
                         <span>{route}</span>
                       </li>
                     ))}
@@ -272,7 +272,7 @@ export default function AboutPage() {
                 href={siteConfig.mapUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="group mt-9 inline-flex w-fit items-center gap-2.5 border-b border-ink pb-1 font-mono text-[12px] font-semibold uppercase tracking-[0.12em] text-ink transition-colors hover:border-brand hover:text-brand"
+                className="group mt-9 inline-flex w-fit items-center gap-2.5 border-b border-ink pb-1 font-mono text-[12px] font-semibold uppercase tracking-[0.12em] text-ink transition-colors hover:border-warm hover:text-warm-ink"
               >
                 Google Map
                 <span

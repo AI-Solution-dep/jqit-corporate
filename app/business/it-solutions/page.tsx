@@ -305,7 +305,7 @@ export default function ItSolutionsPage() {
                   key={f}
                   className="flex items-baseline gap-3.5 border-b border-line py-3.5 text-[13.5px] leading-[1.8] text-ink"
                 >
-                  <span aria-hidden className="h-px w-4 shrink-0 translate-y-[-3px] bg-brand" />
+                  <span aria-hidden className="h-px w-4 shrink-0 translate-y-[-3px] bg-warm" />
                   {f}
                 </li>
               ))}
@@ -341,7 +341,7 @@ export default function ItSolutionsPage() {
                   key={f}
                   className="flex items-baseline gap-3.5 border-b border-line py-3.5 text-[13.5px] leading-[1.8] text-ink"
                 >
-                  <span aria-hidden className="h-px w-4 shrink-0 translate-y-[-3px] bg-brand" />
+                  <span aria-hidden className="h-px w-4 shrink-0 translate-y-[-3px] bg-warm" />
                   {f}
                 </li>
               ))}
@@ -440,8 +440,8 @@ export default function ItSolutionsPage() {
           <DisplayText tone="white">STRENGTH</DisplayText>
         </div>
         <Container className="relative">
-          <p className="mb-4 flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.2em] text-brand">
-            <span aria-hidden className="h-px w-6 bg-brand" />
+          <p className="mb-4 flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.2em] text-warm">
+            <span aria-hidden className="h-px w-6 bg-warm" />
             Our Strengths
           </p>
           <h2 className="palt text-[28px] font-bold leading-[1.4] tracking-[-0.02em] min-[720px]:text-[36px]">

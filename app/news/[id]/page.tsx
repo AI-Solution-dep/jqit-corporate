@@ -171,13 +171,13 @@ export default async function NewsDetailPage({ params }: Props) {
             aria-label="パンくずリスト"
             className="py-6 font-mono text-[11px] tracking-[0.14em] text-muted"
           >
-            <Link href="/" className="transition-colors hover:text-brand">
+            <Link href="/" className="transition-colors hover:text-warm-ink">
               HOME
             </Link>
             <span aria-hidden className="mx-2">
               /
             </span>
-            <Link href="/news" className="transition-colors hover:text-brand">
+            <Link href="/news" className="transition-colors hover:text-warm-ink">
               NEWS
             </Link>
             <span aria-hidden className="mx-2">
@@ -210,7 +210,7 @@ export default async function NewsDetailPage({ params }: Props) {
                 更新 {formatNewsDate(modifiedDate)}
               </time>
             )}
-            <span className="rounded-card border border-brand px-2.5 py-[3px] text-[11px] font-semibold tracking-[0.06em] text-brand">
+            <span className="rounded-card border border-warm px-2.5 py-[3px] text-[11px] font-semibold tracking-[0.06em] text-warm-ink">
               {news.category}
             </span>
           </div>
@@ -248,7 +248,7 @@ export default async function NewsDetailPage({ params }: Props) {
               <ul className="mt-4 space-y-3">
                 {seoOverride.keyPoints.map((point) => (
                   <li key={point} className="flex gap-3 text-[14px] leading-[1.9] text-body">
-                    <span aria-hidden className="mt-[0.8em] h-px w-4 shrink-0 bg-brand" />
+                    <span aria-hidden className="mt-[0.8em] h-px w-4 shrink-0 bg-warm" />
                     {point}
                   </li>
                 ))}
@@ -278,7 +278,7 @@ export default async function NewsDetailPage({ params }: Props) {
               </dl>
               <Link
                 href={seoOverride.relatedPath}
-                className="mt-7 inline-flex items-center gap-2 font-mono text-[13px] font-semibold tracking-[0.08em] text-brand transition-colors hover:text-ink"
+                className="mt-7 inline-flex items-center gap-2 font-mono text-[13px] font-semibold tracking-[0.08em] text-warm-ink transition-colors hover:text-ink"
               >
                 {seoOverride.relatedLabel}
                 <span aria-hidden>→</span>
@@ -288,7 +288,7 @@ export default async function NewsDetailPage({ params }: Props) {
 
           {news.gallery && news.gallery.length > 0 && (
             <div className="mt-12 border-t border-line pt-8">
-              <p className="mb-5 font-mono text-[11px] uppercase tracking-[0.2em] text-brand">
+              <p className="mb-5 font-mono text-[11px] uppercase tracking-[0.2em] text-warm-ink">
                 Gallery
               </p>
               <div className="grid grid-cols-1 gap-4 min-[640px]:grid-cols-2">
@@ -313,7 +313,7 @@ export default async function NewsDetailPage({ params }: Props) {
           <div className="mt-14 flex flex-wrap items-center justify-between gap-x-8 gap-y-5 border-t border-line pt-8">
             <Link
               href="/news"
-              className="group inline-flex items-center gap-2.5 font-mono text-[13px] font-semibold tracking-[0.12em] text-ink transition-colors hover:text-brand"
+              className="group inline-flex items-center gap-2.5 font-mono text-[13px] font-semibold tracking-[0.12em] text-ink transition-colors hover:text-warm-ink"
             >
               <span
                 aria-hidden
@@ -327,7 +327,7 @@ export default async function NewsDetailPage({ params }: Props) {
               href={shareHref}
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex items-center gap-2.5 font-mono text-[13px] font-semibold tracking-[0.12em] text-ink transition-colors hover:text-brand"
+              className="group inline-flex items-center gap-2.5 font-mono text-[13px] font-semibold tracking-[0.12em] text-ink transition-colors hover:text-warm-ink"
             >
               この記事をXでシェア
               <span aria-hidden className="font-mono text-[11px] text-muted">
@@ -338,7 +338,7 @@ export default async function NewsDetailPage({ params }: Props) {
 
           {related.length > 0 && (
             <div className="mt-16">
-              <p className="mb-2 font-mono text-[11px] uppercase tracking-[0.2em] text-brand">
+              <p className="mb-2 font-mono text-[11px] uppercase tracking-[0.2em] text-warm-ink">
                 More News
               </p>
               <h2 className="palt mb-6 text-[22px] font-bold tracking-[-0.02em] text-ink">
@@ -354,7 +354,7 @@ export default async function NewsDetailPage({ params }: Props) {
                     <span className="font-mono text-[13px] tracking-[0.06em] text-muted">
                       {formatNewsDate(n.date)}
                     </span>
-                    <span className="justify-self-start rounded-card border border-brand px-2.5 py-[3px] text-[11px] font-semibold tracking-[0.06em] text-brand">
+                    <span className="justify-self-start rounded-card border border-warm px-2.5 py-[3px] text-[11px] font-semibold tracking-[0.06em] text-warm-ink">
                       {n.category}
                     </span>
                     <span className="col-span-3 text-[15px] leading-[1.7] text-ink min-[720px]:col-span-1">

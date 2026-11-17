@@ -45,19 +45,19 @@ export function ServiceFaq({ items }: ServiceFaqProps) {
             {items.map((item) => (
               <FadeIn key={item.question} className="border-b border-line">
                 <details className="group">
-                  <summary className="flex cursor-pointer list-none items-start gap-3 py-6 transition-colors hover:text-brand min-[800px]:py-7 [&::-webkit-details-marker]:hidden">
-                    <span className="mt-[3px] font-mono text-[12px] text-brand">
+                  <summary className="flex cursor-pointer list-none items-start gap-3 py-6 transition-colors hover:text-warm-ink min-[800px]:py-7 [&::-webkit-details-marker]:hidden">
+                    <span className="mt-[3px] font-mono text-[12px] text-warm-ink">
                       Q
                     </span>
-                    <h3 className="palt flex-1 text-[16px] font-bold leading-[1.8] text-ink transition-colors group-hover:text-brand">
+                    <h3 className="palt flex-1 text-[16px] font-bold leading-[1.8] text-ink transition-colors group-hover:text-warm-ink">
                       {item.question}
                     </h3>
                     <span
                       aria-hidden
                       className="relative mt-3 h-3 w-3 shrink-0 min-[800px]:mt-4"
                     >
-                      <span className="absolute left-0 top-1/2 h-px w-3 -translate-y-1/2 bg-ink transition-colors group-hover:bg-brand" />
-                      <span className="absolute left-1/2 top-0 h-3 w-px -translate-x-1/2 bg-ink transition-transform duration-300 group-open:rotate-90 group-open:bg-brand" />
+                      <span className="absolute left-0 top-1/2 h-px w-3 -translate-y-1/2 bg-ink transition-colors group-hover:bg-warm" />
+                      <span className="absolute left-1/2 top-0 h-3 w-px -translate-x-1/2 bg-ink transition-transform duration-300 group-open:rotate-90 group-open:bg-warm" />
                     </span>
                   </summary>
                   <p className="pb-7 pl-[38px] pr-6 text-[14px] leading-[2.05] text-body min-[800px]:pb-8">

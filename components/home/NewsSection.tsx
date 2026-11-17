@@ -33,7 +33,7 @@ export async function NewsSection() {
             </p>
             <Link
               href="/news"
-              className="group mt-7 inline-flex items-center gap-2.5 font-mono text-[13px] font-semibold tracking-[0.12em] text-ink transition-colors hover:text-brand"
+              className="group mt-7 inline-flex items-center gap-2.5 font-mono text-[13px] font-semibold tracking-[0.12em] text-ink transition-colors hover:text-warm-ink"
             >
               すべてのニュース
               <span
@@ -71,7 +71,7 @@ export async function NewsSection() {
                 <span className="font-mono text-[13px] tracking-[0.06em] text-muted">
                   {formatNewsDate(n.date)}
                 </span>
-                <span className="justify-self-start rounded-card border border-brand px-2.5 py-[3px] text-[11px] font-semibold tracking-[0.06em] text-brand">
+                <span className="justify-self-start rounded-card border border-warm px-2.5 py-[3px] text-[11px] font-semibold tracking-[0.06em] text-warm-ink">
                   {n.category}
                 </span>
                 <span className="col-span-3 text-[15px] leading-[1.7] text-ink min-[720px]:col-span-1">
