@@ -207,22 +207,6 @@ html[data-page-entering] .brand-header-photo { animation-delay:640ms; }
 @keyframes scene-fill { from { opacity:.3; } to { opacity:1; } }
 @media(prefers-reduced-motion:reduce) { .page-curtain { display:none; } }
 
-/* 線上の自動モーションだけを非表示にできる。スクロールの操作は妨げない。 */
-html[data-flow-paused="true"] #main section[data-depth-pattern]::before,
-html[data-flow-paused="true"] .jqit-depth-geometry {
-  background-image:url('/brand/flow-route-static.svg');
-}
-.flow-animation-control {
-  position:fixed; left:16px; bottom:64px; z-index:40;
-  display:inline-flex; align-items:center; gap:8px;
-  padding:9px 12px; border:1px solid #eadfe1; border-radius:2px;
-  background:rgb(255 255 255 / 94%); color:var(--color-muted);
-  font-size:11px; line-height:1.4; cursor:pointer;
-}
-.flow-animation-control:hover { color:var(--color-brand); border-color:var(--color-brand); }
-/* TOPの最初の画面に操作部を増やさない。スクロールを始めたら表示する。 */
-html[data-flow-controls="hidden"] .flow-animation-control { visibility:hidden; }
 @media(prefers-reduced-motion:reduce) {
-  .flow-animation-control { display:none; }
   #main section[data-depth-pattern]::before,.jqit-depth-geometry { background-image:url('/brand/flow-route-static.svg'); }
 }
