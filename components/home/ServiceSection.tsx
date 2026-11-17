@@ -48,19 +48,19 @@ export function ServiceSection() {
           </p>
         </FadeIn>
 
-        {/* 事業欄（写真と文章の左右交互）と見分けられるよう、サービスは2つを横に並べて見比べる型にする。
-            箱には入れず、間を縦の罫線で区切る。画像は上、文章は下 */}
-        <div className="service-pair mt-14 min-[1024px]:mt-16">
-          {services.map((service) => (
-            <FadeIn key={service.id} className="service-pair-item">
-              <div className={`service-pair-media photo-curve ${service.id === "nova" ? "service-pair-media--product" : ""}`}>
+        {/* 写真を横幅いっぱいに大きく入れ、2つのサービスを縦に並べる。写真の下に文章（PC は見出し・説明と、特徴・ボタンの2列） */}
+        <div className="service-stack mt-14 min-[1024px]:mt-16">
+          {services.map((service, index) => (
+            <FadeIn key={service.id} className="service-stack-item">
+              <div className={`service-stack-media ${index % 2 === 1 ? "photo-curve--reverse" : "photo-curve"} ${service.id === "nova" ? "service-stack-media--product" : ""}`}>
                 {service.id === "nova" ? (
                   <Image
                     src="/nova-product-2026-08c.png"
                     alt="NOVA 管理画面 — AIマッチングアシスタントと案件一覧"
                     width={748}
                     height={438}
-                    className="h-full w-full object-contain p-6 min-[720px]:p-10"
+                    sizes="(min-width: 1024px) 900px, 90vw"
+                    className="h-full w-full object-contain p-6 min-[720px]:p-12"
                   />
                 ) : (
                   <Image
@@ -73,15 +73,29 @@ export function ServiceSection() {
                 )}
               </div>
 
-              <div className="mt-8">
-                <p className="font-mono text-[12px] font-semibold uppercase tracking-[0.14em] text-warm-ink">
-                  {service.label} — {service.name}
-                </p>
+              <div className="service-stack-text">
+                <div>
+                {service.id === "nova" ? (
+                  /* 製品はロゴ（アイコン＋製品名）で示す */
+                  <p className="flex items-center gap-3">
+                    <Image src="/nova-icon.png" alt="" width={54} height={43} className="h-7 w-auto mix-blend-multiply" />
+                    <span className="text-[22px] font-black tracking-[0.18em] text-ink">NOVA</span>
+                    <span className="ml-1 font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-muted">
+                      {service.label}
+                    </span>
+                  </p>
+                ) : (
+                  <p className="font-mono text-[12px] font-semibold uppercase tracking-[0.14em] text-warm-ink">
+                    {service.label} — {service.name}
+                  </p>
+                )}
                 <h3 className="palt mt-3 text-[22px] font-bold leading-[1.5] text-ink min-[720px]:text-[26px]">
                   {service.heading}
                 </h3>
-                <p className="mt-4 text-[14.5px] leading-[2] text-body">{service.description}</p>
-                <ul className="nova-features mt-7">
+                <p className="mt-4 text-[15px] leading-[2.05] text-body">{service.description}</p>
+                </div>
+                <div>
+                <ul className="nova-features">
                   {service.features.map((feature) => (
                     <li key={feature} className="text-[14px] font-bold leading-[1.8] text-ink">
                       {feature}
@@ -103,6 +117,7 @@ export function ServiceSection() {
                       ↗
                     </span>
                   </a>
+                </div>
                 </div>
               </div>
             </FadeIn>

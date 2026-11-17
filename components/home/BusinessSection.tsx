@@ -47,65 +47,49 @@ export function BusinessSection() {
           </h2>
         </FadeIn>
 
-        <div className="space-y-20 min-[1024px]:space-y-28">
+        {/* ITとAI「ふたつの力」を、写真いっぱいの左右2枚のパネルで見せ、真ん中を「×」の円でつなぐ。
+            PC ではマウスを乗せた側が広がる。パネル全体が事業ページへのリンク（中の小さなリンクは前面に出す） */}
+        <FadeIn className="biz-split">
           {businesses.map((b, i) => (
-            <FadeIn
-              key={b.en}
-              className={`service-row ${i % 2 === 1 ? "service-row--reverse" : ""}`}
-            >
-              {/* 写真（2つ目は右へ）。サービス欄と同じ型で、2つの写真は同じ大きさにそろえる */}
-              <div className={`service-row-media ${i % 2 === 1 ? "photo-curve--reverse" : "photo-curve"}`}>
+            <div key={b.en} className={`biz-panel ${i === 0 ? "photo-curve--reverse" : "photo-curve"}`}>
+              {/* 写真の上に文字を載せない（読みにくいため）。上が写真、下が墨色の無地の面 */}
+              <div className="biz-panel-media">
                 <Image
                   src={b.image}
                   alt={b.alt}
-                  width={1448}
-                  height={1086}
-                  sizes="(min-width: 900px) 50vw, 100vw"
-                  data-photo-slide
-                  className="h-full w-full object-cover"
+                  fill
+                  sizes="(min-width: 1024px) 50vw, 100vw"
+                  className="biz-panel-photo object-cover"
                 />
               </div>
-
-              {/* テキスト */}
-              <div>
-                <p className="mb-3 font-mono text-[11px] uppercase tracking-[0.2em] text-warm-ink">
+              <div className="biz-panel-body">
+                <p className="flex items-center gap-2.5 font-mono text-[11px] uppercase tracking-[0.2em] text-white/80">
+                  <span aria-hidden className="h-px w-5 bg-warm" />
                   {b.en}
                 </p>
-                <h3 className="palt text-[24px] font-bold tracking-[-0.02em] text-ink min-[720px]:text-[30px]">
-                  {b.title}
+                <h3 className="palt mt-2 text-[26px] font-bold tracking-[-0.02em] text-white min-[720px]:text-[32px]">
+                  <Link href={b.href} className="biz-panel-link">
+                    {b.title}
+                  </Link>
                 </h3>
-                <p className="mt-5 max-w-[440px] text-[15px] leading-[2.05] text-body">
-                  {b.body}
-                </p>
-                <div className="mt-6 flex flex-wrap gap-2">
+                <p className="mt-4 max-w-[440px] text-[14px] leading-[2] text-white/85">{b.body}</p>
+                <div className="mt-5 flex flex-wrap gap-2">
                   {b.tags.map((t) => (
                     <span
                       key={t}
-                      className="rounded-label border border-line px-2.5 py-1 text-[11px] font-semibold tracking-[0.02em] text-body"
+                      className="rounded-label border border-white/35 px-2.5 py-1 text-[11px] font-semibold tracking-[0.02em] text-white/90"
                     >
                       {t}
                     </span>
                   ))}
                 </div>
-                <Link
-                  href={b.href}
-                  className="group mt-7 inline-flex items-center gap-2.5 font-mono text-[13px] font-semibold tracking-[0.12em] text-ink transition-colors hover:text-warm-ink"
-                >
-                  {b.title}を詳しく見る
-                  <span
-                    aria-hidden
-                    className="transition-transform duration-300 group-hover:translate-x-1.5"
-                  >
-                    →
-                  </span>
-                </Link>
                 {b.subLinks && (
-                  <ul className="mt-4 flex flex-wrap gap-x-6 gap-y-2">
+                  <ul className="biz-panel-sublinks mt-6 flex flex-wrap gap-x-6 gap-y-2">
                     {b.subLinks.map((s) => (
                       <li key={s.href}>
                         <Link
                           href={s.href}
-                          className="group inline-flex items-center gap-2 text-[13px] leading-[1.8] text-body underline-offset-4 transition-colors hover:text-warm-ink hover:underline"
+                          className="inline-flex items-center gap-2 text-[13px] leading-[1.8] text-white/85 underline-offset-4 transition-colors hover:text-white hover:underline"
                         >
                           <span aria-hidden className="h-px w-3 shrink-0 bg-warm" />
                           {s.label}
@@ -114,10 +98,14 @@ export function BusinessSection() {
                     ))}
                   </ul>
                 )}
+                <span aria-hidden className="biz-panel-more">
+                  詳しく見る <span className="biz-panel-arrow">→</span>
+                </span>
               </div>
-            </FadeIn>
+            </div>
           ))}
-        </div>
+          <span aria-hidden className="biz-cross">×</span>
+        </FadeIn>
       </Container>
     </section>
   );

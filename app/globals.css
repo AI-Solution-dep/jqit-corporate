@@ -759,15 +759,6 @@ p, dd, li { text-wrap: pretty; }
   .philo-node:hover { background: #fffaf6; }
 }
 
-/* ===== TOP：サービス（写真と文章を左右交互に置いた段。箱に入れない） ===== */
-.service-row { display: grid; gap: 32px; align-items: center; }
-.service-row-media { position: relative; overflow: hidden; aspect-ratio: 16 / 11; background: #f1efeb; }
-@media (min-width: 1024px) {
-  .service-row { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 72px; }
-  .service-row--reverse { grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); }
-  .service-row--reverse .service-row-media { order: 2; }
-}
-
 /* ===== TOP：組織と認証（タイルに入れず、大きな数字とロゴの並び） ===== */
 .trust-figure { display: flex; align-items: flex-end; gap: 22px; padding-bottom: 28px; border-bottom: 1px solid var(--color-line); }
 .trust-figure-number { white-space: nowrap; font-family: var(--font-anton); font-size: clamp(72px, 9vw, 112px); line-height: .85; color: var(--warm-strong); }
@@ -785,12 +776,50 @@ p, dd, li { text-wrap: pretty; }
   .trust-badges li h3 { margin-top: 0; }
 }
 
-/* ===== TOP：サービス（2つを横に並べて見比べる型。事業欄の左右交互と型を変える） ===== */
-.service-pair { display: grid; gap: 56px; }
-.service-pair-media { position: relative; overflow: hidden; aspect-ratio: 4 / 3; background: #f1efeb; }
-.service-pair-media--product { background: var(--warm-soft); }
+/* ===== TOP：サービス（写真を横幅いっぱいに大きく入れ、縦に並べる） ===== */
+.service-stack { display: grid; gap: 80px; }
+.service-stack-media { position: relative; overflow: hidden; aspect-ratio: 16 / 10; background: #f1efeb; }
+.service-stack-media--product { background: #fff; }
+.service-stack-text { display: grid; gap: 24px; margin-top: 32px; }
 @media (min-width: 1024px) {
-  .service-pair { grid-template-columns: 1fr 1fr; gap: 0; }
-  .service-pair-item { padding-right: 56px; }
-  .service-pair-item + .service-pair-item { padding-right: 0; padding-left: 56px; border-left: 1px solid var(--color-line); }
+  .service-stack { gap: 112px; }
+  .service-stack-media { aspect-ratio: 21 / 9; }
+  .service-stack-text { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 64px; margin-top: 40px; align-items: end; }
+}
+
+/* ===== TOP：事業（ITとAIの2枚の写真パネル。真ん中を「×」の円でつなぐ） ===== */
+.biz-split { position: relative; display: flex; flex-direction: column; gap: 12px; }
+.biz-panel { position: relative; overflow: hidden; display: flex; flex-direction: column; isolation: isolate; background: var(--color-ink); }
+.biz-panel-media { position: relative; height: 240px; overflow: hidden; }
+.biz-panel-photo { transition: scale .9s cubic-bezier(.16, .84, .44, 1); }
+.biz-panel-body { position: relative; flex: 1; width: 100%; padding: 32px 24px 28px; }
+/* パネル全体を押せるようにする（見出しのリンクを広げる）。中の小さなリンクは前面に出して個別に押せるようにする */
+.biz-panel-link::after { content: ""; position: absolute; inset: 0; z-index: 1; }
+.biz-panel-link:focus-visible { outline: none; }
+.biz-panel:has(.biz-panel-link:focus-visible) { outline: 2px solid var(--warm-mid); outline-offset: 3px; }
+.biz-panel-sublinks { position: relative; z-index: 2; }
+.biz-panel-more { display: inline-flex; align-items: center; gap: 10px; margin-top: 22px; padding-top: 14px; border-top: 1px solid rgb(255 255 255 / 25%); font-family: var(--font-mono); font-size: 12px; font-weight: 600; letter-spacing: .14em; color: #fff; }
+.biz-panel-arrow { transition: translate .35s cubic-bezier(.16, .84, .44, 1); }
+.biz-panel:nth-of-type(2) { order: 2; }
+/* スマホは2枚のパネルの継ぎ目に重ねる（並びの中に置き、上下に食い込ませる） */
+.biz-cross {
+  position: relative; order: 1; z-index: 3; margin: -44px auto; width: 64px; aspect-ratio: 1; display: grid; place-items: center;
+  border-radius: 50%; background: #fff; color: var(--warm-strong); font-size: 28px; font-weight: 300; line-height: 1;
+  box-shadow: 0 2px 4px rgb(70 40 20 / 12%), 0 18px 36px -6px rgb(70 40 20 / 28%);
+}
+@media (min-width: 1024px) {
+  .biz-split { flex-direction: row; gap: 14px; }
+  .biz-panel { flex: 1 1 0; transition: flex-grow .6s cubic-bezier(.16, .84, .44, 1); }
+  .biz-panel-media { height: 340px; }
+  .biz-panel-body { padding: 48px 44px 40px; }
+  /* 写真の高さの真ん中、2枚の継ぎ目に置く */
+  .biz-cross { position: absolute; left: 50%; top: 170px; margin: 0; translate: -50% -50%; width: 84px; font-size: 36px; }
+  @media (hover: hover) {
+    .biz-panel:hover { flex-grow: 1.35; }
+    .biz-panel:hover .biz-panel-photo { scale: 1.05; }
+    .biz-panel:hover .biz-panel-arrow { translate: 6px 0; }
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .biz-panel, .biz-panel-photo, .biz-panel-arrow { transition: none; }
 }
