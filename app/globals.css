@@ -526,10 +526,6 @@ html:has(.page-curtain) { scroll-behavior: auto; }
     .philo-orbit { view-timeline-name: --philo; }
     /* 円の線はスクロールで描かない（途中で止まると描き始めの右側が欠けて見えるため）。動きは回転と波紋で出す */
     /* DX指標：円をつなぐ線が左から伸び、円が順に現れる */
-    .kpi-chain::before { animation: scene-bar-x linear both; animation-timeline: view(); animation-range: entry 40% cover 40%; }
-    .kpi-item .kpi-circle { animation: scene-pop linear both; animation-timeline: view(); animation-range: entry 30% cover 30%; }
-    .kpi-item:nth-child(2) .kpi-circle { animation-range: entry 50% cover 36%; }
-    .kpi-item:nth-child(3) .kpi-circle { animation-range: entry 70% cover 42%; }
     /* IT：開発の流れの縦線が読み進めるにつれ上から赤く伸び、工程の点が画面の中ほどに来たものから赤くなる */
     .delivery-timeline::after { content: ""; position: absolute; left: -2px; top: 0; bottom: 0; width: 2px; background: var(--warm-mid); transform-origin: top; animation: scene-bar-y linear both; animation-timeline: view(); animation-range: entry 60% cover 70%; }
     .delivery-step::before { animation: scene-dot linear both; animation-timeline: view(); animation-range: entry 100% cover 40%; }
@@ -867,3 +863,135 @@ p, dd, li { text-wrap: pretty; }
 /* 事業欄を表示している間は、背景の図形を薄くする（BusinessSection が #main に data-backdrop-dim を付ける） */
 .page-backdrop { transition: opacity .4s; }
 #main[data-backdrop-dim] .page-backdrop { opacity: .45; }
+
+/* ===== ビジョンの図：デザインレビューの反映（2026-11-18） =====
+   3つの図でそろえる: 円は白の塗り＋外側の影＋1px #f2d2bb の縁。線はふだん 1px #f2d2bb、強調は 2px #f08c3a。
+   暖色の塗りは1つの図に1つまで。英字の小見出しは 11px・字間 0.16em・#d9480f。
+   影はオーナーの指示（はっきり見える濃さ・広さ）を優先して今の値のまま。 */
+.philo-node, .value-orbit-node, .kpi-circle { border: 1px solid var(--warm-line); }
+.value-orbit-en, .philo-node dt { font-size: 11px; letter-spacing: .16em; color: var(--warm-strong); }
+
+/* 企業理念：中心を主役に（中心 27%、まわり 32%）。軌道は半径 32 で中心を図の真ん中に。軌道と波紋を見分けられるように */
+/* 回す枠は中心の1点（幅・高さ0）にする。四角い枠ごと回すと、斜めのときに角が画面の外へ出て横スクロールが出るため。
+   円の位置と大きさは図の幅（cqw）を基準に置く */
+.philo-orbit { container-type: inline-size; }
+.philo-orbit dl { inset: auto; left: 50%; top: 50%; width: 0; height: 0; transform-origin: 0 0; }
+.philo-orbit-core { top: 50%; width: 27%; font-size: clamp(14px, 1.9vw, 21px); }
+.philo-node { width: 32cqw; padding: 4.5cqw; translate: -50% -50%; }
+.philo-node:nth-child(1) { left: 0; top: -32cqw; }
+.philo-node:nth-child(2) { left: 27.7cqw; top: 16cqw; }
+.philo-node:nth-child(3) { left: -27.7cqw; top: 16cqw; }
+.philo-orbit-ring circle { stroke-width: .3; }
+.philo-orbit-core::after { display: none; }
+@media (prefers-reduced-motion: no-preference) {
+  .philo-orbit dl { animation-duration: 40s; }
+  .philo-orbit-core::before { animation: philo-ripple2 2.4s ease-out infinite; }
+  .philo-node { animation-duration: 40s; }
+}
+@keyframes philo-ripple2 { 0% { scale: 1; opacity: .5; } 100% { scale: 1.8; opacity: 0; } }
+
+/* 行動指針：中心は影だけ（白い縁取りの二重円をやめる）。線は選んだ円への1本だけ強調し、残りは薄く */
+.value-orbit-core { box-shadow: 0 3px 6px rgb(40 30 20 / 14%), 0 28px 56px -4px rgb(40 30 20 / 34%); }
+.value-orbit-spoke { stroke-width: .18; opacity: .4; }
+.value-orbit-spoke[data-active] { stroke: var(--warm-mid); stroke-width: .36; opacity: 1; }
+.value-orbit-ring-base { stroke-width: .18; }
+/* 説明は、図の中心の高さで縦中央に。自動送りの残り時間を線で見せる */
+.value-orbit-text { align-self: center; }
+.value-orbit-timer { display: block; height: 2px; margin-top: 24px; background: var(--warm-mid); transform-origin: left; transform: scaleX(0); }
+.value-orbit-timer[data-running] { animation: value-timer linear forwards; }
+.value-orbit-timer[data-off] { visibility: hidden; }
+@keyframes value-timer { to { transform: scaleX(1); } }
+.value-orbit-nav { margin-top: 16px; }
+@media (max-width: 719px) {
+  .value-orbit-node { width: 25%; font-size: 12px; line-height: 1.35; padding: 4px; }
+  .value-orbit-detail { margin-top: 24px; }
+}
+
+/* DX指標：主な指標を大きく、残り2つを小さくして上下にずらす（同じ大きさを等間隔に並べない）。円の中は数字と単位だけ */
+.kpi-chain::before { display: none; }
+.kpi-chain { align-items: start; }
+.kpi-item { flex-direction: column; justify-content: flex-start; }
+.kpi-item dd { order: 1; margin: 0; }
+.kpi-item dt { order: 2; }
+.kpi-circle { --kpi-size: 88px; padding: 6px; }
+.kpi-item:nth-of-type(1) .kpi-circle { --kpi-size: 110px; }
+.kpi-figure { font-size: 26px; }
+.kpi-item:nth-of-type(1) .kpi-figure { font-size: 34px; }
+.kpi-item dt .kpi-when { display: block; margin-top: 2px; font-size: 11.5px; font-weight: 400; color: var(--color-muted); }
+@media (min-width: 900px) {
+  .kpi-circle { --kpi-size: 140px; }
+  .kpi-item:nth-of-type(1) .kpi-circle { --kpi-size: 200px; }
+  .kpi-figure { font-size: 38px; }
+  .kpi-item:nth-of-type(1) .kpi-figure { font-size: 56px; }
+  .kpi-item:nth-of-type(2) { margin-top: 40px; }
+  .kpi-item:nth-of-type(3) { margin-top: -20px; }
+}
+@media (max-width: 899px) { .kpi-item:nth-of-type(2) { margin-top: 24px; } }
+/* 現れ方は時間で（600ms、120ms ずつ遅らせる）。FadeIn が画面に入ったときに data-hidden を false にする */
+@media (prefers-reduced-motion: no-preference) {
+  .kpi-group[data-hidden="false"] .kpi-circle { animation: kpi-pop .6s ease-out both; }
+  .kpi-group[data-hidden="false"] .kpi-item:nth-of-type(2) .kpi-circle { animation-delay: .12s; }
+  .kpi-group[data-hidden="false"] .kpi-item:nth-of-type(3) .kpi-circle { animation-delay: .24s; }
+}
+/* transform はホバーで使うので、登場は translate・scale・opacity で動かす */
+@keyframes kpi-pop { from { opacity: 0; translate: 0 16px; scale: .92; } to { opacity: 1; translate: 0 0; scale: 1; } }
+
+/* ホバー：円が少し寄って浮く（transform を使う。位置は translate、登場は scale で動かしているので干渉しない） */
+@media (hover: hover) {
+  .philo-node, .value-orbit-node, .kpi-circle { transition: transform .3s cubic-bezier(.16, .84, .44, 1), box-shadow .3s, background-color .3s, border-color .3s, color .3s; }
+  .philo-node:hover, .value-orbit-node:not([data-state="active"]):hover, .kpi-circle:hover {
+    transform: scale(1.06); border-color: var(--warm-mid);
+    box-shadow: 0 4px 8px rgb(70 40 20 / 14%), 0 30px 60px -6px rgb(70 40 20 / 32%);
+  }
+  .kpi-circle:hover { transform: translateY(-6px); }
+}
+
+/* ===== ビジョンの図：デザインレビュー2回目の反映（2026-11-18） ===== */
+/* 企業理念：円は正円に固定（スマホで縦長にならない）。ホバーは塗らず縁と寄りだけ。波紋は衛星の円より手前・中心の円の後ろ */
+.philo-node { height: 32cqw; aspect-ratio: 1; overflow: hidden; }
+@media (max-width: 719px) { .philo-node { padding: 2cqw; font-size: 11.5px; } .philo-node h3 { font-size: 11.5px; } }
+.philo-orbit-core { z-index: 2; }
+.philo-orbit-core::before { border: 1px solid var(--warm-mid); }
+@keyframes philo-ripple2 { 0% { scale: 1; opacity: .35; } 100% { scale: 1.8; opacity: 0; } }
+@media (hover: hover) {
+  .philo-node:hover { background: #fff; border: 1.5px solid var(--warm-mid); }
+}
+
+/* 行動指針：見終わった円は縁を変えない（進み具合は輪の線だけで見せる）。ホバーは文字の色と寄りだけ、0.2秒 */
+.value-orbit-node[data-state="passed"] { background: #fff; border-color: var(--warm-line); }
+@media (hover: hover) {
+  .value-orbit-node { transition: transform .2s ease-out, box-shadow .2s, color .2s, background-color .3s, border-color .3s; }
+  .value-orbit-node:not([data-state="active"]):hover { border-color: var(--warm-line); color: var(--warm-strong); }
+}
+@media (max-width: 719px) { .value-orbit-node { font-size: 11.5px; } }
+/* 残り時間の線と前後のボタンの間を詰める。スマホは選んだ説明だけを出し、空きを残さない */
+.value-orbit-timer { margin-top: 20px; }
+.value-orbit-nav { margin-top: 12px; }
+@media (max-width: 1023px) { .value-orbit-text:not([data-active]) { display: none; } }
+
+/* DX：円の中心どうしを線で結ぶ。小さい2つの中心は主な指標の中心より30px下にそろえ、名前は円の下16pxにそろえる */
+.kpi-chain { position: relative; }
+.kpi-lines { display: none; }
+@media (min-width: 900px) {
+  .kpi-lines { display: block; position: absolute; left: 0; top: 0; width: 100%; height: 200px; overflow: visible; pointer-events: none; }
+  .kpi-lines polyline { fill: none; stroke: #e8b896; stroke-width: 1.5px; vector-effect: non-scaling-stroke; }
+  .kpi-item { z-index: 1; }
+  .kpi-item:nth-of-type(2), .kpi-item:nth-of-type(3) { margin-top: 60px; }
+  .kpi-item dt { margin-top: 16px; }
+  @media (prefers-reduced-motion: no-preference) {
+    .kpi-group[data-hidden="false"] .kpi-lines { animation: kpi-line .4s ease-out .84s both; }
+  }
+}
+@keyframes kpi-line { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+/* スマホ：主な指標を1段目に1つ（120px）、残り2つを2段目（88px）に並べ、主の円から2本の線で結ぶ */
+@media (max-width: 899px) {
+  .kpi-chain { grid-template-columns: 1fr 1fr; row-gap: 36px; }
+  .kpi-item:nth-of-type(1) { grid-column: 1 / -1; }
+  .kpi-item:nth-of-type(1) .kpi-circle { --kpi-size: 120px; }
+  .kpi-item:nth-of-type(2) { margin-top: 0; }
+  .kpi-item:nth-of-type(1)::after {
+    content: ""; position: absolute; left: 25%; right: 25%; bottom: -36px; height: 18px;
+    border: 1.5px solid #e8b896; border-bottom: 0;
+  }
+  .kpi-item:nth-of-type(1)::before { content: ""; position: absolute; left: 50%; bottom: -18px; width: 1.5px; height: 18px; background: #e8b896; }
+}

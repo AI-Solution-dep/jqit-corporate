@@ -131,7 +131,16 @@ export function ValueOrbit({ values }: { values: readonly Value[] }) {
             <p className="text-[14.5px] leading-[2.05] text-body min-[1024px]:text-[16px]">{v.body}</p>
           </div>
         ))}
-        <div className="value-orbit-nav" style={{ gridArea: "2 / 1" }}>
+        {/* 自動送りの残り時間（選択が変わるたびに伸び直す。止まっている間は出さない） */}
+        <span
+          key={`timer-${active}`}
+          aria-hidden
+          className="value-orbit-timer"
+          data-running={(auto && inView && !paused) || undefined}
+          data-off={!auto || undefined}
+          style={{ gridArea: "2 / 1", animationDuration: `${AUTO_ADVANCE_MS}ms` }}
+        />
+        <div className="value-orbit-nav" style={{ gridArea: "3 / 1" }}>
           <button type="button" onClick={() => select((active - 1 + count) % count)}>
             <span aria-hidden>←</span> 前の指針
           </button>

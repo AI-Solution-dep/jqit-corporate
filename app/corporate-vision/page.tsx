@@ -49,12 +49,12 @@ const values = [
     body: "常に顧客視点に立ち、お客様にとって真に価値のあるサービスを創造し提供する。",
   },
   {
-    title: "デジタル化|社会への|貢献",
+    title: "デジタル化|社会への貢献",
     en: "Digital Society",
     body: "デジタル化を推進し、新たな価値創造を通じて社会の持続的発展に貢献する。",
   },
   {
-    title: "技術探求と|挑戦",
+    title: "技術探求|と挑戦",
     en: "Exploration",
     body: "常に最新の技術を探求し、従来の枠を超えた革新的なソリューションに挑戦し続ける。",
   },
@@ -69,7 +69,7 @@ const values = [
     body: "自己利益よりも他者の利益を優先し、共に成長する共生の文化を育む。",
   },
   {
-    title: "人的資本を|育てる|文化",
+    title: "人的資本を|育てる文化",
     en: "Human Capital",
     body: "従業員が安心して働き、成長できる環境を整え、従業員の意見を積極的に聞き取り、反映させることで、企業と従業員双方にとってより良い状態を目指す。",
   },
@@ -133,7 +133,7 @@ export default function CorporateVisionPage() {
             </div>
             <div className="philo-orbit">
               <svg className="philo-orbit-ring" viewBox="0 0 100 100" aria-hidden>
-                <circle cx="50" cy="54" r="34" pathLength={1} />
+                <circle cx="50" cy="50" r="32" pathLength={1} />
               </svg>
               <p className="philo-orbit-core palt" aria-hidden>
                 挑戦と
@@ -208,19 +208,21 @@ export default function CorporateVisionPage() {
                 </div>
                 {/* 各項目は dt（指標名）を先に書き、表示は CSS で円の下に回す */}
                 <dl className="kpi-chain">
+                  {/* 円の中心どうしを結ぶ線（PC）。主な指標の中心から、30px 下にそろえた小さい2つの中心へ */}
+                  <svg className="kpi-lines" viewBox="0 0 100 200" preserveAspectRatio="none" aria-hidden>
+                    <polyline points="16.67,100 50,130 83.33,130" />
+                  </svg>
                   {kpi.items.map((item) => (
                     <div key={plainPhrase(item.label)} className="kpi-item">
                       <dt className="palt mt-4 text-center text-[12.5px] font-semibold leading-[1.6] text-ink min-[720px]:text-[13.5px]">
                         <Phrase text={item.label} />
+                        <span className="kpi-when">{item.when}</span>
                       </dt>
                       <dd className="kpi-circle">
                         <span className="sr-only">目標: {item.target}</span>
                         <span aria-hidden className="kpi-figure">
                           {item.figure}
                           <small>{item.unit}</small>
-                        </span>
-                        <span aria-hidden className="kpi-when">
-                          {item.when}
                         </span>
                       </dd>
                     </div>
