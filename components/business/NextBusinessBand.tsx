@@ -29,6 +29,7 @@ export function NextBusinessBand({
         alt={alt}
         fill
         sizes="100vw"
+        data-photo-slide
         className="object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.04]"
       />
       <div aria-hidden className="absolute inset-0 bg-ink/60 transition-colors duration-500 group-hover:bg-ink/50" />

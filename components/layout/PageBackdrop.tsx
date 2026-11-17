@@ -33,7 +33,8 @@ export function PageBackdrop() {
     const main = document.getElementById("main");
     if (!main) return;
     const observer = new ResizeObserver(() => {
-      const band = main.querySelector<HTMLElement>(":scope > [data-backdrop-after]");
+      // TOP は登場演出の枠の中にヒーローがあるので、#main の直下に限らず最初の帯を探す。
+      const band = main.querySelector<HTMLElement>("[data-backdrop-after]");
       setStartOffset(band ? band.offsetTop + band.offsetHeight : 0);
     });
     observer.observe(main);

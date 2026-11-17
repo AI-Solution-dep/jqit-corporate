@@ -42,6 +42,13 @@ section[id] {
   scroll-margin-top: 80px;
 }
 
+/* ページ遷移時、Next.js は新しいページの最初の要素（見出し帯など #main の直下）を
+   scrollIntoView で画面上端へ合わせる。固定ヘッダー（73px）の下に潜らないよう、
+   ヘッダー分の余白を取ってページ最上部に止める。 */
+#main > * {
+  scroll-margin-top: 80px;
+}
+
 /* 見出し用: 約物詰め（YakuHanJP相当をOpenType機能で） */
 .palt {
   font-feature-settings: "palt";
@@ -437,8 +444,68 @@ section[id] {
 @media (prefers-reduced-motion: reduce) { .page-backdrop-move-x, .page-backdrop-move-y { animation: none; } }
 
 /* 背景の図形があるページでは、白い帯は透かし、紙色の帯は半透明にして図形を見せる。
+   TOP は登場演出の枠（[data-home-entrance]）の中に帯が並ぶので、その直下も対象にする。
    暗い帯（bg-ink）や写真の帯はそのまま（図形は隠れる）。従来の点と線の模様（TechBackdrop）は重ねない。 */
-#main[data-backdrop] > section.bg-paper { background: transparent; }
+#main[data-backdrop] :is(#main, [data-home-entrance]) > section.bg-paper { background: transparent; }
 /* 見出し帯（data-backdrop-after）は図形より上にあるので不透明のまま */
-#main[data-backdrop] > section.bg-cream:not([data-backdrop-after]) { background: rgb(250 249 247 / 60%); }
+#main[data-backdrop] :is(#main, [data-home-entrance]) > section.bg-cream:not([data-backdrop-after]) { background: rgb(250 249 247 / 60%); }
 #main[data-backdrop] [data-tech-backdrop] { display: none; }
+
+/* ===== ページ遷移の幕（components/layout/PageCurtain.tsx） =====
+   淡い赤の面がヘッダーの下を覆い、右下の曲線を先頭にして上へ抜ける。サイト内遷移のときだけ出る。
+   最初の約3割は止めておく：遷移直後はまだ前のスクロール位置で新しいページが描かれるため、
+   ページ先頭へ戻り終わるまで覆い隠してから抜ける。 */
+.page-curtain {
+  position: fixed; inset: 73px 0 0 0; z-index: 45; pointer-events: none;
+  background: #fff0f3; border-bottom-right-radius: clamp(64px, 10vw, 144px);
+  animation: page-curtain-out 940ms cubic-bezier(.16, .84, .44, 1) both;
+}
+@keyframes page-curtain-out { 0%, 30% { transform: translateY(0); } 100% { transform: translateY(-104%); } }
+/* html の scroll-behavior:smooth のままだと、遷移のたびにページ先頭まで約1秒かけて流れる。幕の間は即座に戻す。 */
+html:has(.page-curtain) { scroll-behavior: auto; }
+/* 遷移後は #main にフォーカスを移す（PageCurtain）。プログラムからのフォーカスなので枠は出さない。 */
+#main:focus { outline: none; }
+@media (prefers-reduced-motion: reduce) { .page-curtain { display: none; } }
+
+/* ===== 写真の中身のスライド（components/ui/PhotoSlide.tsx） =====
+   枠（親要素）は固定し、少し拡大した写真だけを --photo-y の分だけ上下に動かす。枠は親側で overflow:hidden にしておく。
+   ホバーで寄る演出（scale）とは別のプロパティなので両立する。スクロールに遅れてついてこないよう、transform は補間しない。 */
+[data-photo-slide] {
+  /* 上下に最大10%動いても端に空白が出ないよう 1.22 倍にする */
+  transform: translate3d(0, var(--photo-y, 0px), 0) scale(1.22);
+  transition-property: scale;
+  will-change: transform;
+}
+
+/* ===== ホバーの細かい動き（マウス操作の端末だけ） =====
+   リンクの中の写真はわずかに寄り、フッターのリンクは下線が左から伸びる。
+   写真の寄りは scale プロパティなので、写真の中身のスライド（transform）と両立する。 */
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  #main a img:not(.object-contain) { transition: scale .8s cubic-bezier(.16, .84, .44, 1); }
+  #main a:hover img:not(.object-contain) { scale: 1.04; }
+  footer a:not(:has(img, svg)) { background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat; transition: background-size .35s cubic-bezier(.16, .84, .44, 1), color .3s; }
+  footer a:not(:has(img, svg)):hover { background-size: 100% 1px; }
+}
+
+/* ===== ページごとの見せ場（スクロール連動。対応ブラウザだけ。非対応・reduced-motion では静止したまま読める） ===== */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    /* ビジョン：企業理念の一文が左から現れ（画面に入りきった時点で完了）、Purpose・Mission・Vision は中央に来たものから濃くなる */
+    .vision-statement { animation: scene-mask linear both; animation-timeline: view(); animation-range: entry 0% entry 100%; }
+    .vision-philosophy h3 { animation: scene-ink linear both; animation-timeline: view(); animation-range: cover 25% cover 48%; }
+    /* IT：開発の流れの各工程の上辺に、赤い線が読み進めるにつれて左の工程から順に伸びる */
+    .process-steps > div::after { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 2px; background: var(--color-brand); transform-origin: left; animation: scene-bar linear both; animation-timeline: view(); animation-range: entry 70% cover 45%; }
+    .process-steps > div:nth-child(2)::after { animation-range: entry 85% cover 50%; }
+    .process-steps > div:nth-child(3)::after { animation-range: entry 100% cover 55%; }
+    .process-steps > div:nth-child(4)::after { animation-range: cover 30% cover 60%; }
+    .process-steps > div:nth-child(5)::after { animation-range: cover 35% cover 65%; }
+    /* AI：NOVA の画面がせり上がり、特徴が順に濃くなる */
+    .nova-shot { animation: scene-rise linear both; animation-timeline: view(); animation-range: entry 0% cover 42%; }
+    .nova-features > div { animation: scene-fill linear both; animation-timeline: view(); animation-range: entry 100% cover 50%; }
+  }
+}
+@keyframes scene-mask { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+@keyframes scene-ink { from { color: #c9c4c6; } to { color: var(--color-ink); } }
+@keyframes scene-bar { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes scene-rise { from { transform: translateY(56px) scale(.92) rotate(-1.5deg); opacity: .4; } to { transform: none; opacity: 1; } }
+@keyframes scene-fill { from { opacity: .3; } to { opacity: 1; } }

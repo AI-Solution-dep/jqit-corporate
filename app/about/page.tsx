@@ -117,6 +117,7 @@ export default function AboutPage() {
             width={1672}
             height={941}
             sizes="100vw"
+            data-photo-slide
             className="h-[260px] w-full object-cover object-[58%_45%] min-[720px]:h-[360px]"
           />
           <div

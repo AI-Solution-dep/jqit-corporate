@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Anton, Inter, JetBrains_Mono, Noto_Sans_JP } from "next/font/google";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { PageBackdrop } from "@/components/layout/PageBackdrop";
+import { PhotoSlide } from "@/components/ui/PhotoSlide";
 import { PublicSiteChrome } from "@/components/layout/PublicSiteChrome";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { GoogleAnalytics } from "@/components/seo/GoogleAnalytics";
@@ -219,6 +220,7 @@ export default function RootLayout({
         {/* relative + isolate：背景の図形（PageBackdrop）を本文の後ろ・ページの地の上に置くための重なり順の基準 */}
         <main id="main" className="relative isolate flex-1">
           <PageBackdrop />
+          <PhotoSlide />
           {children}
         </main>
         <PublicSiteChrome><SiteFooter /></PublicSiteChrome>

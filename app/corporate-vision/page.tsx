@@ -111,7 +111,7 @@ export default function CorporateVisionPage() {
         <Container>
           <SectionHead kicker="Philosophy" title="企業理念" className="mb-10" />
           <FadeIn className="max-w-[860px]">
-            <p className="palt text-[26px] font-bold leading-[1.6] tracking-[-0.02em] text-ink min-[720px]:text-[34px]">
+            <p className="vision-statement palt text-[26px] font-bold leading-[1.6] tracking-[-0.02em] text-ink min-[720px]:text-[34px]">
               『挑戦と革新で、顧客の<span className="text-brand">未来</span>
               を切り拓く。』
             </p>
@@ -119,7 +119,7 @@ export default function CorporateVisionPage() {
               私たちは、デジタル技術の力で顧客と社会に新たな価値を創造し、持続可能な未来の実現に貢献します。
             </p>
           </FadeIn>
-          <FadeIn className="mt-12 grid grid-cols-1 gap-px border border-line bg-line min-[900px]:grid-cols-3">
+          <FadeIn className="vision-philosophy mt-12 grid grid-cols-1 gap-px border border-line bg-line min-[900px]:grid-cols-3">
             {philosophy.map((p) => (
               <div key={p.en} className="ethos-card bg-white px-8 py-9">
                 <p className="mb-4 font-mono text-[13px] font-semibold uppercase tracking-[0.12em] text-brand">

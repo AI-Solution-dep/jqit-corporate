@@ -241,7 +241,7 @@ export default function ItSolutionsPage() {
                 APIなどをメインとした業務系システムの開発を行っています。設計・開発・構築・検証・導入・保守・運用などを一括、または一部からでもお請けします。
               </p>
             </FadeIn>
-            <FadeIn className="relative">
+            <FadeIn className="relative overflow-hidden rounded-xl">
               <Image
                 src="/natural-tech-it.webp"
                 alt="自然光の入るオフィスでシステム設計を議論するエンジニア"
@@ -249,7 +249,8 @@ export default function ItSolutionsPage() {
                 height={1086}
                 priority
                 sizes="(min-width: 1024px) 45vw, 100vw"
-                className="h-auto w-full rounded-xl object-cover"
+                data-photo-slide
+                className="h-auto w-full object-cover"
               />
             </FadeIn>
           </div>
@@ -429,7 +430,7 @@ export default function ItSolutionsPage() {
             lead="すべての工程を一括でも、検証のみ・運用のみといった一部の工程からでもお請けできます。"
             className="mb-12"
           />
-          <FadeIn className="grid grid-cols-1 gap-px border border-line bg-line min-[720px]:grid-cols-2 min-[1024px]:grid-cols-5">
+          <FadeIn className="process-steps grid grid-cols-1 gap-px border border-line bg-line min-[720px]:grid-cols-2 min-[1024px]:grid-cols-5">
             {steps.map((s, i) => (
               <div
                 key={s.no}

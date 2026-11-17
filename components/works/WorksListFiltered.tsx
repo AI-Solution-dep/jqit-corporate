@@ -71,6 +71,7 @@ export function WorksListFiltered({ items }: { items: Item[] }) {
                   alt=""
                   fill
                   sizes="(min-width: 720px) 540px, 100vw"
+                  data-photo-slide={w.isDiagram ? undefined : ""}
                   className={
                     w.isDiagram
                       ? "object-contain p-4"

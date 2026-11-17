@@ -244,7 +244,7 @@ export default function AiSolutionsPage() {
                 )}
               </div>
             </FadeIn>
-            <FadeIn className="relative">
+            <FadeIn className="relative overflow-hidden rounded-xl">
               <Image
                 src="/natural-tech-ai.webp"
                 alt="AIデータ可視化を前に分析するメンバー"
@@ -252,7 +252,8 @@ export default function AiSolutionsPage() {
                 height={1086}
                 priority
                 sizes="(min-width: 1024px) 45vw, 100vw"
-                className="h-auto w-full rounded-xl object-cover"
+                data-photo-slide
+                className="h-auto w-full object-cover"
               />
             </FadeIn>
           </div>
@@ -371,7 +372,7 @@ export default function AiSolutionsPage() {
               <p className="mt-6 text-[14.5px] leading-[2.05] text-white/80">
                 NOVAは、届いた案件・人材メールをAIが自動で構造化し、タグスコアとAI判定の2段階マッチングで候補と「なぜ合うか」の判断理由まで提示するSES特化のAIマッチングシステムです。契約終了アラートによる先回り営業、提案メールのAI起草まで、メール1通が提案になるまでを一気通貫で支えます。
               </p>
-              <div className="mt-8 grid grid-cols-2 gap-px border border-white/15 bg-white/15 min-[600px]:grid-cols-3">
+              <div className="nova-features mt-8 grid grid-cols-2 gap-px border border-white/15 bg-white/15 min-[600px]:grid-cols-3">
                 {novaFeatures.map((f) => (
                   <div key={f} className="bg-ink px-4 py-3.5">
                     <span aria-hidden className="block h-1.5 w-1.5 bg-brand" />
@@ -397,7 +398,7 @@ export default function AiSolutionsPage() {
                 width={748}
                 height={438}
                 sizes="(min-width: 1024px) 50vw, 100vw"
-                className="h-auto w-full rounded-xl border border-white/10 object-cover"
+                className="nova-shot h-auto w-full rounded-xl border border-white/10 object-cover"
               />
             </FadeIn>
           </div>

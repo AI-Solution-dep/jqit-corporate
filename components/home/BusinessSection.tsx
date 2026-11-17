@@ -54,14 +54,15 @@ export function BusinessSection() {
               className="grid grid-cols-1 items-center gap-8 min-[900px]:grid-cols-[1.05fr_0.95fr] min-[900px]:gap-16"
             >
               {/* 写真（偶数行は右へ） */}
-              <div className={`relative ${i % 2 === 1 ? "min-[900px]:order-2" : ""}`}>
+              <div className={`relative overflow-hidden rounded-xl ${i % 2 === 1 ? "min-[900px]:order-2" : ""}`}>
                 <Image
                   src={b.image}
                   alt={b.alt}
                   width={1448}
                   height={1086}
                   sizes="(min-width: 900px) 50vw, 100vw"
-                  className="h-auto w-full rounded-xl object-cover"
+                  data-photo-slide
+                  className="h-auto w-full object-cover"
                 />
               </div>
 
