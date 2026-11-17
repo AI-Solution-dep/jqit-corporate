@@ -64,6 +64,10 @@ const defaultNewsMedia: Record<
     gallery?: MicroCMSImage[];
   }
 > = {
+  // 公式ロゴではなく、JQIT制作の加入案内図版。CMS入稿画像を優先する。
+  "its-kenpo-20261022": {
+    eyecatch: { url: "/badges/its-kenpo-notice.png", width: 1200, height: 750 },
+  },
   "site-renewal-2026": {
     eyecatch: {
       url: "/natural-tech-wide.webp",

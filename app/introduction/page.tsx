@@ -7,6 +7,11 @@ import Link from "next/link";
 import { createPageMetadata } from "@/lib/seo";
 import { certificationBadges, introductionContacts, siteConfig } from "@/lib/site-config";
 import styles from "./introduction.module.css";
+import { ChapterNav } from "./ChapterNav";
+import { TeamDiagram } from "./TeamDiagram";
+import { ProjectCases } from "./ProjectCases";
+
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   ...createPageMetadata({ title: "実績と開発体制のご紹介", description: "JQITの開発実績、4つの専門領域と責任者、導入の進め方、担当者の連絡先をご紹介します。", path: "/introduction" }),
@@ -15,15 +20,10 @@ export const metadata: Metadata = {
 };
 
 const leaders = [
-  { field: "AI", title: "AIソリューション事業部長", name: "宮本 尚寛", image: "leader-miyamoto", scope: ["AIシステムの開発", "既存業務へのAI導入"], tech: ["Python", "FastAPI", "LLM API", "RAG"], crop: "miyamoto" },
+  { field: "AI", title: "取締役　AIソリューション事業 統括", name: "宮本 尚寛", image: "leader-miyamoto", scope: ["AIシステムの開発", "既存業務へのAI導入"], tech: ["Python", "FastAPI", "LLM API", "RAG"], crop: "miyamoto" },
   { field: "開発", title: "開発事業部長", name: "大野 健", image: "leader-ohno", scope: ["Web・モバイルアプリ", "設計から運用保守まで"], tech: ["Java", "TypeScript", "React", "Next.js"], crop: "ohno" },
   { field: "インフラ", title: "インフラ事業部長", name: "嵐 亮太", image: "leader-arashi", scope: ["オンプレ・クラウド基盤", "設計・構築・運用"], tech: ["AWS", "Azure", "オンプレミス"], crop: "arashi" },
   { field: "QA", title: "QA事業部長", name: "岩崎 顕儀", image: "leader-iwasaki", scope: ["品質保証・テスト設計", "テスト自動化"], tech: ["品質計画", "第三者検証", "自動化"], crop: "iwasaki" },
-];
-
-const cases = [
-  { category: "教育機関向け", title: "いじめ対応支援AI", image: "ill-counsel", task: "相談内容の整理と報告", development: "相談の分析・報告書作成を支援するAI", output: "相談内容の分析結果・報告書", flow: ["相談内容", "AIによる分析", "報告書"] },
-  { category: "営業業務向け", title: "営業リスト自動作成AI", image: "ill-saleslist", task: "日々の営業先の選定", development: "リスト自動作成・見込みのスコアリング", output: "営業リスト・成約見込みのスコア", flow: ["営業先の情報", "リスト化・評価", "営業リスト"] },
 ];
 
 function ContactIcon({ phone = false }: { phone?: boolean }) {
@@ -61,60 +61,62 @@ export default function IntroductionPage() {
             <div className={styles.heroActions}><a className={styles.primaryLink} href="#projects">開発実績を見る <span aria-hidden="true">→</span></a><a className={styles.textLink} href="#team">チームを知る ↓</a></div>
           </div>
         </div>
-        <div className={styles.trustStrip}><p><strong><b>106</b> 名</strong><span>従業員数／2026年4月時点</span></p><p><strong><b>4</b> つの専門領域</strong><span>AI・開発・インフラ・QA</span></p><p><strong>週 <b>1</b> 回の対話</strong><span>動くものを見ながら改善</span></p></div>
+        <div className={styles.trustStrip}><p><strong><b>106</b> 名</strong><span>従業員数／2026年4月時点</span></p><p><strong className={styles.expertiseStat}><b>4</b> つの専門領域</strong><span>AI・開発・インフラ・QA</span></p><p><strong>週 <b>1</b> 回の対話</strong><span>動くものを見ながら改善</span></p></div>
 
+        <div className={styles.readingLayout}>
+          <ChapterNav />
+          <div className={styles.story}>
         <section className={styles.section} data-section="projects" id="projects" aria-labelledby="projects-heading">
           <div className={styles.display} aria-hidden="true">WORKS</div>
-          <div className={styles.sectionHead}><p className={styles.eyebrow}>01 ／ 開発実績</p><h2 id="projects-heading"><span>業務の課題を</span><span><em>動く仕組み</em>に。</span></h2></div>
+          <div className={styles.sectionHead}><p className={styles.eyebrow}>開発実績</p><h2 id="projects-heading"><span>業務の課題を</span><span><em>動く仕組み</em>に。</span></h2></div>
+          <ProjectCases />
           <article className={styles.featuredWork}>
             <div><p className={styles.eyebrow}>自社プロダクト ／ SES業界</p><h3>NOVA</h3><p className={styles.featuredLead}>案件と人材をつなぐ<br />AIマッチングサービス。</p><a className={styles.textLink} href={siteConfig.links.nova} target="_blank" rel="noopener noreferrer">NOVA製品サイト <span aria-hidden="true">↗</span><span className="sr-only">（新しいタブで開きます）</span></a></div>
             <div className={styles.productDetail}><ol className={styles.flow}>{["案件・人材を管理", "AIでマッチング", "候補を確認"].map((step) => <li key={step}>{step}</li>)}</ol><Image src="/nova-product-2026-08c.png" alt="NOVAの案件一覧。案件情報を一つの画面で確認できます" width={1496} height={876} sizes="(max-width: 760px) 90vw, 45vw" /></div>
           </article>
-          <div className={styles.caseGrid}>{cases.map((work) => <article className={styles.case} key={work.title}>
-            <div className={styles.caseVisual}><Image src={`/introduction/${work.image}.webp`} alt="" width={640} height={427} sizes="(max-width: 760px) 90vw, 45vw" /></div>
-            <p className={styles.eyebrow}>{work.category}</p><h3>{work.title}</h3>
-            <ol className={styles.flow}>{work.flow.map((step) => <li key={step}>{step}</li>)}</ol>
-            <details className={styles.more}><summary aria-label={`${work.title}の開発内容を見る`}>開発内容を見る</summary><dl className={styles.facts}><div><dt>対象業務</dt><dd>{work.task}</dd></div><div><dt>開発内容</dt><dd>{work.development}</dd></div><div><dt>出力</dt><dd>{work.output}</dd></div></dl></details>
-          </article>)}</div>
-          <p className={styles.note}>画面は製品紹介用、イラストは用途のイメージです。</p>
+
+          <p className={styles.note}>画面は自社プロダクトNOVAの製品紹介用です。</p>
         </section>
 
         <section className={styles.section} data-section="team" id="team" aria-labelledby="team-heading">
           <div className={styles.display} aria-hidden="true">OUR TEAM</div>
-          <div className={styles.sectionHead}><p className={styles.eyebrow}>02 ／ 開発体制</p><h2 id="team-heading"><span>4つの専門領域が</span><span>ひとつのチームに。</span></h2></div>
+          <div className={styles.sectionHead}><p className={styles.eyebrow}>開発体制</p><h2 id="team-heading"><span>4つの専門領域が</span><span>ひとつのチームに。</span></h2></div>
           <div className={styles.leaderGrid}>{leaders.map((leader) => <article className={styles.leader} key={leader.field}>
             <div className={styles.portrait} data-person={leader.crop}><Image src={`/introduction/${leader.image}.webp`} alt={leader.name} width={300} height={300} sizes="(max-width: 760px) 44vw, 250px" /></div>
-            <p className={styles.field}>{leader.field}</p><h3>{leader.name}</h3><p className={styles.jobTitle}>事業部長</p><p className={styles.scope}>{leader.scope.map(item => <span key={item}>{item}</span>)}</p>
+            <p className={styles.field}>{leader.field}</p><h3>{leader.name}</h3><p className={styles.jobTitle}>{leader.crop === "miyamoto" ? leader.title : "事業部長"}</p><p className={styles.scope}>{leader.scope.map(item => <span key={item}>{item}</span>)}</p>
           </article>)}</div>
           <details className={styles.more}><summary>担当範囲・技術を見る</summary><div className={styles.expertise}>{leaders.map((leader) => <div key={leader.field}><h3>{leader.field}</h3><p>{leader.scope.join(" ／ ")}</p><p className={styles.note}>{leader.tech.join(" ／ ")}</p></div>)}</div></details>
-          <div className={styles.projectTeam}>
-            <div className={styles.clientNode}>お客さま <span>課題・目標・現場の声</span></div>
-            <p className={styles.connector}>相談・共有 <span aria-hidden="true">↕</span> 提案・報告</p>
-            <div className={styles.teamLinks}>{introductionContacts.members.map((person, i) => <a key={person.email} href={`#contact-${i}`}><span>{person.role}</span><strong>{person.name}</strong><small>{person.scope}</small><span className={styles.teamArrow} aria-hidden="true">↗</span></a>)}</div>
-            <p className={styles.connector}>方針・仕様を共有 <span aria-hidden="true">↕</span> 専門領域から検証</p>
-            <div className={styles.disciplines}>{leaders.map(leader => <span key={leader.field}>{leader.field}</span>)}</div>
-            <p className={styles.teamCaption}>窓口と専門チームが連携し、設計・開発から品質確認・運用まで。</p>
-          </div>
+          <TeamDiagram />
           <aside className={styles.credentials} aria-label="JQITの認証・評価"><div className={styles.badges}>{certificationBadges.filter((badge) => badge.image).map((badge) => <figure key={badge.label}><Image src={badge.image!.src} alt={badge.label} width={badge.image!.width} height={badge.image!.height} sizes="(max-width: 760px) 40vw, 220px" /><figcaption>{badge.label.startsWith("2026年度") ? <>2026年度 財界<br /><span style={{ whiteSpace: "nowrap" }}>BEST AI 100</span></> : badge.label}</figcaption></figure>)}</div></aside>
         </section>
 
         <section className={styles.section} data-section="process" id="process" aria-labelledby="process-heading">
           <div className={styles.display} aria-hidden="true">HOW WE WORK</div>
-          <div className={styles.sectionHead}><p className={styles.eyebrow}>03 ／ 進め方</p><h2 id="process-heading"><span>小さく確かめ、</span><span>毎週の対話で改善する。</span></h2></div>
+          <div className={styles.sectionHead}><p className={styles.eyebrow}>進め方</p><h2 id="process-heading"><span>小さく確かめ、</span><span>毎週の対話で改善する。</span></h2></div>
           <div className={styles.cycle}><div className={styles.cycleHead}><strong>つくる → 確かめる → 育てる</strong><span>週1回の定例で、動くものを一緒に確認。</span></div><ol className={styles.steps}>{["要件整理", "実装", "レビュー", "改善"].map((title, i) => <li key={title}><span className={styles.stepNumber}>0{i + 1}</span><ProcessIcon step={i} /><h3>{title}</h3><p>{["課題と優先順位を揃える", "動く仕組みをつくる", "現場の視点で確かめる", "次の実装に反映する"][i]}</p></li>)}</ol><p className={styles.cycleReturn}><span aria-hidden="true">↶</span> 次の週も、確認と改善。</p></div>
 
         </section>
 
         <section className={styles.section} data-section="contacts" id="contacts" aria-labelledby="contacts-heading">
           <div className={styles.display} aria-hidden="true">CONTACT</div>
-          <div className={styles.sectionHead}><p className={styles.eyebrow}>04 ／ 担当者・連絡先</p><h2 id="contacts-heading"><span>まずは、</span><span>お話を聞かせてください。</span></h2></div>
-          <div className={styles.contactGrid}>{introductionContacts.members.map((person, i) => <article id={`contact-${i}`} className={styles.contact} key={person.email}>
+          <div className={styles.sectionHead}><p className={styles.eyebrow}>担当者・連絡先</p><h2 id="contacts-heading"><span>まずは、</span><span>お話を聞かせてください。</span></h2></div>
+          <div className={styles.contactGrid}>{introductionContacts.members.map((person, i) => <article id={`contact-${i}`} className={styles.contact} key={person.name}>
             <p className={styles.eyebrow}>{person.role}</p><h3>{person.name}<span>{person.reading}</span></h3><p className={styles.jobTitle}>{person.title}</p>
-            <a href={`mailto:${person.email}`}><ContactIcon /><span><small>メールを送る</small>{person.email}</span></a>
-            {person.phone && <a href={`tel:${person.phone.replaceAll('-', '')}`}><ContactIcon phone /><span><small>電話する</small>{person.phone}</span></a>}
+            <p className={styles.contactScope}>{person.scope}</p>
           </article>)}</div>
-          <div className={styles.sharedContact}><div><strong>担当者が分からない方へ</strong><p>営業部共通窓口で承ります。</p></div><a href={`mailto:${introductionContacts.salesEmail}`}><ContactIcon />{introductionContacts.salesEmail}</a></div>
+          {/* 個人の連絡先は載せず、担当者への取り次ぎは共通窓口で受ける。 */}
+          <div className={styles.sharedContact}>
+            <div><strong>ご連絡は営業部の共通窓口へ</strong><p>担当者の名前をお書き添えいただければ、そのまま取り次ぎます。</p></div>
+            <div className={styles.sharedContactLinks}>
+              <a href={`mailto:${introductionContacts.salesEmail}`}><ContactIcon />{introductionContacts.salesEmail}</a>
+              <a href={siteConfig.telHref}><ContactIcon phone />{siteConfig.tel}<small>{siteConfig.businessHours}</small></a>
+              <a href="/contact">お問い合わせフォーム<span aria-hidden="true"> →</span></a>
+            </div>
+          </div>
         </section>
+
+          </div>
+        </div>
 
         <footer className={styles.footer}><div><Image src="/jqit-logo.png" alt={siteConfig.name} width={130} height={36} /><p>{siteConfig.address}</p><a href={siteConfig.telHref}>代表電話：{siteConfig.tel}</a></div><div><p>設立：{siteConfig.founded}年12月 ／ 資本金：{siteConfig.capital}</p><p>{siteConfig.certifications[4]}</p><div><Link href="/">JQITのホームページへ <span aria-hidden="true">→</span></Link></div><a href="/privacy-policy">プライバシーポリシー</a><small>© {new Date().getFullYear()} JQIT Co., Ltd.</small></div></footer>
       </div>

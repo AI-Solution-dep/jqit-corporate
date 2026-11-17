@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { Kicker } from "@/components/ui/Kicker";
+import { PhotoDepth } from "@/components/ui/PhotoDepth";
 import { SectionHead } from "@/components/ui/SectionHead";
 import { createBreadcrumbJsonLd, createPageMetadata } from "@/lib/seo";
 import { siteConfig } from "@/lib/site-config";
@@ -28,7 +29,7 @@ export const metadata = createPageMetadata({
 const profile = [
   { k: "会社名", v: `${siteConfig.name}（${siteConfig.nameEn}）` },
   { k: "設立", v: "2024年12月6日" },
-  { k: "代表者", v: `代表取締役社長　${siteConfig.ceo}` },
+  { k: "役員構成", v: [`代表取締役社長　${siteConfig.ceo}`, ...siteConfig.directors.map(({ role, name }) => `${role}　${name}`)].join("\n") },
   { k: "資本金", v: siteConfig.capital },
   { k: "所在地", v: `${siteConfig.address}（${siteConfig.officeName}）` },
   { k: "TEL", v: siteConfig.tel },
@@ -109,8 +110,8 @@ export default function AboutPage() {
       <SubNav group="Company" items={companySubNav} />
 
       {/* MESSAGE — 代表写真は署名横の小さなアイコンに留め、メインビジュアルは企業イメージとして扱う */}
-      <section id="message" className="bg-paper">
-        <div className="relative overflow-hidden">
+      <section data-depth-scene="route" id="message" className="bg-paper">
+        <PhotoDepth className="relative">
           <Image
             src="/natural-tech-about.webp"
             alt="自然光の入る空間で事業戦略を議論するJQITのチーム"
@@ -123,7 +124,7 @@ export default function AboutPage() {
             aria-hidden
             className="absolute inset-0 bg-gradient-to-t from-ink/25 via-ink/5 to-ink/10"
           />
-        </div>
+        </PhotoDepth>
         <Container>
           <FadeIn className="mx-auto max-w-[820px] py-16 min-[720px]:py-[84px]">
             <Kicker className="mb-5">Message</Kicker>
@@ -166,7 +167,7 @@ export default function AboutPage() {
                 className="grid grid-cols-1 items-baseline gap-2 border-b border-line px-2 py-5 min-[720px]:grid-cols-[200px_1fr] min-[720px]:gap-6 min-[720px]:py-[22px]"
               >
                 <p className="font-mono text-[11px] tracking-[0.14em] text-muted">{row.k}</p>
-                <p className="text-[15px] leading-[1.9] text-ink">{row.v}</p>
+                <p className="whitespace-pre-line text-[15px] leading-[1.9] text-ink">{row.v}</p>
               </div>
             ))}
           </FadeIn>
@@ -184,9 +185,9 @@ export default function AboutPage() {
             <p className="mt-3 max-w-[720px] text-[13.5px] leading-[1.95] text-body">
               当社が掲示する認定・許可のうち、公開されている公式情報へのリンクです。
             </p>
-            <ul className="mt-6 grid grid-cols-1 gap-px border border-line bg-line min-[760px]:grid-cols-2">
+            <ul className="official-source-list mt-6">
               {officialSources.map((source) => (
-                <li key={source.href} className="bg-white px-6 py-5">
+                <li key={source.href} className="border-b border-line py-5">
                   <a
                     href={source.href}
                     target="_blank"

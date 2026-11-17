@@ -1,3 +1,4 @@
+import { PageMotion } from "@/components/ui/PageMotion";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -151,6 +152,7 @@ export default async function ColumnDetailPage({ params }: Props) {
 
   return (
     <>
+      <PageMotion />
       <JsonLd data={articleJsonLd} />
       <div className="border-b border-line bg-cream">
         <Container>
@@ -207,7 +209,7 @@ export default async function ColumnDetailPage({ params }: Props) {
             ))}
           </div>
 
-          <h1 className="palt border-b border-line pb-8 text-[36px] font-bold leading-[1.35] tracking-[-0.02em] text-ink min-[720px]:text-[44px]">
+          <h1 className="brand-article-title palt border-b border-line pb-8 text-[36px] font-bold leading-[1.35] tracking-[-0.02em] text-ink min-[720px]:text-[44px]">
             {column.title}
           </h1>
 
@@ -221,7 +223,7 @@ export default async function ColumnDetailPage({ params }: Props) {
           )}
 
           {column.eyecatch && (
-            <div className="relative mt-10 aspect-[16/9] overflow-hidden bg-cream">
+            <div className="brand-article-media relative mt-10 aspect-[16/9] overflow-hidden bg-cream">
               <Image
                 src={column.eyecatch.url}
                 alt={column.title}

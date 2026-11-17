@@ -1,0 +1,932 @@
+[
+  {
+    "route": "/about",
+    "width": 1280,
+    "overflow": false,
+    "h1": {
+      "x": 84,
+      "y": 173.5,
+      "width": 180.328125,
+      "height": 64.390625,
+      "top": 173.5,
+      "right": 264.328125,
+      "bottom": 237.890625,
+      "left": 84
+    },
+    "header": {
+      "bg": "rgb(255, 240, 243)",
+      "radius": "115.2px"
+    },
+    "cards": [],
+    "article": null
+  },
+  {
+    "route": "/business/ai-solutions",
+    "width": 1280,
+    "overflow": false,
+    "h1": {
+      "x": 84,
+      "y": 173.5,
+      "width": 412.703125,
+      "height": 64.390625,
+      "top": 173.5,
+      "right": 496.703125,
+      "bottom": 237.890625,
+      "left": 84
+    },
+    "header": {
+      "bg": "rgb(255, 240, 243)",
+      "radius": "115.2px"
+    },
+    "cards": [],
+    "article": null
+  },
+  {
+    "band": true,
+    "width": 1280,
+    "bg": "rgb(243, 240, 235)",
+    "color": "rgb(20, 20, 15)",
+    "copy": [
+      {
+        "text": "NOVA",
+        "color": "rgba(72, 61, 45, 0.07)",
+        "size": "134.4px"
+      },
+      {
+        "text": "OUR PRODUCT",
+        "color": "rgb(230, 0, 18)",
+        "size": "11px"
+      },
+      {
+        "text": "メールを読む仕事から、\n決める仕事へ。",
+        "color": "rgb(20, 20, 15)",
+        "size": "36px"
+      },
+      {
+        "text": "NOVAは、届いた案件・人材メールをAIが自動で構造化し、タグスコアと",
+        "color": "rgb(102, 97, 87)",
+        "size": "14.5px"
+      },
+      {
+        "text": "01",
+        "color": "rgb(230, 0, 18)",
+        "size": "10px"
+      },
+      {
+        "text": "メール自動取込",
+        "color": "rgb(20, 20, 15)",
+        "size": "13.5px"
+      },
+      {
+        "text": "02",
+        "color": "rgb(230, 0, 18)",
+        "size": "10px"
+      },
+      {
+        "text": "AI 2段階マッチング",
+        "color": "rgb(20, 20, 15)",
+        "size": "13.5px"
+      },
+      {
+        "text": "03",
+        "color": "rgb(230, 0, 18)",
+        "size": "10px"
+      },
+      {
+        "text": "案件・人材・BP管理",
+        "color": "rgb(20, 20, 15)",
+        "size": "13.5px"
+      },
+      {
+        "text": "04",
+        "color": "rgb(230, 0, 18)",
+        "size": "10px"
+      },
+      {
+        "text": "契約終了アラート",
+        "color": "rgb(20, 20, 15)",
+        "size": "13.5px"
+      },
+      {
+        "text": "05",
+        "color": "rgb(230, 0, 18)",
+        "size": "10px"
+      },
+      {
+        "text": "提案メールAI起草",
+        "color": "rgb(20, 20, 15)",
+        "size": "13.5px"
+      },
+      {
+        "text": "ALL IN ONE",
+        "color": "rgb(102, 97, 87)",
+        "size": "10px"
+      }
+    ],
+    "featureCells": [
+      {
+        "background": "rgb(243, 240, 235)",
+        "color": "rgb(20, 20, 15)"
+      },
+      {
+        "background": "rgb(243, 240, 235)",
+        "color": "rgb(20, 20, 15)"
+      }
+    ]
+  },
+  {
+    "route": "/business/it-solutions",
+    "width": 1280,
+    "overflow": false,
+    "h1": {
+      "x": 84,
+      "y": 173.5,
+      "width": 411.96875,
+      "height": 64.390625,
+      "top": 173.5,
+      "right": 495.96875,
+      "bottom": 237.890625,
+      "left": 84
+    },
+    "header": {
+      "bg": "rgb(255, 240, 243)",
+      "radius": "115.2px"
+    },
+    "cards": [],
+    "article": null
+  },
+  {
+    "band": true,
+    "width": 1280,
+    "bg": "rgb(243, 240, 235)",
+    "color": "rgb(20, 20, 15)",
+    "copy": [
+      {
+        "text": "STRENGTH",
+        "color": "rgba(72, 61, 45, 0.07)",
+        "size": "134.4px"
+      },
+      {
+        "text": "OUR STRENGTHS",
+        "color": "rgb(230, 0, 18)",
+        "size": "11px"
+      },
+      {
+        "text": "選ばれ続ける、理由。",
+        "color": "rgb(20, 20, 15)",
+        "size": "36px"
+      },
+      {
+        "text": "教育体制",
+        "color": "rgb(20, 20, 15)",
+        "size": "20px"
+      },
+      {
+        "text": "IT人材の不足が進んでいる市場状況下でも、充実した社員教育と開発経験に",
+        "color": "rgb(102, 97, 87)",
+        "size": "14px"
+      },
+      {
+        "text": "専門特化",
+        "color": "rgb(20, 20, 15)",
+        "size": "20px"
+      },
+      {
+        "text": "システムエンジニアやプログラマーはもちろん、ネットワーク・インフラエン",
+        "color": "rgb(102, 97, 87)",
+        "size": "14px"
+      },
+      {
+        "text": "ISO/IEC 27001（ISMS）／ ISTQB® Gold パー",
+        "color": "rgb(102, 97, 87)",
+        "size": "11px"
+      }
+    ],
+    "featureCells": [
+      {
+        "background": "rgb(255, 253, 249)",
+        "color": "rgb(20, 20, 15)"
+      },
+      {
+        "background": "rgb(255, 253, 249)",
+        "color": "rgb(20, 20, 15)"
+      }
+    ]
+  },
+  {
+    "route": "/column",
+    "width": 1280,
+    "overflow": false,
+    "h1": {
+      "x": 84,
+      "y": 173.5,
+      "width": 215.328125,
+      "height": 64.390625,
+      "top": 173.5,
+      "right": 299.328125,
+      "bottom": 237.890625,
+      "left": 84
+    },
+    "header": {
+      "bg": "rgb(255, 240, 243)",
+      "radius": "115.2px"
+    },
+    "cards": [
+      {
+        "radius": "48px"
+      },
+      {
+        "radius": "48px"
+      }
+    ],
+    "article": null
+  },
+  {
+    "route": "/news/its-kenpo-20261022",
+    "width": 1280,
+    "overflow": false,
+    "h1": {
+      "x": 84,
+      "y": 243,
+      "width": 1112,
+      "height": 96.796875,
+      "top": 243,
+      "right": 1196,
+      "bottom": 339.796875,
+      "left": 84
+    },
+    "header": null,
+    "cards": [],
+    "article": {
+      "size": "44px",
+      "line": "63.8px"
+    }
+  },
+  {
+    "route": "/contact",
+    "width": 1280,
+    "overflow": false,
+    "h1": {
+      "x": 84,
+      "y": 173.5,
+      "width": 265.84375,
+      "height": 64.390625,
+      "top": 173.5,
+      "right": 349.84375,
+      "bottom": 237.890625,
+      "left": 84
+    },
+    "header": {
+      "bg": "rgb(255, 240, 243)",
+      "radius": "115.2px"
+    },
+    "cards": [],
+    "article": null
+  },
+  {
+    "route": "/security-policy",
+    "width": 1280,
+    "overflow": false,
+    "h1": {
+      "x": 84,
+      "y": 173.5,
+      "width": 507.015625,
+      "height": 64.390625,
+      "top": 173.5,
+      "right": 591.015625,
+      "bottom": 237.890625,
+      "left": 84
+    },
+    "header": {
+      "bg": "rgb(255, 240, 243)",
+      "radius": "115.2px"
+    },
+    "cards": [],
+    "article": null
+  },
+  {
+    "route": "/about",
+    "width": 768,
+    "overflow": false,
+    "h1": {
+      "x": 24,
+      "y": 157.5,
+      "width": 125.453125,
+      "height": 44.796875,
+      "top": 157.5,
+      "right": 149.453125,
+      "bottom": 202.296875,
+      "left": 24
+    },
+    "header": {
+      "bg": "rgb(255, 240, 243)",
+      "radius": "69.12px"
+    },
+    "cards": [],
+    "article": null
+  },
+  {
+    "route": "/business/ai-solutions",
+    "width": 768,
+    "overflow": false,
+    "h1": {
+      "x": 24,
+      "y": 157.5,
+      "width": 287.09375,
+      "height": 44.796875,
+      "top": 157.5,
+      "right": 311.09375,
+      "bottom": 202.296875,
+      "left": 24
+    },
+    "header": {
+      "bg": "rgb(255, 240, 243)",
+      "radius": "69.12px"
+    },
+    "cards": [],
+    "article": null
+  },
+  {
+    "band": true,
+    "width": 768,
+    "bg": "rgb(243, 240, 235)",
+    "color": "rgb(20, 20, 15)",
+    "copy": [
+      {
+        "text": "NOVA",
+        "color": "rgba(72, 61, 45, 0.07)",
+        "size": "80.64px"
+      },
+      {
+        "text": "OUR PRODUCT",
+        "color": "rgb(230, 0, 18)",
+        "size": "11px"
+      },
+      {
+        "text": "メールを読む仕事から、\n決める仕事へ。",
+        "color": "rgb(20, 20, 15)",
+        "size": "36px"
+      },
+      {
+        "text": "NOVAは、届いた案件・人材メールをAIが自動で構造化し、タグスコアと",
+        "color": "rgb(102, 97, 87)",
+        "size": "14.5px"
+      },
+      {
+        "text": "01",
+        "color": "rgb(230, 0, 18)",
+        "size": "10px"
+      },
+      {
+        "text": "メール自動取込",
+        "color": "rgb(20, 20, 15)",
+        "size": "13.5px"
+      },
+      {
+        "text": "02",
+        "color": "rgb(230, 0, 18)",
+        "size": "10px"
+      },
+      {
+        "text": "AI 2段階マッチング",
+        "color": "rgb(20, 20, 15)",
+        "size": "13.5px"
+      },
+      {
+        "text": "03",
+        "color": "rgb(230, 0, 18)",
+        "size": "10px"
+      },
+      {
+        "text": "案件・人材・BP管理",
+        "color": "rgb(20, 20, 15)",
+        "size": "13.5px"
+      },
+      {
+        "text": "04",
+        "color": "rgb(230, 0, 18)",
+        "size": "10px"
+      },
+      {
+        "text": "契約終了アラート",
+        "color": "rgb(20, 20, 15)",
+        "size": "13.5px"
+      },
+      {
+        "text": "05",
+        "color": "rgb(230, 0, 18)",
+        "size": "10px"
+      },
+      {
+        "text": "提案メールAI起草",
+        "color": "rgb(20, 20, 15)",
+        "size": "13.5px"
+      },
+      {
+        "text": "ALL IN ONE",
+        "color": "rgb(102, 97, 87)",
+        "size": "10px"
+      }
+    ],
+    "featureCells": [
+      {
+        "background": "rgb(243, 240, 235)",
+        "color": "rgb(20, 20, 15)"
+      },
+      {
+        "background": "rgb(243, 240, 235)",
+        "color": "rgb(20, 20, 15)"
+      }
+    ]
+  },
+  {
+    "route": "/business/it-solutions",
+    "width": 768,
+    "overflow": false,
+    "h1": {
+      "x": 24,
+      "y": 157.5,
+      "width": 286.59375,
+      "height": 44.796875,
+      "top": 157.5,
+      "right": 310.59375,
+      "bottom": 202.296875,
+      "left": 24
+    },
+    "header": {
+      "bg": "rgb(255, 240, 243)",
+      "radius": "69.12px"
+    },
+    "cards": [],
+    "article": null
+  },
+  {
+    "band": true,
+    "width": 768,
+    "bg": "rgb(243, 240, 235)",
+    "color": "rgb(20, 20, 15)",
+    "copy": [
+      {
+        "text": "STRENGTH",
+        "color": "rgba(72, 61, 45, 0.07)",
+        "size": "80.64px"
+      },
+      {
+        "text": "OUR STRENGTHS",
+        "color": "rgb(230, 0, 18)",
+        "size": "11px"
+      },
+      {
+        "text": "選ばれ続ける、理由。",
+        "color": "rgb(20, 20, 15)",
+        "size": "36px"
+      },
+      {
+        "text": "教育体制",
+        "color": "rgb(20, 20, 15)",
+        "size": "20px"
+      },
+      {
+        "text": "IT人材の不足が進んでいる市場状況下でも、充実した社員教育と開発経験に",
+        "color": "rgb(102, 97, 87)",
+        "size": "14px"
+      },
+      {
+        "text": "専門特化",
+        "color": "rgb(20, 20, 15)",
+        "size": "20px"
+      },
+      {
+        "text": "システムエンジニアやプログラマーはもちろん、ネットワーク・インフラエン",
+        "color": "rgb(102, 97, 87)",
+        "size": "14px"
+      },
+      {
+        "text": "ISO/IEC 27001（ISMS）／ ISTQB® Gold パー",
+        "color": "rgb(102, 97, 87)",
+        "size": "11px"
+      }
+    ],
+    "featureCells": [
+      {
+        "background": "rgb(255, 253, 249)",
+        "color": "rgb(20, 20, 15)"
+      },
+      {
+        "background": "rgb(255, 253, 249)",
+        "color": "rgb(20, 20, 15)"
+      }
+    ]
+  },
+  {
+    "route": "/column",
+    "width": 768,
+    "overflow": false,
+    "h1": {
+      "x": 24,
+      "y": 157.5,
+      "width": 149.796875,
+      "height": 44.796875,
+      "top": 157.5,
+      "right": 173.796875,
+      "bottom": 202.296875,
+      "left": 24
+    },
+    "header": {
+      "bg": "rgb(255, 240, 243)",
+      "radius": "69.12px"
+    },
+    "cards": [
+      {
+        "radius": "30.72px"
+      },
+      {
+        "radius": "30.72px"
+      }
+    ],
+    "article": null
+  },
+  {
+    "route": "/news/its-kenpo-20261022",
+    "width": 768,
+    "overflow": false,
+    "h1": {
+      "x": 24,
+      "y": 243,
+      "width": 720,
+      "height": 74.203125,
+      "top": 243,
+      "right": 744,
+      "bottom": 317.203125,
+      "left": 24
+    },
+    "header": null,
+    "cards": [],
+    "article": {
+      "size": "28.416px",
+      "line": "41.2032px"
+    }
+  },
+  {
+    "route": "/contact",
+    "width": 768,
+    "overflow": false,
+    "h1": {
+      "x": 24,
+      "y": 157.5,
+      "width": 184.9375,
+      "height": 44.796875,
+      "top": 157.5,
+      "right": 208.9375,
+      "bottom": 202.296875,
+      "left": 24
+    },
+    "header": {
+      "bg": "rgb(255, 240, 243)",
+      "radius": "69.12px"
+    },
+    "cards": [],
+    "article": null
+  },
+  {
+    "route": "/security-policy",
+    "width": 768,
+    "overflow": false,
+    "h1": {
+      "x": 24,
+      "y": 157.5,
+      "width": 352.71875,
+      "height": 44.796875,
+      "top": 157.5,
+      "right": 376.71875,
+      "bottom": 202.296875,
+      "left": 24
+    },
+    "header": {
+      "bg": "rgb(255, 240, 243)",
+      "radius": "69.12px"
+    },
+    "cards": [],
+    "article": null
+  },
+  {
+    "route": "/about",
+    "width": 375,
+    "overflow": false,
+    "h1": {
+      "x": 24,
+      "y": 157.5,
+      "width": 125.453125,
+      "height": 44.796875,
+      "top": 157.5,
+      "right": 149.453125,
+      "bottom": 202.296875,
+      "left": 24
+    },
+    "header": {
+      "bg": "rgb(255, 240, 243)",
+      "radius": "48px"
+    },
+    "cards": [],
+    "article": null
+  },
+  {
+    "route": "/business/ai-solutions",
+    "width": 375,
+    "overflow": false,
+    "h1": {
+      "x": 24,
+      "y": 157.5,
+      "width": 287.09375,
+      "height": 44.796875,
+      "top": 157.5,
+      "right": 311.09375,
+      "bottom": 202.296875,
+      "left": 24
+    },
+    "header": {
+      "bg": "rgb(255, 240, 243)",
+      "radius": "48px"
+    },
+    "cards": [],
+    "article": null
+  },
+  {
+    "band": true,
+    "width": 375,
+    "bg": "rgb(243, 240, 235)",
+    "color": "rgb(20, 20, 15)",
+    "copy": [
+      {
+        "text": "NOVA",
+        "color": "rgba(72, 61, 45, 0.07)",
+        "size": "39.375px"
+      },
+      {
+        "text": "OUR PRODUCT",
+        "color": "rgb(230, 0, 18)",
+        "size": "11px"
+      },
+      {
+        "text": "メールを読む仕事から、\n決める仕事へ。",
+        "color": "rgb(20, 20, 15)",
+        "size": "28px"
+      },
+      {
+        "text": "NOVAは、届いた案件・人材メールをAIが自動で構造化し、タグスコアと",
+        "color": "rgb(102, 97, 87)",
+        "size": "14.5px"
+      },
+      {
+        "text": "01",
+        "color": "rgb(230, 0, 18)",
+        "size": "10px"
+      },
+      {
+        "text": "メール自動取込",
+        "color": "rgb(20, 20, 15)",
+        "size": "13.5px"
+      },
+      {
+        "text": "02",
+        "color": "rgb(230, 0, 18)",
+        "size": "10px"
+      },
+      {
+        "text": "AI 2段階マッチング",
+        "color": "rgb(20, 20, 15)",
+        "size": "13.5px"
+      },
+      {
+        "text": "03",
+        "color": "rgb(230, 0, 18)",
+        "size": "10px"
+      },
+      {
+        "text": "案件・人材・BP管理",
+        "color": "rgb(20, 20, 15)",
+        "size": "13.5px"
+      },
+      {
+        "text": "04",
+        "color": "rgb(230, 0, 18)",
+        "size": "10px"
+      },
+      {
+        "text": "契約終了アラート",
+        "color": "rgb(20, 20, 15)",
+        "size": "13.5px"
+      },
+      {
+        "text": "05",
+        "color": "rgb(230, 0, 18)",
+        "size": "10px"
+      },
+      {
+        "text": "提案メールAI起草",
+        "color": "rgb(20, 20, 15)",
+        "size": "13.5px"
+      },
+      {
+        "text": "ALL IN ONE",
+        "color": "rgb(102, 97, 87)",
+        "size": "10px"
+      }
+    ],
+    "featureCells": [
+      {
+        "background": "rgb(243, 240, 235)",
+        "color": "rgb(20, 20, 15)"
+      },
+      {
+        "background": "rgb(243, 240, 235)",
+        "color": "rgb(20, 20, 15)"
+      }
+    ]
+  },
+  {
+    "route": "/business/it-solutions",
+    "width": 375,
+    "overflow": false,
+    "h1": {
+      "x": 24,
+      "y": 157.5,
+      "width": 286.59375,
+      "height": 44.796875,
+      "top": 157.5,
+      "right": 310.59375,
+      "bottom": 202.296875,
+      "left": 24
+    },
+    "header": {
+      "bg": "rgb(255, 240, 243)",
+      "radius": "48px"
+    },
+    "cards": [],
+    "article": null
+  },
+  {
+    "band": true,
+    "width": 375,
+    "bg": "rgb(243, 240, 235)",
+    "color": "rgb(20, 20, 15)",
+    "copy": [
+      {
+        "text": "STRENGTH",
+        "color": "rgba(72, 61, 45, 0.07)",
+        "size": "39.375px"
+      },
+      {
+        "text": "OUR STRENGTHS",
+        "color": "rgb(230, 0, 18)",
+        "size": "11px"
+      },
+      {
+        "text": "選ばれ続ける、理由。",
+        "color": "rgb(20, 20, 15)",
+        "size": "28px"
+      },
+      {
+        "text": "教育体制",
+        "color": "rgb(20, 20, 15)",
+        "size": "20px"
+      },
+      {
+        "text": "IT人材の不足が進んでいる市場状況下でも、充実した社員教育と開発経験に",
+        "color": "rgb(102, 97, 87)",
+        "size": "14px"
+      },
+      {
+        "text": "専門特化",
+        "color": "rgb(20, 20, 15)",
+        "size": "20px"
+      },
+      {
+        "text": "システムエンジニアやプログラマーはもちろん、ネットワーク・インフラエン",
+        "color": "rgb(102, 97, 87)",
+        "size": "14px"
+      },
+      {
+        "text": "ISO/IEC 27001（ISMS）／ ISTQB® Gold パー",
+        "color": "rgb(102, 97, 87)",
+        "size": "11px"
+      }
+    ],
+    "featureCells": [
+      {
+        "background": "rgb(255, 253, 249)",
+        "color": "rgb(20, 20, 15)"
+      },
+      {
+        "background": "rgb(255, 253, 249)",
+        "color": "rgb(20, 20, 15)"
+      }
+    ]
+  },
+  {
+    "route": "/column",
+    "width": 375,
+    "overflow": false,
+    "h1": {
+      "x": 24,
+      "y": 157.5,
+      "width": 149.796875,
+      "height": 44.796875,
+      "top": 157.5,
+      "right": 173.796875,
+      "bottom": 202.296875,
+      "left": 24
+    },
+    "header": {
+      "bg": "rgb(255, 240, 243)",
+      "radius": "48px"
+    },
+    "cards": [
+      {
+        "radius": "24px"
+      },
+      {
+        "radius": "24px"
+      }
+    ],
+    "article": null
+  },
+  {
+    "route": "/news/its-kenpo-20261022",
+    "width": 375,
+    "overflow": false,
+    "h1": {
+      "x": 24,
+      "y": 251.5,
+      "width": 327,
+      "height": 154.78125,
+      "top": 251.5,
+      "right": 351,
+      "bottom": 406.28125,
+      "left": 24
+    },
+    "header": null,
+    "cards": [],
+    "article": {
+      "size": "28px",
+      "line": "40.6px"
+    }
+  },
+  {
+    "route": "/contact",
+    "width": 375,
+    "overflow": false,
+    "h1": {
+      "x": 24,
+      "y": 157.5,
+      "width": 184.9375,
+      "height": 44.796875,
+      "top": 157.5,
+      "right": 208.9375,
+      "bottom": 202.296875,
+      "left": 24
+    },
+    "header": {
+      "bg": "rgb(255, 240, 243)",
+      "radius": "48px"
+    },
+    "cards": [],
+    "article": null
+  },
+  {
+    "route": "/security-policy",
+    "width": 375,
+    "overflow": false,
+    "h1": {
+      "x": 24,
+      "y": 157.5,
+      "width": 327,
+      "height": 89.59375,
+      "top": 157.5,
+      "right": 351,
+      "bottom": 247.09375,
+      "left": 24
+    },
+    "header": {
+      "bg": "rgb(255, 240, 243)",
+      "radius": "48px"
+    },
+    "cards": [],
+    "article": null
+  },
+  {
+    "home": true,
+    "overflow": false,
+    "hero": {
+      "x": -3,
+      "y": 73,
+      "width": 1283,
+      "height": 721.6875,
+      "top": 73,
+      "right": 1280,
+      "bottom": 794.6875,
+      "left": -3
+    },
+    "header": "visible"
+  }
+]
