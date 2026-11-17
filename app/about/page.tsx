@@ -7,6 +7,7 @@ import { Container } from "@/components/ui/Container";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { Kicker } from "@/components/ui/Kicker";
 import { SectionHead } from "@/components/ui/SectionHead";
+import { Phrase, plainPhrase } from "@/components/ui/Phrase";
 import { TypeText } from "@/components/ui/TypeText";
 import { createBreadcrumbJsonLd, createPageMetadata } from "@/lib/seo";
 import { siteConfig } from "@/lib/site-config";
@@ -59,6 +60,23 @@ const accessAddressLines = [
   "東京都千代田区内神田1-4-13",
   "THE GATE Otemachi 3階",
 ];
+
+/** 沿革（サイトのお知らせ・会社概要・公的な許可一覧に出ている出来事だけ。取得時期が分からないものは載せない） */
+const history = [
+  { date: "2024.12", title: "株式会社JQIT 設立" },
+  { date: "2026.03", title: "ISO/IEC 27001（ISMS）|認証取得" },
+  { date: "2026.03", title: "労働者派遣事業許可|（派13-318536）" },
+  { date: "2026.10", title: "本社を|THE GATE Otemachi へ|移転" },
+  { date: "2026.10", title: "関東ITソフトウェア|健康保険組合への|加入決定" },
+  { date: "2026年度", title: "財界「BEST AI 100」" },
+] as const;
+
+/** 会社概要の要点（表の上に円で見せる。値は表と同じ） */
+const facts = [
+  { figure: "106", unit: "名", label: "従業員数", note: "2026年4月時点" },
+  { figure: "2", unit: "事業", label: "IT・AI", note: "ITソリューション／AIソリューション" },
+  { figure: "1,000", unit: "万円", label: "資本金", note: "" },
+] as const;
 
 const officialSources = [
   {
@@ -172,6 +190,28 @@ export default function AboutPage() {
       <section className="border-t border-line bg-paper py-20 min-[720px]:py-[92px]">
         <Container>
           <SectionHead kicker="Company Profile" title="会社概要" className="mb-10" />
+          {/* 要点を円で（DX指標と同じ作り：主な数字を大きく、残り2つを小さく、中心を線で結ぶ） */}
+          <FadeIn className="kpi-group about-facts mb-14">
+            <dl className="kpi-chain">
+              <svg className="kpi-lines" viewBox="0 0 100 200" preserveAspectRatio="none" aria-hidden>
+                <polyline points="16.67,100 50,130 83.33,130" />
+              </svg>
+              {facts.map((f) => (
+                <div key={f.label} className="kpi-item">
+                  <dt className="palt mt-4 text-center text-[12.5px] font-semibold leading-[1.6] text-ink min-[720px]:text-[13.5px]">
+                    {f.label}
+                    {f.note && <span className="kpi-when">{f.note}</span>}
+                  </dt>
+                  <dd className="kpi-circle">
+                    <span className="kpi-figure">
+                      {f.figure}
+                      <small>{f.unit}</small>
+                    </span>
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </FadeIn>
           <FadeIn className="border-t border-ink">
             {profile.map((row) => (
               <div
@@ -182,6 +222,25 @@ export default function AboutPage() {
                 <p className="text-[15px] leading-[1.9] text-ink">{row.v}</p>
               </div>
             ))}
+          </FadeIn>
+        </Container>
+      </section>
+
+      {/* HISTORY — 沿革を、線でつないだ円の年表で見せる（PC は横、スマホは縦） */}
+      <section id="history" className="border-t border-line bg-paper py-20 min-[720px]:py-[92px]">
+        <Container>
+          <SectionHead kicker="History" title="沿革" className="mb-12" />
+          <FadeIn>
+            <ol className="history-line">
+              {history.map((h, i) => (
+                <li key={plainPhrase(h.title)} className="history-step" data-latest={i === history.length - 1 || undefined}>
+                  <span className="history-node">{h.date}</span>
+                  <span className="history-title palt">
+                    <Phrase text={h.title} />
+                  </span>
+                </li>
+              ))}
+            </ol>
           </FadeIn>
         </Container>
       </section>
@@ -225,8 +284,9 @@ export default function AboutPage() {
       <section id="access" className="border-t border-line bg-cream py-20 min-[720px]:py-[92px]">
         <Container>
           <SectionHead kicker="Access" title="アクセス" className="mb-10" />
-          <FadeIn className="grid grid-cols-1 overflow-hidden border border-line bg-paper min-[900px]:grid-cols-[1.08fr_0.92fr]">
-            <div className="relative min-h-[320px] bg-white min-[720px]:min-h-[420px]">
+          {/* 箱に入れず、地図（写真と同じく一角だけ曲げる）と、住所・最寄り駅の行を並べる */}
+          <FadeIn className="access-layout">
+            <div className="access-map photo-curve">
               <iframe
                 title={`JQIT本社（${siteConfig.officeName}）周辺のGoogle Map`}
                 src={siteConfig.mapEmbedUrl}
@@ -236,7 +296,7 @@ export default function AboutPage() {
                 allowFullScreen
               />
             </div>
-            <div className="flex flex-col justify-center border-t border-line p-8 min-[720px]:p-10 min-[900px]:border-l min-[900px]:border-t-0 min-[1040px]:p-12">
+            <div className="access-info">
               <Kicker className="mb-3">Office</Kicker>
               <p className="mb-6 text-[20px] font-bold tracking-[-0.01em] text-ink min-[720px]:text-[22px]">
                 {siteConfig.officeName}
