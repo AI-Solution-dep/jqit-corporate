@@ -51,6 +51,48 @@ test("SEO-03 static sitemap entries carry substantive modification dates", () =>
   assert.match(source, /lastModified/);
 });
 
+test("SEO-06 sitemap picks up newly published articles without a redeploy", () => {
+  const source = read("app/sitemap.ts");
+
+  // コメント中の注意書きは拾わないよう、行頭の宣言だけを見る
+  assert.match(
+    source,
+    /^export const dynamic = "force-dynamic";$/m,
+    "sitemap.ts の revalidate（ISR）は本番の Vercel で効かず、デプロイ時の固定ファイルのままだった（2026-11-10）",
+  );
+  assert.doesNotMatch(
+    source,
+    /^export const dynamic = "force-static"/m,
+    "force-static だと再デプロイするまで sitemap が古いままになる",
+  );
+  assert.doesNotMatch(
+    source,
+    /^export const revalidate/m,
+    "force-dynamic と並べると、効かない ISR を頼りにしているように読める",
+  );
+});
+
+test("SEO-07 keeps fallback sample works out of the sitemap", () => {
+  const source = read("app/sitemap.ts");
+
+  assert.match(source, /works\.filter\(\(w\) => !w\.isSample\)/);
+  assert.doesNotMatch(
+    source,
+    /\.\.\.works\.map\(/,
+    "sitemap の実績URLはサンプル除外後の一覧から作る",
+  );
+});
+
+test("SEO-08 keeps fallback sample works out of the search index", () => {
+  const source = read("app/works/[id]/page.tsx");
+
+  assert.match(
+    source,
+    /work\.isSample[\s\S]{0,120}robots: \{ index: false, follow: false \}/,
+    "サンプル実績の詳細ページは noindex にする",
+  );
+});
+
 test("SEO-04 publishes the Search Console ownership verification tag", () => {
   const source = read("app/layout.tsx");
 

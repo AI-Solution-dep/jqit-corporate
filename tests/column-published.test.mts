@@ -44,3 +44,16 @@ test("qiitaUrl is validated before being rendered as a link", () => {
   assert.match(source, /qiitaUrl: safeHttpsUrl\(item\.qiitaUrl\)/);
   assert.match(source, /url\.protocol === "https:"/);
 });
+
+test("columns copied from Qiita declare the original as canonical", () => {
+  const seo = readFileSync("lib/seo.ts", "utf8");
+  const detail = readFileSync("app/column/[id]/page.tsx", "utf8");
+
+  // Qiita から取り込んだ記事は本文が Qiita と同一。原本を canonical に出して重複を避ける。
+  // HP 発の記事は qiitaUrl が空なので、自ページが canonical のまま残る。
+  assert.match(detail, /canonicalUrl: column\.qiitaUrl/);
+  assert.match(seo, /const canonical = canonicalUrl \?\? pageUrl/);
+
+  // og:url は共有時の遷移先。canonical を Qiita に向けても自ページのままにする
+  assert.doesNotMatch(seo, /url: canonical,/);
+});

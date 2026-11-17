@@ -81,3 +81,24 @@ const overrides: Record<string, NewsSeoOverride> = {
 export function getNewsSeoOverride(id: string): NewsSeoOverride | undefined {
   return overrides[id];
 }
+
+/** Instagram の投稿URL。プロフィールURLは全ページのフッターにあるので判定に使わない */
+const INSTAGRAM_POST_URL = /instagram\.com\/(?:p|reel|tv)\//;
+
+/** Instagram 投稿を含むが、会社のニュースとして検索結果に出す記事 */
+const INDEXED_DESPITE_INSTAGRAM = new Set([
+  "wp-1975", // ISTQB Gold パートナー
+  "wp-2234", // DX認定
+]);
+
+/**
+ * Instagram 投稿を転記しただけのニュースか。
+ * 本文が数十字の社内イベント・採用広報で、検索に出すと薄いコンテンツとしてサイト評価を下げ、
+ * 法人の閲覧者にも採用向けの印象を与える（SEO対策.docx ⑦⑧）。
+ * ニュース一覧には残し、noindex・sitemap・トップの NEWS 欄からだけ外す。
+ * 検索向けに作り込んだ記事（上の overrides）は、転記を含んでいても対象外。
+ */
+export function isInstagramRepost(news: { id: string; body?: string }): boolean {
+  if (INDEXED_DESPITE_INSTAGRAM.has(news.id) || getNewsSeoOverride(news.id)) return false;
+  return INSTAGRAM_POST_URL.test(news.body ?? "");
+}

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Anton, Inter, JetBrains_Mono, Noto_Sans_JP } from "next/font/google";
 import { SiteFooter } from "@/components/layout/SiteFooter";
+import { PublicSiteChrome } from "@/components/layout/PublicSiteChrome";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { PublicSiteChrome } from "@/components/layout/PublicSiteChrome";
 import { GoogleAnalytics } from "@/components/seo/GoogleAnalytics";
@@ -36,10 +37,16 @@ const anton = Anton({
   display: "swap",
 });
 
+/**
+ * トップページの title。検索される事業名を先頭に置く（SEO対策.docx ①）。
+ * h1 はキャッチコピー（tagline）のまま残す。
+ */
+const homeTitle = `SES・受託開発・AI導入支援の${siteConfig.name}`;
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: `${siteConfig.name}｜${siteConfig.tagline}`,
+    default: homeTitle,
     template: `%s｜${siteConfig.name}`,
   },
   description: siteConfig.description,
@@ -49,7 +56,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     siteName: siteConfig.name,
-    title: `${siteConfig.name}｜${siteConfig.tagline}`,
+    title: homeTitle,
     description: siteConfig.description,
     locale: "ja_JP",
     url: siteConfig.url,
@@ -57,7 +64,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: `${siteConfig.name}｜${siteConfig.tagline}`,
+    title: homeTitle,
     description: siteConfig.description,
     images: [{ ...defaultSocialImage, url: absoluteUrl(defaultSocialImage.url) }],
   },
@@ -86,10 +93,10 @@ const websiteJsonLd = {
       address: {
         "@type": "PostalAddress",
         addressCountry: "JP",
-        postalCode: "150-0002",
+        postalCode: "101-0047",
         addressRegion: "東京都",
-        addressLocality: "渋谷区",
-        streetAddress: "渋谷1-12-2 クロスオフィス渋谷609",
+        addressLocality: "千代田区",
+        streetAddress: "内神田1-4-13 THE GATE Otemachi 3階",
       },
       contactPoint: {
         "@type": "ContactPoint",

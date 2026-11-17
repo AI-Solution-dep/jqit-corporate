@@ -29,7 +29,6 @@ const contactJsonLd = createWebPageJsonLd({
 
 const directInfos = [
   { label: "Tel", value: siteConfig.tel, en: true },
-  { label: "Fax", value: siteConfig.fax, en: true },
   { label: "Address", value: siteConfig.addressShort, en: false },
   { label: "Hours", value: siteConfig.businessHours, en: false },
 ];
