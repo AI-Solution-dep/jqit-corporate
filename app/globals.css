@@ -179,10 +179,10 @@ section[id] {
   pointer-events: none;
   --frame-w: 2px;
   background:
-    linear-gradient(var(--color-brand), var(--color-brand)) left top / var(--frame-w) 0 no-repeat,
-    linear-gradient(var(--color-brand), var(--color-brand)) left top / 0 var(--frame-w) no-repeat,
-    linear-gradient(var(--color-brand), var(--color-brand)) left bottom / 0 var(--frame-w) no-repeat,
-    linear-gradient(var(--color-brand), var(--color-brand)) right top / var(--frame-w) 0 no-repeat;
+    linear-gradient(var(--warm-mid), var(--warm-mid)) left top / var(--frame-w) 0 no-repeat,
+    linear-gradient(var(--warm-mid), var(--warm-mid)) left top / 0 var(--frame-w) no-repeat,
+    linear-gradient(var(--warm-mid), var(--warm-mid)) left bottom / 0 var(--frame-w) no-repeat,
+    linear-gradient(var(--warm-mid), var(--warm-mid)) right top / var(--frame-w) 0 no-repeat;
 }
 @keyframes line-frame {
   0% { background-size: var(--frame-w) 0, 0 var(--frame-w), 0 var(--frame-w), var(--frame-w) 0; }
@@ -524,7 +524,7 @@ html:has(.page-curtain) { scroll-behavior: auto; }
     .kpi-item:nth-child(2) .kpi-circle { animation-range: entry 50% cover 36%; }
     .kpi-item:nth-child(3) .kpi-circle { animation-range: entry 70% cover 42%; }
     /* IT：開発の流れの縦線が読み進めるにつれ上から赤く伸び、工程の点が画面の中ほどに来たものから赤くなる */
-    .delivery-timeline::after { content: ""; position: absolute; left: -2px; top: 0; bottom: 0; width: 2px; background: var(--color-brand); transform-origin: top; animation: scene-bar-y linear both; animation-timeline: view(); animation-range: entry 60% cover 70%; }
+    .delivery-timeline::after { content: ""; position: absolute; left: -2px; top: 0; bottom: 0; width: 2px; background: var(--warm-mid); transform-origin: top; animation: scene-bar-y linear both; animation-timeline: view(); animation-range: entry 60% cover 70%; }
     .delivery-step::before { animation: scene-dot linear both; animation-timeline: view(); animation-range: entry 100% cover 40%; }
     /* AI：NOVA の画面がせり上がり、特徴が順に濃くなる */
     .nova-shot { animation: scene-rise linear both; animation-timeline: view(); animation-range: entry 0% cover 42%; }
@@ -536,7 +536,7 @@ html:has(.page-curtain) { scroll-behavior: auto; }
 @keyframes scene-pop { from { scale: .6; opacity: 0; } to { scale: 1; opacity: 1; } }
 @keyframes scene-bar-x { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 @keyframes scene-bar-y { from { transform: scaleY(0); } to { transform: scaleY(1); } }
-@keyframes scene-dot { from { background: #d9d5d6; scale: .7; } to { background: var(--color-brand); scale: 1; } }
+@keyframes scene-dot { from { background: #d9d5d6; scale: .7; } to { background: var(--warm-mid); scale: 1; } }
 @keyframes scene-rise { from { transform: translateY(56px) scale(.92) rotate(-1.5deg); opacity: .4; } to { transform: none; opacity: 1; } }
 @keyframes scene-fill { from { opacity: .3; } to { opacity: 1; } }
 
@@ -544,6 +544,13 @@ html:has(.page-curtain) { scroll-behavior: auto; }
    曲線は1種類。写真と見出し帯だけに使う（カード・帯には使わない。背景の整った図形と喧嘩させないため）。
    値は @theme ではなく :root に置く（@theme の変数は Tailwind のクラスで使われないと出力されないため）。 */
 :root {
+  /* 暖色（2026-11-18）。赤一色だと警告・マイナスに見えやすいので、図・線・ホバーは赤からオレンジ寄りの暖色で揃える。
+     ブランドの赤（--color-brand）はロゴ・問い合わせボタン・見出しの印など、要所の目印だけに残す。
+     --warm-strong は白文字を載せても読める濃さ（コントラスト 4.5 以上）。 */
+  --warm-strong: #d9480f;
+  --warm-mid: #f08c3a;
+  --warm-soft: #fde8d7;
+  --warm-line: #f2d2bb;
   --radius-photo: clamp(48px, 9vw, 120px);
   --radius-band: clamp(64px, 10vw, 144px);
 }
@@ -565,17 +572,17 @@ html:has(.page-curtain) { scroll-behavior: auto; }
 .service-detail-item:last-child { border-bottom: 0; padding-bottom: 0; }
 .nova-features { display: flex; flex-wrap: wrap; gap: 12px 28px; }
 .nova-features li { display: flex; align-items: baseline; gap: 10px; }
-.nova-features li::before { content: ""; width: 6px; height: 6px; background: var(--color-brand); flex-shrink: 0; translate: 0 -2px; }
+.nova-features li::before { content: ""; width: 6px; height: 6px; background: var(--warm-mid); flex-shrink: 0; translate: 0 -2px; }
 /* IT：QA実績は罫線で区切った一覧 */
 .project-experience-list { max-width: 880px; border-top: 1px solid var(--color-line); }
 .project-experience-list li { display: flex; gap: 18px; align-items: baseline; padding: 20px 0; border-bottom: 1px solid var(--color-line); }
-.project-experience-list li::before { content: ""; width: 6px; height: 6px; background: var(--color-brand); flex-shrink: 0; translate: 0 -2px; }
+.project-experience-list li::before { content: ""; width: 6px; height: 6px; background: var(--warm-mid); flex-shrink: 0; translate: 0 -2px; }
 /* IT：開発の流れは縦のタイムライン（番号は順番に意味があるので残す） */
-.delivery-timeline { position: relative; max-width: 960px; margin-left: auto; border-left: 2px solid #ecdfe2; }
+.delivery-timeline { position: relative; max-width: 960px; margin-left: auto; border-left: 2px solid var(--warm-soft); }
 .delivery-step { position: relative; display: grid; grid-template-columns: 56px minmax(0, .85fr) minmax(0, 1.4fr); gap: 24px; padding: 0 0 44px 36px; }
 .delivery-step:last-child { padding-bottom: 0; }
-.delivery-step::before { content: ""; position: absolute; z-index: 1; width: 12px; height: 12px; border-radius: 50%; background: var(--color-brand); left: -7px; top: 9px; }
-.delivery-step-number { font-size: 13px; line-height: 2.4; color: var(--color-brand); }
+.delivery-step::before { content: ""; position: absolute; z-index: 1; width: 12px; height: 12px; border-radius: 50%; background: var(--warm-mid); left: -7px; top: 9px; }
+.delivery-step-number { font-size: 13px; line-height: 2.4; color: var(--warm-strong); }
 /* コラム一覧：左に日付・タグ、右に題名・抜粋・続きを読む */
 .column-editorial-list { border-top: 1px solid var(--color-line); }
 .column-editorial-entry { display: grid; grid-template-columns: 200px minmax(0, 1fr); column-gap: 48px; padding: 36px 0; border-bottom: 1px solid var(--color-line); }
@@ -603,10 +610,10 @@ html:has(.page-curtain) { scroll-behavior: auto; }
 .philo-orbit { position: relative; width: 100%; max-width: 520px; aspect-ratio: 1; margin-inline: auto; }
 .philo-orbit-ring { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
 /* pathLength と破線で線を描くので、vector-effect: non-scaling-stroke は使わない（破線の長さが画面の単位になり崩れる）。太さは viewBox の単位 */
-.philo-orbit-ring circle { fill: none; stroke: #e5c9cf; stroke-width: .32; stroke-dasharray: 1; stroke-dashoffset: 0; }
-.philo-orbit-core { position: absolute; left: 50%; top: 54%; width: 22%; aspect-ratio: 1; translate: -50% -50%; display: grid; place-items: center; border-radius: 50%; background: var(--color-brand); color: #fff; font-weight: 700; font-size: clamp(12px, 1.5vw, 17px); line-height: 1.4; text-align: center; }
+.philo-orbit-ring circle { fill: none; stroke: var(--warm-line); stroke-width: .32; stroke-dasharray: 1; stroke-dashoffset: 0; }
+.philo-orbit-core { position: absolute; left: 50%; top: 54%; width: 22%; aspect-ratio: 1; translate: -50% -50%; display: grid; place-items: center; border-radius: 50%; background: var(--warm-strong); color: #fff; font-weight: 700; font-size: clamp(12px, 1.5vw, 17px); line-height: 1.4; text-align: center; }
 .philo-node, .value-orbit-node, .kpi-item dt { word-break: keep-all; overflow-wrap: anywhere; }
-.philo-node { position: absolute; width: 36%; aspect-ratio: 1; translate: -50% -50%; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 4%; border: 1.5px solid #e2d6d9; border-radius: 50%; background: #fff; text-align: center; }
+.philo-node { position: absolute; width: 36%; aspect-ratio: 1; translate: -50% -50%; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 4%; border: 1.5px solid var(--warm-line); border-radius: 50%; background: #fff; text-align: center; }
 .philo-node:nth-child(1) { left: 50%; top: 20%; }
 .philo-node:nth-child(2) { left: 79.4%; top: 71%; }
 .philo-node:nth-child(3) { left: 20.6%; top: 71%; }
@@ -616,19 +623,19 @@ html:has(.page-curtain) { scroll-behavior: auto; }
 .value-orbit-figure { position: relative; width: 100%; aspect-ratio: 1; }
 .value-orbit-ring { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
 .value-orbit-ring circle { fill: none; }
-.value-orbit-ring-base { stroke: #e6dcdf; stroke-width: .3; }
-.value-orbit-ring-progress { stroke: var(--color-brand); stroke-width: .55; transition: stroke-dasharray .6s cubic-bezier(.16, .84, .44, 1); }
+.value-orbit-ring-base { stroke: var(--warm-line); stroke-width: .3; }
+.value-orbit-ring-progress { stroke: var(--warm-mid); stroke-width: .55; transition: stroke-dasharray .6s cubic-bezier(.16, .84, .44, 1); }
 .value-orbit-core { position: absolute; left: 50%; top: 50%; translate: -50% -50%; font-family: var(--font-mono); font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--color-muted); }
 .value-orbit-node {
   position: absolute; width: 22%; aspect-ratio: 1; translate: -50% -50%; display: grid; place-items: center; padding: 6px;
-  border: 1.5px solid #e2d6d9; border-radius: 50%; background: #fff; color: var(--color-ink);
+  border: 1.5px solid var(--warm-line); border-radius: 50%; background: #fff; color: var(--color-ink);
   font-size: clamp(10.5px, 1.45vw, 14px); font-weight: 700; line-height: 1.45; text-align: center; cursor: pointer;
   transition: background-color .3s, color .3s, border-color .3s, scale .3s cubic-bezier(.16, .84, .44, 1);
 }
-.value-orbit-node[data-state="passed"] { border-color: var(--color-brand); }
-.value-orbit-node[data-state="active"] { background: var(--color-brand); border-color: var(--color-brand); color: #fff; scale: 1.1; }
-.value-orbit-node:focus-visible { outline: 2px solid var(--color-brand); outline-offset: 3px; }
-@media (hover: hover) { .value-orbit-node:not([data-state="active"]):hover { border-color: var(--color-brand); color: var(--color-brand); } }
+.value-orbit-node[data-state="passed"] { border-color: var(--warm-mid); background: #fffaf5; }
+.value-orbit-node[data-state="active"] { background: var(--warm-strong); border-color: var(--warm-strong); color: #fff; scale: 1.1; }
+.value-orbit-node:focus-visible { outline: 2px solid var(--warm-strong); outline-offset: 3px; }
+@media (hover: hover) { .value-orbit-node:not([data-state="active"]):hover { border-color: var(--warm-mid); color: var(--warm-strong); } }
 /* 説明は6つとも重ねて置き（高さは一番長いものに揃う）、選んだものだけ見せる */
 .value-orbit-detail { display: grid; margin-top: 28px; }
 .value-orbit-text { grid-area: 1 / 1; opacity: 0; visibility: hidden; transition: opacity .35s, visibility .35s; }
@@ -645,10 +652,10 @@ html:has(.page-curtain) { scroll-behavior: auto; }
 .kpi-group { display: grid; gap: 28px; align-items: center; }
 @media (min-width: 900px) { .kpi-group { grid-template-columns: 240px 1fr; gap: 48px; } }
 .kpi-chain { --kpi-size: clamp(92px, 14vw, 168px); position: relative; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(12px, 3vw, 40px); }
-.kpi-chain::before { content: ""; position: absolute; left: 16.6%; right: 16.6%; top: calc(var(--kpi-size) / 2); height: 1.5px; background: #e5c9cf; transform-origin: left; }
+.kpi-chain::before { content: ""; position: absolute; left: 16.6%; right: 16.6%; top: calc(var(--kpi-size) / 2); height: 1.5px; background: var(--warm-line); transform-origin: left; }
 .kpi-item { position: relative; display: flex; flex-direction: column-reverse; justify-content: flex-end; align-items: center; }
-.kpi-circle { width: var(--kpi-size); aspect-ratio: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 10px; border: 1.5px solid var(--color-brand); border-radius: 50%; background: #fff; text-align: center; }
-.kpi-figure { font-family: var(--font-anton); font-size: clamp(26px, 3.4vw, 44px); line-height: 1; color: var(--color-brand); white-space: nowrap; }
+.kpi-circle { width: var(--kpi-size); aspect-ratio: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 10px; border: 1.5px solid var(--warm-mid); border-radius: 50%; background: #fffaf5; text-align: center; }
+.kpi-figure { font-family: var(--font-anton); font-size: clamp(26px, 3.4vw, 44px); line-height: 1; color: var(--warm-strong); white-space: nowrap; }
 .kpi-figure small { margin-left: 2px; font-family: var(--font-sans); font-size: .36em; font-weight: 700; color: var(--color-ink); }
 .kpi-when { margin-top: 8px; font-size: clamp(9.5px, .9vw, 11.5px); line-height: 1.35; color: var(--color-muted); }
 

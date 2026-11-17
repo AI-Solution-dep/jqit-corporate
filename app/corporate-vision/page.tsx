@@ -74,7 +74,7 @@ const dxKpis = [
     label: "Productivity",
     title: "社内業務の生産性向上",
     items: [
-      { label: "事務工数|削減率", target: "2025年度までに ▲40％", figure: "▲40", unit: "%", when: "2025年度まで" },
+      { label: "事務工数|削減率", target: "2025年度までに 40％削減", figure: "40", unit: "%削減", when: "2025年度まで" },
       { label: "クラウド基盤|移行率", target: "2025年度末までに主要業務 100％移行", figure: "100", unit: "%", when: "2025年度末・主要業務" },
       { label: "AIマッチング|システム|導入率", target: "2025年度末までに 70％以上", figure: "70", unit: "%以上", when: "2025年度末まで" },
     ],
@@ -137,7 +137,7 @@ export default function CorporateVisionPage() {
               <dl>
                 {philosophy.map((p) => (
                   <div key={p.en} className="philo-node">
-                    <dt className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-brand min-[720px]:text-[11px]">
+                    <dt className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-(--warm-strong) min-[720px]:text-[11px]">
                       {p.en}
                     </dt>
                     <dd>
