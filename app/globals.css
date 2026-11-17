@@ -947,10 +947,10 @@ p, dd, li { text-wrap: pretty; }
 }
 
 /* ===== ビジョンの図：デザインレビュー2回目の反映（2026-11-18） ===== */
-/* 企業理念：円は正円に固定（スマホで縦長にならない）。ホバーは塗らず縁と寄りだけ。波紋は衛星の円より手前・中心の円の後ろ */
+/* 企業理念：円は正円に固定（スマホで縦長にならない）。ホバーは塗らず縁と寄りだけ。波紋はまわりの円の後ろ */
 .philo-node { height: 32cqw; aspect-ratio: 1; overflow: hidden; }
 @media (max-width: 719px) { .philo-node { padding: 2cqw; font-size: 11.5px; } .philo-node h3 { font-size: 11.5px; } }
-.philo-orbit-core { z-index: 2; }
+/* 波紋は Purpose・Mission・Vision の円の後ろに隠れるようにする（中心の円は前に出さない） */
 .philo-orbit-core::before { border: 1px solid var(--warm-mid); }
 @keyframes philo-ripple2 { 0% { scale: 1; opacity: .35; } 100% { scale: 1.8; opacity: 0; } }
 @media (hover: hover) {
