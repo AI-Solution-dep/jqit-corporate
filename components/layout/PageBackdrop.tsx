@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { backdropFor, backdropTones, type BackdropKind } from "@/lib/page-backdrops";
 
 /** 図形は SVG で描く（三角も枠線だけで描けるように）。
@@ -26,6 +26,19 @@ function ShapePath({ kind, color, outline }: { kind: BackdropKind; color: string
 export function PageBackdrop() {
   const pathname = usePathname() ?? "/";
   const shapes = backdropFor(pathname);
+  // 見出し帯・ヒーロー（data-backdrop-after）があれば、その下端まで線路の上端を下げ、図形を帯の下から出す。
+  const [startOffset, setStartOffset] = useState(0);
+  // #main の大きさが変わるたび（読み込み直後・ページ遷移・画面幅の変更）に測り直す。ResizeObserver は監視開始時にも1回呼ばれる。
+  useEffect(() => {
+    const main = document.getElementById("main");
+    if (!main) return;
+    const observer = new ResizeObserver(() => {
+      const band = main.querySelector<HTMLElement>(":scope > [data-backdrop-after]");
+      setStartOffset(band ? band.offsetTop + band.offsetHeight : 0);
+    });
+    observer.observe(main);
+    return () => observer.disconnect();
+  }, [pathname]);
 
   // セクションの背景色を透かす等の切り替えは、#main の属性で CSS 側に任せる。
   useEffect(() => {
@@ -38,7 +51,7 @@ export function PageBackdrop() {
 
   if (!shapes) return null;
   return (
-    <div className="page-backdrop" aria-hidden="true">
+    <div className="page-backdrop" aria-hidden="true" style={{ top: startOffset }}>
       <div className="page-backdrop-stage">
         {shapes.map((s, i) => (
           <span

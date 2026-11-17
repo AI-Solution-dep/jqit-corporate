@@ -437,5 +437,6 @@ section[id] {
 /* 背景の図形があるページでは、白い帯は透かし、紙色の帯は半透明にして図形を見せる。
    暗い帯（bg-ink）や写真の帯はそのまま（図形は隠れる）。従来の点と線の模様（TechBackdrop）は重ねない。 */
 #main[data-backdrop] > section.bg-paper { background: transparent; }
-#main[data-backdrop] > section.bg-cream { background: rgb(250 249 247 / 60%); }
+/* 見出し帯（data-backdrop-after）は図形より上にあるので不透明のまま */
+#main[data-backdrop] > section.bg-cream:not([data-backdrop-after]) { background: rgb(250 249 247 / 60%); }
 #main[data-backdrop] [data-tech-backdrop] { display: none; }

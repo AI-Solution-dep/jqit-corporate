@@ -16,7 +16,8 @@ export function PageHeader({
   titleAs?: "h1" | "p";
 }) {
   return (
-    <section className="relative overflow-hidden border-b border-line bg-cream">
+    // data-backdrop-after：背景の図形（PageBackdrop）はこの帯の下から出す
+    <section data-backdrop-after className="relative overflow-hidden border-b border-line bg-cream">
       <TechBackdrop />
       {/* トップページと共通のディスプレイタイポ（縮小版）でデザイン言語を揃える */}
       <div className="pointer-events-none absolute -bottom-2 right-0 min-[720px]:-bottom-3">

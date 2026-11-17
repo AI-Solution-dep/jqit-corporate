@@ -4,7 +4,8 @@ import { Kicker } from "@/components/ui/Kicker";
 
 export function Hero() {
   return (
-    <section className="relative overflow-hidden border-b border-line bg-white">
+    // data-backdrop-after：背景の図形（PageBackdrop）はヒーローの下から出す
+    <section data-backdrop-after className="relative overflow-hidden border-b border-line bg-white">
       <div className="pointer-events-none relative z-10 mx-auto w-full max-w-[1160px] px-6">
         <div className="flex min-h-0 flex-col justify-center pb-10 pt-14 min-[1280px]:min-h-[660px] min-[1280px]:py-20">
           <div className="pointer-events-auto max-w-[640px]">
