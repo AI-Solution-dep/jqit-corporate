@@ -787,7 +787,8 @@ p, dd, li { text-wrap: pretty; }
   .service-stack-text { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 64px; margin-top: 40px; align-items: end; }
 }
 
-/* ===== TOP：事業（ITとAIの2枚の写真パネル。真ん中を「×」の円でつなぐ） ===== */
+/* ===== TOP：事業（ITとAIの2枚の写真パネル。真ん中を「×」の円でつなぐ）
+   ホバーでパネルの幅を変えると文字の折り返しが変わって崩れるため、形は変えず写真の寄りと矢印だけ動かす ===== */
 .biz-split { position: relative; display: flex; flex-direction: column; gap: 12px; }
 .biz-panel { position: relative; overflow: hidden; display: flex; flex-direction: column; isolation: isolate; background: var(--color-ink); }
 .biz-panel-media { position: relative; height: 240px; overflow: hidden; }
@@ -809,17 +810,16 @@ p, dd, li { text-wrap: pretty; }
 }
 @media (min-width: 1024px) {
   .biz-split { flex-direction: row; gap: 14px; }
-  .biz-panel { flex: 1 1 0; transition: flex-grow .6s cubic-bezier(.16, .84, .44, 1); }
+  .biz-panel { flex: 1 1 0; }
   .biz-panel-media { height: 340px; }
   .biz-panel-body { padding: 48px 44px 40px; }
   /* 写真の高さの真ん中、2枚の継ぎ目に置く */
   .biz-cross { position: absolute; left: 50%; top: 170px; margin: 0; translate: -50% -50%; width: 84px; font-size: 36px; }
   @media (hover: hover) {
-    .biz-panel:hover { flex-grow: 1.35; }
     .biz-panel:hover .biz-panel-photo { scale: 1.05; }
     .biz-panel:hover .biz-panel-arrow { translate: 6px 0; }
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .biz-panel, .biz-panel-photo, .biz-panel-arrow { transition: none; }
+  .biz-panel-photo, .biz-panel-arrow { transition: none; }
 }
