@@ -476,9 +476,12 @@ section[id] {
 /* 背景の図形があるページでは、白い帯は透かし、紙色の帯は半透明にして図形を見せる。
    TOP は登場演出の枠（[data-home-entrance]）の中に帯が並ぶので、その直下も対象にする。
    暗い帯（bg-ink）や写真の帯はそのまま（図形は隠れる）。従来の点と線の模様（TechBackdrop）は重ねない。 */
-#main[data-backdrop] :is(#main, [data-home-entrance]) > section.bg-paper { background: transparent; }
+/* 子ページは #main の直下、TOP は登場演出の枠の直下の帯が対象（以前は「#main の中の #main」を探していて子ページに当たっていなかった） */
+#main[data-backdrop] > section.bg-paper,
+#main[data-backdrop] [data-home-entrance] > section.bg-paper { background: transparent; }
 /* 見出し帯（data-backdrop-after）は図形より上にあるので不透明のまま */
-#main[data-backdrop] :is(#main, [data-home-entrance]) > section.bg-cream:not([data-backdrop-after]) { background: rgb(250 249 247 / 60%); }
+#main[data-backdrop] > section.bg-cream:not([data-backdrop-after]),
+#main[data-backdrop] [data-home-entrance] > section.bg-cream:not([data-backdrop-after]) { background: rgb(250 249 247 / 60%); }
 #main[data-backdrop] [data-tech-backdrop] { display: none; }
 
 /* ===== ページ遷移の幕（components/layout/PageCurtain.tsx） =====

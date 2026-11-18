@@ -54,16 +54,17 @@ const vision: BackdropShape[] = [
   { kind: "circle", tone: "warm", alpha: 0.12, left: 2, top: 18, size: 10, axis: "x", dur: 6 },
 ];
 
+/* 事業の2ページは TOP に合わせて円と四角だけで組む（2026-11-18 オーナー指示）。IT は四角が主、AI は円が主 */
 const it: BackdropShape[] = [
   { kind: "square", tone: "warm", alpha: 0.11, left: 62, top: 40, size: 48, rotate: 8, axis: "x", dur: 10 },
-  { kind: "triangle", tone: "pink", alpha: 0.16, outline: true, left: -10, top: 2, size: 34, rotate: 18, axis: "y", dur: 9, reverse: true },
+  { kind: "circle", tone: "pink", alpha: 0.16, outline: true, left: -12, top: 2, size: 36, axis: "y", dur: 9, reverse: true },
   { kind: "square", tone: "red", alpha: 0.035, left: 20, top: 72, size: 10, rotate: -12, axis: "y", dur: 7 },
 ];
 
 const ai: BackdropShape[] = [
-  { kind: "triangle", tone: "pink", alpha: 0.07, left: -12, top: 30, size: 54, rotate: -6, axis: "x", dur: 12 },
-  { kind: "circle", tone: "warm", alpha: 0.16, outline: true, left: 58, top: 8, size: 42, axis: "y", dur: 10, reverse: true },
-  { kind: "triangle", tone: "red", alpha: 0.035, left: 80, top: 70, size: 11, rotate: 20, axis: "x", dur: 6 },
+  { kind: "circle", tone: "pink", alpha: 0.07, left: -14, top: 30, size: 54, axis: "x", dur: 12 },
+  { kind: "square", tone: "warm", alpha: 0.16, outline: true, left: 62, top: 6, size: 34, rotate: 16, axis: "y", dur: 10, reverse: true },
+  { kind: "circle", tone: "red", alpha: 0.035, left: 80, top: 70, size: 11, axis: "x", dur: 6 },
 ];
 
 const works: BackdropShape[] = [
