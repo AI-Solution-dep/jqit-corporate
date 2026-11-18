@@ -1090,8 +1090,13 @@ p, dd, li { text-wrap: pretty; }
   .policy-toc a { display: block; padding: 10px 0; font-size: 13px; line-height: 1.6; color: var(--color-body); transition: color 0.2s ease; }
   .policy-toc a:hover { color: var(--color-warm-ink); }
 }
-.policy-pillars { display: grid; grid-template-columns: 1fr; gap: 12px; margin: 20px 0 0; padding: 0; list-style: none; }
-.policy-pillars li { padding: 20px 20px 22px; border: 1px solid var(--color-line); border-top: 3px solid var(--color-warm); border-radius: 12px; background: #fff; }
+/* 箱や片側の色帯にせず、会社情報の数字と同じく罫線で区切った3列にする（2026-11-18 オーナー指摘：片側に色の付いた箱は AI っぽい） */
+.policy-pillars { display: grid; grid-template-columns: 1fr; margin: 24px 0 0; padding: 0; list-style: none; border-top: 1px solid var(--color-ink); }
+.policy-pillars li { padding: 20px 0 22px; border-bottom: 1px solid var(--color-line); }
 .policy-pillars b { display: block; margin-top: 6px; font-size: 19px; color: var(--color-ink); }
 .policy-pillars p { margin-top: 8px; font-size: 13.5px; line-height: 1.95; color: var(--color-body); }
-@media (min-width: 720px) { .policy-pillars { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (min-width: 720px) {
+  .policy-pillars { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .policy-pillars li { padding: 22px 24px 24px; border-bottom: 0; border-left: 1px solid var(--color-line); }
+  .policy-pillars li:first-child { padding-left: 0; border-left: 0; }
+}
