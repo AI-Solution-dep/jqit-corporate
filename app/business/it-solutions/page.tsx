@@ -251,7 +251,7 @@ export default function ItSolutionsPage() {
                 APIなどをメインとした業務系システムの開発を行っています。設計・開発・構築・検証・導入・保守・運用などを一括、または一部からでもお請けします。
               </p>
             </FadeIn>
-            <FadeIn className="photo-curve relative overflow-hidden">
+            <FadeIn className="photo-curve biz-hero-photo relative overflow-hidden">
               <Image
                 src="/natural-tech-it.webp"
                 alt="自然光の入るオフィスでシステム設計を議論するエンジニア"
@@ -266,7 +266,7 @@ export default function ItSolutionsPage() {
           </div>
 
           {/* 実データストリップ */}
-          <FadeIn className="mt-14 grid grid-cols-1 border-t border-ink min-[1024px]:grid-cols-3">
+          <FadeIn className="biz-facts mt-14 grid grid-cols-1 border-t border-ink min-[1024px]:grid-cols-3">
             {facts.map((f) => (
               <div
                 key={f.label}
