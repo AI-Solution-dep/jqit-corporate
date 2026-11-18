@@ -92,7 +92,9 @@ export function BusinessSection() {
 
   const jump = (i: number) => {
     setActive(i);
-    refs.current[i]?.scrollIntoView({ behavior: "smooth", block: "start" });
+    // 動きを減らす設定のときは JS 側でも滑らかなスクロールにしない（CSS の scroll-behavior より JS の指定が勝つため）
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    refs.current[i]?.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
   };
 
   return (
@@ -150,7 +152,7 @@ export function BusinessSection() {
               </span>
             </div>
             {/* 選んでいる事業の名前と分類（押せる図であることも伝える） */}
-            <p className="biz-map-caption" aria-live="polite">
+            <p className="biz-map-caption">
               <span key={active} className="biz-map-caption-text">
                 {businesses[active].title} — {businesses[active].tags.join("・")}
               </span>

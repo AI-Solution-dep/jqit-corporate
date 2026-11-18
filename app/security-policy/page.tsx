@@ -27,10 +27,12 @@ const securityJsonLd = createWebPageJsonLd({
   ],
 });
 
-const isms = certificationBadges.find((b) => b.label.includes("27001")) as {
-  label: string;
-  image: { src: string; width: number; height: number };
-};
+// 認証マークが site-config から消えたら、黙って崩れずにビルドで気づけるようにする
+const ismsImage = (() => {
+  const image = certificationBadges.find((b) => b.label.includes("27001"))?.image;
+  if (!image) throw new Error("site-config の certificationBadges に ISO/IEC 27001 の画像がありません");
+  return image;
+})();
 const ismsNewsPath = "/news/iso27001-isms-20260306";
 /** 認証の要点。登録番号・審査機関は公開情報が手元に無いため載せない（推測で書かない） */
 const ismsFacts = [
@@ -130,10 +132,10 @@ export default function SecurityPolicyPage() {
           {/* ISMS 認証。方針の本文より先に、第三者認証を受けていることが分かるように置く */}
           <FadeIn className="mt-12 grid grid-cols-1 items-center gap-7 border-y border-ink py-9 min-[720px]:grid-cols-[200px_1fr] min-[720px]:gap-10">
             <Image
-              src={isms.image.src}
+              src={ismsImage.src}
               alt="ISO/IEC 27001（ISMS）認証マーク"
-              width={isms.image.width}
-              height={isms.image.height}
+              width={ismsImage.width}
+              height={ismsImage.height}
               className="h-auto w-[180px] min-[720px]:w-[200px]"
             />
             <div>

@@ -12,7 +12,9 @@ const AUTO_ADVANCE_MS = 4800;
  * 6つの行動指針を、1つの円の線の上に並んだ6つの円で見せる。
  * 選んだ円まで円の線が赤く伸び、中央（スマホは図の下）にその指針の説明が出る。
  * 画面に入ると順に自動で進み、利用者が円を押したら自動送りは止める。
- * 説明文は6つとも HTML に出しておく（検索エンジン・支援技術が全文を読めるように）。
+ * 説明文は6つとも HTML に出しておく。見た目の切り替えは読み上げから隠し、
+ * 読み上げ用には6つの全文を sr-only の一覧で別に置く（自動送りで読み上げが流れ続けないように aria-live は使わない）。
+ * 自動送りは「止める」ボタンでも止められる（WCAG 2.2.2）。
  */
 export function ValueOrbit({ values }: { values: readonly Value[] }) {
   const [active, setActive] = useState(0);
@@ -104,7 +106,6 @@ export function ValueOrbit({ values }: { values: readonly Value[] }) {
             data-state={i === active ? "active" : i < active ? "passed" : undefined}
             style={position(i)}
             aria-pressed={i === active}
-            aria-controls={`value-detail-${i}`}
             onClick={() => select(i)}
           >
             <Phrase text={v.title} />
@@ -112,14 +113,24 @@ export function ValueOrbit({ values }: { values: readonly Value[] }) {
         ))}
       </div>
 
-      <div className="value-orbit-detail" aria-live="polite">
+      {/* 読み上げ用の全文（見た目の切り替えとは別に、6つを順に読めるように） */}
+      <dl className="sr-only">
+        {values.map((v) => (
+          <div key={`${v.title}-sr`}>
+            <dt>{v.title.replaceAll("|", "")}</dt>
+            <dd>{v.body}</dd>
+          </div>
+        ))}
+      </dl>
+
+      <div className="value-orbit-detail">
         {values.map((v, i) => (
           <div
             key={v.title}
             id={`value-detail-${i}`}
             className="value-orbit-text"
             data-active={i === active || undefined}
-            aria-hidden={i !== active}
+            aria-hidden
           >
             <p className="value-orbit-en" aria-hidden>
               {v.en}
@@ -147,6 +158,11 @@ export function ValueOrbit({ values }: { values: readonly Value[] }) {
           <button type="button" onClick={() => select((active + 1) % count)}>
             次の指針 <span aria-hidden>→</span>
           </button>
+          {auto && (
+            <button type="button" onClick={() => setAuto(false)}>
+              自動送りを止める
+            </button>
+          )}
         </div>
       </div>
     </div>
