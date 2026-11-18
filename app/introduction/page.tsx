@@ -59,8 +59,7 @@ export default function IntroductionPage() {
         <div className={styles.trustStrip}><p><strong><b>106</b> 名</strong><span>従業員数／2026年4月時点</span></p><p><strong><b>4</b> つの専門領域</strong><span>AI・開発・インフラ・QA</span></p><p><strong>週 <b>1</b> 回の対話</strong><span>動くものを見ながら改善</span></p></div>
 
         <section className={styles.section} data-section="projects" id="projects" aria-labelledby="projects-heading">
-          <div className={styles.display} aria-hidden="true">WORKS</div>
-          <div className={styles.sectionHead}><p className={styles.eyebrow}>01 ／ 開発実績</p><h2 id="projects-heading"><span>業務の課題を</span><span><em>動く仕組み</em>に。</span></h2></div>
+          <div className={styles.sectionHead}><p className={styles.eyebrow}>開発実績</p><h2 id="projects-heading"><span>業務の課題を</span><span><em>動く仕組み</em>に。</span></h2></div>
           <article className={styles.featuredWork}>
             <div><p className={styles.eyebrow}>自社プロダクト ／ SES業界</p><h3>NOVA</h3><p className={styles.featuredLead}>案件と人材をつなぐ<br />AIマッチングサービス。</p><a className={styles.textLink} href={siteConfig.links.nova} target="_blank" rel="noopener noreferrer">NOVA製品サイト <span aria-hidden="true">↗</span><span className="sr-only">（新しいタブで開きます）</span></a></div>
             <div className={styles.productDetail}><ol className={styles.flow}>{["案件・人材を管理", "AIでマッチング", "候補を確認"].map((step) => <li key={step}>{step}</li>)}</ol><Image src="/nova-product-logo.png" alt="NOVAの案件一覧。案件情報を一つの画面で確認できます" width={1496} height={876} sizes="(max-width: 760px) 90vw, 45vw" /></div>
@@ -75,13 +74,14 @@ export default function IntroductionPage() {
         </section>
 
         <section className={styles.section} data-section="team" id="team" aria-labelledby="team-heading">
-          <div className={styles.display} aria-hidden="true">OUR TEAM</div>
-          <div className={styles.sectionHead}><p className={styles.eyebrow}>02 ／ 開発体制</p><h2 id="team-heading"><span>4つの専門領域が</span><span>ひとつのチームに。</span></h2></div>
-          <div className={styles.leaderGrid}>{leaders.map((leader) => <article className={styles.leader} key={leader.field}>
-            <div className={styles.portrait} data-zoom={leader.zoom || undefined}><Image src={leader.image} alt={leader.name} width={300} height={300} sizes="(max-width: 760px) 44vw, 250px" /></div>
-            <p className={styles.field}>{leader.field}</p><h3>{leader.name}</h3><p className={styles.jobTitle}>事業部長</p><p className={styles.scope}>{leader.scope.map(item => <span key={item}>{item}</span>)}</p>
-          </article>)}</div>
-          <details className={styles.more}><summary>担当範囲・技術を見る</summary><div className={styles.expertise}>{leaders.map((leader) => <div key={leader.field}><h3>{leader.field}</h3><p>{leader.scope.join(" ／ ")}</p><p className={styles.note}>{leader.tech.join(" ／ ")}</p></div>)}</div></details>
+          <div className={styles.sectionHead}><p className={styles.eyebrow}>開発体制</p><h2 id="team-heading"><span>4つの専門領域が</span><span>ひとつのチームに。</span></h2></div>
+          {/* 4人を同じ大きさの写真カードで並べず、会社概要と同じ「項目｜内容」の行にする。担当範囲と技術は折りたたまずに見せる */}
+          <ul className={styles.leaderList}>{leaders.map((leader) => <li key={leader.field}>
+            <span className={styles.leaderPhoto} data-zoom={leader.zoom || undefined}><Image src={leader.image} alt="" width={144} height={144} sizes="72px" /></span>
+            <div><p className={styles.field}>{leader.field}</p><h3>{leader.name}<span>事業部長</span></h3></div>
+            <p className={styles.leaderScope}>{leader.scope.join("／")}</p>
+            <p className={styles.leaderTech}>{leader.tech.join(" ・ ")}</p>
+          </li>)}</ul>
           <div className={styles.projectTeam}>
             <div className={styles.clientNode}>お客さま <span>課題・目標・現場の声</span></div>
             <p className={styles.connector}>相談・共有 <span aria-hidden="true">↕</span> 提案・報告</p>
@@ -94,15 +94,13 @@ export default function IntroductionPage() {
         </section>
 
         <section className={styles.section} data-section="process" id="process" aria-labelledby="process-heading">
-          <div className={styles.display} aria-hidden="true">HOW WE WORK</div>
-          <div className={styles.sectionHead}><p className={styles.eyebrow}>03 ／ 進め方</p><h2 id="process-heading"><span>小さく確かめ、</span><span>毎週の対話で改善する。</span></h2></div>
+          <div className={styles.sectionHead}><p className={styles.eyebrow}>進め方</p><h2 id="process-heading"><span>小さく確かめ、</span><span>毎週の対話で改善する。</span></h2></div>
           <div className={styles.cycle}><div className={styles.cycleHead}><strong>つくる → 確かめる → 育てる</strong><span>週1回の定例で、動くものを一緒に確認。</span></div><ol className={styles.steps}>{["要件整理", "実装", "レビュー", "改善"].map((title, i) => <li key={title}><span className={styles.stepNumber}>0{i + 1}</span><ProcessIcon step={i} /><h3>{title}</h3><p>{["課題と優先順位を揃える", "動く仕組みをつくる", "現場の視点で確かめる", "次の実装に反映する"][i]}</p></li>)}</ol><p className={styles.cycleReturn}><span aria-hidden="true">↶</span> 次の週も、確認と改善。</p></div>
 
         </section>
 
         <section className={styles.section} data-section="contacts" id="contacts" aria-labelledby="contacts-heading">
-          <div className={styles.display} aria-hidden="true">CONTACT</div>
-          <div className={styles.sectionHead}><p className={styles.eyebrow}>04 ／ 担当者・連絡先</p><h2 id="contacts-heading"><span>まずは、</span><span>お話を聞かせてください。</span></h2></div>
+          <div className={styles.sectionHead}><p className={styles.eyebrow}>担当者・連絡先</p><h2 id="contacts-heading"><span>まずは、</span><span>お話を聞かせてください。</span></h2></div>
           <div className={styles.contactGrid}>{introductionContacts.members.map((person, i) => <article id={`contact-${i}`} className={styles.contact} key={person.name}>
             <p className={styles.eyebrow}>{person.role}</p><h3>{person.name}<span>{person.reading}</span></h3><p className={styles.jobTitle}>{person.title}</p>
             <p className={styles.contactScope}>{person.scope}</p>
