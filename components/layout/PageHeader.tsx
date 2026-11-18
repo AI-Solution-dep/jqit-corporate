@@ -57,7 +57,7 @@ export function PageHeader({
           )}
         </nav>
         <div className="flex flex-wrap items-baseline gap-5">
-          <TitleTag className="palt text-[34px] font-bold tracking-[-0.02em] text-ink min-[720px]:text-[46px]">
+          <TitleTag className="palt text-[clamp(24px,7.2vw,34px)] font-bold tracking-[-0.02em] text-ink min-[720px]:text-[46px]">
             {title}
           </TitleTag>
           <span className="font-mono text-[15px] font-semibold uppercase tracking-[0.14em] text-brand min-[720px]:text-[17px]">

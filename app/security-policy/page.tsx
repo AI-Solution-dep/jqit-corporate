@@ -48,6 +48,8 @@ type PolicySection = {
   title: string;
   body?: string[];
   list?: string[];
+  /** 機密性・完全性・可用性の3つ。番号付きの続きとして、カードで並べる */
+  pillars?: { term: string; en: string; text: string }[];
 };
 
 const sections: PolicySection[] = [
@@ -63,9 +65,19 @@ const sections: PolicySection[] = [
     body: ["情報セキュリティとは、情報資産の機密性、完全性、および可用性を維持することと定義します。"],
     list: [
       "情報資産とは、お客様および当社が所有する情報です。情報の範囲は、情報システムに存在するソフトウェア、ハードウェアである電子的機器、媒体にとどまらず、音声・文字・画像・映像のすべての形態を含みます。",
-      "情報資産の機密性とは、情報資産が照会する権限を持つもののみが参照可能であり、照会する権限を持たないものは参照不可能であることです。",
-      "情報資産の完全性とは、情報資産が正確かつ完全に維持されることです。",
-      "情報資産の可用性とは、情報資産が必要なときに定められた方法で、真正性、信頼性、および利用証跡の確保を維持した状態で、利用されることです。",
+    ],
+    pillars: [
+      {
+        term: "機密性",
+        en: "Confidentiality",
+        text: "情報資産の機密性とは、情報資産が照会する権限を持つもののみが参照可能であり、照会する権限を持たないものは参照不可能であることです。",
+      },
+      { term: "完全性", en: "Integrity", text: "情報資産の完全性とは、情報資産が正確かつ完全に維持されることです。" },
+      {
+        term: "可用性",
+        en: "Availability",
+        text: "情報資産の可用性とは、情報資産が必要なときに定められた方法で、真正性、信頼性、および利用証跡の確保を維持した状態で、利用されることです。",
+      },
     ],
   },
   {
@@ -122,7 +134,28 @@ export default function SecurityPolicyPage() {
       <PageHeader title="情報セキュリティ基本方針" en="Security Policy" />
       <SubNav group="Company" items={companySubNav} />
       <section className="bg-paper pb-24 pt-14 min-[720px]:pt-16">
-        <Container className="max-w-[860px]">
+        <Container>
+          {/* PC は左に目次（追従）、右に本文。本文は読みやすい幅に収める */}
+          <div className="policy-layout">
+            <nav aria-label="目次" className="policy-toc">
+              <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-warm-ink">Contents</p>
+              <ol>
+                <li>
+                  <a href="#isms">ISMS 認証</a>
+                </li>
+                {sections.map((s, i) => (
+                  <li key={s.title}>
+                    <a href={`#policy-${i + 1}`}>
+                      <span className="tabular-nums">{i + 1}.</span> {s.title}
+                    </a>
+                  </li>
+                ))}
+                <li>
+                  <a href="#contact">お問い合わせ</a>
+                </li>
+              </ol>
+            </nav>
+            <div className="policy-body">
           <FadeIn>
             <p className="text-[15px] leading-[2.1] text-body">
               当社における情報セキュリティの適切な運用管理体制の構築・維持を目的として、ここに情報セキュリティ基本方針を定めます。
@@ -130,7 +163,7 @@ export default function SecurityPolicyPage() {
           </FadeIn>
 
           {/* ISMS 認証。方針の本文より先に、第三者認証を受けていることが分かるように置く */}
-          <FadeIn className="mt-12 grid grid-cols-1 items-center gap-7 border-y border-ink py-9 min-[720px]:grid-cols-[200px_1fr] min-[720px]:gap-10">
+          <FadeIn id="isms" className="mt-12 grid scroll-mt-28 grid-cols-1 items-center gap-7 border-y border-ink py-9 min-[720px]:grid-cols-[200px_1fr] min-[720px]:gap-10">
             <Image
               src={ismsImage.src}
               alt="ISO/IEC 27001（ISMS）認証マーク"
@@ -166,7 +199,7 @@ export default function SecurityPolicyPage() {
           </FadeIn>
 
           {sections.map((s, i) => (
-            <FadeIn key={s.title} className="mt-12">
+            <FadeIn key={s.title} id={`policy-${i + 1}`} className="mt-12 scroll-mt-28">
               <h2 className="flex items-baseline gap-4 border-b border-line pb-4">
                 {/* 規程の条項番号。「01」ではなく文書らしい「1.」の形で、見出しと同じ書体にする */}
                 <span className="palt text-[19px] font-bold tabular-nums text-ink min-[720px]:text-[21px]">
@@ -196,8 +229,22 @@ export default function SecurityPolicyPage() {
                   ))}
                 </ol>
               )}
+              {s.pillars && (
+                <ul className="policy-pillars">
+                  {s.pillars.map((pl, k) => (
+                    <li key={pl.term}>
+                      <span className="font-mono text-[10.5px] uppercase tracking-[0.16em] text-warm-ink">{pl.en}</span>
+                      <b className="palt">
+                        <span className="font-mono text-[12px] font-normal text-muted">({(s.list?.length ?? 0) + k + 1})</span> {pl.term}
+                      </b>
+                      <p>{pl.text}</p>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </FadeIn>
           ))}
+
 
           <FadeIn className="mt-16 border-t border-ink pt-8 text-right">
             <p className="font-mono text-[12px] tracking-[0.08em] text-muted">
@@ -206,6 +253,25 @@ export default function SecurityPolicyPage() {
             <p className="mt-3 text-[15px] font-bold text-ink">{siteConfig.name}</p>
             <p className="mt-1 text-[13.5px] text-body">代表取締役　{siteConfig.ceo}</p>
           </FadeIn>
+
+          {/* 個人情報・情報セキュリティについての窓口。方針の「苦情、訂正、開示等のご請求」の受け口を示す */}
+          <FadeIn id="contact" className="mt-16 scroll-mt-28 rounded-[14px] border border-line bg-white px-6 py-7 min-[720px]:px-9 min-[720px]:py-8">
+            <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-warm-ink">Contact</p>
+            <h2 className="palt mt-2 text-[19px] font-bold text-ink min-[720px]:text-[21px]">個人情報・情報セキュリティに関するお問い合わせ</h2>
+            <p className="mt-3 text-[14px] leading-[1.95] text-body">
+              個人情報の開示・訂正等のご請求や、本方針についてのご質問は、お問い合わせフォームからご連絡ください。個人情報の取り扱いはプライバシーポリシーをご覧ください。
+            </p>
+            <div className="mt-5 flex flex-wrap gap-x-8 gap-y-3 text-[13.5px] font-semibold">
+              <Link href="/contact" className="text-ink underline underline-offset-4 transition-colors hover:text-warm-ink">
+                お問い合わせフォーム <span aria-hidden>→</span>
+              </Link>
+              <Link href="/privacy-policy" className="text-ink underline underline-offset-4 transition-colors hover:text-warm-ink">
+                プライバシーポリシー <span aria-hidden>→</span>
+              </Link>
+            </div>
+          </FadeIn>
+            </div>
+          </div>
         </Container>
       </section>
     </>
