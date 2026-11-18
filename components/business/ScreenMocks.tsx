@@ -204,105 +204,118 @@ export function QaScreens() {
 
 export function AgentScreens() {
   return (
-    <Stage label="社内データを参照して作業を進め、重要な操作の前に承認を求めるAIエージェントの画面イメージ">
+    <Stage label="社内の資料を参照して答え、重要な操作の前に承認を求めるAIエージェントの画面と、参照した資料のイメージ">
       <Win title="ai-agent / 業務アシスタント" className="mock-at-agent-win">
         <div className="mock-chat">
-          <p className="mock-msg is-user">先月の受注データから、来月の発注量の案を作ってください。</p>
+          <p className="mock-msg is-user">来月の発注量の案を作ってください。</p>
           <div className="mock-msg is-ai">
             <span className="mock-steps">
               <i>✓ 受注データを取得（12,480件）</i>
-              <i>✓ 品目ごとに集計</i>
               <i>✓ 社内規程「発注基準」を参照</i>
             </span>
-            発注量の案を作成しました。上位3品目は前月比 +8% です。
-            <span className="mock-source">参照：発注基準 v3.pdf ／ 受注実績 2026-10</span>
+            上位3品目は前月比 +8% で案を作りました。
+            <span className="mock-source">参照 2件</span>
           </div>
           <div className="mock-approve">
-            <span>発注書を作成して、購買部へ送信しますか？</span>
+            <span>購買部へ送信しますか？</span>
             <span className="mock-btn">承認する</span>
-            <span className="mock-btn is-ghost">修正する</span>
           </div>
         </div>
       </Win>
+      {/* RAG：答えの根拠にした社内資料。該当箇所に印を付ける */}
+      <div className="mock-docs mock-at-agent-docs">
+        <div className="mock-doc mock-shadow">
+          <small>PDF</small>
+          <b>発注基準 v3</b>
+          <span className="mock-doc-lines"><i /><i /><i className="is-hit">在庫が2週間分を下回る品目は…</i><i /></span>
+        </div>
+        <div className="mock-doc mock-shadow">
+          <small>表計算</small>
+          <b>受注実績 2026-10</b>
+          <span className="mock-doc-lines"><i /><i className="is-hit">上位3品目　前月比 +8%</i><i /><i /></span>
+        </div>
+      </div>
     </Stage>
   );
 }
 
 export function EnablementScreens() {
-  const rows = [
-    ["問い合わせの一次回答", "自動化", "is-auto"],
-    ["見積書の下書き", "AIが下書き → 人が確認", "is-mix"],
-    ["議事録の要約・共有", "自動化", "is-auto"],
-    ["契約条件の判断", "人が判断", "is-human"],
-    ["請求データの照合", "AIが下書き → 人が確認", "is-mix"],
+  const cols: [string, string, string[]][] = [
+    ["自動化", "is-auto", ["問い合わせの一次回答", "議事録の要約・共有"]],
+    ["AIと人で分担", "is-mix", ["見積書の下書き", "請求データの照合", "提案資料のたたき台"]],
+    ["人が判断", "is-human", ["契約条件の判断", "値引きの可否"]],
   ];
   return (
-    <Stage label="業務ごとに、AIに任せる範囲と人が判断する範囲を整理した表のイメージ">
-      <Win title="ai-roadmap / 業務の棚卸し" className="mock-at-enable-win">
+    <Stage label="業務を付箋に書き出し、AIに任せる範囲と人が判断する範囲に貼り分けたワークショップのボードと、導入計画のイメージ">
+      <div className="mock-board mock-shadow mock-at-enable-board">
         <div className="mock-row-between">
-          <b className="mock-h">AI活用の対象業務</b>
-          <span className="mock-muted">営業部・管理部</span>
+          <b className="mock-h">業務の棚卸し　営業部</b>
+          <span className="mock-muted">ワークショップ 第2回</span>
         </div>
-        <div className="mock-table is-wide">
-          <div className="mock-tr is-head"><span>業務</span><span>AIと人の分担</span><span>開始</span></div>
-          {rows.map((r, i) => (
-            <div key={r[0]} className="mock-tr">
-              <span>{r[0]}</span>
-              <span><i className={`mock-split ${r[2]}`}>{r[1]}</i></span>
-              <span className="mock-muted">{["1月", "1月", "2月", "—", "3月"][i]}</span>
+        <div className="mock-board-cols">
+          {cols.map(([head, tone, notes]) => (
+            <div key={head}>
+              <span className={`mock-board-head ${tone}`}>{head}</span>
+              {notes.map((n, i) => (
+                <i key={n} className={`mock-note ${tone}`} style={{ rotate: `${[-2, 1.5, -1][i % 3]}deg` }}>
+                  {n}
+                </i>
+              ))}
             </div>
           ))}
         </div>
-        <div className="mock-legend">
-          <span><i className="mock-split is-auto">自動化</i></span>
-          <span><i className="mock-split is-mix">AIと人で分担</i></span>
-          <span><i className="mock-split is-human">人が判断</i></span>
-        </div>
-      </Win>
+      </div>
+      <div className="mock-plan mock-shadow mock-at-enable-plan">
+        <b className="mock-h">導入計画</b>
+        <div className="mock-plan-row"><span>業務整理</span><span className="mock-plan-track"><i style={{ left: "0%", width: "34%" }} /></span></div>
+        <div className="mock-plan-row"><span>小さく試す</span><span className="mock-plan-track"><i style={{ left: "30%", width: "38%" }} /></span></div>
+        <div className="mock-plan-row"><span>社内展開</span><span className="mock-plan-track"><i className="is-dark" style={{ left: "62%", width: "38%" }} /></span></div>
+        <div className="mock-plan-months"><span>1月</span><span>2月</span><span>3月</span></div>
+      </div>
     </Stage>
   );
 }
 
 export function ProductScreens() {
   return (
-    <Stage label="AIが候補を選び、合う理由を示すマッチング画面のイメージ">
-      <Laptop className="mock-at-product-laptop">
-        <div className="mock-app is-plain">
-          <div className="mock-app-main">
-            <div className="mock-row-between">
-              <b className="mock-h">新着の案件　Java / 物流システム</b>
-              <span className="mock-tag">AIが構造化済み</span>
-            </div>
-            <div className="mock-fields">
-              <span><small>言語</small>Java・Spring</span>
-              <span><small>期間</small>2月〜 長期</span>
-              <span><small>場所</small>リモート併用</span>
-              <span><small>人数</small>2名</span>
-            </div>
-            <div className="mock-match">
-              {[
-                ["候補 A", "92", "Java 7年・物流の業務経験あり"],
-                ["候補 B", "85", "Spring 経験・2月から参画可能"],
-                ["候補 C", "78", "リモート併用を希望"],
-              ].map(([n, s, why]) => (
-                <div key={n}>
-                  <b>{n}</b>
-                  <span className="mock-score">{s}</span>
-                  <small>{why}</small>
-                </div>
-              ))}
-            </div>
-          </div>
+    <Stage label="届いたメールの文章を、AIが項目に分けた案件カードと候補に変えるイメージ">
+      <div className="mock-mailcard mock-shadow mock-at-product-mail">
+        <div className="mock-mail-head">
+          <small>受信　11/18 09:12</small>
+          <b>【案件】物流システム開発（Java）2名</b>
         </div>
-      </Laptop>
-      <Phone className="mock-at-product-phone">
-        <div className="mock-phone-head">提案メール<b>AIの下書き</b></div>
-        <div className="mock-card mock-mail">
-          <small>件名：Java 案件のご提案</small>
-          <span>ご紹介いただいた物流システムの案件について、条件に合う候補をご提案します。</span>
+        <p>
+          お世話になっております。下記の案件で要員を探しております。<br />
+          言語：<mark>Java・Spring</mark>　期間：<mark>2月〜長期</mark><br />
+          場所：<mark>リモート併用</mark>　人数：<mark>2名</mark><br />
+          物流の業務経験がある方を歓迎します。
+        </p>
+      </div>
+      <span className="mock-arrow mock-at-product-arrow">AI</span>
+      <div className="mock-struct mock-shadow mock-at-product-struct">
+        <div className="mock-row-between">
+          <b className="mock-h">案件　物流システム</b>
+          <span className="mock-tag">自動で構造化</span>
         </div>
-        <div className="mock-tabs"><span className="is-on">下書き</span><span>送信</span></div>
-      </Phone>
+        <div className="mock-fields">
+          <span><small>言語</small>Java・Spring</span>
+          <span><small>期間</small>2月〜</span>
+          <span><small>場所</small>リモート併用</span>
+          <span><small>人数</small>2名</span>
+        </div>
+        <div className="mock-match">
+          {[
+            ["候補 A", "92", "Java 7年・物流の経験あり"],
+            ["候補 B", "85", "2月から参画できる"],
+          ].map(([n, sc, why]) => (
+            <div key={n}>
+              <b>{n}</b>
+              <span className="mock-score">{sc}</span>
+              <small>{why}</small>
+            </div>
+          ))}
+        </div>
+      </div>
     </Stage>
   );
 }
