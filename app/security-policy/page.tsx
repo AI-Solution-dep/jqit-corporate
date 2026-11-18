@@ -1,6 +1,7 @@
 import { PageHeader } from "@/components/layout/PageHeader";
 import { companySubNav, SubNav } from "@/components/layout/SubNav";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { PolicyDial } from "@/components/security/PolicyDial";
 import { Container } from "@/components/ui/Container";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { createPageMetadata, createWebPageJsonLd } from "@/lib/seo";
@@ -137,24 +138,13 @@ export default function SecurityPolicyPage() {
         <Container>
           {/* PC は左に目次（追従）、右に本文。本文は読みやすい幅に収める */}
           <div className="policy-layout">
-            <nav aria-label="目次" className="policy-toc">
-              <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-warm-ink">Contents</p>
-              <ol>
-                <li>
-                  <a href="#isms">ISMS 認証</a>
-                </li>
-                {sections.map((s, i) => (
-                  <li key={s.title}>
-                    <a href={`#policy-${i + 1}`}>
-                      <span className="tabular-nums">{i + 1}.</span> {s.title}
-                    </a>
-                  </li>
-                ))}
-                <li>
-                  <a href="#contact">お問い合わせ</a>
-                </li>
-              </ol>
-            </nav>
+            <PolicyDial
+              items={[
+                { id: "isms", icon: "shield", title: "ISMS 認証" },
+                ...sections.map((sec, i) => ({ id: `policy-${i + 1}`, no: i + 1, title: sec.title })),
+                { id: "contact", icon: "mail", title: "お問い合わせ" },
+              ]}
+            />
             <div className="policy-body">
           <FadeIn>
             <p className="text-[15px] leading-[2.1] text-body">
