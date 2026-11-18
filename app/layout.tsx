@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Anton, Inter, JetBrains_Mono, Noto_Sans_JP } from "next/font/google";
 import { SiteFooter } from "@/components/layout/SiteFooter";
+import { PageBackdrop } from "@/components/layout/PageBackdrop";
+import { PhotoSlide } from "@/components/ui/PhotoSlide";
 import { PublicSiteChrome } from "@/components/layout/PublicSiteChrome";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { GoogleAnalytics } from "@/components/seo/GoogleAnalytics";
@@ -210,12 +212,15 @@ export default function RootLayout({
         <JsonLd data={websiteJsonLd} />
         <a
           href="#main"
-          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded-card focus:bg-ink focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-white"
+          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded-button focus:bg-ink focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-white"
         >
           本文へスキップ
         </a>
         <PublicSiteChrome><SiteHeader /></PublicSiteChrome>
-        <main id="main" className="flex-1">
+        {/* relative + isolate：背景の図形（PageBackdrop）を本文の後ろ・ページの地の上に置くための重なり順の基準 */}
+        <main id="main" className="relative isolate flex-1">
+          <PageBackdrop />
+          <PhotoSlide />
           {children}
         </main>
         <PublicSiteChrome><SiteFooter /></PublicSiteChrome>

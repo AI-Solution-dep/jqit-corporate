@@ -5,12 +5,14 @@ import { DisplayText } from "@/components/ui/DisplayText";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { SectionHead } from "@/components/ui/SectionHead";
 
-const trustSignals = [
-  {
-    name: "106名の組織体制",
-    description: "IT・AIの両事業を支える組織",
-    meta: "2026年4月時点",
-  },
+const organization = {
+  figure: "106",
+  name: "106名の組織体制",
+  description: "IT・AIの両事業を支える組織",
+  meta: "2026年4月時点",
+};
+
+const certifications = [
   {
     name: "ISO/IEC 27001（ISMS）",
     description: "情報セキュリティ管理体制を構築・運用",
@@ -54,42 +56,42 @@ export function AboutSection() {
               </Button>
             </FadeIn>
           </div>
-          <FadeIn className="grid grid-cols-2 gap-px border border-line bg-line">
-            {trustSignals.map((signal) => (
-              <article
-                key={signal.name}
-                className="flex min-h-[190px] flex-col bg-white px-5 py-6 min-[720px]:min-h-[220px] min-[720px]:px-7 min-[720px]:py-8"
-              >
-                {"image" in signal ? (
+          {/* タイルに入れず、組織の規模は大きな数字、認証はロゴを罫線で区切った並びで見せる */}
+          <FadeIn className="trust-panel">
+            <div className="trust-figure">
+              <p className="trust-figure-number">
+                {organization.figure}
+                <small>名</small>
+              </p>
+              <div>
+                <h3 className="palt text-[17px] font-bold leading-[1.55] text-ink min-[720px]:text-[19px]">
+                  {organization.name}
+                </h3>
+                <p className="mt-1.5 text-[13px] leading-[1.8] text-body">
+                  {organization.description}
+                  <span className="ml-2 font-mono text-[10.5px] tracking-[0.1em] text-muted">
+                    {organization.meta}
+                  </span>
+                </p>
+              </div>
+            </div>
+            <ul className="trust-badges">
+              {certifications.map((c) => (
+                <li key={c.name}>
                   <div className="flex h-11 items-center">
                     <Image
-                      src={signal.image.src}
-                      alt={signal.name}
-                      width={signal.image.width}
-                      height={signal.image.height}
+                      src={c.image.src}
+                      alt={c.name}
+                      width={c.image.width}
+                      height={c.image.height}
                       className="max-h-10 w-auto max-w-full object-contain object-left"
                     />
                   </div>
-                ) : (
-                  <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-brand">
-                    Organization
-                  </p>
-                )}
-                <div className="mt-auto pt-6">
-                  <h3 className="palt text-[16px] font-bold leading-[1.55] text-ink min-[720px]:text-[18px]">
-                    {signal.name}
-                  </h3>
-                  <p className="mt-2 text-[12px] leading-[1.8] text-body min-[720px]:text-[13px]">
-                    {signal.description}
-                  </p>
-                  {"meta" in signal && (
-                    <p className="mt-2 font-mono text-[9.5px] tracking-[0.1em] text-muted">
-                      {signal.meta}
-                    </p>
-                  )}
-                </div>
-              </article>
-            ))}
+                  <h3 className="palt mt-4 text-[14.5px] font-bold leading-[1.55] text-ink">{c.name}</h3>
+                  <p className="mt-1 text-[12px] leading-[1.75] text-body">{c.description}</p>
+                </li>
+              ))}
+            </ul>
           </FadeIn>
         </div>
       </Container>

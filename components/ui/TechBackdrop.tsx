@@ -4,7 +4,7 @@
  */
 export function TechBackdrop() {
   return (
-    <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
+    <div aria-hidden data-tech-backdrop className="pointer-events-none absolute inset-0 overflow-hidden">
       {/* ドットグリッド（右上・左下にフェード配置） */}
       <div
         className="tech-dots absolute -top-10 right-0 h-[340px] w-[420px] opacity-60"

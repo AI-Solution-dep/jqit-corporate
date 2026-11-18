@@ -212,7 +212,7 @@ export function SiteHeader() {
 
         <Link
           href="/contact"
-          className="hidden items-center gap-2 whitespace-nowrap rounded-card bg-brand px-5 py-[11px] text-[13px] font-semibold text-white transition-colors hover:bg-brand-dark min-[960px]:inline-flex"
+          className="hidden items-center gap-2 whitespace-nowrap rounded-button bg-brand px-5 py-[11px] text-[13px] font-semibold text-white transition-colors hover:bg-brand-dark min-[960px]:inline-flex"
         >
           お問い合わせ
           <span aria-hidden className="font-mono text-[13px]">
@@ -315,7 +315,7 @@ export function SiteHeader() {
           <Link
             href="/contact"
             onClick={close}
-            className="mt-9 flex items-center justify-center gap-2 rounded-card bg-brand px-5 py-4 text-[15px] font-semibold text-white"
+            className="mt-9 flex items-center justify-center gap-2 rounded-button bg-brand px-5 py-4 text-[15px] font-semibold text-white"
           >
             お問い合わせ
             <span aria-hidden className="font-mono">

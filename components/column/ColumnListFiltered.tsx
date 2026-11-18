@@ -48,10 +48,10 @@ export function ColumnListFiltered({ items }: { items: Item[] }) {
                 type="button"
                 aria-pressed={selected}
                 onClick={() => setActive(t)}
-                className={`rounded-card border px-3.5 py-1.5 font-mono text-[12px] tracking-[0.06em] transition-colors ${
+                className={`rounded-button border px-3.5 py-1.5 font-mono text-[12px] tracking-[0.06em] transition-colors ${
                   selected
-                    ? "border-brand bg-brand font-semibold text-white"
-                    : "border-line text-muted hover:border-brand hover:text-brand"
+                    ? "border-warm-strong bg-warm-strong font-semibold text-white"
+                    : "border-line text-muted hover:border-warm hover:text-warm-ink"
                 }`}
               >
                 {t}
@@ -61,12 +61,13 @@ export function ColumnListFiltered({ items }: { items: Item[] }) {
         </div>
       )}
 
-      <div className="mt-7 grid grid-cols-1 gap-[18px] min-[900px]:grid-cols-2">
+      {/* 箱にせず、左に日付・タグ、右に本文の2列の行で並べる（globals.css の .column-editorial-*） */}
+      <div className="column-editorial-list mt-7">
         {shown.map((c) => (
           <Link
             key={c.id}
             href={`/column/${c.id}`}
-            className="brand-line-card group flex flex-col rounded-card border border-line px-6 py-7 min-[720px]:px-7"
+            className="column-editorial-entry group"
           >
             <span className="flex flex-wrap items-center gap-x-3 gap-y-2">
               <time
@@ -78,14 +79,14 @@ export function ColumnListFiltered({ items }: { items: Item[] }) {
               {c.tags.slice(0, 3).map((tag) => (
                 <span
                   key={tag}
-                  className="rounded-card border border-line px-2.5 py-[3px] text-[11px] font-semibold tracking-[0.06em] text-muted"
+                  className="rounded-label border border-line px-2.5 py-[3px] text-[11px] font-semibold tracking-[0.06em] text-muted"
                 >
                   {tag}
                 </span>
               ))}
             </span>
 
-            <span className="palt mt-3.5 text-[21px] font-bold leading-[1.5] tracking-[-0.02em] text-ink transition-colors group-hover:text-brand min-[720px]:text-[22px]">
+            <span className="palt mt-3.5 text-[21px] font-bold leading-[1.5] tracking-[-0.02em] text-ink transition-colors group-hover:text-warm-ink min-[720px]:text-[22px]">
               {c.title}
             </span>
 
@@ -95,7 +96,7 @@ export function ColumnListFiltered({ items }: { items: Item[] }) {
               </span>
             )}
 
-            <span className="mt-5 inline-flex items-center gap-2 font-mono text-[12px] font-semibold tracking-[0.12em] text-ink transition-colors group-hover:text-brand">
+            <span className="mt-5 inline-flex items-center gap-2 font-mono text-[12px] font-semibold tracking-[0.12em] text-ink transition-colors group-hover:text-warm-ink">
               続きを読む
               <span
                 aria-hidden

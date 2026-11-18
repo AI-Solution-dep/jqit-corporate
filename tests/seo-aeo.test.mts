@@ -14,7 +14,7 @@ test("SEO-01 uses a lightweight default social image instead of the legacy 6MB P
 test("SEO-02 service and about pages publish page-specific social images", () => {
   assert.match(read("app/about/page.tsx"), /url: "\/natural-tech-about\.webp"/);
   assert.match(read("app/business/it-solutions/page.tsx"), /url: "\/natural-tech-it\.webp"/);
-  assert.match(read("app/business/ai-solutions/page.tsx"), /url: "\/natural-tech-ai\.webp"/);
+  assert.match(read("app/business/ai-solutions/page.tsx"), /url: "\/business-ai-hero\.webp"/);
 });
 
 test("AEO-01 explicitly allows answer-engine crawlers", () => {

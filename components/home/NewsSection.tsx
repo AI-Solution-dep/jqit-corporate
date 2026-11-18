@@ -33,7 +33,7 @@ export async function NewsSection() {
             </p>
             <Link
               href="/news"
-              className="group mt-7 inline-flex items-center gap-2.5 font-mono text-[13px] font-semibold tracking-[0.12em] text-ink transition-colors hover:text-brand"
+              className="group mt-7 inline-flex items-center gap-2.5 font-mono text-[13px] font-semibold tracking-[0.12em] text-ink transition-colors hover:text-warm-ink"
             >
               すべてのニュース
               <span
@@ -51,7 +51,7 @@ export async function NewsSection() {
               <Link
                 key={n.id}
                 href={`/news/${n.id}`}
-                className="group grid grid-cols-[auto_auto_1fr] items-center gap-x-4 gap-y-3 border-b border-line px-1 py-[18px] transition-colors hover:bg-cream min-[720px]:grid-cols-[84px_112px_96px_1fr_auto] min-[720px]:gap-5 min-[720px]:py-[22px]"
+                className="group grid grid-cols-[auto_auto_1fr] items-center gap-x-4 gap-y-3 border-b border-line px-1 py-[18px] transition-[background-color,box-shadow] duration-300 hover:bg-white hover:shadow-hover-lift min-[720px]:grid-cols-[84px_112px_96px_1fr_auto] min-[720px]:gap-5 min-[720px]:py-[22px]"
               >
                 {n.eyecatch ? (
                   <span className="relative col-span-3 block aspect-[16/10] overflow-hidden bg-cream min-[720px]:col-span-1 min-[720px]:h-[52px] min-[720px]:w-[78px]">
@@ -71,7 +71,7 @@ export async function NewsSection() {
                 <span className="font-mono text-[13px] tracking-[0.06em] text-muted">
                   {formatNewsDate(n.date)}
                 </span>
-                <span className="justify-self-start rounded-card border border-brand px-2.5 py-[3px] text-[11px] font-semibold tracking-[0.06em] text-brand">
+                <span className="justify-self-start rounded-label border border-warm px-2.5 py-[3px] text-[11px] font-semibold tracking-[0.06em] text-warm-ink">
                   {n.category}
                 </span>
                 <span className="col-span-3 text-[15px] leading-[1.7] text-ink min-[720px]:col-span-1">

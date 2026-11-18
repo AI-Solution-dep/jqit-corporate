@@ -11,6 +11,7 @@ export function PurposeBand() {
         width={1915}
         height={821}
         sizes="100vw"
+        data-photo-slide
         className="h-[320px] w-full object-cover object-[32%_center] min-[720px]:h-[400px]"
       />
       <div
@@ -23,7 +24,7 @@ export function PurposeBand() {
             {/* 写真の明暗ムラに左右されないよう、テキスト全体を均一なパネルで覆う */}
             <div className="inline-block rounded-card bg-ink/70 px-7 py-6 backdrop-blur-[2px] min-[720px]:px-9 min-[720px]:py-8">
               <p className="mb-4 inline-flex items-center gap-2.5">
-                <span aria-hidden className="inline-block h-0.5 w-6 bg-brand" />
+                <span aria-hidden className="inline-block h-0.5 w-6 bg-warm" />
                 <span className="font-mono text-[11px] uppercase tracking-[0.24em] text-white/70">
                   Our Purpose
                 </span>

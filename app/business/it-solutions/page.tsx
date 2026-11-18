@@ -1,11 +1,11 @@
 import Image from "next/image";
 import { NextBusinessBand } from "@/components/business/NextBusinessBand";
+import { DevScreens, InfraScreens, QaScreens } from "@/components/business/ScreenMocks";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { businessSubNav, SubNav } from "@/components/layout/SubNav";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { ServiceFaq, type ServiceFaqItem } from "@/components/seo/ServiceFaq";
 import { Container } from "@/components/ui/Container";
-import { DisplayText } from "@/components/ui/DisplayText";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { Kicker } from "@/components/ui/Kicker";
 import { SectionHead } from "@/components/ui/SectionHead";
@@ -32,53 +32,69 @@ const facts = [
   { label: "QA Partnership", value: "ISTQB® Gold", note: "パートナー" },
 ];
 
-/** SES の提供内容。ページ内 #ses セクションの本体 */
-const sesFeatures = [
-  "常駐による迅速な意思疎通とスピード感",
-  "業務の拡大・縮小に合わせて必要な期間だけ提供",
-  "業務範囲に応じた体制を編成（単一工程からチーム体制まで）",
-  "開発・インフラ・QAを組み合わせた体制も可能",
-];
-
-/** 受託開発（SI）の提供内容。ページ内 #contract-development セクションの本体 */
-const siFeatures = [
-  "要件定義から運用保守までの一括対応",
-  "設計・検証・導入など一部工程からの参画も可能",
-  "Web・業務系システム開発が主軸",
-];
-
 /** サービス領域（既存HPの実コンテンツ） */
 const fields = [
   {
-    no: "01",
+    id: "development",
     title: "システム＆アプリ開発",
     en: "Development",
+    screens: DevScreens,
+    stack: "Kotlin · Swift · Java · TypeScript · React · Next.js",
     tags: ["Web系", "スマホアプリ", "社内システム"],
+    can: ["スマートフォンアプリ（iOS・Android）の開発", "Webアプリケーション・Web API の開発", "既存システムの改修・保守"],
     body: "Web系、スマホアプリ、社内システム系などのソフトウェアを要件定義・設計・コーディング・テスト・保守運用まで行います。フロントエンドやサーバサイドのプログラマーはもちろん、システムエンジニアも多数在籍しています。",
   },
   {
-    no: "02",
+    id: "infrastructure",
     title: "インフラ（サーバ / ネットワーク）",
     en: "Infrastructure",
+    screens: InfraScreens,
+    stack: "AWS · Linux · Network · Middleware · Monitoring",
     tags: ["ネットワーク", "サーバ", "ミドルウェア", "監視"],
+    can: ["AWS・Linux 環境の設計・構築", "ネットワーク・ミドルウェアの導入", "運用保守・監視"],
     body: "要件定義からシステムの規模や環境に合わせて、ネットワーク・サーバ・ミドルウェアの導入や企画、設計から運用保守、監視業務まで、ITインフラにかかわる業務を幅広く担います。",
   },
   {
-    no: "03",
+    id: "qa",
     title: "QA（第三者検証）",
     en: "Quality Assurance",
+    screens: QaScreens,
+    stack: "Test Planning · Playwright · Mobile Devices",
     tags: ["第三者検証", "ユーザー観点", "網羅的なテスト・評価"],
+    can: ["テスト計画・テスト管理", "テスト自動化（Playwright）", "ユーザー観点での評価"],
     body: "開発者や運用者とは異なる第三者が、設計通りに正しく動作するかをテストし、システムの品質を評価します。不具合やユーザー観点の問題箇所を効率的かつ網羅的に見つけ出し、テスト・評価を繰り返すことでより高品質なシステムを作り上げます。",
+  },
+];
+
+/** 実績のある技術領域（会社・案件単位ではなく、技術・対象の領域で。2026-11-18 オーナー確認。経験の多いものから順に） */
+const techAreas = [
+  { label: "業界", en: "Industries", items: ["金融", "物流", "メーカー"], lead: true },
+  { label: "開発", en: "Development", items: ["スマートフォンアプリ", "Webアプリケーション", "Web API", "社内業務システム", "業務系パッケージ"] },
+  { label: "言語・フレームワーク", en: "Languages", items: ["Kotlin", "Swift", "Java", "Python", "TypeScript", "React", "Next.js"] },
+  { label: "クラウド・インフラ", en: "Cloud & Infra", items: ["AWS", "Linux", "ネットワーク", "サーバ", "ミドルウェア", "運用監視"] },
+  {
+    label: "品質保証",
+    en: "Quality",
+    items: [
+      "テスト計画",
+      "テスト管理",
+      "テスト自動化（Playwright）",
+      "第三者検証",
+      "セキュリティ製品の品質管理",
+      "モバイル端末の検証",
+      "交通系（駅構内）システムの検証",
+      "保険システムの検証",
+    ],
   },
 ];
 
 /** 開発の流れ（一括でも一部工程からでも） */
 const steps = [
-  { no: "01", title: "要件定義", body: "課題と要望を整理し、システムの要件を定義します。" },
-  { no: "02", title: "設計", body: "システムの規模・環境に合わせて設計します。" },
-  { no: "03", title: "開発・構築", body: "アプリケーション開発とインフラ構築を進めます。" },
-  { no: "04", title: "検証・テスト", body: "第三者の視点で品質をテスト・評価します。" },
-  { no: "05", title: "導入・運用保守", body: "リリース後の保守・運用・監視まで担います。" },
+  { title: "要件定義", body: "課題と要望を整理し、システムの要件を定義します。" },
+  { title: "設計", body: "システムの規模・環境に合わせて設計します。" },
+  { title: "開発・構築", body: "アプリケーション開発とインフラ構築を進めます。" },
+  { title: "検証・テスト", body: "第三者の視点で品質をテスト・評価します。" },
+  { title: "導入・運用保守", body: "リリース後の保守・運用・監視まで担います。" },
 ];
 
 const strengths = [
@@ -91,15 +107,6 @@ const strengths = [
     body: "システムエンジニアやプログラマーはもちろん、ネットワーク・インフラエンジニアや検証業務に豊富な知識を持つテストエンジニアなど、各専門分野に特化した高い技術力・生産性の体制を構築しています。",
   },
 ];
-
-/** 旧コーポレートサイトで公開していた、守秘義務に配慮したQA実績 */
-const qaProjectExamples = [
-  "セキュリティ製品の品質管理",
-  "業務系パッケージシステムの検証",
-  "次世代携帯端末の検証",
-  "駅構内システムの検証",
-  "保険システムの検証",
-] as const;
 
 const faqs: readonly ServiceFaqItem[] = [
   {
@@ -244,7 +251,7 @@ export default function ItSolutionsPage() {
                 APIなどをメインとした業務系システムの開発を行っています。設計・開発・構築・検証・導入・保守・運用などを一括、または一部からでもお請けします。
               </p>
             </FadeIn>
-            <FadeIn className="relative">
+            <FadeIn className="photo-curve relative overflow-hidden">
               <Image
                 src="/natural-tech-it.webp"
                 alt="自然光の入るオフィスでシステム設計を議論するエンジニア"
@@ -252,14 +259,9 @@ export default function ItSolutionsPage() {
                 height={1086}
                 priority
                 sizes="(min-width: 1024px) 45vw, 100vw"
-                className="h-auto w-full rounded-xl object-cover"
+                data-photo-slide
+                className="h-auto w-full object-cover"
               />
-              <span
-                aria-hidden
-                className="absolute -bottom-5 left-6 font-anton text-[72px] leading-none text-brand [text-shadow:0_0_2px_rgba(255,255,255,0.9),0_0_18px_rgba(255,255,255,0.95)] min-[720px]:text-[92px]"
-              >
-                01
-              </span>
             </FadeIn>
           </div>
 
@@ -287,223 +289,128 @@ export default function ItSolutionsPage() {
         </Container>
       </section>
 
-      {/* SES — 主力の提供形態。ページ内アンカー #ses で単体参照できるようにする */}
-      <section
-        id="ses"
-        className="relative overflow-hidden border-t border-line bg-cream py-20 min-[720px]:py-[96px] scroll-mt-24"
-      >
-        <div className="pointer-events-none absolute -top-3 right-0">
-          <DisplayText size="md">SES</DisplayText>
-        </div>
-        <Container className="relative">
-          <SectionHead
-            kicker="SES — System Engineering Service"
-            title={
-              <>
-                チームに、<span className="text-brand">技術</span>を加える。
-              </>
-            }
-            lead="SES（システムエンジニアリングサービス）は、エンジニアがお客様のプロジェクトに常駐・準委任で参画し、システム開発・保守・運用を支援する法人向けのサービスです。開発の技術支援も、インフラ運用やQAのアウトソーシングも、ご依頼の業務範囲に応じて当社が体制を編成します。"
-            className="mb-12"
-          />
-          <FadeIn className="brand-line-card border border-line bg-white px-8 py-10 min-[720px]:px-10 min-[720px]:py-12">
-            <ul className="grid grid-cols-1 gap-x-10 border-t border-line min-[900px]:grid-cols-2">
-              {sesFeatures.map((f) => (
-                <li
-                  key={f}
-                  className="flex items-baseline gap-3.5 border-b border-line py-3.5 text-[13.5px] leading-[1.8] text-ink"
-                >
-                  <span aria-hidden className="h-px w-4 shrink-0 translate-y-[-3px] bg-brand" />
-                  {f}
-                </li>
-              ))}
-            </ul>
-          </FadeIn>
-
-        </Container>
-      </section>
-
-      {/* 受託開発（SI） — ページ内アンカー #contract-development */}
-      <section
-        id="contract-development"
-        className="relative overflow-hidden border-t border-line bg-paper py-20 min-[720px]:py-[96px] scroll-mt-24"
-      >
-        <div className="pointer-events-none absolute -top-3 right-0">
-          <DisplayText size="md">SI</DisplayText>
-        </div>
-        <Container className="relative">
-          <SectionHead
-            kicker="SI — System Integration"
-            title={
-              <>
-                プロジェクトごと、<span className="text-brand">任せる</span>。
-              </>
-            }
-            lead="システム構築の要件定義から運用保守までを一括してお請けする受託開発です。WebアプリケーションやWeb APIをメインとした業務系システムの開発を得意としています。要件が固まっていない段階からのご相談にも対応します。"
-            className="mb-12"
-          />
-          <FadeIn className="brand-line-card border border-line bg-white px-8 py-10 min-[720px]:px-10 min-[720px]:py-12">
-            <ul className="grid grid-cols-1 gap-x-10 border-t border-line min-[900px]:grid-cols-2">
-              {siFeatures.map((f) => (
-                <li
-                  key={f}
-                  className="flex items-baseline gap-3.5 border-b border-line py-3.5 text-[13.5px] leading-[1.8] text-ink"
-                >
-                  <span aria-hidden className="h-px w-4 shrink-0 translate-y-[-3px] bg-brand" />
-                  {f}
-                </li>
-              ))}
-            </ul>
-          </FadeIn>
-        </Container>
-      </section>
-
-      {/* FIELDS — サービス領域 */}
-      <section className="relative overflow-hidden bg-paper py-20 min-[720px]:py-[96px]">
+      {/* WHAT WE DO — できること。契約の形（SES／受託）で分けず、開発・インフラ・品質保証の3つで見せる。
+          進め方（一括でも、必要な工程・期間だけでも）は導入文に一言で。
+          #ses / #contract-development は TOP などからのリンク先なので、この節に残す */}
+      <section id="ses" className="scroll-mt-24 border-t border-line bg-cream py-20 min-[720px]:py-[96px]">
+        <span id="contract-development" className="block scroll-mt-24" aria-hidden />
         <Container>
           <SectionHead
-            kicker="Service Domain"
-            title="サービス領域"
-            lead="開発・インフラ・品質保証。システムのライフサイクル全体を、専門特化したエンジニアが支えます。"
+            kicker="What We Do"
+            title={
+              <>
+                開発・インフラ・QAを、
+                <br />
+                <span className="text-brand">ひとつのチーム</span>で。
+              </>
+            }
+            lead="システムの開発・インフラ・品質保証を、要件定義から運用保守まで。一括でも、必要な工程・期間だけでも、チームでお請けします。"
             className="mb-4"
           />
-          <div>
+          {/* 領域ごとに、文章と「作る物」の画面モックを左右に並べる（画面は架空のイメージ） */}
+          <div className="mt-10">
             {fields.map((f) => (
-              <FadeIn
-                key={f.no}
-                className="brand-line-row group grid grid-cols-1 gap-4 border-b border-line py-9 first:border-t min-[900px]:grid-cols-[120px_1.1fr_1.3fr] min-[900px]:gap-10 min-[900px]:py-11"
-              >
-                <span
-                  aria-hidden
-                  className="brand-line-no font-anton text-[44px] leading-[0.9] text-ink/15 transition-colors duration-300 group-hover:text-brand min-[900px]:text-[56px]"
-                >
-                  {f.no}
-                </span>
+              <FadeIn key={f.en} id={f.id} className="biz-row scroll-mt-24">
                 <div>
-                  <p className="mb-2 font-mono text-[10px] uppercase tracking-[0.2em] text-muted">
-                    {f.en}
-                  </p>
-                  <h3 className="brand-line-label palt text-[21px] font-bold leading-[1.5] tracking-[-0.01em] text-ink min-[720px]:text-[24px]">
+                  <p className="mb-2 font-mono text-[11px] uppercase tracking-[0.16em] text-warm-ink">{f.en}</p>
+                  <h3 className="palt text-[22px] font-bold leading-[1.5] tracking-[-0.01em] text-ink min-[720px]:text-[26px]">
                     {f.title}
                   </h3>
-                  <div className="mt-4 flex flex-wrap gap-2">
-                    {f.tags.map((t) => (
-                      <span
-                        key={t}
-                        className="rounded-card border border-line px-2.5 py-1 text-[11px] font-semibold tracking-[0.02em] text-body"
-                      >
-                        {t}
-                      </span>
+                  <p className="mt-4 text-[14px] leading-[2.05] text-body">{f.body}</p>
+                  <ul className="biz-points">
+                    {f.can.map((c) => (
+                      <li key={c}>{c}</li>
                     ))}
-                  </div>
+                  </ul>
+                  <p className="mt-4 font-mono text-[11.5px] tracking-[0.06em] text-muted">{f.stack}</p>
                 </div>
-                <p className="text-[14px] leading-[2.05] text-body">{f.body}</p>
+                <f.screens />
               </FadeIn>
             ))}
           </div>
         </Container>
       </section>
 
-      {/* EXPERIENCE — 実務経験を検索・AI回答エンジンが抽出しやすい形で提示 */}
+      {/* EXPERIENCE — 実績は会社・案件ではなく、経験のある技術領域で。会社概要と同じ「項目｜内容」の表 */}
       <section className="border-t border-line bg-paper py-20 min-[720px]:py-[92px]">
         <Container>
           <SectionHead
-            kicker="Project Experience"
-            title="QA・第三者検証のプロジェクト実績"
-            lead="守秘義務に配慮し、公開可能な範囲で業種・検証領域のみ掲載しています。"
+            kicker="Experience"
+            title={
+              <>
+                実績のある<span className="text-brand">技術領域</span>
+              </>
+            }
+            lead="これまでに担当してきた技術・対象の領域です。守秘義務に配慮し、お客様名・案件名は掲載していません。"
             className="mb-10"
           />
           <FadeIn>
-            <ul className="grid grid-cols-1 gap-px border border-line bg-line min-[720px]:grid-cols-2">
-              {qaProjectExamples.map((project, index) => (
-                <li
-                  key={project}
-                  className={`flex items-baseline gap-4 bg-white px-6 py-5 ${
-                    index === qaProjectExamples.length - 1
-                      ? "min-[720px]:col-span-2"
-                      : ""
-                  }`}
-                >
-                  <span className="font-mono text-[11px] font-semibold text-brand">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-                  <span className="text-[14px] font-semibold leading-[1.8] text-ink">
-                    {project}
-                  </span>
-                </li>
+            <dl className="tech-table">
+              {techAreas.map((area) => (
+                <div key={area.label}>
+                  <dt>
+                    {area.label}
+                    <small>{area.en}</small>
+                  </dt>
+                  <dd className={area.lead ? "is-lead palt" : "palt"}>
+                    {area.items.map((it) => (
+                      <span key={it}>{it}</span>
+                    ))}
+                  </dd>
+                </div>
               ))}
-            </ul>
+            </dl>
+            <p className="mt-4 text-[12.5px] text-muted">画面はいずれも説明用のイメージです。</p>
           </FadeIn>
         </Container>
       </section>
 
-      {/* PROCESS — 開発の流れ */}
+      {/* PROCESS — 開発の流れ。番号や円は使わず、左から右へ読む5列 */}
       <section className="border-t border-line bg-cream py-20 min-[720px]:py-[96px]">
         <Container>
           <SectionHead
             kicker="Process"
             title="開発の流れ"
             lead="すべての工程を一括でも、検証のみ・運用のみといった一部の工程からでもお請けできます。"
-            className="mb-12"
+            className="mb-10"
           />
-          <FadeIn className="grid grid-cols-1 gap-px border border-line bg-line min-[720px]:grid-cols-2 min-[1024px]:grid-cols-5">
-            {steps.map((s, i) => (
-              <div
-                key={s.no}
-                className={`brand-line-card relative bg-white px-6 py-7 min-[1024px]:px-5 ${
-                  i === steps.length - 1
-                    ? "min-[720px]:col-span-2 min-[1024px]:col-span-1"
-                    : ""
-                }`}
-              >
-                <div className="flex items-baseline justify-between">
-                  <span className="brand-line-no font-mono text-[13px] font-semibold text-brand">
-                    {s.no}
-                  </span>
-                  {/* 矢印は横並び（5カラム）時のみ。縦積みでは視線の流れと矛盾するため隠す */}
-                  {i < steps.length - 1 && (
-                    <span
-                      aria-hidden
-                      className="hidden font-mono text-[13px] text-muted/50 min-[1024px]:inline"
-                    >
-                      →
-                    </span>
-                  )}
-                </div>
-                <h3 className="brand-line-label palt mt-3.5 text-[16px] font-bold text-ink">
-                  {s.title}
-                </h3>
-                <p className="mt-2.5 text-[12.5px] leading-[1.9] text-muted">{s.body}</p>
-              </div>
-            ))}
+          <FadeIn>
+            <ol className="flow-steps">
+              {steps.map((s) => (
+                <li key={s.title}>
+                  <h3 className="palt">{s.title}</h3>
+                  <p>{s.body}</p>
+                </li>
+              ))}
+            </ol>
           </FadeIn>
         </Container>
       </section>
 
       {/* STRENGTHS — ダークバンド */}
       <section className="relative overflow-hidden bg-ink py-20 text-white min-[720px]:py-[96px]">
-        <div className="pointer-events-none absolute -bottom-2 right-0 min-[720px]:-bottom-4">
-          <DisplayText tone="white">STRENGTH</DisplayText>
-        </div>
         <Container className="relative">
-          <p className="mb-4 flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.2em] text-brand">
-            <span aria-hidden className="h-px w-6 bg-brand" />
+          <p className="mb-4 flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.2em] text-warm">
+            <span aria-hidden className="h-px w-6 bg-warm" />
             Our Strengths
           </p>
           <h2 className="palt text-[28px] font-bold leading-[1.4] tracking-[-0.02em] min-[720px]:text-[36px]">
             選ばれ続ける、理由。
           </h2>
-          <div className="mt-12 grid grid-cols-1 gap-px border border-white/15 bg-white/15 min-[900px]:grid-cols-2">
-            {strengths.map((s) => (
-              <FadeIn key={s.title} className="bg-ink px-8 py-9 min-[720px]:px-10 min-[720px]:py-11">
-                <h3 className="palt text-[20px] font-bold leading-[1.5]">{s.title}</h3>
-                <p className="mt-4 text-[14px] leading-[2.1] text-white/75">{s.body}</p>
+          {/* 箱や円にせず、大きな見出しと短い文の2段で見せる */}
+          <div className="strength-cols">
+            {strengths.map((st) => (
+              <FadeIn key={st.title} className="strength-col">
+                <h3 className="palt text-[26px] font-bold leading-[1.4] min-[720px]:text-[32px]">{st.title}</h3>
+                <p className="mt-4 text-[14px] leading-[2.05] text-white/78">{st.body}</p>
               </FadeIn>
             ))}
           </div>
-          <p className="mt-8 font-mono text-[11px] tracking-[0.12em] text-white/50">
-            ISO/IEC 27001（ISMS）／ ISTQB® Gold パートナー ／ DX認定
-          </p>
+          <ul className="strength-certs" aria-label="認証・パートナー">
+            {["ISO/IEC 27001（ISMS）", "ISTQB® Gold パートナー", "DX認定"].map((c) => (
+              <li key={c}>{c}</li>
+            ))}
+          </ul>
         </Container>
       </section>
 
@@ -511,7 +418,6 @@ export default function ItSolutionsPage() {
 
       {/* NEXT — AIソリューション事業へ */}
       <NextBusinessBand
-        no="02"
         en="AI Solutions"
         title="AIソリューション事業"
         href="/business/ai-solutions"

@@ -1,12 +1,12 @@
 import Image from "next/image";
 import { NextBusinessBand } from "@/components/business/NextBusinessBand";
+import { AgentScreens, EnablementScreens, ProductScreens } from "@/components/business/ScreenMocks";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { businessSubNav, SubNav } from "@/components/layout/SubNav";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { ServiceFaq, type ServiceFaqItem } from "@/components/seo/ServiceFaq";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
-import { DisplayText } from "@/components/ui/DisplayText";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { Kicker } from "@/components/ui/Kicker";
 import { SectionHead } from "@/components/ui/SectionHead";
@@ -19,10 +19,10 @@ export const metadata = createPageMetadata({
     "AIエージェント・RAG・チャットボットの受託開発と、AI導入支援・内製化支援を法人向けに提供します。自社でAIプロダクト「NOVA」を開発・運用する知見をもとに、課題整理から設計・開発・運用・社内定着まで伴走。財界 BEST AI 100 選出、経済産業省DX認定、ISO/IEC 27001認証取得。",
   path: "/business/ai-solutions",
   image: {
-    url: "/natural-tech-ai.webp",
-    width: 1448,
-    height: 1086,
-    alt: "AIデータ可視化を前に分析するJQITのメンバー",
+    url: "/business-ai-hero.webp",
+    width: 1536,
+    height: 1024,
+    alt: "ロボットがタブレットを持ち、チャット画面のノートPCや書類が並ぶ立体イラスト",
   },
 });
 
@@ -36,8 +36,8 @@ const facts = [
 /** 提供サービス */
 const services = [
   {
-    no: "01",
     id: "ai-agent",
+    screens: AgentScreens,
     en: "AI Agent Development",
     title: "AIエージェント開発・RAG構築",
     lead: "AIエージェント、RAG、チャットボット、AIを組み込んだ業務アプリケーションを、法人向けに受託開発します。要件整理から設計・開発・運用まで一気通貫で対応します。",
@@ -53,8 +53,8 @@ const services = [
     ],
   },
   {
-    no: "02",
     id: "ai-consulting",
+    screens: EnablementScreens,
     en: "AI Enablement",
     title: "AI導入支援・AI推進コンサル事業",
     lead: "AIエージェントの導入支援を中心に、業務自動化・効率化を内製化して実現していくための伴走支援を行います。",
@@ -68,11 +68,10 @@ const services = [
         body: "現場が自走して改善を続けられるよう、業務整理、活用ルール、運用設計、社内展開まで支援します。",
       },
     ],
-    tags: ["AIエージェント", "業務自動化", "内製化支援", "AI推進体制"],
   },
   {
-    no: "03",
     id: "ai-product",
+    screens: ProductScreens,
     en: "AI Product",
     title: "AIサービス開発",
     lead: "NOVAをはじめとしたAIサービスの企画・開発を通じて、現場の生産性を高めるプロダクトを継続的に生み出します。",
@@ -89,14 +88,8 @@ const services = [
   },
 ];
 
-/** NOVA が一元管理する領域（製品の実機能） */
-const novaFeatures = [
-  "メール自動取込",
-  "AI 2段階マッチング",
-  "案件・人材・BP管理",
-  "契約終了アラート",
-  "提案メールAI起草",
-];
+/** NOVA の流れ（メール1通が提案になるまで。製品の実機能） */
+const novaFlow = ["メール自動取込", "AIが構造化", "2段階マッチング", "提案メールAI起草"];
 
 const faqs: readonly ServiceFaqItem[] = [
   {
@@ -234,35 +227,18 @@ export default function AiSolutionsPage() {
               <p className="mt-7 max-w-[520px] text-[15px] leading-[2.1] text-body">
                 AIシステムの受託開発、AI導入支援・AI推進コンサル、AIサービス開発の3つの領域で、企業のAI活用を支援します。大規模言語モデルやAIエージェントを中心に、導入の伴走から自社サービス開発まで一貫して対応します。
               </p>
-              <div className="mt-7 flex flex-wrap gap-2">
-                {["AI受託開発", "AIエージェント導入", "業務自動化", "内製化支援", "NOVA"].map(
-                  (t) => (
-                    <span
-                      key={t}
-                      className="rounded-card border border-line px-2.5 py-1 text-[11px] font-semibold tracking-[0.02em] text-body"
-                    >
-                      {t}
-                    </span>
-                  ),
-                )}
-              </div>
             </FadeIn>
-            <FadeIn className="relative">
+            <FadeIn className="photo-curve relative overflow-hidden">
+              {/* AI ページは立体イラストで親しみやすく見せる（2026-11-18 オーナー確認。IT ページは画面と構成図で堅実に見せ、役割を分ける） */}
               <Image
-                src="/natural-tech-ai.webp"
-                alt="AIデータ可視化を前に分析するメンバー"
-                width={1448}
-                height={1086}
+                src="/business-ai-hero.webp"
+                alt="ロボットがタブレットを持ち、チャット画面のノートPCや書類が並ぶ立体イラスト"
+                width={1536}
+                height={1024}
                 priority
                 sizes="(min-width: 1024px) 45vw, 100vw"
-                className="h-auto w-full rounded-xl object-cover"
+                className="h-auto w-full object-cover"
               />
-              <span
-                aria-hidden
-                className="absolute -bottom-5 right-6 font-anton text-[72px] leading-none text-brand [text-shadow:0_0_2px_rgba(255,255,255,0.9),0_0_18px_rgba(255,255,255,0.95)] min-[720px]:text-[92px]"
-              >
-                02
-              </span>
             </FadeIn>
           </div>
 
@@ -292,9 +268,6 @@ export default function AiSolutionsPage() {
 
       {/* SERVICES — 提供サービス */}
       <section className="relative overflow-hidden border-t border-line bg-cream py-20 min-[720px]:py-[96px]">
-        <div className="pointer-events-none absolute -top-3 right-0">
-          <DisplayText size="md">SERVICES</DisplayText>
-        </div>
         <Container className="relative">
           <SectionHead
             kicker="Service"
@@ -306,76 +279,40 @@ export default function AiSolutionsPage() {
             lead="AIシステムの受託開発、AI導入・推進の伴走、自社AIサービスの開発。企業のAI活用を実装と運用の両面から支援します。"
             className="mb-4"
           />
-          <div>
+          {/* 領域ごとに、文章と画面モックを左右に並べる（IT ソリューションと同じ作り。画面は架空のイメージ） */}
+          <div className="mt-10">
             {services.map((s) => (
-              <FadeIn
-                key={s.no}
-                id={s.id}
-                className="brand-line-row group grid scroll-mt-24 grid-cols-1 gap-5 border-b border-line py-10 first:border-t min-[900px]:grid-cols-[120px_1.05fr_1.35fr] min-[900px]:gap-10 min-[900px]:py-12"
-              >
-                <span
-                  aria-hidden
-                  className="brand-line-no font-anton text-[44px] leading-[0.9] text-ink/15 transition-colors duration-300 group-hover:text-brand min-[900px]:text-[56px]"
-                >
-                  {s.no}
-                </span>
+              <FadeIn key={s.en} id={s.id} className="biz-row scroll-mt-24">
                 <div>
-                  <p className="mb-2 font-mono text-[10px] uppercase tracking-[0.2em] text-muted">
-                    {s.en}
-                  </p>
-                  <h3 className="brand-line-label palt text-[21px] font-bold leading-[1.5] tracking-[-0.01em] text-ink min-[720px]:text-[24px]">
+                  <p className="mb-2 font-mono text-[11px] uppercase tracking-[0.16em] text-warm-ink">{s.en}</p>
+                  <h3 className="palt text-[22px] font-bold leading-[1.5] tracking-[-0.01em] text-ink min-[720px]:text-[26px]">
                     {s.title}
                   </h3>
                   <p className="mt-4 text-[14px] leading-[2.05] text-body">{s.lead}</p>
-                  {s.tags && (
-                    <div className="mt-4 flex flex-wrap gap-2">
-                      {s.tags.map((t) => (
-                        <span
-                          key={t}
-                          className="rounded-card border border-line px-2.5 py-1 text-[11px] font-semibold tracking-[0.02em] text-body"
-                        >
-                          {t}
-                        </span>
-                      ))}
-                    </div>
-                  )}
-                </div>
-                <div
-                  className={`grid grid-cols-1 gap-px self-start border border-line bg-line ${
-                    s.items.length > 1 ? "min-[600px]:grid-cols-2" : ""
-                  }`}
-                >
-                  {s.items.map((item) => (
-                    <div
-                      key={item.head}
-                      className="brand-line-card bg-white px-6 py-6 min-[720px]:px-7"
-                    >
-                      <h4 className="brand-line-label palt flex items-baseline gap-3 text-[15px] font-bold text-ink">
-                        <span aria-hidden className="h-px w-4 shrink-0 translate-y-[-3px] bg-brand" />
+                  <ul className="biz-points">
+                    {s.items.map((item) => (
+                      <li key={item.head}>
                         {item.head}
-                      </h4>
-                      <p className="mt-2.5 text-[13px] leading-[1.95] text-muted">
-                        {item.body}
-                      </p>
-                    </div>
-                  ))}
+                        <p>{item.body}</p>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
+                <s.screens />
               </FadeIn>
             ))}
           </div>
+          <p className="mt-4 text-[12.5px] text-muted">画面はいずれも説明用のイメージです。</p>
         </Container>
       </section>
 
       {/* NOVA — 自社プロダクト */}
-      <section className="relative overflow-hidden bg-ink py-20 text-white min-[720px]:py-[100px]">
-        <div className="pointer-events-none absolute -bottom-2 right-0 min-[720px]:-bottom-4">
-          <DisplayText tone="white">NOVA</DisplayText>
-        </div>
+      <section className="nova-band relative overflow-hidden bg-ink py-20 text-white min-[720px]:py-[100px]">
         <Container className="relative">
-          <div className="grid grid-cols-1 items-center gap-12 min-[1024px]:grid-cols-[1fr_1fr] min-[1024px]:gap-16">
+          <div className="grid grid-cols-1 items-start gap-12 min-[1024px]:grid-cols-[0.8fr_1.2fr] min-[1024px]:gap-14">
             <FadeIn>
-              <p className="mb-4 flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.2em] text-brand">
-                <span aria-hidden className="h-px w-6 bg-brand" />
+              <p className="mb-4 flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.2em] text-warm">
+                <span aria-hidden className="h-px w-6 bg-warm" />
                 Our Product
               </p>
               <h2 className="palt text-[28px] font-bold leading-[1.45] tracking-[-0.02em] min-[720px]:text-[36px]">
@@ -386,21 +323,17 @@ export default function AiSolutionsPage() {
               <p className="mt-6 text-[14.5px] leading-[2.05] text-white/80">
                 NOVAは、届いた案件・人材メールをAIが自動で構造化し、タグスコアとAI判定の2段階マッチングで候補と「なぜ合うか」の判断理由まで提示するSES特化のAIマッチングシステムです。契約終了アラートによる先回り営業、提案メールのAI起草まで、メール1通が提案になるまでを一気通貫で支えます。
               </p>
-              <div className="mt-8 grid grid-cols-2 gap-px border border-white/15 bg-white/15 min-[600px]:grid-cols-3">
-                {novaFeatures.map((f, i) => (
-                  <div key={f} className="bg-ink px-4 py-3.5">
-                    <p className="font-mono text-[10px] text-brand">
-                      {String(i + 1).padStart(2, "0")}
-                    </p>
-                    <p className="palt mt-1 text-[13.5px] font-bold">{f}</p>
-                  </div>
+              {/* メール1通が提案になるまでの流れ。番号や円は使わず、矢印でつないだ言葉の列で見せる */}
+              <ol className="nova-chain">
+                {novaFlow.map((f) => (
+                  <li key={f} className="palt">
+                    {f}
+                  </li>
                 ))}
-                <div className="flex min-h-[64px] items-center bg-ink px-4 py-3.5">
-                  <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-white/40">
-                    All in One
-                  </p>
-                </div>
-              </div>
+              </ol>
+              <p className="mt-5 text-[13px] leading-[1.9] text-white/65">
+                ほかに、案件・人材・BP の一元管理と、契約終了アラートによる先回り営業にも対応します。
+              </p>
               <div className="mt-9">
                 <Button href={siteConfig.links.nova} external>
                   NOVA 製品サイトへ
@@ -409,12 +342,12 @@ export default function AiSolutionsPage() {
             </FadeIn>
             <FadeIn>
               <Image
-                src="/nova-product-2026-08c.png"
+                src="/nova-product-logo.png"
                 alt="NOVAの管理画面"
                 width={748}
                 height={438}
                 sizes="(min-width: 1024px) 50vw, 100vw"
-                className="h-auto w-full rounded-xl border border-white/10 object-cover"
+                className="nova-shot h-auto w-full object-contain min-[1024px]:mt-10"
               />
             </FadeIn>
           </div>
@@ -425,7 +358,6 @@ export default function AiSolutionsPage() {
 
       {/* NEXT — ITソリューション事業へ */}
       <NextBusinessBand
-        no="01"
         en="IT Solutions"
         title="ITソリューション事業"
         href="/business/it-solutions"

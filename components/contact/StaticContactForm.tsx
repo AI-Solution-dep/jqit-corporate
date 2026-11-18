@@ -42,7 +42,7 @@ const labels: Record<Exclude<Field, "privacy">, string> = {
 };
 
 const fieldCls =
-  "min-h-12 w-full rounded-card border border-[#d8d5d0] bg-white px-4 py-3 text-base text-ink outline-none transition-colors placeholder:text-[#8a8781] focus:border-brand aria-[invalid=true]:border-brand";
+  "min-h-12 w-full rounded-button border border-[#d8d5d0] bg-white px-4 py-3 text-base text-ink outline-none transition-colors placeholder:text-[#8a8781] focus:border-brand aria-[invalid=true]:border-brand";
 
 function FieldError({ id, message }: { id: string; message?: string }) {
   if (!message) return null;
@@ -349,7 +349,7 @@ export function StaticContactForm() {
         <button
           type="submit"
           disabled={status === "sending"}
-          className="inline-flex min-h-12 w-full cursor-pointer items-center justify-center gap-2.5 rounded-card bg-brand px-9 py-[15px] text-base font-semibold text-white transition-colors hover:bg-brand-dark disabled:cursor-wait disabled:opacity-60 min-[600px]:w-auto"
+          className="inline-flex min-h-12 w-full cursor-pointer items-center justify-center gap-2.5 rounded-button bg-brand px-9 py-[15px] text-base font-semibold text-white transition-colors hover:bg-brand-dark disabled:cursor-wait disabled:opacity-60 min-[600px]:w-auto"
         >
           {status === "sending" ? "送信中…" : "送信する"}
           <span aria-hidden className="font-mono">

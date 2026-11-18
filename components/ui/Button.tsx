@@ -8,9 +8,9 @@ const base =
 
 const variants: Record<Variant, string> = {
   primary:
-    "gap-3 bg-brand text-white px-8 py-[15px] rounded-card hover:bg-brand-dark active:translate-y-px",
+    "gap-3 bg-brand text-white px-8 py-[15px] rounded-button hover:bg-brand-dark active:translate-y-px",
   outline:
-    "gap-3 border border-ink text-ink px-8 py-[14px] rounded-card hover:bg-ink hover:text-white active:translate-y-px",
+    "gap-3 border border-ink text-ink px-8 py-[14px] rounded-button hover:bg-ink hover:text-white active:translate-y-px",
   arrow:
     "gap-2.5 font-mono font-semibold text-[13px] tracking-[0.12em] text-ink border-b border-ink pt-4 pb-2.5 hover:text-brand hover:border-brand",
 };

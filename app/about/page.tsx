@@ -7,6 +7,7 @@ import { Container } from "@/components/ui/Container";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { Kicker } from "@/components/ui/Kicker";
 import { SectionHead } from "@/components/ui/SectionHead";
+import { TypeText } from "@/components/ui/TypeText";
 import { createBreadcrumbJsonLd, createPageMetadata } from "@/lib/seo";
 import { siteConfig } from "@/lib/site-config";
 
@@ -117,6 +118,7 @@ export default function AboutPage() {
             width={1672}
             height={941}
             sizes="100vw"
+            data-photo-slide
             className="h-[260px] w-full object-cover object-[58%_45%] min-[720px]:h-[360px]"
           />
           <div
@@ -127,14 +129,25 @@ export default function AboutPage() {
         <Container>
           <FadeIn className="mx-auto max-w-[820px] py-16 min-[720px]:py-[84px]">
             <Kicker className="mb-5">Message</Kicker>
-            <h2 className="palt text-[28px] font-bold leading-[1.5] tracking-[-0.02em] text-ink min-[720px]:text-[36px]">
-              挑戦と革新で、顧客の<span className="text-brand">未来</span>
-              を切り拓く。
-            </h2>
-            <div className="mt-9 border-l-2 border-brand pl-6 min-[720px]:pl-8">
-              <p className="text-[17px] leading-[2.1] text-body min-[720px]:text-[19px] min-[720px]:leading-[1.95]">
-                私たちJQITは、技術の力でお客様の“本質的な課題”を解決するITのプロフェッショナル集団です。表面的な要望に応えるだけでなく、その先にある課題の本質を捉え、解決まで伴走する。システム開発からAI活用まで、変化を恐れず挑戦と革新を続けることで、お客様と社会の未来を切り拓いてまいります。
-              </p>
+            {/* 見出し → 本文の順に、1文字ずつ打たれるように現れる（components/ui/TypeText.tsx） */}
+            <TypeText
+              as="h2"
+              className="palt text-[28px] font-bold leading-[1.5] tracking-[-0.02em] text-ink min-[720px]:text-[36px]"
+              segments={[
+                { text: "挑戦と革新で、顧客の" },
+                { text: "未来", className: "text-brand" },
+                { text: "を切り拓く。" },
+              ]}
+              interval={70}
+              delay={300}
+            />
+            <div className="mt-9 border-l-2 border-warm pl-6 min-[720px]:pl-8">
+              <TypeText
+                className="text-[17px] leading-[2.1] text-body min-[720px]:text-[19px] min-[720px]:leading-[1.95]"
+                segments={[{ text: "私たちJQITは、技術の力でお客様の“本質的な課題”を解決するITのプロフェッショナル集団です。表面的な要望に応えるだけでなく、その先にある課題の本質を捉え、解決まで伴走する。システム開発からAI活用まで、変化を恐れず挑戦と革新を続けることで、お客様と社会の未来を切り拓いてまいります。" }]}
+                interval={26}
+                delay={1600}
+              />
             </div>
             <div className="mt-10 flex items-center gap-6">
               <Image
@@ -176,7 +189,7 @@ export default function AboutPage() {
       {/* PRIMARY SOURCES — 外部の一次情報で許認可・専門性を検証可能にする */}
       <section className="border-t border-line bg-paper pb-20 min-[720px]:pb-[92px]">
         <Container>
-          <FadeIn className="border border-line bg-cream px-7 py-8 min-[720px]:px-9">
+          <FadeIn className="pt-16 min-[720px]:pt-[84px]">
             <Kicker className="mb-4">Official Sources</Kicker>
             <h2 className="palt text-[22px] font-bold tracking-[-0.02em] text-ink min-[720px]:text-[26px]">
               第三者機関で確認できる認定・許可
@@ -184,19 +197,20 @@ export default function AboutPage() {
             <p className="mt-3 max-w-[720px] text-[13.5px] leading-[1.95] text-body">
               当社が掲示する認定・許可のうち、公開されている公式情報へのリンクです。
             </p>
-            <ul className="mt-6 grid grid-cols-1 gap-px border border-line bg-line min-[760px]:grid-cols-2">
+            {/* 箱にせず、罫線で区切ったリンクの一覧（左に認定名、右に発行元） */}
+            <ul className="official-source-list mt-8">
               {officialSources.map((source) => (
-                <li key={source.href} className="bg-white px-6 py-5">
+                <li key={source.href}>
                   <a
                     href={source.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group block"
+                    className="group"
                   >
-                    <span className="palt text-[15px] font-bold leading-[1.7] text-ink transition-colors group-hover:text-brand">
+                    <span className="palt text-[15px] font-bold leading-[1.7] text-ink transition-colors group-hover:text-warm-ink">
                       {source.label}
                     </span>
-                    <span className="mt-1.5 block text-[11.5px] leading-[1.7] text-muted">
+                    <span className="shrink-0 text-[12px] leading-[1.7] text-muted">
                       {source.organization} ↗
                     </span>
                   </a>
@@ -211,8 +225,9 @@ export default function AboutPage() {
       <section id="access" className="border-t border-line bg-cream py-20 min-[720px]:py-[92px]">
         <Container>
           <SectionHead kicker="Access" title="アクセス" className="mb-10" />
-          <FadeIn className="grid grid-cols-1 overflow-hidden border border-line bg-paper min-[900px]:grid-cols-[1.08fr_0.92fr]">
-            <div className="relative min-h-[320px] bg-white min-[720px]:min-h-[420px]">
+          {/* 箱に入れず、地図（写真と同じく一角だけ曲げる）と、住所・最寄り駅の行を並べる */}
+          <FadeIn className="access-layout">
+            <div className="access-map photo-curve">
               <iframe
                 title={`JQIT本社（${siteConfig.officeName}）周辺のGoogle Map`}
                 src={siteConfig.mapEmbedUrl}
@@ -222,14 +237,14 @@ export default function AboutPage() {
                 allowFullScreen
               />
             </div>
-            <div className="flex flex-col justify-center border-t border-line p-8 min-[720px]:p-10 min-[900px]:border-l min-[900px]:border-t-0 min-[1040px]:p-12">
+            <div className="access-info">
               <Kicker className="mb-3">Office</Kicker>
               <p className="mb-6 text-[20px] font-bold tracking-[-0.01em] text-ink min-[720px]:text-[22px]">
                 {siteConfig.officeName}
               </p>
               <div className="space-y-8">
                 <div>
-                  <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-brand">
+                  <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-warm-ink">
                     Address
                   </p>
                   <p className="mt-3 text-[15px] font-semibold leading-[1.9] text-ink min-[720px]:text-[17px]">
@@ -241,13 +256,13 @@ export default function AboutPage() {
                   </p>
                 </div>
                 <div>
-                  <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-brand">
+                  <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-warm-ink">
                     Train
                   </p>
                   <ul className="mt-3 space-y-3 text-[14px] leading-[1.9] text-body min-[720px]:text-[15px]">
                     {accessRoutes.map((route) => (
                       <li key={route} className="flex gap-3">
-                        <span aria-hidden className="mt-[0.75em] h-1.5 w-1.5 shrink-0 bg-brand" />
+                        <span aria-hidden className="mt-[0.75em] h-1.5 w-1.5 shrink-0 bg-warm" />
                         <span>{route}</span>
                       </li>
                     ))}
@@ -258,7 +273,7 @@ export default function AboutPage() {
                 href={siteConfig.mapUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="group mt-9 inline-flex w-fit items-center gap-2.5 border-b border-ink pb-1 font-mono text-[12px] font-semibold uppercase tracking-[0.12em] text-ink transition-colors hover:border-brand hover:text-brand"
+                className="group mt-9 inline-flex w-fit items-center gap-2.5 border-b border-ink pb-1 font-mono text-[12px] font-semibold uppercase tracking-[0.12em] text-ink transition-colors hover:border-warm hover:text-warm-ink"
               >
                 Google Map
                 <span

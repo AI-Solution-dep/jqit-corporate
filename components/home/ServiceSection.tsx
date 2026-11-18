@@ -48,72 +48,78 @@ export function ServiceSection() {
           </p>
         </FadeIn>
 
-        <div className="mt-10 grid grid-cols-1 gap-6 min-[1024px]:grid-cols-2">
-          {services.map((service) => (
-            <FadeIn key={service.id}>
-              <article className="flex h-full flex-col overflow-hidden border border-line bg-white">
+        {/* 写真を横幅いっぱいに大きく入れ、2つのサービスを縦に並べる。写真の下に文章（PC は見出し・説明と、特徴・ボタンの2列） */}
+        <div className="service-stack mt-14 min-[1024px]:mt-16">
+          {services.map((service, index) => (
+            <FadeIn key={service.id} className="service-stack-item">
+              <div className={`service-stack-media ${index % 2 === 1 ? "photo-curve--reverse" : "photo-curve"} ${service.id === "nova" ? "service-stack-media--product" : ""}`}>
                 {service.id === "nova" ? (
-                  <div className="flex h-[220px] items-center bg-[#f4f4f2] p-6 min-[720px]:h-[280px] min-[720px]:p-8">
-                    <Image
-                      src="/nova-product-2026-08c.png"
-                      alt="NOVA 管理画面 — AIマッチングアシスタントと案件一覧"
-                      width={748}
-                      height={438}
-                      className="h-full w-full object-contain"
-                    />
-                  </div>
+                  <Image
+                    src="/nova-product-logo.png"
+                    alt="NOVA 管理画面 — AIマッチングアシスタントと案件一覧"
+                    width={748}
+                    height={438}
+                    sizes="(min-width: 1024px) 900px, 90vw"
+                    className="h-full w-full object-contain p-6 min-[720px]:p-12"
+                  />
                 ) : (
-                  <div className="h-[220px] overflow-hidden bg-[#f4f4f2] min-[720px]:h-[280px]">
-                    <Image
-                      src="/business-ai.png"
-                      alt="AI導入について画面を見ながら相談する担当者"
-                      width={1536}
-                      height={1365}
-                      className="h-full w-full object-cover object-center"
-                    />
-                  </div>
+                  <Image
+                    src="/business-ai.png"
+                    alt="AI導入について画面を見ながら相談する担当者"
+                    width={1536}
+                    height={1365}
+                    className="h-full w-full object-cover object-center"
+                  />
                 )}
+              </div>
 
-                <div className="flex flex-1 flex-col p-7 min-[720px]:p-8">
-                  <Kicker className="mb-4">{service.label}</Kicker>
-                  <p className="font-mono text-[12px] font-semibold uppercase tracking-[0.12em] text-brand">
-                    {service.name}
+              <div className="service-stack-text">
+                <div>
+                {service.id === "nova" ? (
+                  /* 製品はロゴ（アイコン＋製品名）で示す */
+                  <p className="flex items-center gap-3">
+                    <Image src="/nova-icon.png" alt="" width={54} height={43} className="h-7 w-auto mix-blend-multiply" />
+                    <span className="text-[22px] font-black tracking-[0.18em] text-ink">NOVA</span>
+                    <span className="ml-1 font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-muted">
+                      {service.label}
+                    </span>
                   </p>
-                  <h3 className="palt mt-2 text-[22px] font-bold leading-[1.5] text-ink">
-                    {service.heading}
-                  </h3>
-                  <p className="mt-4 text-[14px] leading-[2] text-body">
-                    {service.description}
+                ) : (
+                  <p className="font-mono text-[12px] font-semibold uppercase tracking-[0.14em] text-warm-ink">
+                    {service.label} — {service.name}
                   </p>
-                  <ul className="mt-6 space-y-3">
-                    {service.features.map((feature) => (
-                      <li
-                        key={feature}
-                        className="flex items-center gap-3 text-[14px] font-semibold text-ink"
-                      >
-                        <span aria-hidden className="h-0.5 w-5 shrink-0 bg-brand" />
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
-                  <div className="mt-auto pt-8">
-                    <a
-                      href={service.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group inline-flex min-h-12 w-full items-center justify-center gap-3 rounded-card bg-ink px-7 py-[14px] text-sm font-bold tracking-[0.02em] text-white transition-colors hover:bg-brand focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand min-[600px]:w-fit"
-                    >
-                      <span>{service.cta}</span>
-                      <span
-                        aria-hidden
-                        className="font-mono transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
-                      >
-                        ↗
-                      </span>
-                    </a>
-                  </div>
+                )}
+                <h3 className="palt mt-3 text-[22px] font-bold leading-[1.5] text-ink min-[720px]:text-[26px]">
+                  {service.heading}
+                </h3>
+                <p className="mt-4 text-[15px] leading-[2.05] text-body">{service.description}</p>
                 </div>
-              </article>
+                <div>
+                <ul className="nova-features">
+                  {service.features.map((feature) => (
+                    <li key={feature} className="text-[14px] font-bold leading-[1.8] text-ink">
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+                <div className="mt-9">
+                  <a
+                    href={service.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group inline-flex min-h-12 w-full items-center justify-center gap-3 rounded-button bg-ink px-7 py-[14px] text-sm font-bold tracking-[0.02em] text-white transition-colors hover:bg-warm-strong focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand min-[600px]:w-fit"
+                  >
+                    <span>{service.cta}</span>
+                    <span
+                      aria-hidden
+                      className="font-mono transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                    >
+                      ↗
+                    </span>
+                  </a>
+                </div>
+                </div>
+              </div>
             </FadeIn>
           ))}
         </div>
