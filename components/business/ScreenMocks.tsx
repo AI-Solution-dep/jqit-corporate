@@ -4,6 +4,7 @@
  * - 画像ではなく HTML で組む（文字がくっきり出て軽い）。読み上げには説明文だけを渡し、中身は隠す。
  * - 見た目は globals.css の `.mock-*`。PC は 640×440 の画面を基準に組み、狭い画面では zoom で縮める。
  */
+import Image from "next/image";
 import type { ReactNode } from "react";
 
 function Stage({ label, children }: { label: string; children: ReactNode }) {
@@ -33,9 +34,9 @@ function Phone({ children, className = "" }: { children: ReactNode; className?: 
   );
 }
 
-function Win({ title, children, className = "", dark = false }: { title: string; children: ReactNode; className?: string; dark?: boolean }) {
+function Win({ title, children, className = "" }: { title: string; children: ReactNode; className?: string }) {
   return (
-    <div className={`mock-win mock-shadow ${dark ? "mock-win--dark" : ""} ${className}`}>
+    <div className={`mock-win mock-shadow ${className}`}>
       <div className="mock-win-bar">
         <i />
         <i />
@@ -43,6 +44,20 @@ function Win({ title, children, className = "", dark = false }: { title: string;
         <span>{title}</span>
       </div>
       <div className="mock-win-body">{children}</div>
+    </div>
+  );
+}
+
+/** 写真に、小さな画面のカードを1枚だけ重ねる（全部を画面モックにせず、行ごとに写真を混ぜる） */
+function PhotoScene({ src, alt, children, flip = false }: { src: string; alt: string; children: ReactNode; flip?: boolean }) {
+  return (
+    <div className={`mock-photo ${flip ? "is-flip" : ""}`}>
+      <div className={`${flip ? "photo-curve--reverse" : "photo-curve"} relative overflow-hidden`}>
+        <Image src={src} alt={alt} width={1536} height={1024} sizes="(min-width: 900px) 55vw, 100vw" data-photo-slide className="h-auto w-full object-cover" />
+      </div>
+      <div className="mock-photo-card mock-shadow" aria-hidden>
+        {children}
+      </div>
     </div>
   );
 }
@@ -104,42 +119,21 @@ export function DevScreens() {
 
 export function InfraScreens() {
   return (
-    <Stage label="サーバの稼働を監視する画面とターミナルのイメージ">
-      <Win title="monitor / production" dark className="mock-at-infra-win">
-        <div className="mock-mets">
-          <div><small>CPU</small><b>32<em>%</em></b></div>
-          <div><small>メモリ</small><b>58<em>%</em></b></div>
-          <div><small>リクエスト/分</small><b>1,240</b></div>
-          <div><small>稼働状況</small><b className="mock-ok">正常</b></div>
+    <PhotoScene src="/business-it-infra.webp" alt="サーバラックの配線を確認するインフラエンジニア" flip>
+      <b className="mock-h">構成</b>
+      {[
+        ["ネットワーク", "VPC・サブネット 4"],
+        ["負荷分散", "ロードバランサ"],
+        ["サーバ", "Linux × 4"],
+        ["データベース", "冗長構成（2台）"],
+        ["監視", "アラーム 0件"],
+      ].map(([k, v]) => (
+        <div key={k} className="mock-kv">
+          <span className="mock-muted">{k}</span>
+          <span>{v}</span>
         </div>
-        <div className="mock-chart">
-          <svg viewBox="0 0 580 110" preserveAspectRatio="none">
-            <path d="M0 80 L40 74 L80 78 L120 60 L160 64 L200 46 L240 52 L280 38 L320 42 L360 30 L400 36 L440 24 L480 32 L520 20 L580 26 L580 110 L0 110Z" className="mock-chart-fill" />
-            <polyline points="0,80 40,74 80,78 120,60 160,64 200,46 240,52 280,38 320,42 360,30 400,36 440,24 480,32 520,20 580,26" className="mock-chart-line" />
-          </svg>
-        </div>
-        <div className="mock-servers">
-          {["web-01", "web-02", "db-primary", "batch-01"].map((s) => (
-            <div key={s}>{s}<span className="mock-ok">OK</span></div>
-          ))}
-        </div>
-      </Win>
-      <div className="mock-infra-card mock-shadow mock-at-infra-term">
-        <b className="mock-h">構成</b>
-        {[
-          ["ネットワーク", "VPC・サブネット 4"],
-          ["負荷分散", "ロードバランサ"],
-          ["サーバ", "Linux × 4"],
-          ["データベース", "冗長構成（2台）"],
-          ["監視", "アラーム 0件"],
-        ].map(([k, v]) => (
-          <div key={k}>
-            <span className="mock-muted">{k}</span>
-            <span>{v}</span>
-          </div>
-        ))}
-      </div>
-    </Stage>
+      ))}
+    </PhotoScene>
   );
 }
 
@@ -240,39 +234,16 @@ export function AgentScreens() {
 }
 
 export function EnablementScreens() {
-  const cols: [string, string, string[]][] = [
-    ["自動化", "is-auto", ["問い合わせの一次回答", "議事録の要約・共有"]],
-    ["AIと人で分担", "is-mix", ["見積書の下書き", "請求データの照合", "提案資料のたたき台"]],
-    ["人が判断", "is-human", ["契約条件の判断", "値引きの可否"]],
-  ];
   return (
-    <Stage label="業務を付箋に書き出し、AIに任せる範囲と人が判断する範囲に貼り分けたワークショップのボードと、導入計画のイメージ">
-      <div className="mock-board mock-shadow mock-at-enable-board">
-        <div className="mock-row-between">
-          <b className="mock-h">業務の棚卸し　営業部</b>
-          <span className="mock-muted">ワークショップ 第2回</span>
-        </div>
-        <div className="mock-board-cols">
-          {cols.map(([head, tone, notes]) => (
-            <div key={head}>
-              <span className={`mock-board-head ${tone}`}>{head}</span>
-              {notes.map((n, i) => (
-                <i key={n} className={`mock-note ${tone}`} style={{ rotate: `${[-2, 1.5, -1][i % 3]}deg` }}>
-                  {n}
-                </i>
-              ))}
-            </div>
-          ))}
-        </div>
-      </div>
-      <div className="mock-plan mock-shadow mock-at-enable-plan">
-        <b className="mock-h">導入計画</b>
+    <PhotoScene src="/business-ai-workshop.webp" alt="付箋を使って業務を整理するワークショップの様子">
+      <b className="mock-h">導入計画</b>
+      <div className="mock-plan">
         <div className="mock-plan-row"><span>業務整理</span><span className="mock-plan-track"><i style={{ left: "0%", width: "34%" }} /></span></div>
         <div className="mock-plan-row"><span>小さく試す</span><span className="mock-plan-track"><i style={{ left: "30%", width: "38%" }} /></span></div>
         <div className="mock-plan-row"><span>社内展開</span><span className="mock-plan-track"><i className="is-dark" style={{ left: "62%", width: "38%" }} /></span></div>
         <div className="mock-plan-months"><span>1月</span><span>2月</span><span>3月</span></div>
       </div>
-    </Stage>
+    </PhotoScene>
   );
 }
 
