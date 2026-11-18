@@ -135,36 +135,48 @@ export function InfraScreens() {
   );
 }
 
-export function QaScreens() {
-  const cases = [
-    ["TC-001", "ログインできる", "Chrome", true],
-    ["TC-002", "注文を確定できる", "Safari", true],
-    ["TC-003", "CSV を出力できる", "Edge", false],
-    ["TC-004", "パスワードを再設定できる", "Chrome", true],
-    ["TC-005", "検索結果を絞り込める", "Android", true],
-    ["TC-006", "通知が届く", "iOS", true],
-  ] as const;
+/** 検証端末に映す、同じ注文確認画面。broken のときは決済ボタンが下のバーに隠れる（見つけた不具合） */
+function OrderScreen({ broken = false }: { broken?: boolean }) {
   return (
-    <Stage label="テストの実行結果と、検証中のスマートフォンの画面イメージ">
-      <Win title="test-run / regression" className="mock-at-qa-win">
+    <div className={`mock-order ${broken ? "is-broken" : ""}`}>
+      <b className="mock-order-title">注文内容の確認</b>
+      <div className="mock-order-item"><span>業務用 用紙 A4</span><span>¥4,800</span></div>
+      <div className="mock-order-item"><span>トナー カートリッジ</span><span>¥12,600</span></div>
+      <div className="mock-order-item"><span>配送料</span><span>¥0</span></div>
+      <div className="mock-order-total"><span>合計</span><b>¥17,400</b></div>
+      <span className="mock-order-btn">注文を確定する</span>
+      {broken && <span className="mock-order-bar">ホーム　カート　履歴</span>}
+    </div>
+  );
+}
+
+export function QaScreens() {
+  return (
+    <Stage label="同じ画面を複数の端末で見比べ、見つけた不具合に印を付けて報告する検証のイメージ">
+      <div className="mock-tablet mock-shadow mock-at-qa-tablet">
+        <div className="mock-tablet-screen"><OrderScreen /></div>
+      </div>
+      <Phone className="mock-at-qa-ios"><OrderScreen /></Phone>
+      <div className="mock-android mock-shadow mock-at-qa-android">
+        <div className="mock-android-screen"><OrderScreen broken /></div>
+      </div>
+      <div className="mock-bug mock-at-qa-bug">
+        <b>不具合 #128</b>
+        決済ボタンが下のバーに隠れる
+      </div>
+      <div className="mock-device-labels mock-at-qa-labels">
+        <span>タブレット<b>OK</b></span>
+        <span>iOS<b>OK</b></span>
+        <span>Android<b className="mock-fail">NG</b></span>
+      </div>
+      <div className="mock-summary mock-shadow mock-at-qa-summary">
         <div className="mock-row-between">
-          <b className="mock-h">回帰テスト　第14回</b>
+          <b>回帰テスト　第14回</b>
           <span className="mock-tag is-done">122 / 130 合格</span>
         </div>
         <div className="mock-progress"><i /></div>
-        {cases.map(([id, name, env, ok]) => (
-          <div key={id} className="mock-case">
-            <span className="mock-muted">{id}</span><span>{name}</span><span>{env}</span>
-            <b className={ok ? "mock-pass" : "mock-fail"}>{ok ? "PASS" : "FAIL"}</b>
-          </div>
-        ))}
-      </Win>
-      <Phone className="mock-at-qa-phone">
-        <div className="mock-phone-head is-ink">検証端末 3/12<b>iPhone ・ iOS 18</b></div>
-        <div className="mock-card"><b>✓ 起動・ログイン</b><small>2.1 秒</small></div>
-        <div className="mock-card"><b>✓ 商品一覧の表示</b><small>0.8 秒</small></div>
-        <div className="mock-card"><b className="mock-fail">✕ 決済画面の表示崩れ</b><small>不具合として報告</small></div>
-      </Phone>
+        <span className="mock-muted">合格 122 ・ 不具合 3 ・ 確認中 5</span>
+      </div>
     </Stage>
   );
 }
