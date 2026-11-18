@@ -250,7 +250,7 @@ export function ProductScreens() {
   return (
     <ToyScene
       src="/business-ai-ribbon.webp"
-      alt="オレンジのリボンの上に、新着の案件にぴったりの人を示すカード。適合度92点の「候補 A」、Java 7年・物流の経験"
+      alt="オレンジのリボンの立体グラフィックと、新着の案件にぴったりの人を示すカード。適合度92点の「候補 A」、Java 7年・物流の経験"
     />
   );
 }
