@@ -25,6 +25,8 @@ export const siteConfig = {
   founded: 2024,
   foundedDate: "2024-12-06",
   ceo: "山田 周作",
+  /** 代表取締役以外の役員。会社情報の「役員構成」に並べる */
+  directors: [{ role: "取締役", name: "宮本 尚寛" }],
   capital: "1,000万円",
   employees: "106名（2026年4月時点）",
 
