@@ -1024,16 +1024,6 @@ p, dd, li { text-wrap: pretty; }
 .faq-more[open] > div { order: 1; }
 @media (hover: hover) { .faq-more-toggle:hover { border-color: var(--warm-mid); color: var(--color-warm-ink); } }
 
-.engage-cols { display: grid; gap: 56px; }
-@media (min-width: 900px) { .engage-cols { grid-template-columns: 1fr 1fr; gap: 64px; } }
-.engage-list { margin: 20px 0 0; padding: 0; list-style: none; border-top: 1px solid var(--color-line); }
-.engage-list li { display: flex; gap: 12px; align-items: baseline; padding: 13px 0; border-bottom: 1px solid var(--color-line); font-size: 14px; line-height: 1.8; color: var(--color-ink); }
-.engage-list li::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--warm-mid); flex-shrink: 0; translate: 0 -2px; }
-
-/* ===== IT事業：QA の行に添える実績（小さなラベル） ===== */
-.qa-proof { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0 0; padding: 0; list-style: none; }
-.qa-proof li { padding: 4px 10px; border-radius: var(--radius-label); background: var(--warm-soft); font-size: 12px; font-weight: 600; color: var(--color-ink); }
-
 /* ===== IT事業：開発の流れ（PC は円5つを水平線で結ぶ。スマホは縦のタイムラインのまま） ===== */
 @media (min-width: 1024px) {
   .delivery-circles { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px; max-width: none; margin: 0; border-left: 0; }
@@ -1104,36 +1094,20 @@ p, dd, li { text-wrap: pretty; }
 .strength-certs { justify-content: center; }
 .strength-certs li { border-color: rgb(255 255 255 / 40%); }
 
-/* ===== IT事業：関わり方（5つの工程の帯に、SES と SI が担う範囲を塗る） ===== */
-.scope-band { display: grid; gap: 10px; margin: 0 auto 56px; }
-.scope-row { display: grid; grid-template-columns: 112px repeat(5, minmax(0, 1fr)); align-items: center; column-gap: 6px; position: relative; }
-.scope-row--head { padding-bottom: 6px; border-bottom: 1px solid var(--color-line); }
-.scope-step { font-size: 13px; font-weight: 700; color: var(--color-ink); text-align: center; word-break: keep-all; overflow-wrap: anywhere; }
-.scope-label { display: flex; flex-direction: column; font-family: var(--font-anton); font-size: 28px; line-height: 1; color: var(--warm-strong); transition: color .25s; }
-.scope-label span { margin-top: 6px; font-family: var(--font-sans); font-size: 12px; font-weight: 700; color: var(--color-ink); }
-@media (hover: hover) { .scope-label:hover { color: var(--color-warm-ink); } }
-.scope-cell { height: 44px; border-radius: var(--radius-label); }
-.scope-cell--pick { background: var(--warm-soft); border: 1px dashed #e8b896; }
-.scope-cell--all { grid-column: 2 / -1; background: var(--warm-strong); }
-.scope-note { position: absolute; top: 50%; translate: 0 -50%; font-size: 13px; font-weight: 700; pointer-events: none; }
-/* SES の注記は区切った枠の上に重ねず、帯の下に置く */
-.scope-note--ses { position: static; translate: none; grid-column: 2 / -1; margin-top: 6px; color: var(--color-warm-ink); }
-.scope-note--si { left: calc(112px + 18px); color: #fff; }
-@media (prefers-reduced-motion: no-preference) {
-  .reveal[data-hidden="false"] .scope-cell--all { animation: scope-grow .7s cubic-bezier(.16, .84, .44, 1) .15s both; transform-origin: left; }
-}
-@keyframes scope-grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
-@media (max-width: 719px) {
-  .scope-row { grid-template-columns: 64px repeat(5, minmax(0, 1fr)); column-gap: 3px; }
-  .scope-step { font-size: 10px; line-height: 1.35; }
-  .scope-label { font-size: 22px; }
-  .scope-label span { font-size: 10px; }
-  .scope-cell { height: 40px; }
-  .scope-note { position: static; translate: none; grid-column: 2 / -1; margin-top: 6px; font-size: 11.5px; }
-  .scope-note--si { color: var(--color-warm-ink); }
-}
-
 /* ===== IT事業：選ばれ続ける理由（大きな見出しと短い文の2段） ===== */
 .strength-cols { display: grid; gap: 40px; margin-top: 48px; }
 .strength-col { padding-top: 24px; border-top: 2px solid rgb(240 140 58 / 70%); }
 @media (min-width: 900px) { .strength-cols { grid-template-columns: 1fr 1fr; gap: 64px; } }
+
+/* ===== IT事業：できること（3つの領域の行に、できることを短い箇条で） ===== */
+.can-list { display: flex; flex-wrap: wrap; gap: 8px 20px; margin: 16px 0 0; padding: 0; list-style: none; }
+.can-list li { display: flex; align-items: baseline; gap: 8px; font-size: 14px; font-weight: 700; color: var(--color-ink); }
+.can-list li::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--warm-mid); flex-shrink: 0; translate: 0 -2px; }
+
+/* ===== IT事業：実績のある技術領域（領域ごとの行に、技術・対象をラベルで） ===== */
+.tech-areas { border-top: 1px solid var(--color-line); }
+.tech-area { display: grid; gap: 12px; padding: 22px 0; border-bottom: 1px solid var(--color-line); }
+.tech-area-label { font-size: 17px; font-weight: 700; color: var(--color-ink); }
+.tech-area-items { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.tech-area-items li { padding: 6px 12px; border-radius: var(--radius-label); background: var(--warm-soft); font-size: 13px; font-weight: 600; color: var(--color-ink); }
+@media (min-width: 900px) { .tech-area { grid-template-columns: 200px 1fr; align-items: center; gap: 32px; } }

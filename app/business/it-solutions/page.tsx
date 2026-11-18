@@ -31,40 +31,38 @@ const facts = [
   { label: "QA Partnership", value: "ISTQB® Gold", note: "パートナー" },
 ];
 
-/** SES の提供内容。ページ内 #ses セクションの本体 */
-const sesFeatures = [
-  "常駐による迅速な意思疎通とスピード感",
-  "業務の拡大・縮小に合わせて必要な期間だけ提供",
-  "業務範囲に応じた体制を編成（単一工程からチーム体制まで）",
-  "開発・インフラ・QAを組み合わせた体制も可能",
-];
-
-/** 受託開発（SI）の提供内容。ページ内 #contract-development セクションの本体 */
-const siFeatures = [
-  "要件定義から運用保守までの一括対応",
-  "設計・検証・導入など一部工程からの参画も可能",
-  "Web・業務系システム開発が主軸",
-];
-
 /** サービス領域（既存HPの実コンテンツ） */
 const fields = [
   {
     title: "システム＆アプリ開発",
     en: "Development",
     tags: ["Web系", "スマホアプリ", "社内システム"],
+    can: ["要件定義・設計からの開発", "Webアプリケーション・Web API の開発", "既存システムの改修・保守"],
     body: "Web系、スマホアプリ、社内システム系などのソフトウェアを要件定義・設計・コーディング・テスト・保守運用まで行います。フロントエンドやサーバサイドのプログラマーはもちろん、システムエンジニアも多数在籍しています。",
   },
   {
     title: "インフラ（サーバ / ネットワーク）",
     en: "Infrastructure",
     tags: ["ネットワーク", "サーバ", "ミドルウェア", "監視"],
+    can: ["ネットワーク・サーバの設計・構築", "ミドルウェアの導入", "運用保守・監視"],
     body: "要件定義からシステムの規模や環境に合わせて、ネットワーク・サーバ・ミドルウェアの導入や企画、設計から運用保守、監視業務まで、ITインフラにかかわる業務を幅広く担います。",
   },
   {
     title: "QA（第三者検証）",
     en: "Quality Assurance",
     tags: ["第三者検証", "ユーザー観点", "網羅的なテスト・評価"],
+    can: ["テスト設計・実施", "ユーザー観点での評価", "品質管理の支援"],
     body: "開発者や運用者とは異なる第三者が、設計通りに正しく動作するかをテストし、システムの品質を評価します。不具合やユーザー観点の問題箇所を効率的かつ網羅的に見つけ出し、テスト・評価を繰り返すことでより高品質なシステムを作り上げます。",
+  },
+];
+
+/** 実績のある技術領域（会社・案件単位ではなく、技術・対象の領域で。ページ内の既存の記載とQA実績から） */
+const techAreas = [
+  { label: "開発", items: ["Webアプリケーション", "Web API", "スマートフォンアプリ", "社内業務システム", "業務系パッケージ"] },
+  { label: "インフラ", items: ["ネットワーク", "サーバ", "ミドルウェア", "運用監視"] },
+  {
+    label: "品質保証",
+    items: ["第三者検証", "セキュリティ製品の品質管理", "モバイル端末の検証", "交通系（駅構内）システムの検証", "保険システムの検証"],
   },
 ];
 
@@ -87,15 +85,6 @@ const strengths = [
     body: "システムエンジニアやプログラマーはもちろん、ネットワーク・インフラエンジニアや検証業務に豊富な知識を持つテストエンジニアなど、各専門分野に特化した高い技術力・生産性の体制を構築しています。",
   },
 ];
-
-/** 旧コーポレートサイトで公開していた、守秘義務に配慮したQA実績 */
-const qaProjectExamples = [
-  "セキュリティ製品の品質管理",
-  "業務系パッケージシステムの検証",
-  "次世代携帯端末の検証",
-  "駅構内システムの検証",
-  "保険システムの検証",
-] as const;
 
 const faqs: readonly ServiceFaqItem[] = [
   {
@@ -278,125 +267,62 @@ export default function ItSolutionsPage() {
         </Container>
       </section>
 
-      {/* ENGAGEMENT — 関わり方は2つ（SES と受託開発）。円と線の図で関係を見せ、下に2つを並べる。
-          箱の中に箱を入れる作りはやめた。ページ内アンカー #ses / #contract-development はそれぞれの列に残す */}
-      <section className="border-t border-line bg-cream py-20 min-[720px]:py-[96px]">
+      {/* WHAT WE DO — できること。契約の形（SES／受託）で分けず、開発・インフラ・品質保証の3つで見せる。
+          進め方（一括でも、必要な工程・期間だけでも）は導入文に一言で。
+          #ses / #contract-development は TOP などからのリンク先なので、この節に残す */}
+      <section id="ses" className="scroll-mt-24 border-t border-line bg-cream py-20 min-[720px]:py-[96px]">
+        <span id="contract-development" className="block scroll-mt-24" aria-hidden />
         <Container>
           <SectionHead
-            kicker="Engagement"
-            title={
-              <>
-                関わり方は、<span className="text-brand">ふたつ</span>。
-              </>
-            }
-            lead="お客様のチームに技術を加えるSESと、プロジェクトごとお請けする受託開発。どちらも一部の工程からご相談いただけます。"
-            className="mb-12"
-          />
-          {/* 5つの工程の帯の上に、SES と SI がどこを担うかを塗って示す（SES は必要な工程を選んで、SI は全工程を一括で） */}
-          <FadeIn className="scope-band" aria-label="SES と受託開発が担う工程">
-            <div className="scope-row scope-row--head" aria-hidden>
-              <span />
-              {steps.map((st) => (
-                <span key={st.no} className="scope-step palt">{st.title}</span>
-              ))}
-            </div>
-            <div className="scope-row">
-              <a href="#ses" className="scope-label">
-                SES<span>常駐・準委任</span>
-              </a>
-              {steps.map((st) => (
-                <span key={st.no} className="scope-cell scope-cell--pick" aria-hidden />
-              ))}
-              <span className="scope-note scope-note--ses">必要な工程・期間を選んで参画</span>
-            </div>
-            <div className="scope-row">
-              <a href="#contract-development" className="scope-label">
-                SI<span>一括請負</span>
-              </a>
-              <span className="scope-cell scope-cell--all" aria-hidden />
-              <span className="scope-note scope-note--si">要件定義から運用保守まで一括（一部工程からも可）</span>
-            </div>
-          </FadeIn>
-          <div className="engage-cols">
-            <FadeIn id="ses" className="engage-col scroll-mt-28">
-              <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-warm-ink">SES — System Engineering Service</p>
-              <h3 className="palt mt-2 text-[22px] font-bold leading-[1.5] text-ink min-[720px]:text-[26px]">
-                チームに、技術を加える。
-              </h3>
-              <p className="mt-4 text-[14.5px] leading-[2.05] text-body">
-                SES（システムエンジニアリングサービス）は、エンジニアがお客様のプロジェクトに常駐・準委任で参画し、システム開発・保守・運用を支援する法人向けのサービスです。開発の技術支援も、インフラ運用やQAのアウトソーシングも、ご依頼の業務範囲に応じて当社が体制を編成します。
-              </p>
-              <ul className="engage-list">
-                {sesFeatures.map((f) => (
-                  <li key={f}>{f}</li>
-                ))}
-              </ul>
-            </FadeIn>
-            <FadeIn id="contract-development" className="engage-col scroll-mt-28">
-              <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-warm-ink">SI — System Integration</p>
-              <h3 className="palt mt-2 text-[22px] font-bold leading-[1.5] text-ink min-[720px]:text-[26px]">
-                プロジェクトごと、任せる。
-              </h3>
-              <p className="mt-4 text-[14.5px] leading-[2.05] text-body">
-                システム構築の要件定義から運用保守までを一括してお請けする受託開発です。WebアプリケーションやWeb APIをメインとした業務系システムの開発を得意としています。要件が固まっていない段階からのご相談にも対応します。
-              </p>
-              <ul className="engage-list">
-                {siFeatures.map((f) => (
-                  <li key={f}>{f}</li>
-                ))}
-              </ul>
-            </FadeIn>
-          </div>
-        </Container>
-      </section>
-
-      {/* FIELDS — サービス領域 */}
-      <section className="relative overflow-hidden bg-paper py-20 min-[720px]:py-[96px]">
-        <Container>
-          <SectionHead
-            kicker="Service Domain"
-            title="サービス領域"
-            lead="開発・インフラ・品質保証。システムのライフサイクル全体を、専門特化したエンジニアが支えます。"
+            kicker="What We Do"
+            title="できること"
+            lead="システムの開発・インフラ・品質保証を、要件定義から運用保守まで。一括でも、必要な工程・期間だけでも、チームでお請けします。"
             className="mb-4"
           />
           <div>
             {fields.map((f) => (
               <FadeIn
                 key={f.en}
-                className="brand-line-row group grid grid-cols-1 gap-4 border-b border-line py-9 first:border-t min-[900px]:grid-cols-[1.1fr_1.3fr] min-[900px]:gap-10 min-[900px]:py-11"
+                className="brand-line-row group grid grid-cols-1 gap-4 border-b border-line py-9 first:border-t min-[900px]:grid-cols-[1fr_1.4fr] min-[900px]:gap-10 min-[900px]:py-11"
               >
                 <div>
-                  <p className="mb-2 font-mono text-[10px] uppercase tracking-[0.2em] text-muted">
-                    {f.en}
-                  </p>
+                  <p className="mb-2 font-mono text-[11px] uppercase tracking-[0.16em] text-warm-ink">{f.en}</p>
                   <h3 className="brand-line-label palt text-[21px] font-bold leading-[1.5] tracking-[-0.01em] text-ink min-[720px]:text-[24px]">
                     {f.title}
                   </h3>
-                  <div className="mt-4 flex flex-wrap gap-2">
-                    {f.tags.map((t) => (
-                      <span
-                        key={t}
-                        className="rounded-label border border-line px-2.5 py-1 text-[11px] font-semibold tracking-[0.02em] text-body"
-                      >
-                        {t}
-                      </span>
-                    ))}
-                  </div>
                 </div>
                 <div>
                   <p className="text-[14px] leading-[2.05] text-body">{f.body}</p>
-                  {/* QA の行には、守秘義務に配慮して公開できる範囲の実績を小さく添える */}
-                  {f.en === "Quality Assurance" && (
-                    <div className="mt-8">
-                      <p className="text-[13px] font-medium tracking-[0.06em] text-(--warm-strong)">QA・第三者検証の実績</p>
-                      <ul className="qa-proof">
-                        {qaProjectExamples.map((p) => (
-                          <li key={p}>{p}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
+                  <ul className="can-list">
+                    {f.can.map((c) => (
+                      <li key={c}>{c}</li>
+                    ))}
+                  </ul>
                 </div>
+              </FadeIn>
+            ))}
+          </div>
+        </Container>
+      </section>
+
+      {/* EXPERIENCE — 実績は会社・案件ではなく、経験のある技術領域で見せる */}
+      <section className="border-t border-line bg-paper py-20 min-[720px]:py-[92px]">
+        <Container>
+          <SectionHead
+            kicker="Experience"
+            title="実績のある技術領域"
+            lead="これまでに担当してきた技術・対象の領域です。守秘義務に配慮し、お客様名・案件名は掲載していません。"
+            className="mb-10"
+          />
+          <div className="tech-areas">
+            {techAreas.map((area) => (
+              <FadeIn key={area.label} className="tech-area">
+                <p className="tech-area-label palt">{area.label}</p>
+                <ul className="tech-area-items">
+                  {area.items.map((it) => (
+                    <li key={it}>{it}</li>
+                  ))}
+                </ul>
               </FadeIn>
             ))}
           </div>
