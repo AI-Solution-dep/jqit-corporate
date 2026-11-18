@@ -1,4 +1,5 @@
 import { PageHeader } from "@/components/layout/PageHeader";
+import { ConsultLine } from "@/components/layout/ConsultLine";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Container } from "@/components/ui/Container";
 import { FadeIn } from "@/components/ui/FadeIn";
@@ -57,6 +58,7 @@ export default async function WorksListPage() {
           )}
         </Container>
       </section>
+      <ConsultLine text="似た課題のご相談は、お問い合わせフォームから承ります。" />
     </>
   );
 }

@@ -1,7 +1,6 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
-import { DisplayText } from "@/components/ui/DisplayText";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { SectionHead } from "@/components/ui/SectionHead";
 
@@ -34,9 +33,6 @@ export function AboutSection() {
   return (
     <section id="about" className="overflow-hidden border-t border-line bg-cream py-20 min-[720px]:py-24">
       <Container>
-        <FadeIn>
-          <DisplayText className="-ml-1 mb-8">ABOUT US</DisplayText>
-        </FadeIn>
         <div className="grid grid-cols-1 items-start gap-12 min-[1024px]:grid-cols-2 min-[1024px]:gap-16">
           <div>
             <SectionHead

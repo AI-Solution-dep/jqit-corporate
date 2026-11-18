@@ -247,7 +247,7 @@ export default function SecurityPolicyPage() {
           {/* 個人情報・情報セキュリティについての窓口。方針の「苦情、訂正、開示等のご請求」の受け口を示す */}
           <FadeIn id="contact" className="mt-16 scroll-mt-28 rounded-[14px] border border-line bg-white px-6 py-7 min-[720px]:px-9 min-[720px]:py-8">
             <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-warm-ink">Contact</p>
-            <h2 className="palt mt-2 text-[19px] font-bold text-ink min-[720px]:text-[21px]">個人情報・情報セキュリティに関するお問い合わせ</h2>
+            <h2 className="palt mt-2 text-[19px] font-bold text-ink min-[720px]:text-[21px]">個人情報・情報セキュリティに関する<span className="whitespace-nowrap">お問い合わせ</span></h2>
             <p className="mt-3 text-[14px] leading-[1.95] text-body">
               個人情報の開示・訂正等のご請求や、本方針についてのご質問は、お問い合わせフォームからご連絡ください。個人情報の取り扱いはプライバシーポリシーをご覧ください。
             </p>

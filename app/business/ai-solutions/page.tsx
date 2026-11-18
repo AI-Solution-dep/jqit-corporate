@@ -2,6 +2,7 @@ import Image from "next/image";
 import { NextBusinessBand } from "@/components/business/NextBusinessBand";
 import { AgentScreens, EnablementScreens, ProductScreens } from "@/components/business/ScreenMocks";
 import { PageHeader } from "@/components/layout/PageHeader";
+import { ConsultLine } from "@/components/layout/ConsultLine";
 import { businessSubNav, SubNav } from "@/components/layout/SubNav";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { ServiceFaq, type ServiceFaqItem } from "@/components/seo/ServiceFaq";
@@ -355,6 +356,9 @@ export default function AiSolutionsPage() {
       </section>
 
       <ServiceFaq items={faqs} />
+
+      <ConsultLine text="AI活用のご相談は、検討の段階からお問い合わせフォームで承ります。" />
+
 
       {/* NEXT — ITソリューション事業へ */}
       <NextBusinessBand

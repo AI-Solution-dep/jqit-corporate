@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { DisplayText } from "@/components/ui/DisplayText";
 import { TechBackdrop } from "@/components/ui/TechBackdrop";
 
 export function PageHeader({
@@ -19,10 +18,6 @@ export function PageHeader({
     // data-backdrop-after：背景の図形（PageBackdrop）はこの帯の下から出す
     <section data-backdrop-after className="band-curve relative overflow-hidden bg-cream">
       <TechBackdrop />
-      {/* トップページと共通のディスプレイタイポ（縮小版）でデザイン言語を揃える */}
-      <div className="pointer-events-none absolute -bottom-2 right-0 min-[720px]:-bottom-3">
-        <DisplayText size="md">{en.toUpperCase()}</DisplayText>
-      </div>
       <div className="relative mx-auto w-full max-w-[1160px] px-6 pb-12 pt-14 min-[720px]:pb-[58px] min-[720px]:pt-16">
         <nav
           aria-label="パンくずリスト"

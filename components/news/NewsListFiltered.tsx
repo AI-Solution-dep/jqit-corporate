@@ -59,22 +59,22 @@ export function NewsListFiltered({ items }: { items: Item[] }) {
           <Link
             key={n.id}
             href={`/news/${n.id}`}
-            className="group grid grid-cols-[auto_auto_1fr] items-center gap-x-4 gap-y-3 border-b border-line px-1 py-[18px] transition-[background-color,box-shadow] duration-300 hover:bg-white hover:shadow-hover-lift min-[720px]:grid-cols-[96px_130px_110px_1fr_auto] min-[720px]:gap-6 min-[720px]:py-[22px]"
+            className="group grid grid-cols-[112px_auto_1fr] items-center gap-x-4 gap-y-2 border-b border-line px-1 py-[18px] transition-[background-color,box-shadow] duration-300 hover:bg-white hover:shadow-hover-lift min-[720px]:grid-cols-[96px_130px_110px_1fr_auto] min-[720px]:gap-6 min-[720px]:py-[22px]"
           >
             {n.eyecatch ? (
-              <span className="relative col-span-3 block aspect-[16/10] overflow-hidden bg-cream min-[720px]:col-span-1 min-[720px]:h-[58px] min-[720px]:w-[92px]">
+              <span className="relative row-span-2 block h-[70px] w-[112px] overflow-hidden bg-cream min-[720px]:row-span-1 min-[720px]:h-[58px] min-[720px]:w-[92px]">
                 <Image
                   src={n.eyecatch.url}
                   alt=""
                   fill
-                  sizes="(min-width: 720px) 92px, 100vw"
+                  sizes="(min-width: 720px) 92px, 112px"
                   className={`transition-transform duration-500 group-hover:scale-105 ${
                     isBadgeImage(n.eyecatch.url) ? "object-contain p-2" : "object-cover"
                   }`}
                 />
               </span>
             ) : (
-              <span className="hidden h-[58px] w-[92px] bg-cream min-[720px]:block" />
+              <span className="row-span-2 block h-[70px] w-[112px] bg-cream min-[720px]:row-span-1 min-[720px]:h-[58px] min-[720px]:w-[92px]" />
             )}
             <span className="font-mono text-[13px] tracking-[0.06em] text-muted">
               {n.date.replaceAll("-", ".")}
@@ -82,7 +82,7 @@ export function NewsListFiltered({ items }: { items: Item[] }) {
             <span className="justify-self-start rounded-label border border-warm px-2.5 py-[3px] text-[11px] font-semibold tracking-[0.06em] text-warm-ink">
               {n.category}
             </span>
-            <span className="col-span-3 text-[15px] leading-[1.7] text-ink min-[720px]:col-span-1">
+            <span className="col-span-2 text-[14px] leading-[1.6] text-ink min-[720px]:col-span-1 min-[720px]:text-[15px] min-[720px]:leading-[1.7]">
               {n.title}
             </span>
             <span

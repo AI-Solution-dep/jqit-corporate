@@ -50,10 +50,17 @@ export function Button({
   children: ReactNode;
 }) {
   const cls = `${base} ${variants[variant]} ${className}`;
+  // 別サイトへ出るボタンは、矢印を ↗ にして行き先の違いを示す
+  const isExternal = external || href.startsWith("http");
   const content = (
     <>
       <span>{children}</span>
-      {variant !== "arrow" && <ArrowIcon />}
+      {variant !== "arrow" && !isExternal && <ArrowIcon />}
+      {variant !== "arrow" && isExternal && (
+        <span aria-hidden className="text-[13px] transition-transform duration-300 ease-out group-hover:-translate-y-0.5 group-hover:translate-x-0.5">
+          ↗
+        </span>
+      )}
       {variant === "arrow" && (
         <span
           aria-hidden
@@ -65,7 +72,7 @@ export function Button({
     </>
   );
 
-  if (external || href.startsWith("http")) {
+  if (isExternal) {
     return (
       <a href={href} target="_blank" rel="noopener noreferrer" className={cls}>
         {content}

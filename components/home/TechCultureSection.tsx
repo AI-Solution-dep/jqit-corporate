@@ -1,5 +1,4 @@
 import { Container } from "@/components/ui/Container";
-import { DisplayText } from "@/components/ui/DisplayText";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { siteConfig } from "@/lib/site-config";
 
@@ -34,14 +33,9 @@ export function TechCultureSection() {
   return (
     <section id="tech-culture" className="overflow-hidden bg-ink py-20 text-white min-[720px]:py-24">
       <Container>
-        <FadeIn>
-          <DisplayText tone="white" className="-ml-1 mb-8">
-            TECH &amp; CULTURE
-          </DisplayText>
-        </FadeIn>
         <FadeIn className="mb-12 max-w-[680px]">
           <p className="mb-4 inline-flex items-center gap-2.5">
-            <span aria-hidden className="inline-block h-0.5 w-6 bg-warm" />
+            <span aria-hidden className="inline-block h-0.5 w-6 bg-brand" />
             <span className="font-mono text-[11px] uppercase tracking-[0.24em] text-white/50">
               Tech & Culture
             </span>
