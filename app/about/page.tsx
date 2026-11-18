@@ -11,6 +11,8 @@ import { TypeText } from "@/components/ui/TypeText";
 import { createBreadcrumbJsonLd, createPageMetadata } from "@/lib/seo";
 import { certificationBadges, siteConfig } from "@/lib/site-config";
 import Link from "next/link";
+import { CountUp } from "@/components/about/CountUp";
+import { HistoryTimeline, type HistoryYear } from "@/components/about/HistoryTimeline";
 
 const pageDescription =
   "株式会社JQITの会社情報。企業理念「挑戦と革新で、顧客の未来を切り拓く。」のもと、ITソリューション事業とAIソリューション事業を展開しています。";
@@ -68,6 +70,23 @@ const keyFacts = [
   { k: "従業員数", v: "106", unit: "名", note: "2026年4月時点" },
   { k: "事業", v: "2", unit: "つの事業", note: "ITソリューション／AIソリューション" },
   { k: "情報セキュリティ", v: "ISO/IEC 27001", unit: "", note: "ISMS 認証を取得（2026年3月）" },
+];
+
+/** 沿革。ニュースで公表した出来事だけを載せる（日付はニュースの日付。月が分からないものは月を出さない） */
+const history: HistoryYear[] = [
+  { year: 2024, events: [{ month: 12, text: "株式会社JQIT 設立" }] },
+  { year: 2025, events: [{ month: 9, text: "ISTQB® Gold パートナーに認定", href: "/news/wp-1975" }] },
+  {
+    year: 2026,
+    events: [
+      { month: 2, text: "経済産業省「DX認定」を取得", href: "/news/wp-2234" },
+      { month: 3, text: "労働者派遣事業の許可を取得", href: "/news/wp-2244" },
+      { month: 3, text: "ISO/IEC 27001（ISMS）認証を取得", href: "/news/iso27001-isms-20260306" },
+      { text: "2026年度 財界 BEST AI 100 に選出" },
+      { month: 10, text: "本社を移転", href: "/news/office-relocation-20261007" },
+      { month: 10, text: "関東ITソフトウェア健康保険組合に加入", href: "/news/its-kenpo-20261022" },
+    ],
+  },
 ];
 
 /** 2つの事業への入口。画像は事業ページと同じもの */
@@ -208,7 +227,7 @@ export default function AboutPage() {
                 <div key={f.k}>
                   <dt>{f.k}</dt>
                   <dd>
-                    <span className="about-facts-v">{f.v}</span>
+                    <span className="about-facts-v">{f.k === "従業員数" ? <CountUp to={Number(f.v)} /> : f.v}</span>
                     {f.unit && <span className="about-facts-u">{f.unit}</span>}
                     <small>{f.note}</small>
                   </dd>
@@ -240,6 +259,14 @@ export default function AboutPage() {
               </FadeIn>
             ))}
           </div>
+        </Container>
+      </section>
+
+      {/* HISTORY — 沿革 */}
+      <section className="border-t border-line bg-paper py-20 min-[720px]:py-[92px]">
+        <Container>
+          <SectionHead kicker="History" title="沿革" className="mb-12" />
+          <HistoryTimeline years={history} />
         </Container>
       </section>
 

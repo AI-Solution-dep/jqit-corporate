@@ -228,7 +228,7 @@ export default function AiSolutionsPage() {
                 AIシステムの受託開発、AI導入支援・AI推進コンサル、AIサービス開発の3つの領域で、企業のAI活用を支援します。大規模言語モデルやAIエージェントを中心に、導入の伴走から自社サービス開発まで一貫して対応します。
               </p>
             </FadeIn>
-            <FadeIn className="photo-curve relative overflow-hidden">
+            <FadeIn className="photo-curve biz-hero-photo relative overflow-hidden">
               {/* AI ページは立体イラストで親しみやすく見せる（2026-11-18 オーナー確認。IT ページは画面と構成図で堅実に見せ、役割を分ける） */}
               <Image
                 src="/business-ai-hero.webp"
@@ -243,7 +243,7 @@ export default function AiSolutionsPage() {
           </div>
 
           {/* 実データストリップ */}
-          <FadeIn className="mt-14 grid grid-cols-1 border-t border-ink min-[1024px]:grid-cols-3">
+          <FadeIn className="biz-facts mt-14 grid grid-cols-1 border-t border-ink min-[1024px]:grid-cols-3">
             {facts.map((f) => (
               <div
                 key={f.label}
