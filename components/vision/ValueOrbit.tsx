@@ -5,8 +5,8 @@ import { Phrase } from "@/components/ui/Phrase";
 
 type Value = { title: string; en: string; body: string };
 
-/** 自動で次の指針へ進む間隔（ミリ秒）。読み終わる前に変わらないよう長めに取る */
-const AUTO_ADVANCE_MS = 4800;
+/** 自動で次の指針へ進む間隔（ミリ秒）。2026-11-19 オーナー判断で 4.8 秒から短くした */
+const AUTO_ADVANCE_MS = 3000;
 
 /**
  * 6つの行動指針を、1つの円の線の上に並んだ6つの円で見せる。
