@@ -15,14 +15,14 @@ export function LeadsLine({ leaders, intro = "責任者は、" }: { leaders: Lea
         {people.map((l, i) => (
           <span
             key={l.key}
-            className={`block h-14 w-14 overflow-hidden rounded-full border-2 border-white bg-white ${i > 0 ? "-ml-3" : ""}`}
+            className={`block h-10 w-10 overflow-hidden rounded-full border-2 border-white bg-white ${i > 0 ? "-ml-2" : ""}`}
           >
             <Image
               src={l.image}
               alt=""
-              width={112}
-              height={112}
-              sizes="56px"
+              width={80}
+              height={80}
+              sizes="40px"
               className={`h-full w-full object-cover ${l.zoom ? "origin-[50%_35%] scale-110" : ""}`}
             />
           </span>

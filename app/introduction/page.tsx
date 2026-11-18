@@ -77,7 +77,7 @@ export default function IntroductionPage() {
           <div className={styles.sectionHead}><p className={styles.eyebrow}>開発体制</p><h2 id="team-heading"><span>4つの専門領域が</span><span>ひとつのチームに。</span></h2></div>
           {/* 4人を同じ大きさの写真カードで並べず、会社概要と同じ「項目｜内容」の行にする。担当範囲と技術は折りたたまずに見せる */}
           <ul className={styles.leaderList}>{leaders.map((leader) => <li key={leader.field}>
-            <span className={styles.leaderPhoto} data-zoom={leader.zoom || undefined}><Image src={leader.image} alt="" width={144} height={144} sizes="72px" /></span>
+            <span className={styles.leaderPhoto} data-zoom={leader.zoom || undefined}><Image src={leader.image} alt="" width={96} height={96} sizes="44px" /></span>
             <div><p className={styles.field}>{leader.field}</p><h3>{leader.name}<span>事業部長</span></h3></div>
             <p className={styles.leaderScope}>{leader.scope.join("／")}</p>
             <p className={styles.leaderTech}>{leader.tech.join(" ・ ")}</p>
