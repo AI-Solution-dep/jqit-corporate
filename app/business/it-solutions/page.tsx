@@ -2,7 +2,7 @@ import Image from "next/image";
 import { NextBusinessBand } from "@/components/business/NextBusinessBand";
 import { DevScreens, InfraScreens, QaScreens } from "@/components/business/ScreenMocks";
 import { PageHeader } from "@/components/layout/PageHeader";
-import { FieldLead } from "@/components/business/FieldLead";
+import { LeadsLine } from "@/components/business/FieldLead";
 import { ConsultLine } from "@/components/layout/ConsultLine";
 import { businessSubNav, SubNav } from "@/components/layout/SubNav";
 import { JsonLd } from "@/components/seo/JsonLd";
@@ -38,7 +38,6 @@ const facts = [
 const fields = [
   {
     id: "development",
-    leader: "development" as const,
     title: "システム＆アプリ開発",
     en: "Development",
     screens: DevScreens,
@@ -49,7 +48,6 @@ const fields = [
   },
   {
     id: "infrastructure",
-    leader: "infrastructure" as const,
     title: "インフラ（サーバ / ネットワーク）",
     en: "Infrastructure",
     screens: InfraScreens,
@@ -60,7 +58,6 @@ const fields = [
   },
   {
     id: "qa",
-    leader: "qa" as const,
     title: "QA（第三者検証）",
     en: "Quality Assurance",
     screens: QaScreens,
@@ -312,6 +309,10 @@ export default function ItSolutionsPage() {
             lead="システムの開発・インフラ・品質保証を、要件定義から運用保守まで。一括でも、必要な工程・期間だけでも、チームでお請けします。"
             className="mb-4"
           />
+          {/* 誰が見るのかは、ここで3人まとめて1回だけ出す（領域ごとに繰り返さない） */}
+          <FadeIn className="mt-8">
+            <LeadsLine leaders={["development", "infrastructure", "qa"]} />
+          </FadeIn>
           {/* 領域ごとに、文章と「作る物」の画面モックを左右に並べる（画面は架空のイメージ） */}
           <div className="mt-10">
             {fields.map((f) => (
@@ -328,7 +329,6 @@ export default function ItSolutionsPage() {
                     ))}
                   </ul>
                   <p className="mt-4 font-mono text-[11.5px] tracking-[0.06em] text-muted">{f.stack}</p>
-                  <FieldLead leader={f.leader} />
                 </div>
                 <f.screens />
               </FadeIn>

@@ -2,7 +2,7 @@ import Image from "next/image";
 import { NextBusinessBand } from "@/components/business/NextBusinessBand";
 import { AgentScreens, EnablementScreens, ProductScreens } from "@/components/business/ScreenMocks";
 import { PageHeader } from "@/components/layout/PageHeader";
-import { FieldLead } from "@/components/business/FieldLead";
+import { LeadsLine } from "@/components/business/FieldLead";
 import { ConsultLine } from "@/components/layout/ConsultLine";
 import { businessSubNav, SubNav } from "@/components/layout/SubNav";
 import { JsonLd } from "@/components/seo/JsonLd";
@@ -282,8 +282,8 @@ export default function AiSolutionsPage() {
             className="mb-4"
           />
           {/* 3つの領域とも同じ事業部長が見るので、責任者は節の冒頭に1回だけ出す */}
-          <FadeIn className="max-w-[420px]">
-            <FieldLead leader="ai" label="AIソリューション事業の責任者" />
+          <FadeIn className="mt-8">
+            <LeadsLine leaders={["ai"]} />
           </FadeIn>
           {/* 領域ごとに、文章と画面モックを左右に並べる（IT ソリューションと同じ作り。画面は架空のイメージ） */}
           <div className="mt-10">
