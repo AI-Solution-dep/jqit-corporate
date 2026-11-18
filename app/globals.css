@@ -1141,3 +1141,14 @@ p, dd, li { text-wrap: pretty; }
   .dial-dot, .dial-dot::before, .dial-title span { transition: none; }
   .dial-ping { display: none; }
 }
+
+/* ===== 文字の切り替え：重ねずに「消えてから出る」（2026-11-19） =====
+   古い文字と新しい文字を同時にフェードすると、途中で2つが重なって二重に見える。
+   古い文字は短く消し、新しい文字はそのあと少し遅らせて出す。 */
+.value-orbit-text { transition: opacity .18s ease, visibility 0s linear .18s, translate .18s ease; }
+.value-orbit-text[data-active] { transition: opacity .4s ease .16s, visibility 0s linear 0s, translate .55s cubic-bezier(.16, .84, .44, 1) .16s; }
+.dial-title span { transition: transform .2s ease, opacity .15s ease; }
+.dial-title .is-in { transition: transform .5s cubic-bezier(.22, .8, .24, 1) .14s, opacity .35s ease .14s; }
+@media (prefers-reduced-motion: reduce) {
+  .value-orbit-text, .value-orbit-text[data-active], .dial-title span, .dial-title .is-in { transition: none; }
+}
