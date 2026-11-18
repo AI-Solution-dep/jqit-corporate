@@ -124,58 +124,77 @@ export function InfraScreens() {
           ))}
         </div>
       </Win>
-      <div className="mock-term mock-shadow mock-at-infra-term">
-        $ aws ec2 describe-instances
-        <br />&gt; 4 instances <em>running</em>
-        <br />$ systemctl status nginx
-        <br />&gt; active (running)
-        <br />$ <em>▍</em>
+      <div className="mock-infra-card mock-shadow mock-at-infra-term">
+        <b className="mock-h">構成</b>
+        {[
+          ["ネットワーク", "VPC・サブネット 4"],
+          ["負荷分散", "ロードバランサ"],
+          ["サーバ", "Linux × 4"],
+          ["データベース", "冗長構成（2台）"],
+          ["監視", "アラーム 0件"],
+        ].map(([k, v]) => (
+          <div key={k}>
+            <span className="mock-muted">{k}</span>
+            <span>{v}</span>
+          </div>
+        ))}
       </div>
     </Stage>
   );
 }
 
-/** 検証端末に映す、同じ注文確認画面。broken のときは決済ボタンが下のバーに隠れる（見つけた不具合） */
-function OrderScreen({ broken = false }: { broken?: boolean }) {
-  return (
-    <div className={`mock-order ${broken ? "is-broken" : ""}`}>
-      <b className="mock-order-title">注文内容の確認</b>
-      <div className="mock-order-item"><span>業務用 用紙 A4</span><span>¥4,800</span></div>
-      <div className="mock-order-item"><span>トナー カートリッジ</span><span>¥12,600</span></div>
-      <div className="mock-order-item"><span>配送料</span><span>¥0</span></div>
-      <div className="mock-order-total"><span>合計</span><b>¥17,400</b></div>
-      <span className="mock-order-btn">注文を確定する</span>
-      {broken && <span className="mock-order-bar">ホーム　カート　履歴</span>}
-    </div>
-  );
-}
-
+/** QA：開発の工程のどこで検証が入るか（上）と、自動テスト（Playwright）の実行ログ（下） */
 export function QaScreens() {
+  const steps = ["要件定義", "設計", "開発", "テスト", "リリース"];
+  const log: { ok: boolean; name: string; time: string; err?: string }[] = [
+    { ok: true, name: "ログイン › 正しいパスワードでログインできる", time: "1.2s" },
+    { ok: true, name: "注文 › カートに商品を追加できる", time: "0.8s" },
+    { ok: true, name: "注文 › 注文を確定できる", time: "2.1s" },
+    { ok: false, name: "帳票 › CSV を出力できる", time: "5.0s", err: "Error: ダウンロードが完了しない" },
+    { ok: true, name: "会員 › パスワードを再設定できる", time: "1.6s" },
+    { ok: true, name: "検索 › 条件で絞り込める", time: "0.9s" },
+  ];
   return (
-    <Stage label="同じ画面を複数の端末で見比べ、見つけた不具合に印を付けて報告する検証のイメージ">
-      <div className="mock-tablet mock-shadow mock-at-qa-tablet">
-        <div className="mock-tablet-screen"><OrderScreen /></div>
+    <Stage label="開発の工程のどこで第三者検証とテスト自動化が入るかの図と、自動テストの実行結果のイメージ">
+      <div className="mock-lane mock-shadow mock-at-qa-lane">
+        <div className="mock-row-between">
+          <b className="mock-h">工程と検証の範囲</b>
+          <span className="mock-muted">プロジェクト計画</span>
+        </div>
+        <div className="mock-lane-steps">
+          {steps.map((st) => (
+            <span key={st}>{st}</span>
+          ))}
+        </div>
+        <div className="mock-lane-bars">
+          <i className="is-plan">テスト計画・設計</i>
+          <i className="is-verify">第三者検証</i>
+          <i className="is-auto">回帰テスト（自動）</i>
+        </div>
       </div>
-      <Phone className="mock-at-qa-ios"><OrderScreen /></Phone>
-      <div className="mock-android mock-shadow mock-at-qa-android">
-        <div className="mock-android-screen"><OrderScreen broken /></div>
+      <div className="mock-log mock-shadow mock-at-qa-log">
+        <div className="mock-log-bar">
+          <i />
+          <i />
+          <i />
+          <span>npx playwright test</span>
+        </div>
+        <div className="mock-log-body">
+          <p className="mock-log-dim">Running 6 tests using 3 workers</p>
+          {log.map((l) => (
+            <p key={l.name} className={l.ok ? "" : "is-fail"}>
+              <b>{l.ok ? "✓" : "✕"}</b> {l.name} <span className="mock-log-dim">({l.time})</span>
+              {l.err && <span className="mock-log-err">{l.err}</span>}
+            </p>
+          ))}
+          <p className="mock-log-sum">
+            <b className="mock-log-pass">5 passed</b>　<b className="mock-log-failc">1 failed</b>　<span className="mock-log-dim">(11.6s)</span>
+          </p>
+        </div>
       </div>
       <div className="mock-bug mock-at-qa-bug">
-        <b>不具合 #128</b>
-        決済ボタンが下のバーに隠れる
-      </div>
-      <div className="mock-device-labels mock-at-qa-labels">
-        <span>タブレット<b>OK</b></span>
-        <span>iOS<b>OK</b></span>
-        <span>Android<b className="mock-fail">NG</b></span>
-      </div>
-      <div className="mock-summary mock-shadow mock-at-qa-summary">
-        <div className="mock-row-between">
-          <b>回帰テスト　第14回</b>
-          <span className="mock-tag is-done">122 / 130 合格</span>
-        </div>
-        <div className="mock-progress"><i /></div>
-        <span className="mock-muted">合格 122 ・ 不具合 3 ・ 確認中 5</span>
+        <b>BUG-128 起票済み</b>
+        開発チームへ再現手順を共有
       </div>
     </Stage>
   );
