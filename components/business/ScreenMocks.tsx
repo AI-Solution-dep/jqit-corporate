@@ -34,9 +34,9 @@ function Phone({ children, className = "" }: { children: ReactNode; className?: 
   );
 }
 
-function Win({ title, children, className = "" }: { title: string; children: ReactNode; className?: string }) {
+function Win({ title, children, className = "", dark = false }: { title: string; children: ReactNode; className?: string; dark?: boolean }) {
   return (
-    <div className={`mock-win mock-shadow ${className}`}>
+    <div className={`mock-win mock-shadow ${dark ? "mock-win--dark" : ""} ${className}`}>
       <div className="mock-win-bar">
         <i />
         <i />
@@ -49,10 +49,10 @@ function Win({ title, children, className = "" }: { title: string; children: Rea
 }
 
 /** 写真に、小さな画面のカードを1枚だけ重ねる（全部を画面モックにせず、行ごとに写真を混ぜる） */
-function PhotoScene({ src, alt, children, flip = false }: { src: string; alt: string; children: ReactNode; flip?: boolean }) {
+function PhotoScene({ src, alt, children }: { src: string; alt: string; children: ReactNode }) {
   return (
-    <div className={`mock-photo ${flip ? "is-flip" : ""}`}>
-      <div className={`${flip ? "photo-curve--reverse" : "photo-curve"} relative overflow-hidden`}>
+    <div className="mock-photo">
+      <div className="photo-curve relative overflow-hidden">
         <Image src={src} alt={alt} width={1536} height={1024} sizes="(min-width: 900px) 55vw, 100vw" data-photo-slide className="h-auto w-full object-cover" />
       </div>
       <div className="mock-photo-card mock-shadow" aria-hidden>
@@ -117,23 +117,57 @@ export function DevScreens() {
   );
 }
 
+/** インフラ：クラウドの構成図（左上）と、稼働を監視するグラフの画面（右下）。人物の写真は使わない */
 export function InfraScreens() {
   return (
-    <PhotoScene src="/business-it-cloud.webp" alt="クラウドの構成図を画面で確認するエンジニア" flip>
-      <b className="mock-h">構成</b>
-      {[
-        ["ネットワーク", "VPC・サブネット 4"],
-        ["負荷分散", "ロードバランサ"],
-        ["サーバ", "Linux × 4"],
-        ["データベース", "冗長構成（2台）"],
-        ["監視", "アラーム 0件"],
-      ].map(([k, v]) => (
-        <div key={k} className="mock-kv">
-          <span className="mock-muted">{k}</span>
-          <span>{v}</span>
+    <Stage label="クラウド上のネットワーク・サーバ・データベースの構成図と、稼働状況を監視するグラフの画面のイメージ">
+      <div className="mock-arch mock-shadow mock-at-infra-arch">
+        <div className="mock-row-between">
+          <b className="mock-h">構成図　本番環境</b>
+          <span className="mock-muted">東京リージョン</span>
         </div>
-      ))}
-    </PhotoScene>
+        <div className="mock-arch-entry">
+          <span>利用者</span>
+          <i>→</i>
+          <span>CDN</span>
+          <i>→</i>
+        </div>
+        <div className="mock-arch-cloud">
+          <small>クラウド</small>
+          <div className="mock-arch-vpc">
+            <small>VPC 10.0.0.0/16</small>
+            <span className="mock-arch-node is-wide is-lb">ロードバランサ</span>
+            <span className="mock-arch-node">Web サーバ 1<em>ゾーン A</em></span>
+            <span className="mock-arch-node">Web サーバ 2<em>ゾーン C</em></span>
+            <span className="mock-arch-node is-db">DB（主）</span>
+            <span className="mock-arch-node is-db is-standby">DB（予備）</span>
+          </div>
+          <div className="mock-arch-side">
+            <span className="mock-arch-node is-ops">監視・通知</span>
+            <span className="mock-arch-node is-ops">バックアップ</span>
+          </div>
+        </div>
+      </div>
+      <Win title="monitor / production" dark className="mock-at-infra-win">
+        <div className="mock-mets">
+          <div><small>CPU</small><b>32<em>%</em></b></div>
+          <div><small>メモリ</small><b>58<em>%</em></b></div>
+          <div><small>応答時間</small><b>120<em>ms</em></b></div>
+        </div>
+        <div className="mock-chart">
+          <svg viewBox="0 0 580 110" preserveAspectRatio="none">
+            <path d="M0 80 L40 74 L80 78 L120 60 L160 64 L200 46 L240 52 L280 38 L320 42 L360 30 L400 36 L440 24 L480 32 L520 20 L580 26 L580 110 L0 110Z" className="mock-chart-fill" />
+            <polyline points="0,80 40,74 80,78 120,60 160,64 200,46 240,52 280,38 320,42 360,30 400,36 440,24 480,32 520,20 580,26" className="mock-chart-line" />
+            <polyline points="0,96 40,94 80,95 120,90 160,92 200,86 240,88 280,84 320,86 360,80 400,82 440,78 480,80 520,74 580,76" className="mock-chart-line is-sub" />
+          </svg>
+        </div>
+        <div className="mock-servers">
+          {["web-1", "web-2", "db-main", "db-standby"].map((sv) => (
+            <div key={sv}>{sv}<span className="mock-ok">正常</span></div>
+          ))}
+        </div>
+      </Win>
+    </Stage>
   );
 }
 

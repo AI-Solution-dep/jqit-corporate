@@ -1230,12 +1230,43 @@ p, dd, li { text-wrap: pretty; }
 /* 写真＋小さなカード（インフラ・導入支援）。カードは写真の角に重ねる */
 .mock-photo { position: relative; padding-bottom: 28px; }
 .mock-photo-card { position: absolute; right: -12px; bottom: 0; width: min(300px, 62%); padding: 14px 16px; border-radius: 10px; background: #fff; font-size: 11.5px; line-height: 1.5; color: var(--color-ink); }
-.mock-photo.is-flip .mock-photo-card { right: auto; left: -12px; }
 .mock-photo-card .mock-h { display: block; margin-bottom: 6px; font-size: 13px; }
 .mock-photo-card i { font-style: normal; }
-.mock-kv { display: flex; justify-content: space-between; gap: 12px; padding: 6px 0; border-top: 1px solid var(--color-line); font-weight: 700; }
 @media (max-width: 899px) {
   .mock-photo { padding-bottom: 72px; }
   .mock-photo-card { right: 8px; width: min(240px, 66%); padding: 10px 12px; font-size: 10.5px; }
-  .mock-photo.is-flip .mock-photo-card { left: 8px; }
 }
+
+/* インフラ：クラウドの構成図と、監視のグラフ画面 */
+.mock-at-infra-arch { left: 0; top: 0; width: 400px; }
+.mock-at-infra-win { left: 260px; top: 190px; width: 380px; }
+.mock-arch { padding: 14px 16px 16px; border-radius: 10px; background: #fff; }
+.mock-arch-entry { display: flex; align-items: center; gap: 8px; margin: 10px 0 8px; }
+.mock-arch-entry span { padding: 4px 10px; border-radius: var(--radius-label); background: #f3f1ec; font-weight: 700; }
+.mock-arch-entry i { color: var(--color-muted); }
+.mock-arch-cloud { position: relative; display: grid; grid-template-columns: 1fr 86px; gap: 10px; padding: 22px 10px 10px; border: 1.5px dashed var(--color-warm); border-radius: 10px; background: #fffaf5; }
+.mock-arch-cloud > small, .mock-arch-vpc > small { position: absolute; top: 6px; left: 10px; font-family: var(--font-mono); font-size: 8.5px; color: var(--color-warm-ink); }
+.mock-arch-vpc { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 22px 8px 8px; border: 1.5px dashed #cfcac0; border-radius: 8px; background: #fff; }
+.mock-arch-vpc > small { color: var(--color-muted); }
+.mock-arch-node { display: grid; gap: 1px; padding: 7px 8px; border: 1px solid var(--color-line); border-radius: 7px; background: #fff; font-weight: 700; text-align: center; box-shadow: 0 4px 10px -6px rgb(20 20 15 / 25%); }
+.mock-arch-node em { font-style: normal; font-weight: 400; font-size: 8.5px; color: var(--color-muted); }
+.mock-arch-node.is-wide { grid-column: 1 / -1; }
+.mock-arch-node.is-lb { background: var(--color-warm-strong); border-color: var(--color-warm-strong); color: #fff; }
+.mock-arch-node.is-db { background: var(--color-ink); border-color: var(--color-ink); color: #fff; }
+.mock-arch-node.is-standby { background: #fff; color: var(--color-ink); border: 1.5px dashed var(--color-ink); }
+.mock-arch-side { display: grid; align-content: start; gap: 8px; padding-top: 22px; }
+.mock-arch-node.is-ops { background: var(--warm-soft); border-color: var(--warm-line); color: var(--color-warm-ink); }
+.mock-win--dark .mock-win-body { background: var(--color-ink); color: #fff; }
+.mock-mets { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.mock-mets div { padding: 8px 9px; border: 1px solid rgb(255 255 255 / 12%); border-radius: 7px; }
+.mock-mets small { color: rgb(255 255 255 / 55%); }
+.mock-mets b { display: block; margin-top: 2px; font-family: var(--font-en); font-size: 16px; font-weight: 800; }
+.mock-mets em { font-style: normal; font-size: 10px; color: var(--color-warm); }
+.mock-chart { height: 96px; margin-top: 8px; padding: 8px; border: 1px solid rgb(255 255 255 / 12%); border-radius: 7px; }
+.mock-chart svg { width: 100%; height: 100%; }
+.mock-chart-fill { fill: rgb(240 140 58 / 18%); }
+.mock-chart-line { fill: none; stroke: var(--color-warm); stroke-width: 2; }
+.mock-chart-line.is-sub { stroke: rgb(255 255 255 / 45%); stroke-width: 1.5; stroke-dasharray: 4 4; }
+.mock-servers { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 8px; }
+.mock-servers div { display: flex; justify-content: space-between; padding: 5px 8px; border: 1px solid rgb(255 255 255 / 12%); border-radius: 7px; color: rgb(255 255 255 / 80%); }
+.mock-ok { color: #4cc27c; font-weight: 700; }
