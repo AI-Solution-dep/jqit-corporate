@@ -1157,7 +1157,7 @@ p, dd, li { text-wrap: pretty; }
 }
 
 /* ===== 会社情報：沿革（components/about/HistoryTimeline.tsx、2026-11-19） =====
-   年ごとの列。上の線がスクロールに合わせてオレンジに伸び（--history-p）、届いた年の数字が濃くなって出来事が浮かぶ。 */
+   左に年、右にその年の出来事。左の線がスクロールに合わせてオレンジに伸び（--history-p）、届いた年の数字が濃くなって出来事が浮かぶ。 */
 .history { position: relative; display: grid; grid-template-columns: 1fr; gap: 0; margin: 0; padding: 0 0 0 28px; list-style: none; }
 .history-rail { position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: var(--color-line); }
 .history-rail::after { content: ""; position: absolute; inset: 0; background: var(--color-warm); transform-origin: top; transform: scaleY(var(--history-p, 0)); }
@@ -1172,14 +1172,15 @@ p, dd, li { text-wrap: pretty; }
 .history-month { font-family: var(--font-en); font-weight: 700; color: var(--color-warm-ink); font-variant-numeric: tabular-nums; }
 .history-link { color: var(--color-ink); text-decoration: underline; text-decoration-color: var(--color-line); text-underline-offset: 4px; transition: color .2s ease, text-decoration-color .2s ease; }
 .history-link:hover { color: var(--color-warm-ink); text-decoration-color: currentColor; }
+/* PC も縦に並べる：左に年、右にその年の出来事（年ごとの数の差で列の高さが揃わないため。2026-11-19 オーナー指摘） */
 @media (min-width: 900px) {
-  .history { grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr) minmax(0, 2fr); gap: 0; padding: 28px 0 0; }
-  .history-rail { left: 0; right: 0; top: 0; bottom: auto; width: auto; height: 2px; }
-  .history-rail::after { transform-origin: left; transform: scaleX(var(--history-p, 0)); }
-  .history-year { padding: 0 32px 0 0; }
-  .history-year + .history-year { padding-left: 32px; border-left: 1px solid var(--color-line); }
-  .history-num { font-size: 64px; }
-  .history-year ul { border-top: 0; }
+  .history { padding-left: 40px; }
+  .history-year { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 40px; align-items: start; padding: 32px 0; border-top: 1px solid var(--color-line); }
+  .history-year:last-child { border-bottom: 1px solid var(--color-line); }
+  .history-num { font-size: 56px; }
+  .history-year ul { margin-top: 0; border-top: 0; }
+  .history-year ul > li:first-child { padding-top: 6px; }
+  .history-year ul > li:last-child { border-bottom: 0; }
 }
 @media (prefers-reduced-motion: reduce) {
   .history-year ul > li { opacity: 1; transform: none; transition: none; }
