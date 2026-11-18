@@ -130,8 +130,13 @@ export function PolicyDial({ items }: { items: PolicyDialItem[] }) {
           );
         })}
 
-        {/* 節の名前。後ろの節の名前は下で待ち、読み終えた名前は上へ抜ける */}
-        <div className="dial-title" style={{ left: CX + 38 }} aria-hidden>
+        {/* 節の名前。丸と同じ距離・同じ速さで動く。後ろの節の名前は下で待ち、読み終えた名前は上へ抜ける */}
+        <div
+          className="dial-title"
+          // 名前を丸と一緒に動かす：丸が1つ分動く高さ（R・sin(STEP)）だけ上下に移す
+          style={{ left: CX + 38, "--dial-shift": `${(R * Math.sin(STEP)).toFixed(1)}px` } as React.CSSProperties}
+          aria-hidden
+        >
           {items.map((it, i) => (
             <span key={it.id} className={i === current ? "is-in" : i > current ? "is-from" : "is-out"}>
               {it.title}
