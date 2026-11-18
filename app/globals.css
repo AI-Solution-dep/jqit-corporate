@@ -1147,8 +1147,11 @@ p, dd, li { text-wrap: pretty; }
    古い文字は短く消し、新しい文字はそのあと少し遅らせて出す。 */
 .value-orbit-text { transition: opacity .18s ease, visibility 0s linear .18s, translate .18s ease; }
 .value-orbit-text[data-active] { transition: opacity .4s ease .16s, visibility 0s linear 0s, translate .55s cubic-bezier(.16, .84, .44, 1) .16s; }
-.dial-title span { transition: transform .2s ease, opacity .15s ease; }
-.dial-title .is-in { transition: transform .5s cubic-bezier(.22, .8, .24, 1) .14s, opacity .35s ease .14s; }
+/* 回る目次の名前は、丸と同じ距離（--dial-shift）・同じ速さで上下に動かす。名前だけ真ん中に残ると丸と離れて見えるため（2026-11-19） */
+.dial-title .is-from { transform: translateY(var(--dial-shift, 18px)); }
+.dial-title .is-out { transform: translateY(calc(var(--dial-shift, 18px) * -1)); }
+.dial-title span { transition: transform .75s cubic-bezier(.22, .8, .24, 1), opacity .3s ease; }
+.dial-title .is-in { transition: transform .75s cubic-bezier(.22, .8, .24, 1), opacity .45s ease .12s; }
 @media (prefers-reduced-motion: reduce) {
   .value-orbit-text, .value-orbit-text[data-active], .dial-title span, .dial-title .is-in { transition: none; }
 }
