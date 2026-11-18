@@ -588,6 +588,10 @@ html:has(.page-curtain) { scroll-behavior: auto; }
 .value-orbit-ring circle { fill: none; }
 .value-orbit-ring-base { stroke: var(--warm-line); stroke-width: .3; }
 .value-orbit-ring-progress { stroke: var(--warm-mid); stroke-width: .55; transition: stroke-dasharray .6s cubic-bezier(.16, .84, .44, 1); }
+/* 次の円へ向けて時計回りに伸びる弧。線の太さと色は選んだ範囲の弧と同じ */
+.value-orbit-ring-travel { fill: none; stroke: var(--warm-mid); stroke-width: .55; stroke-dashoffset: 100; visibility: hidden; }
+.value-orbit-ring-travel[data-running] { visibility: visible; animation: orbit-travel linear forwards; }
+@keyframes orbit-travel { to { stroke-dashoffset: 0; } }
 .value-orbit-core {
   position: absolute; left: 50%; top: 50%; width: 25%; aspect-ratio: 1; translate: -50% -50%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
   /* 中心は墨色の塗り。白い円（未選択）とも、暖色の塗り（選択中）とも重ならない「軸」として見せる */
@@ -614,6 +618,7 @@ html:has(.page-curtain) { scroll-behavior: auto; }
 .value-orbit-text[data-active] { opacity: 1; visibility: visible; }
 @media (prefers-reduced-motion: reduce) {
   .value-orbit-ring-progress, .value-orbit-node, .value-orbit-text { transition: none; }
+  .value-orbit-ring-travel { display: none; }
 }
 
 /* DX指標：目標値を大きく入れた3つの円を線でつなぐ */
@@ -1083,12 +1088,8 @@ p, dd, li { text-wrap: pretty; }
 .policy-body { min-width: 0; max-width: 780px; }
 .policy-toc { display: none; }
 @media (min-width: 1024px) {
-  .policy-layout { grid-template-columns: 220px minmax(0, 1fr); gap: 64px; align-items: start; }
+  .policy-layout { grid-template-columns: 300px minmax(0, 1fr); gap: 48px; align-items: start; }
   .policy-toc { display: block; position: sticky; top: 112px; padding-top: 4px; }
-  .policy-toc ol { margin: 14px 0 0; padding: 0; list-style: none; border-top: 1px solid var(--color-line); }
-  .policy-toc li { border-bottom: 1px solid var(--color-line); }
-  .policy-toc a { display: block; padding: 10px 0; font-size: 13px; line-height: 1.6; color: var(--color-body); transition: color 0.2s ease; }
-  .policy-toc a:hover { color: var(--color-warm-ink); }
 }
 /* 箱や片側の色帯にせず、会社情報の数字と同じく罫線で区切った3列にする（2026-11-18 オーナー指摘：片側に色の付いた箱は AI っぽい） */
 .policy-pillars { display: grid; grid-template-columns: 1fr; margin: 24px 0 0; padding: 0; list-style: none; border-top: 1px solid var(--color-ink); }
@@ -1099,4 +1100,44 @@ p, dd, li { text-wrap: pretty; }
   .policy-pillars { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .policy-pillars li { padding: 22px 24px 24px; border-bottom: 0; border-left: 1px solid var(--color-line); }
   .policy-pillars li:first-child { padding-left: 0; border-left: 0; }
+}
+
+/* ===== 情報セキュリティ方針：番号の丸が回る目次（components/security/PolicyDial.tsx、2026-11-18） ===== */
+.dial-stage { position: relative; margin-top: 8px; }
+.dial-rim { position: absolute; left: 0; top: 0; overflow: visible; pointer-events: none; }
+/* 丸：白い陶器のような面に薄い縁と2段の影。周りに紙の色の縁を回して、線を丸の手前で途切れさせる */
+.dial-dot {
+  position: absolute; left: 0; top: 50%;
+  display: grid; place-items: center; width: 40px; height: 40px; margin: -20px 0 0 -20px;
+  border: 1px solid #dfdad0; border-radius: 50%;
+  background: linear-gradient(180deg, #fff 0%, #f5f3ee 100%);
+  box-shadow: 0 0 0 4px var(--color-paper), inset 0 1px 0 #fff, 0 1px 2px rgb(20 20 15 / 6%), 0 6px 14px -4px rgb(20 20 15 / 12%);
+  font-family: var(--font-en); font-size: 14px; font-weight: 600; color: #9a978f;
+  transition: transform .75s cubic-bezier(.22,.8,.24,1), opacity .75s ease, background .4s ease, color .4s ease, border-color .4s ease, box-shadow .5s ease;
+}
+/* 遠い丸は、透かさずに紙の色を重ねて薄くする */
+.dial-dot::before { content: ""; position: absolute; inset: -2px; border-radius: 50%; background: var(--color-paper); opacity: var(--veil, 0); transition: opacity .75s ease; pointer-events: none; }
+.dial-dot svg { position: relative; width: 15px; height: 15px; }
+.dial-dot:hover { border-color: #f3b78a; color: var(--color-warm-ink); }
+.dial-dot.is-done { border-color: #f2d2bb; background: linear-gradient(180deg, #fff7f1 0%, #fbe8da 100%); color: #c96a35; }
+.dial-dot.is-current {
+  border-color: transparent; color: #fff;
+  background: linear-gradient(150deg, #f37a3a 0%, #d9480f 70%);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 35%), 0 0 0 6px rgb(240 140 58 / 14%), 0 12px 24px -6px rgb(217 72 15 / 45%);
+}
+.dial-dot.is-current:hover { color: #fff; }
+.dial-dot:focus-visible { outline: 2px solid var(--color-warm-ink); outline-offset: 4px; }
+.dial-ping { position: absolute; inset: -1px; border-radius: 50%; border: 1.5px solid var(--color-warm); animation: dial-ping 1s ease-out .35s both; pointer-events: none; }
+@keyframes dial-ping { from { opacity: .8; transform: scale(1); } to { opacity: 0; transform: scale(1.9); } }
+/* 節の名前：上から入り、下へ抜ける */
+.dial-title { position: absolute; top: 50%; width: 190px; pointer-events: none; }
+.dial-title span { position: absolute; left: 0; top: 0; translate: 0 -50%; display: block; width: 100%;
+  font-size: 14.5px; font-weight: 700; line-height: 1.55; color: var(--color-ink); white-space: nowrap;
+  transition: transform .6s cubic-bezier(.22,.8,.24,1), opacity .45s ease; }
+.dial-title .is-in { opacity: 1; transform: translateY(0); }
+.dial-title .is-from { opacity: 0; transform: translateY(-18px); }
+.dial-title .is-out { opacity: 0; transform: translateY(18px); }
+@media (prefers-reduced-motion: reduce) {
+  .dial-dot, .dial-dot::before, .dial-title span { transition: none; }
+  .dial-ping { display: none; }
 }

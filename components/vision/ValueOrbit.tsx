@@ -12,6 +12,8 @@ const AUTO_ADVANCE_MS = 4800;
  * 6つの行動指針を、1つの円の線の上に並んだ6つの円で見せる。
  * 選んだ円まで円の線が赤く伸び、中央（スマホは図の下）にその指針の説明が出る。
  * 画面に入ると順に自動で進み、利用者が円を押したら自動送りは止める。
+ * 自動で進む間は、選んだ円から次の円へ向けて円の線が時計回りに少しずつ伸び、着いたら次の円が選ばれる（2026-11-19 オーナー指摘：時間で動いて見えるように）。
+ * マウスを重ねただけでは止めない（止まって見えてしまうため）。キーボードで触れている間と「止める」ボタンでは止まる。
  * 説明文は6つとも HTML に出しておく。見た目の切り替えは読み上げから隠し、
  * 読み上げ用には6つの全文を sr-only の一覧で別に置く（自動送りで読み上げが流れ続けないように aria-live は使わない）。
  * 自動送りは「止める」ボタンでも止められる（WCAG 2.2.2）。
@@ -57,8 +59,6 @@ export function ValueOrbit({ values }: { values: readonly Value[] }) {
     <div
       ref={ref}
       className="value-orbit"
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
       onFocus={() => setPaused(true)}
       onBlur={() => setPaused(false)}
     >
@@ -74,6 +74,18 @@ export function ValueOrbit({ values }: { values: readonly Value[] }) {
             transform="rotate(-90 50 50)"
             className="value-orbit-ring-progress"
             style={{ strokeDasharray: `${active * 100} ${count * 100}` }}
+          />
+          {/* 選んだ円から次の円へ、時間に合わせて伸びる弧（自動送りの間だけ）。選択が変わるたびに描き直す */}
+          <circle
+            key={`travel-${active}`}
+            cx="50"
+            cy="50"
+            r="40"
+            pathLength={count * 100}
+            transform={`rotate(${-90 + (360 / count) * active} 50 50)`}
+            className="value-orbit-ring-travel"
+            data-running={(auto && inView && !paused) || undefined}
+            style={{ strokeDasharray: `100 ${count * 100}`, animationDuration: `${AUTO_ADVANCE_MS}ms` }}
           />
           {/* 中心の円から6つの円へ伸びる線。選んでいる円への線だけ濃く描き直す */}
           {values.map((v, i) => {
