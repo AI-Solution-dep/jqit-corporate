@@ -229,14 +229,14 @@ export default function AiSolutionsPage() {
               </p>
             </FadeIn>
             <FadeIn className="photo-curve relative overflow-hidden">
+              {/* AI ページは立体イラストで親しみやすく見せる（2026-11-18 オーナー確認。IT ページは画面と構成図で堅実に見せ、役割を分ける） */}
               <Image
-                src="/natural-tech-ai.webp"
-                alt="AIデータ可視化を前に分析するメンバー"
-                width={1448}
-                height={1086}
+                src="/business-ai-hero.webp"
+                alt="ロボットがタブレットを持ち、チャット画面のノートPCや書類が並ぶ立体イラスト"
+                width={1536}
+                height={1024}
                 priority
                 sizes="(min-width: 1024px) 45vw, 100vw"
-                data-photo-slide
                 className="h-auto w-full object-cover"
               />
             </FadeIn>
@@ -307,7 +307,7 @@ export default function AiSolutionsPage() {
       </section>
 
       {/* NOVA — 自社プロダクト */}
-      <section className="relative overflow-hidden bg-ink py-20 text-white min-[720px]:py-[100px]">
+      <section className="nova-band relative overflow-hidden bg-ink py-20 text-white min-[720px]:py-[100px]">
         <Container className="relative">
           <div className="grid grid-cols-1 items-start gap-12 min-[1024px]:grid-cols-[0.8fr_1.2fr] min-[1024px]:gap-14">
             <FadeIn>

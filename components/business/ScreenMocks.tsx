@@ -48,14 +48,16 @@ function Win({ title, children, className = "", dark = false }: { title: string;
   );
 }
 
-/** 写真に、小さな画面のカードを1枚だけ重ねる（全部を画面モックにせず、行ごとに写真を混ぜる） */
-function PhotoScene({ src, alt, children }: { src: string; alt: string; children: ReactNode }) {
+/**
+ * 立体イラスト（色の面）に、小さな画面のカードを1枚重ねる（AI ページ用）。
+ * イラストは画像、カードは HTML。center はカードを中央に置く（リボンの背景のとき）。
+ */
+function ToyScene({ src, alt, label, center = false, children }: { src: string; alt: string; label?: string; center?: boolean; children: ReactNode }) {
   return (
-    <div className="mock-photo">
-      <div className="photo-curve relative overflow-hidden">
-        <Image src={src} alt={alt} width={1536} height={1024} sizes="(min-width: 900px) 55vw, 100vw" data-photo-slide className="h-auto w-full object-cover" />
-      </div>
-      <div className="mock-photo-card mock-shadow" aria-hidden>
+    <div className={`toy-scene ${center ? "is-center" : ""}`}>
+      <Image src={src} alt={alt} width={1536} height={1024} sizes="(min-width: 900px) 55vw, 100vw" className="toy-scene-img" />
+      {label && <span className="toy-scene-label" aria-hidden>{label}</span>}
+      <div className="toy-scene-card mock-shadow" aria-hidden>
         {children}
       </div>
     </div>
@@ -232,75 +234,54 @@ export function QaScreens() {
 
 export function AgentScreens() {
   return (
-    <Stage label="社内の資料を参照して答え、重要な操作の前に承認を求めるAIエージェントの画面と、参照した資料のイメージ">
-      <Win title="ai-agent / 業務アシスタント" className="mock-at-agent-win">
-        <div className="mock-chat">
-          <p className="mock-msg is-user">来月の発注量の案を作ってください。</p>
-          <div className="mock-msg is-ai">
-            <span className="mock-steps">
-              <i>✓ 受注データを取得（12,480件）</i>
-              <i>✓ 社内規程「発注基準」を参照</i>
-            </span>
-            上位3品目は前月比 +8% で案を作りました。
-            <span className="mock-source">参照 2件</span>
-          </div>
-          <div className="mock-approve">
-            <span>購買部へ送信しますか？</span>
-            <span className="mock-btn">承認する</span>
-          </div>
+    <ToyScene src="/business-ai-agent.webp" alt="ロボットが虫めがねで書類を調べる立体イラスト" label="AI AGENT">
+      <div className="mock-win-bar">
+        <i />
+        <i />
+        <i />
+        <span>ai-agent / 業務アシスタント</span>
+      </div>
+      <div className="mock-win-body mock-chat">
+        <p className="mock-msg is-user">来月の発注量の案を作ってください。</p>
+        <div className="mock-msg is-ai">
+          <span className="mock-steps">
+            <i>✓ 受注データを取得（12,480件）</i>
+            <i>✓ 社内規程「発注基準」を参照</i>
+          </span>
+          上位3品目は前月比 +8% で案を作りました。
         </div>
-      </Win>
-      {/* RAG：答えの根拠にした社内資料。該当箇所に印を付ける */}
-      <div className="mock-docs mock-at-agent-docs">
-        <div className="mock-doc mock-shadow">
-          <small>PDF</small>
-          <b>発注基準 v3</b>
-          <span className="mock-doc-lines"><i /><i /><i className="is-hit">在庫が2週間分を下回る品目は…</i><i /></span>
-        </div>
-        <div className="mock-doc mock-shadow">
-          <small>表計算</small>
-          <b>受注実績 2026-10</b>
-          <span className="mock-doc-lines"><i /><i className="is-hit">上位3品目　前月比 +8%</i><i /><i /></span>
+        <div className="mock-approve">
+          <span>購買部へ送信しますか？</span>
+          <span className="mock-btn">承認する</span>
         </div>
       </div>
-    </Stage>
+    </ToyScene>
   );
 }
 
 export function EnablementScreens() {
   return (
-    <PhotoScene src="/business-ai-workshop.webp" alt="付箋を使って業務を整理するワークショップの様子">
-      <b className="mock-h">導入計画</b>
-      <div className="mock-plan">
-        <div className="mock-plan-row"><span>業務整理</span><span className="mock-plan-track"><i style={{ left: "0%", width: "34%" }} /></span></div>
-        <div className="mock-plan-row"><span>小さく試す</span><span className="mock-plan-track"><i style={{ left: "30%", width: "38%" }} /></span></div>
-        <div className="mock-plan-row"><span>社内展開</span><span className="mock-plan-track"><i className="is-dark" style={{ left: "62%", width: "38%" }} /></span></div>
-        <div className="mock-plan-months"><span>1月</span><span>2月</span><span>3月</span></div>
+    <ToyScene src="/business-ai-enable.webp" alt="旗の立った階段の立体イラスト" label="AI ENABLEMENT">
+      <div className="mock-win-body">
+        <b className="mock-h">導入計画</b>
+        <div className="mock-plan">
+          <div className="mock-plan-row"><span>業務整理</span><span className="mock-plan-track"><i style={{ left: "0%", width: "34%" }} /></span></div>
+          <div className="mock-plan-row"><span>小さく試す</span><span className="mock-plan-track"><i style={{ left: "30%", width: "38%" }} /></span></div>
+          <div className="mock-plan-row"><span>社内展開</span><span className="mock-plan-track"><i className="is-dark" style={{ left: "62%", width: "38%" }} /></span></div>
+          <div className="mock-plan-months"><span>1月</span><span>2月</span><span>3月</span></div>
+        </div>
       </div>
-    </PhotoScene>
+    </ToyScene>
   );
 }
 
 export function ProductScreens() {
   return (
-    <Stage label="届いたメールの文章を、AIが項目に分けた案件カードと候補に変えるイメージ">
-      <div className="mock-mailcard mock-shadow mock-at-product-mail">
-        <div className="mock-mail-head">
-          <small>受信　11/18 09:12</small>
-          <b>【案件】物流システム開発（Java）2名</b>
-        </div>
-        <p>
-          お世話になっております。下記の案件で要員を探しております。<br />
-          言語：<mark>Java・Spring</mark>　期間：<mark>2月〜長期</mark><br />
-          場所：<mark>リモート併用</mark>　人数：<mark>2名</mark><br />
-          物流の業務経験がある方を歓迎します。
-        </p>
-      </div>
-      <span className="mock-arrow mock-at-product-arrow">AI</span>
-      <div className="mock-struct mock-shadow mock-at-product-struct">
+    <ToyScene src="/business-ai-ribbon.webp" alt="オレンジのリボンの立体グラフィック" center>
+      <div className="mock-win-body">
         <div className="mock-row-between">
           <b className="mock-h">案件　物流システム</b>
-          <span className="mock-tag">自動で構造化</span>
+          <span className="mock-tag">メールから自動で構造化</span>
         </div>
         <div className="mock-fields">
           <span><small>言語</small>Java・Spring</span>
@@ -321,6 +302,6 @@ export function ProductScreens() {
           ))}
         </div>
       </div>
-    </Stage>
+    </ToyScene>
   );
 }
