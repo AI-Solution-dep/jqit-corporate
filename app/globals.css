@@ -165,9 +165,7 @@ section[id] {
 
 /* Brand line: 読むための静かなマイクロインタラクション */
 .brand-line-card,
-.brand-line-row,
-.ethos-card,
-.ethos-value {
+.brand-line-row {
   position: relative;
   overflow: hidden;
   transition:
@@ -177,9 +175,7 @@ section[id] {
 }
 
 .brand-line-card::before,
-.brand-line-row::before,
-.ethos-card::before,
-.ethos-value::before {
+.brand-line-row::before {
   /* ホバーの線：左の縦線が伸び → 上下の線が右へ走り → 右の縦線が閉じて、四辺を囲う枠になる（0.36秒）。
      4本の線は背景の4層で描き、層ごとの長さ（background-size）を keyframes で順に伸ばす。 */
   content: "";
@@ -208,10 +204,7 @@ section[id] {
 }
 
 .brand-line-label,
-.brand-line-no,
-.ethos-card-label,
-.ethos-value-label,
-.ethos-value-no {
+.brand-line-no {
   transition:
     color 0.28s ease,
     transform 0.32s cubic-bezier(0.16, 0.84, 0.44, 1);
@@ -219,32 +212,24 @@ section[id] {
 
 @media (hover: hover) {
   .brand-line-card:hover,
-  .brand-line-row:hover,
-  .ethos-card:hover,
-  .ethos-value:hover {
+  .brand-line-row:hover {
     /* ホバーは白く明るくし、ごく薄い影で少し浮かせる（紙色だと背景の図形を隠してくすんで見えるため） */
     background: #fff;
     box-shadow: var(--shadow-hover-lift);
   }
 
   .brand-line-card:hover::before,
-  .brand-line-row:hover::before,
-  .ethos-card:hover::before,
-  .ethos-value:hover::before {
+  .brand-line-row:hover::before {
     animation: line-frame 0.36s cubic-bezier(0.4, 0, 0.2, 1) forwards;
   }
 
   .brand-line-card:hover .brand-line-label,
-  .brand-line-row:hover .brand-line-label,
-  .ethos-card:hover .ethos-card-label,
-  .ethos-value:hover .ethos-value-label {
+  .brand-line-row:hover .brand-line-label {
     transform: translateX(3px);
   }
 
   .brand-line-card:hover .brand-line-no,
-  .brand-line-row:hover .brand-line-no,
-  .ethos-card:hover .ethos-value-no,
-  .ethos-value:hover .ethos-value-no {
+  .brand-line-row:hover .brand-line-no {
     color: var(--color-warm-ink);
   }
 }
@@ -429,32 +414,21 @@ section[id] {
 
   .brand-line-card,
   .brand-line-row,
-  .ethos-card,
-  .ethos-value,
   .brand-line-card::before,
   .brand-line-row::before,
-  .ethos-card::before,
-  .ethos-value::before,
   .brand-line-label,
-  .brand-line-no,
-  .ethos-card-label,
-  .ethos-value-label,
-  .ethos-value-no {
+  .brand-line-no {
     transition: none;
   }
 
   .brand-line-card:hover .brand-line-label,
-  .brand-line-row:hover .brand-line-label,
-  .ethos-card:hover .ethos-card-label,
-  .ethos-value:hover .ethos-value-label {
+  .brand-line-row:hover .brand-line-label {
     transform: none;
   }
 
   /* 動きを減らす設定では、伸ばさずに最初から枠を出す */
   .brand-line-card:hover::before,
-  .brand-line-row:hover::before,
-  .ethos-card:hover::before,
-  .ethos-value:hover::before {
+  .brand-line-row:hover::before {
     animation: none;
     background-size: var(--frame-w) 100%, 100% var(--frame-w), 100% var(--frame-w), var(--frame-w) 100%;
   }

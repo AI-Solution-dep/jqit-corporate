@@ -19,10 +19,10 @@ export const metadata = createPageMetadata({
     "AIエージェント・RAG・チャットボットの受託開発と、AI導入支援・内製化支援を法人向けに提供します。自社でAIプロダクト「NOVA」を開発・運用する知見をもとに、課題整理から設計・開発・運用・社内定着まで伴走。財界 BEST AI 100 選出、経済産業省DX認定、ISO/IEC 27001認証取得。",
   path: "/business/ai-solutions",
   image: {
-    url: "/natural-tech-ai.webp",
-    width: 1448,
-    height: 1086,
-    alt: "AIデータ可視化を前に分析するJQITのメンバー",
+    url: "/business-ai-hero.webp",
+    width: 1536,
+    height: 1024,
+    alt: "ロボットがタブレットを持ち、チャット画面のノートPCや書類が並ぶ立体イラスト",
   },
 });
 

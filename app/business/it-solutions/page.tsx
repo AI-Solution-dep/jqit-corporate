@@ -35,6 +35,7 @@ const facts = [
 /** サービス領域（既存HPの実コンテンツ） */
 const fields = [
   {
+    id: "development",
     title: "システム＆アプリ開発",
     en: "Development",
     screens: DevScreens,
@@ -44,6 +45,7 @@ const fields = [
     body: "Web系、スマホアプリ、社内システム系などのソフトウェアを要件定義・設計・コーディング・テスト・保守運用まで行います。フロントエンドやサーバサイドのプログラマーはもちろん、システムエンジニアも多数在籍しています。",
   },
   {
+    id: "infrastructure",
     title: "インフラ（サーバ / ネットワーク）",
     en: "Infrastructure",
     screens: InfraScreens,
@@ -53,6 +55,7 @@ const fields = [
     body: "要件定義からシステムの規模や環境に合わせて、ネットワーク・サーバ・ミドルウェアの導入や企画、設計から運用保守、監視業務まで、ITインフラにかかわる業務を幅広く担います。",
   },
   {
+    id: "qa",
     title: "QA（第三者検証）",
     en: "Quality Assurance",
     screens: QaScreens,
@@ -307,7 +310,7 @@ export default function ItSolutionsPage() {
           {/* 領域ごとに、文章と「作る物」の画面モックを左右に並べる（画面は架空のイメージ） */}
           <div className="mt-10">
             {fields.map((f) => (
-              <FadeIn key={f.en} className="biz-row">
+              <FadeIn key={f.en} id={f.id} className="biz-row scroll-mt-24">
                 <div>
                   <p className="mb-2 font-mono text-[11px] uppercase tracking-[0.16em] text-warm-ink">{f.en}</p>
                   <h3 className="palt text-[22px] font-bold leading-[1.5] tracking-[-0.01em] text-ink min-[720px]:text-[26px]">

@@ -25,9 +25,9 @@ const businesses = [
     alt: "ホワイトボードにシステム構成を描き足すエンジニアの手元",
     href: "/business/it-solutions",
     capabilities: [
-      { head: "受託開発（SI）", note: "要件定義から運用保守まで一括で", href: "/business/it-solutions#contract-development" },
-      { head: "SES", note: "チーム体制で現場に技術を加える", href: "/business/it-solutions#ses" },
-      { head: "QA・第三者検証", note: "ISTQB® Gold パートナーの検証力", href: "/business/it-solutions" },
+      { head: "システム＆アプリ開発", note: "要件定義から運用保守まで、SES・受託どちらでも", href: "/business/it-solutions#development" },
+      { head: "インフラ構築・運用", note: "クラウドの設計から監視まで", href: "/business/it-solutions#infrastructure" },
+      { head: "QA・第三者検証", note: "ISTQB® Gold パートナーの検証力", href: "/business/it-solutions#qa" },
     ],
   },
   {
