@@ -30,6 +30,7 @@ const profile = [
   { k: "会社名", v: `${siteConfig.name}（${siteConfig.nameEn}）` },
   { k: "設立", v: "2024年12月6日" },
   { k: "代表者", v: `代表取締役社長　${siteConfig.ceo}` },
+  { k: "役員", v: siteConfig.directors.map(({ role, name }) => `${role}　${name}`).join("\n") },
   { k: "資本金", v: siteConfig.capital },
   { k: "所在地", v: `${siteConfig.address}（${siteConfig.officeName}）` },
   { k: "TEL", v: siteConfig.tel },
@@ -179,7 +180,7 @@ export default function AboutPage() {
                 className="grid grid-cols-1 items-baseline gap-2 border-b border-line px-2 py-5 min-[720px]:grid-cols-[200px_1fr] min-[720px]:gap-6 min-[720px]:py-[22px]"
               >
                 <p className="font-mono text-[11px] tracking-[0.14em] text-muted">{row.k}</p>
-                <p className="text-[15px] leading-[1.9] text-ink">{row.v}</p>
+                <p className="whitespace-pre-line text-[15px] leading-[1.9] text-ink">{row.v}</p>
               </div>
             ))}
           </FadeIn>
