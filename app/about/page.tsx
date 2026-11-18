@@ -9,7 +9,8 @@ import { Kicker } from "@/components/ui/Kicker";
 import { SectionHead } from "@/components/ui/SectionHead";
 import { TypeText } from "@/components/ui/TypeText";
 import { createBreadcrumbJsonLd, createPageMetadata } from "@/lib/seo";
-import { siteConfig } from "@/lib/site-config";
+import { certificationBadges, siteConfig } from "@/lib/site-config";
+import Link from "next/link";
 
 const pageDescription =
   "株式会社JQITの会社情報。企業理念「挑戦と革新で、顧客の未来を切り拓く。」のもと、ITソリューション事業とAIソリューション事業を展開しています。";
@@ -60,6 +61,34 @@ const accessAddressLines = [
   "東京都千代田区内神田1-4-13",
   "THE GATE Otemachi 3階",
 ];
+
+/** 数字で見る JQIT。すべて会社概要に載せている実データ（推測の数字は入れない） */
+const keyFacts = [
+  { k: "設立", v: "2024", unit: "年12月", note: "東京・大手町で創業" },
+  { k: "従業員数", v: "106", unit: "名", note: "2026年4月時点" },
+  { k: "事業", v: "2", unit: "つの事業", note: "ITソリューション／AIソリューション" },
+  { k: "情報セキュリティ", v: "ISO/IEC 27001", unit: "", note: "ISMS 認証を取得（2026年3月）" },
+];
+
+/** 2つの事業への入口。画像は事業ページと同じもの */
+const businessLinks = [
+  {
+    en: "IT Solutions",
+    title: "ITソリューション事業",
+    body: "業務システム・アプリの開発、インフラの設計・運用、QA（第三者検証）をひとつのチームで。",
+    href: "/business/it-solutions",
+    image: "/business-it-dev.webp",
+    alt: "ノートPCとスマートフォンに業務システムの画面が映ったイメージ",
+  },
+  {
+    en: "AI Solutions",
+    title: "AIソリューション事業",
+    body: "AIエージェント・RAG の開発から、AI の導入支援、自社プロダクト NOVA まで。",
+    href: "/business/ai-solutions",
+    image: "/business-ai-hero.webp",
+    alt: "ロボットがタブレットを持ち、チャット画面のノートPCや書類が並ぶ立体イラスト",
+  },
+] as const;
 
 const officialSources = [
   {
@@ -169,6 +198,51 @@ export default function AboutPage() {
         </Container>
       </section>
 
+      {/* KEY FACTS — 数字で見る JQIT */}
+      <section className="border-t border-line bg-cream py-16 min-[720px]:py-20">
+        <Container>
+          <FadeIn>
+            <Kicker className="mb-8">JQIT at a Glance</Kicker>
+            <dl className="about-facts">
+              {keyFacts.map((f) => (
+                <div key={f.k}>
+                  <dt>{f.k}</dt>
+                  <dd>
+                    <span className="about-facts-v">{f.v}</span>
+                    {f.unit && <span className="about-facts-u">{f.unit}</span>}
+                    <small>{f.note}</small>
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </FadeIn>
+        </Container>
+      </section>
+
+      {/* BUSINESS — 2つの事業への入口 */}
+      <section className="border-t border-line bg-paper py-20 min-[720px]:py-[92px]">
+        <Container>
+          <SectionHead kicker="Business" title="事業内容" className="mb-10" />
+          <div className="grid grid-cols-1 gap-8 min-[900px]:grid-cols-2">
+            {businessLinks.map((b) => (
+              <FadeIn key={b.href}>
+                <Link href={b.href} className="about-biz group">
+                  <span className="about-biz-img">
+                    <Image src={b.image} alt={b.alt} width={1536} height={1024} sizes="(min-width: 900px) 50vw, 100vw" />
+                  </span>
+                  <span className="mt-6 block font-mono text-[11px] uppercase tracking-[0.18em] text-warm-ink">{b.en}</span>
+                  <span className="palt mt-2 flex items-center justify-between gap-4 text-[22px] font-bold tracking-[-0.02em] text-ink transition-colors group-hover:text-warm-ink min-[720px]:text-[24px]">
+                    {b.title}
+                    <span aria-hidden className="text-[18px] transition-transform duration-300 group-hover:translate-x-1">→</span>
+                  </span>
+                  <span className="mt-3 block text-[14px] leading-[1.95] text-body">{b.body}</span>
+                </Link>
+              </FadeIn>
+            ))}
+          </div>
+        </Container>
+      </section>
+
       {/* COMPANY PROFILE */}
       <section className="border-t border-line bg-paper py-20 min-[720px]:py-[92px]">
         <Container>
@@ -198,6 +272,19 @@ export default function AboutPage() {
             <p className="mt-3 max-w-[720px] text-[13.5px] leading-[1.95] text-body">
               当社が掲示する認定・許可のうち、公開されている公式情報へのリンクです。
             </p>
+            {/* 認証・認定のマーク（画像のあるもの）。リンクの一覧の上に並べる */}
+            <ul className="about-badges" aria-label="認証・認定のマーク">
+              {certificationBadges.flatMap((b) =>
+                b.image
+                  ? [
+                      <li key={b.label}>
+                        <Image src={b.image.src} alt={b.label} width={b.image.width} height={b.image.height} className="h-auto max-h-[44px] w-auto" />
+                        <span>{b.label}</span>
+                      </li>,
+                    ]
+                  : [],
+              )}
+            </ul>
             {/* 箱にせず、罫線で区切ったリンクの一覧（左に認定名、右に発行元） */}
             <ul className="official-source-list mt-8">
               {officialSources.map((source) => (

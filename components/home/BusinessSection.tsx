@@ -141,8 +141,9 @@ export function BusinessSection() {
                 </button>
               ))}
               <span className="biz-map-core palt" aria-hidden>
+                {/* 「実装・」で折ると1行目だけ長くなり右に寄って見えるので、点を入れず2文字ずつ2行にする */}
                 <span className="biz-map-core-text">
-                  実装・
+                  実装
                   <br />
                   運用
                 </span>

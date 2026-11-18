@@ -1052,3 +1052,51 @@ p, dd, li { text-wrap: pretty; }
 .toy-scene { overflow: hidden; aspect-ratio: 3 / 2; border-radius: 18px; }
 .toy-scene-img { display: block; width: 100%; height: 100%; object-fit: cover; }
 @media (max-width: 640px) { .toy-scene { border-radius: 14px; } }
+
+/* ===== 会社情報（/about）：数字・事業の入口・認証マーク（2026-11-18） ===== */
+.about-facts { display: grid; grid-template-columns: 1fr; margin: 0; border-top: 1px solid var(--color-ink); }
+.about-facts > div { padding: 22px 0 24px; border-bottom: 1px solid var(--color-line); }
+.about-facts dt { font-size: 12px; font-weight: 700; color: var(--color-muted); letter-spacing: 0.08em; }
+.about-facts dd { margin: 8px 0 0; color: var(--color-ink); }
+.about-facts-v { font-family: var(--font-en); font-size: 40px; font-weight: 800; line-height: 1.1; letter-spacing: -0.02em; }
+.about-facts-u { margin-left: 4px; font-size: 15px; font-weight: 700; }
+.about-facts small { display: block; margin-top: 8px; font-size: 12.5px; line-height: 1.7; color: var(--color-body); }
+@media (min-width: 720px) { .about-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 40px; } }
+@media (min-width: 1024px) {
+  .about-facts { grid-template-columns: repeat(4, minmax(0, 1fr)); column-gap: 0; }
+  .about-facts > div { padding: 26px 28px 28px; border-bottom: 0; border-left: 1px solid var(--color-line); }
+  .about-facts > div:first-child { padding-left: 0; border-left: 0; }
+}
+/* 「ISO/IEC 27001」だけ文字が長いので、数字より小さくする */
+.about-facts > div:last-child .about-facts-v { font-size: 26px; line-height: 1.55; }
+.about-biz { display: block; }
+.about-biz-img { display: block; overflow: hidden; aspect-ratio: 3 / 2; border-radius: 16px; }
+.about-biz-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s cubic-bezier(0.16, 0.84, 0.44, 1); }
+.about-biz:hover .about-biz-img img { transform: scale(1.03); }
+.about-badges { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin: 32px 0 0; padding: 0; list-style: none; }
+.about-badges li { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; min-height: 128px; padding: 18px 14px; border: 1px solid var(--color-line); border-radius: 12px; background: #fff; text-align: center; }
+.about-badges span { font-size: 12px; font-weight: 700; line-height: 1.6; color: var(--color-body); }
+@media (min-width: 900px) { .about-badges { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+
+/* ===== 情報セキュリティ基本方針：目次と本文、3つの性質（2026-11-18） ===== */
+.policy-layout { display: grid; grid-template-columns: minmax(0, 1fr); }
+.policy-body { min-width: 0; max-width: 780px; }
+.policy-toc { display: none; }
+@media (min-width: 1024px) {
+  .policy-layout { grid-template-columns: 220px minmax(0, 1fr); gap: 64px; align-items: start; }
+  .policy-toc { display: block; position: sticky; top: 112px; padding-top: 4px; }
+  .policy-toc ol { margin: 14px 0 0; padding: 0; list-style: none; border-top: 1px solid var(--color-line); }
+  .policy-toc li { border-bottom: 1px solid var(--color-line); }
+  .policy-toc a { display: block; padding: 10px 0; font-size: 13px; line-height: 1.6; color: var(--color-body); transition: color 0.2s ease; }
+  .policy-toc a:hover { color: var(--color-warm-ink); }
+}
+/* 箱や片側の色帯にせず、会社情報の数字と同じく罫線で区切った3列にする（2026-11-18 オーナー指摘：片側に色の付いた箱は AI っぽい） */
+.policy-pillars { display: grid; grid-template-columns: 1fr; margin: 24px 0 0; padding: 0; list-style: none; border-top: 1px solid var(--color-ink); }
+.policy-pillars li { padding: 20px 0 22px; border-bottom: 1px solid var(--color-line); }
+.policy-pillars b { display: block; margin-top: 6px; font-size: 19px; color: var(--color-ink); }
+.policy-pillars p { margin-top: 8px; font-size: 13.5px; line-height: 1.95; color: var(--color-body); }
+@media (min-width: 720px) {
+  .policy-pillars { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .policy-pillars li { padding: 22px 24px 24px; border-bottom: 0; border-left: 1px solid var(--color-line); }
+  .policy-pillars li:first-child { padding-left: 0; border-left: 0; }
+}
