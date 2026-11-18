@@ -2,6 +2,7 @@ import Image from "next/image";
 import { NextBusinessBand } from "@/components/business/NextBusinessBand";
 import { AgentScreens, EnablementScreens, ProductScreens } from "@/components/business/ScreenMocks";
 import { PageHeader } from "@/components/layout/PageHeader";
+import { FieldLead } from "@/components/business/FieldLead";
 import { ConsultLine } from "@/components/layout/ConsultLine";
 import { businessSubNav, SubNav } from "@/components/layout/SubNav";
 import { JsonLd } from "@/components/seo/JsonLd";
@@ -280,6 +281,10 @@ export default function AiSolutionsPage() {
             lead="AIシステムの受託開発、AI導入・推進の伴走、自社AIサービスの開発。企業のAI活用を実装と運用の両面から支援します。"
             className="mb-4"
           />
+          {/* 3つの領域とも同じ事業部長が見るので、責任者は節の冒頭に1回だけ出す */}
+          <FadeIn className="max-w-[420px]">
+            <FieldLead leader="ai" label="AIソリューション事業の責任者" />
+          </FadeIn>
           {/* 領域ごとに、文章と画面モックを左右に並べる（IT ソリューションと同じ作り。画面は架空のイメージ） */}
           <div className="mt-10">
             {services.map((s) => (

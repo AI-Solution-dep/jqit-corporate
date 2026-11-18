@@ -7,6 +7,7 @@ import Link from "next/link";
 import { createPageMetadata } from "@/lib/seo";
 import { certificationBadges, introductionContacts, siteConfig } from "@/lib/site-config";
 import styles from "./introduction.module.css";
+import { leaders } from "@/lib/leaders";
 
 export const metadata: Metadata = {
   ...createPageMetadata({ title: "実績と開発体制のご紹介", description: "JQITの開発実績、4つの専門領域と責任者、導入の進め方、担当者の連絡先をご紹介します。", path: "/introduction" }),
@@ -14,12 +15,6 @@ export const metadata: Metadata = {
   referrer: "no-referrer",
 };
 
-const leaders = [
-  { field: "AI", title: "AIソリューション事業部長", name: "宮本 尚寛", image: "leader-miyamoto", scope: ["AIシステムの開発", "既存業務へのAI導入"], tech: ["Python", "FastAPI", "LLM API", "RAG"], crop: "miyamoto" },
-  { field: "開発", title: "開発事業部長", name: "大野 健", image: "leader-ohno", scope: ["Web・モバイルアプリ", "設計から運用保守まで"], tech: ["Java", "TypeScript", "React", "Next.js"], crop: "ohno" },
-  { field: "インフラ", title: "インフラ事業部長", name: "嵐 亮太", image: "leader-arashi", scope: ["オンプレ・クラウド基盤", "設計・構築・運用"], tech: ["AWS", "Azure", "オンプレミス"], crop: "arashi" },
-  { field: "QA", title: "QA事業部長", name: "岩崎 顕儀", image: "leader-iwasaki", scope: ["品質保証・テスト設計", "テスト自動化"], tech: ["品質計画", "第三者検証", "自動化"], crop: "iwasaki" },
-];
 
 const cases = [
   { category: "教育機関向け", title: "いじめ対応支援AI", image: "ill-counsel", task: "相談内容の整理と報告", development: "相談の分析・報告書作成を支援するAI", output: "相談内容の分析結果・報告書", flow: ["相談内容", "AIによる分析", "報告書"] },
@@ -83,7 +78,7 @@ export default function IntroductionPage() {
           <div className={styles.display} aria-hidden="true">OUR TEAM</div>
           <div className={styles.sectionHead}><p className={styles.eyebrow}>02 ／ 開発体制</p><h2 id="team-heading"><span>4つの専門領域が</span><span>ひとつのチームに。</span></h2></div>
           <div className={styles.leaderGrid}>{leaders.map((leader) => <article className={styles.leader} key={leader.field}>
-            <div className={styles.portrait} data-person={leader.crop}><Image src={`/introduction/${leader.image}.webp`} alt={leader.name} width={300} height={300} sizes="(max-width: 760px) 44vw, 250px" /></div>
+            <div className={styles.portrait} data-zoom={leader.zoom || undefined}><Image src={leader.image} alt={leader.name} width={300} height={300} sizes="(max-width: 760px) 44vw, 250px" /></div>
             <p className={styles.field}>{leader.field}</p><h3>{leader.name}</h3><p className={styles.jobTitle}>事業部長</p><p className={styles.scope}>{leader.scope.map(item => <span key={item}>{item}</span>)}</p>
           </article>)}</div>
           <details className={styles.more}><summary>担当範囲・技術を見る</summary><div className={styles.expertise}>{leaders.map((leader) => <div key={leader.field}><h3>{leader.field}</h3><p>{leader.scope.join(" ／ ")}</p><p className={styles.note}>{leader.tech.join(" ／ ")}</p></div>)}</div></details>
