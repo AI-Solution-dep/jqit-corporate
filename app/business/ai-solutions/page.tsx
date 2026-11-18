@@ -306,13 +306,13 @@ export default function AiSolutionsPage() {
         </Container>
       </section>
 
-      {/* NOVA — 自社プロダクト */}
-      <section className="nova-band relative overflow-hidden bg-ink py-20 text-white min-[720px]:py-[100px]">
+      {/* NOVA — 自社プロダクト。黒い帯は AI っぽく見えるので白地にする（2026-11-18 オーナー判断） */}
+      <section className="relative overflow-hidden border-t border-line bg-paper py-20 min-[720px]:py-[100px]">
         <Container className="relative">
           <div className="grid grid-cols-1 items-start gap-12 min-[1024px]:grid-cols-[0.8fr_1.2fr] min-[1024px]:gap-14">
             <FadeIn>
-              <p className="mb-4 flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.2em] text-warm">
-                <span aria-hidden className="h-px w-6 bg-warm" />
+              <p className="mb-4 flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.2em] text-warm-strong">
+                <span aria-hidden className="h-px w-6 bg-warm-strong" />
                 Our Product
               </p>
               <h2 className="palt text-[28px] font-bold leading-[1.45] tracking-[-0.02em] min-[720px]:text-[36px]">
@@ -320,7 +320,7 @@ export default function AiSolutionsPage() {
                 <br />
                 決める仕事へ。
               </h2>
-              <p className="mt-6 text-[14.5px] leading-[2.05] text-white/80">
+              <p className="mt-6 text-[14.5px] leading-[2.05] text-body">
                 NOVAは、届いた案件・人材メールをAIが自動で構造化し、タグスコアとAI判定の2段階マッチングで候補と「なぜ合うか」の判断理由まで提示するSES特化のAIマッチングシステムです。契約終了アラートによる先回り営業、提案メールのAI起草まで、メール1通が提案になるまでを一気通貫で支えます。
               </p>
               {/* メール1通が提案になるまでの流れ。番号や円は使わず、矢印でつないだ言葉の列で見せる */}
@@ -331,7 +331,7 @@ export default function AiSolutionsPage() {
                   </li>
                 ))}
               </ol>
-              <p className="mt-5 text-[13px] leading-[1.9] text-white/65">
+              <p className="mt-5 text-[13px] leading-[1.9] text-muted">
                 ほかに、案件・人材・BP の一元管理と、契約終了アラートによる先回り営業にも対応します。
               </p>
               <div className="mt-9">

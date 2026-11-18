@@ -1119,9 +1119,9 @@ p, dd, li { text-wrap: pretty; }
 
 /* NOVA の流れ：番号の円をやめ、矢印でつないだ言葉の列にする */
 .nova-chain { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; margin: 28px 0 0; padding: 0; list-style: none; }
-.nova-chain li { display: flex; align-items: center; gap: 10px; font-size: 13.5px; font-weight: 700; color: #fff; }
+.nova-chain li { display: flex; align-items: center; gap: 10px; font-size: 13.5px; font-weight: 700; color: var(--color-ink); }
 .nova-chain li:not(:last-child)::after { content: "→"; font-weight: 400; color: var(--color-warm); }
-.nova-chain li:last-child { color: var(--color-warm); }
+.nova-chain li:last-child { color: var(--color-warm-strong); }
 
 /* QA：工程のどこで検証が入るか（上）と、自動テストの実行ログ（下） */
 .mock-lane { padding: 14px 16px 16px; border-radius: 10px; background: #fff; }
@@ -1192,6 +1192,3 @@ p, dd, li { text-wrap: pretty; }
 .toy-scene { overflow: hidden; aspect-ratio: 3 / 2; border-radius: 18px; }
 .toy-scene-img { display: block; width: 100%; height: 100%; object-fit: cover; }
 @media (max-width: 640px) { .toy-scene { border-radius: 14px; } }
-/* AI：NOVA の帯。左（文章側）は黒のまま、右にオレンジのリボンを敷く */
-.nova-band { background: linear-gradient(90deg, var(--color-ink) 0%, var(--color-ink) 34%, rgb(20 20 15 / 55%) 60%, rgb(20 20 15 / 0%) 100%), url(/business-ai-ribbon-dark.webp) right center / auto 135% no-repeat, var(--color-ink); }
-@media (max-width: 1023px) { .nova-band { background: linear-gradient(180deg, var(--color-ink) 0%, var(--color-ink) 55%, rgb(20 20 15 / 40%) 100%), url(/business-ai-ribbon-dark.webp) center bottom / 160% auto no-repeat, var(--color-ink); } }
