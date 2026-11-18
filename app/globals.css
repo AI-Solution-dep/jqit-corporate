@@ -526,9 +526,6 @@ html:has(.page-curtain) { scroll-behavior: auto; }
     .philo-orbit { view-timeline-name: --philo; }
     /* 円の線はスクロールで描かない（途中で止まると描き始めの右側が欠けて見えるため）。動きは回転と波紋で出す */
     /* DX指標：円をつなぐ線が左から伸び、円が順に現れる */
-    /* IT：開発の流れの縦線が読み進めるにつれ上から赤く伸び、工程の点が画面の中ほどに来たものから赤くなる */
-    .delivery-timeline::after { content: ""; position: absolute; left: -2px; top: 0; bottom: 0; width: 2px; background: var(--warm-mid); transform-origin: top; animation: scene-bar-y linear both; animation-timeline: view(); animation-range: entry 60% cover 70%; }
-    .delivery-step::before { animation: scene-dot linear both; animation-timeline: view(); animation-range: entry 100% cover 40%; }
     /* AI：NOVA の画面がせり上がり、特徴が順に濃くなる */
     .nova-shot { animation: scene-rise linear both; animation-timeline: view(); animation-range: entry 0% cover 42%; }
     .nova-features > li { animation: scene-fill linear both; animation-timeline: view(); animation-range: entry 100% cover 50%; }
@@ -537,9 +534,6 @@ html:has(.page-curtain) { scroll-behavior: auto; }
 @keyframes scene-mask { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
 @keyframes scene-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
 @keyframes scene-pop { from { scale: .6; opacity: 0; } to { scale: 1; opacity: 1; } }
-@keyframes scene-bar-x { from { transform: scaleX(0); } to { transform: scaleX(1); } }
-@keyframes scene-bar-y { from { transform: scaleY(0); } to { transform: scaleY(1); } }
-@keyframes scene-dot { from { background: #d9d5d6; scale: .7; } to { background: var(--warm-mid); scale: 1; } }
 @keyframes scene-rise { from { transform: translateY(56px) scale(.92) rotate(-1.5deg); opacity: .4; } to { transform: none; opacity: 1; } }
 @keyframes scene-fill { from { opacity: .3; } to { opacity: 1; } }
 
@@ -570,9 +564,6 @@ html:has(.page-curtain) { scroll-behavior: auto; }
 .vision-structure-item:first-child { padding-top: 0; }
 .vision-structure-item + .vision-structure-item { margin-left: 12%; border-top: 1px solid var(--color-line); }
 /* AI：サービスの詳細は罫線で区切った縦の並び、NOVA の特徴は番号のない短いリスト */
-.service-detail-item { padding-block: 22px; border-bottom: 1px solid var(--color-line); }
-.service-detail-item:first-child { padding-top: 0; }
-.service-detail-item:last-child { border-bottom: 0; padding-bottom: 0; }
 .nova-features { display: flex; flex-wrap: wrap; gap: 12px 28px; }
 .nova-features li { display: flex; align-items: baseline; gap: 10px; }
 .nova-features li::before { content: ""; width: 6px; height: 6px; background: var(--warm-mid); flex-shrink: 0; translate: 0 -2px; }
@@ -580,12 +571,6 @@ html:has(.page-curtain) { scroll-behavior: auto; }
 .project-experience-list { max-width: 880px; border-top: 1px solid var(--color-line); }
 .project-experience-list li { display: flex; gap: 18px; align-items: baseline; padding: 20px 0; border-bottom: 1px solid var(--color-line); }
 .project-experience-list li::before { content: ""; width: 6px; height: 6px; background: var(--warm-mid); flex-shrink: 0; translate: 0 -2px; }
-/* IT：開発の流れは縦のタイムライン（番号は順番に意味があるので残す） */
-.delivery-timeline { position: relative; max-width: 960px; margin-left: auto; border-left: 2px solid var(--warm-soft); }
-.delivery-step { position: relative; display: grid; grid-template-columns: 56px minmax(0, .85fr) minmax(0, 1.4fr); gap: 24px; padding: 0 0 44px 36px; }
-.delivery-step:last-child { padding-bottom: 0; }
-.delivery-step::before { content: ""; position: absolute; z-index: 1; width: 12px; height: 12px; border-radius: 50%; background: var(--warm-mid); left: -7px; top: 9px; }
-.delivery-step-number { font-size: 13px; line-height: 2.4; color: var(--warm-strong); }
 /* コラム一覧：左に日付・タグ、右に題名・抜粋・続きを読む */
 .column-editorial-list { border-top: 1px solid var(--color-line); }
 .column-editorial-entry { display: grid; grid-template-columns: 200px minmax(0, 1fr); column-gap: 48px; padding: 36px 0; border-bottom: 1px solid var(--color-line); }
@@ -598,8 +583,6 @@ html:has(.page-curtain) { scroll-behavior: auto; }
 .official-source-list a { display: flex; justify-content: space-between; align-items: baseline; gap: 24px; padding: 20px 0; }
 @media (max-width: 719px) {
   .vision-structure-item + .vision-structure-item { margin-left: 0; }
-  .delivery-step { grid-template-columns: 40px minmax(0, 1fr); gap: 6px 12px; padding-left: 22px; padding-bottom: 36px; }
-  .delivery-step p { grid-column: 2; }
   .column-editorial-entry { display: flex; flex-direction: column; padding-block: 28px; }
   .column-editorial-entry > span:first-child { flex-direction: row; margin-bottom: 12px; }
   .official-source-list a { display: block; }
@@ -1024,71 +1007,18 @@ p, dd, li { text-wrap: pretty; }
 .faq-more[open] > div { order: 1; }
 @media (hover: hover) { .faq-more-toggle:hover { border-color: var(--warm-mid); color: var(--color-warm-ink); } }
 
-/* ===== IT事業：開発の流れ（PC は円5つを水平線で結ぶ。スマホは縦のタイムラインのまま） ===== */
-@media (min-width: 1024px) {
-  .delivery-circles { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px; max-width: none; margin: 0; border-left: 0; }
-  .delivery-circles::after { left: 10%; right: 10%; top: 28px; bottom: auto; width: auto; height: 1.5px; background: #e8b896; transform-origin: left; }
-  .delivery-circles::before { content: ""; position: absolute; left: 10%; right: 10%; top: 28px; height: 1.5px; background: var(--warm-line); }
-  .delivery-circles .delivery-step { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 0; padding: 0; }
-  .delivery-circles .delivery-step::before { display: none; }
-  .delivery-circles .delivery-step-number {
-    position: relative; z-index: 1; width: 56px; aspect-ratio: 1; border-radius: 50%; display: grid; place-items: center; line-height: 1;
-    background: #fff; border: 1px solid var(--warm-line); font-size: 14px; color: var(--warm-strong);
-    box-shadow: 0 2px 4px rgb(70 40 20 / 12%), 0 18px 36px -6px rgb(70 40 20 / 24%);
-  }
-  .delivery-circles h3 { margin-top: 16px; }
-  .delivery-circles p { margin-top: 6px; max-width: 14em; font-size: 13px; line-height: 1.85; }
-}
-@supports (animation-timeline: view()) {
-  @media (prefers-reduced-motion: no-preference) and (min-width: 1024px) {
-    .delivery-circles::after { animation-name: scene-bar-x; }
-  }
-}
 
 .strength-certs { display: flex; flex-wrap: wrap; gap: 10px; margin: 40px 0 0; padding: 0; list-style: none; }
 .strength-certs li { padding: 6px 14px; border: 1px solid rgb(255 255 255 / 22%); border-radius: var(--radius-label); font-size: 12px; font-weight: 600; color: rgb(255 255 255 / 80%); }
 
-/* ===== AI事業：NOVA の流れ（暗い帯の上に、番号付きの円4つを線でつなぐ） ===== */
-.nova-flow2 { position: relative; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; margin: 32px 0 0; padding: 0; list-style: none; }
-.nova-flow2::before { content: ""; position: absolute; left: 12.5%; right: 12.5%; top: 26px; height: 1.5px; background: rgb(240 140 58 / 60%); }
-.nova-flow2 li { position: relative; display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center; }
-.nova-flow2-node {
-  width: 52px; aspect-ratio: 1; border-radius: 50%; display: grid; place-items: center;
-  background: #fff; color: var(--warm-strong); font-family: var(--font-mono); font-size: 13px; font-weight: 700;
-  box-shadow: 0 0 0 5px rgb(255 255 255 / 8%), 0 16px 32px -8px rgb(0 0 0 / 55%);
-}
-.nova-flow2 li:last-child .nova-flow2-node { background: var(--warm-strong); color: #fff; }
-.nova-flow2-label { font-size: 12.5px; font-weight: 700; line-height: 1.5; color: #fff; word-break: keep-all; overflow-wrap: anywhere; }
 
 /* ===== 事業ページ：2回目のデザインレビューの反映（2026-11-18） ===== */
-/* IT 開発の流れ：円を少し大きく。線が届いた円から順に縁が暖色になって寄る */
-@media (min-width: 1024px) {
-  .delivery-circles .delivery-step-number { width: 64px; }
-  .delivery-circles::before, .delivery-circles::after { top: 32px; }
-}
-@supports (animation-timeline: view()) {
-  @media (prefers-reduced-motion: no-preference) and (min-width: 1024px) {
-    .delivery-circles .delivery-step-number { animation: step-on linear both; animation-timeline: view(); animation-range: entry 80% cover 35%; }
-    .delivery-circles .delivery-step:nth-child(2) .delivery-step-number { animation-range: entry 90% cover 40%; }
-    .delivery-circles .delivery-step:nth-child(3) .delivery-step-number { animation-range: entry 100% cover 45%; }
-    .delivery-circles .delivery-step:nth-child(4) .delivery-step-number { animation-range: cover 20% cover 50%; }
-    .delivery-circles .delivery-step:nth-child(5) .delivery-step-number { animation-range: cover 25% cover 55%; }
-  }
-}
-@keyframes step-on { from { border-color: var(--warm-line); scale: 1; } to { border-color: var(--warm-mid); scale: 1.06; } }
 /* 質問：「ほかのご質問」は箱にせず、行と同じ見た目（＋印は右端） */
 .faq-more-toggle {
   display: flex; justify-content: space-between; width: 100%; margin-top: 0; padding: 24px 0; border: 0; border-bottom: 1px solid var(--color-line); border-radius: 0; background: none; font-size: 15px;
 }
 .faq-more-icon { width: 12px; height: 12px; margin-right: clamp(18px, 2.2vw, 32px); }
 .faq-more-icon::before, .faq-more-icon::after { width: 12px; }
-/* AI NOVA：スマホは流れを2つずつ2段に（名前が途中で折れないように） */
-@media (max-width: 719px) {
-  .nova-flow2 { grid-template-columns: 1fr 1fr; row-gap: 22px; }
-  .nova-flow2::before { display: none; }
-  .nova-flow2-node { width: 48px; }
-  .nova-flow2-label { font-size: 12px; }
-}
 
 /* IT 強み：認証のラベルは中央に、縁を明るく */
 .strength-certs { justify-content: center; }
@@ -1099,15 +1029,165 @@ p, dd, li { text-wrap: pretty; }
 .strength-col { padding-top: 24px; border-top: 2px solid rgb(240 140 58 / 70%); }
 @media (min-width: 900px) { .strength-cols { grid-template-columns: 1fr 1fr; gap: 64px; } }
 
-/* ===== IT事業：できること（3つの領域の行に、できることを短い箇条で） ===== */
-.can-list { display: flex; flex-wrap: wrap; gap: 8px 20px; margin: 16px 0 0; padding: 0; list-style: none; }
-.can-list li { display: flex; align-items: baseline; gap: 8px; font-size: 14px; font-weight: 700; color: var(--color-ink); }
-.can-list li::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--warm-mid); flex-shrink: 0; translate: 0 -2px; }
 
-/* ===== IT事業：実績のある技術領域（領域ごとの行に、技術・対象をラベルで） ===== */
-.tech-areas { border-top: 1px solid var(--color-line); }
-.tech-area { display: grid; gap: 12px; padding: 22px 0; border-bottom: 1px solid var(--color-line); }
-.tech-area-label { font-size: 17px; font-weight: 700; color: var(--color-ink); }
-.tech-area-items { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none; }
-.tech-area-items li { padding: 6px 12px; border-radius: var(--radius-label); background: var(--warm-soft); font-size: 13px; font-weight: 600; color: var(--color-ink); }
-@media (min-width: 900px) { .tech-area { grid-template-columns: 200px 1fr; align-items: center; gap: 32px; } }
+/* ===== 事業ページ：画面モック（components/business/ScreenMocks.tsx、2026-11-18） =====
+   作る物を、架空の画面で見せる。640×440 を基準に組み、狭い画面は zoom で縮める。 */
+.mock-stage { width: 100%; }
+.mock-canvas { position: relative; width: 640px; height: 440px; margin: 0 auto; font-family: var(--font-sans); font-size: 9.5px; line-height: 1.5; color: var(--color-ink); text-align: left; }
+@media (max-width: 1180px) { .mock-canvas { zoom: 0.82; } }
+@media (max-width: 899px) { .mock-canvas { zoom: 0.92; } }
+@media (max-width: 640px) { .mock-canvas { zoom: 0.56; } }
+.mock-canvas > * { position: absolute; }
+.mock-shadow { box-shadow: 0 50px 90px -30px rgb(20 20 15 / 45%), 0 18px 36px -18px rgb(20 20 15 / 25%); }
+.mock-canvas b { font-weight: 700; }
+.mock-canvas i { font-style: normal; }
+.mock-muted { color: var(--color-muted); }
+.mock-h { font-size: 12px; }
+.mock-row-between { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.mock-btn { padding: 4px 9px; border-radius: var(--radius-button); background: var(--color-warm-strong); color: #fff; font-weight: 700; white-space: nowrap; }
+.mock-btn.is-ghost { background: transparent; color: var(--color-ink); box-shadow: inset 0 0 0 1px var(--color-line); }
+.mock-tag { display: inline-block; padding: 1px 6px; border-radius: var(--radius-label); background: var(--warm-soft); color: var(--color-warm-ink); font-weight: 700; white-space: nowrap; }
+.mock-tag.is-done { background: #e7f5ec; color: #1f7a45; }
+.mock-ok { color: #4cc27c; font-weight: 700; }
+.mock-pass { color: #1f7a45; font-weight: 800; }
+.mock-fail { color: var(--color-brand); font-weight: 800; }
+
+/* 機器の枠 */
+.mock-laptop-screen { padding: 11px 11px 13px; border-radius: 16px 16px 0 0; background: #1d1d1a; }
+.mock-laptop-base { position: relative; height: 15px; margin: 0 -26px; border-radius: 0 0 14px 14px; background: linear-gradient(#e9e7e2, #cfccc5); }
+.mock-laptop-base::after { content: ""; position: absolute; left: 50%; top: 0; width: 86px; height: 6px; margin-left: -43px; border-radius: 0 0 6px 6px; background: #bdb9b1; }
+.mock-phone { padding: 8px; border-radius: 32px; background: #1d1d1a; }
+.mock-phone-screen { position: relative; height: 340px; overflow: hidden; border-radius: 25px; background: #fff; }
+.mock-phone-head { padding: 24px 13px 13px; background: var(--color-warm-strong); color: #fff; }
+.mock-phone-head.is-ink { background: var(--color-ink); }
+.mock-phone-head b { display: block; margin-top: 3px; font-size: 13px; }
+.mock-card { display: grid; gap: 2px; margin: 9px 9px 0; padding: 9px; border: 1px solid var(--color-line); border-radius: 10px; }
+.mock-card small { color: var(--color-muted); }
+.mock-mail span { color: var(--color-body); line-height: 1.7; }
+.mock-tabs { position: absolute; left: 0; right: 0; bottom: 0; display: flex; justify-content: space-around; padding: 9px 0 13px; border-top: 1px solid var(--color-line); color: var(--color-muted); }
+.mock-tabs .is-on { color: var(--color-warm-strong); font-weight: 700; }
+.mock-win { overflow: hidden; border-radius: 10px; background: #fff; }
+.mock-win-bar { display: flex; align-items: center; gap: 6px; padding: 9px 12px; border-bottom: 1px solid var(--color-line); background: #f1efea; }
+.mock-win-bar i { width: 9px; height: 9px; border-radius: 50%; background: #d9d6cf; }
+.mock-win-bar span { margin-left: 8px; font-family: var(--font-mono); color: var(--color-muted); }
+.mock-win-body { padding: 14px 16px; }
+.mock-win--dark .mock-win-body { background: var(--color-ink); color: #fff; }
+
+/* 業務システム */
+.mock-app { display: grid; grid-template-columns: 104px 1fr; height: 330px; overflow: hidden; border-radius: 4px; background: #fff; }
+.mock-app.is-plain { grid-template-columns: 1fr; }
+.mock-app-side { padding: 12px 9px; background: var(--color-ink); color: rgb(255 255 255 / 70%); }
+.mock-app-side b { display: block; margin-bottom: 12px; color: #fff; font-size: 10px; }
+.mock-app-side i { display: block; margin-bottom: 2px; padding: 5px 6px; border-radius: var(--radius-label); }
+.mock-app-side i.is-on { background: rgb(240 140 58 / 24%); color: #fff; }
+.mock-app-main { padding: 12px 14px; background: #faf9f7; }
+.mock-kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 10px; }
+.mock-kpis div { padding: 8px; border: 1px solid var(--color-line); border-radius: 7px; background: #fff; }
+.mock-kpis small { color: var(--color-muted); }
+.mock-kpis b { display: block; margin-top: 2px; font-family: var(--font-en); font-size: 16px; font-weight: 800; }
+.mock-table { margin-top: 10px; border: 1px solid var(--color-line); border-radius: 7px; background: #fff; }
+.mock-tr { display: grid; grid-template-columns: 1.4fr 0.8fr 0.6fr 0.7fr; padding: 6px 10px; border-bottom: 1px solid var(--color-line); }
+.mock-tr:last-child { border-bottom: 0; }
+.mock-tr.is-head { color: var(--color-muted); font-weight: 700; }
+.mock-table.is-wide .mock-tr { grid-template-columns: 1.2fr 1.3fr 0.4fr; }
+.mock-split { display: inline-block; padding: 1px 7px; border-radius: var(--radius-label); font-weight: 700; }
+.mock-split.is-auto { background: var(--warm-soft); color: var(--color-warm-ink); }
+.mock-split.is-mix { background: #f3f1ec; color: var(--color-body); box-shadow: inset 0 0 0 1px var(--warm-line); }
+.mock-split.is-human { background: var(--color-ink); color: #fff; }
+.mock-legend { display: flex; gap: 10px; margin-top: 12px; }
+
+/* 監視・ターミナル */
+.mock-mets { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.mock-mets div { padding: 9px; border: 1px solid rgb(255 255 255 / 12%); border-radius: 7px; }
+.mock-mets small { color: rgb(255 255 255 / 55%); }
+.mock-mets b { display: block; margin-top: 3px; font-family: var(--font-en); font-size: 17px; font-weight: 800; }
+.mock-mets em { font-style: normal; color: var(--color-warm); }
+.mock-chart { height: 120px; margin-top: 10px; padding: 8px; border: 1px solid rgb(255 255 255 / 12%); border-radius: 7px; }
+.mock-chart svg { width: 100%; height: 100%; }
+.mock-chart-fill { fill: rgb(240 140 58 / 18%); }
+.mock-chart-line { fill: none; stroke: var(--color-warm); stroke-width: 2; }
+.mock-servers { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 10px; }
+.mock-servers div { display: flex; justify-content: space-between; padding: 6px 9px; border: 1px solid rgb(255 255 255 / 12%); border-radius: 7px; color: rgb(255 255 255 / 80%); }
+.mock-term { padding: 12px 14px; border-radius: 10px; background: #1d1d1a; color: #d8d5cc; font-family: var(--font-mono); line-height: 1.8; }
+.mock-term em { font-style: normal; color: var(--color-warm); }
+
+/* テスト */
+.mock-progress { height: 8px; margin: 8px 0 10px; overflow: hidden; border-radius: 5px; background: var(--color-line); }
+.mock-progress i { display: block; width: 94%; height: 100%; background: linear-gradient(90deg, var(--color-warm), var(--color-warm-strong)); }
+.mock-case { display: grid; grid-template-columns: 54px 1fr 64px 40px; align-items: center; padding: 6px 0; border-bottom: 1px solid var(--color-line); }
+
+/* AI */
+.mock-chat { display: grid; gap: 10px; }
+.mock-msg { max-width: 82%; padding: 9px 12px; border-radius: 12px; line-height: 1.7; }
+.mock-msg.is-user { justify-self: end; background: var(--color-ink); color: #fff; }
+.mock-msg.is-ai { display: grid; gap: 6px; background: #f5f3ee; }
+.mock-steps { display: grid; gap: 2px; color: var(--color-muted); }
+.mock-source { color: var(--color-warm-ink); font-family: var(--font-mono); font-size: 8.5px; }
+.mock-approve { display: flex; align-items: center; gap: 8px; padding: 10px 12px; border: 1px solid var(--warm-line); border-radius: 10px; background: #fffaf5; }
+.mock-approve > span:first-child { flex: 1; font-weight: 700; }
+.mock-fields { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 10px; }
+.mock-fields span { display: grid; padding: 7px 9px; border: 1px solid var(--color-line); border-radius: 7px; background: #fff; font-weight: 700; }
+.mock-fields small { color: var(--color-muted); font-weight: 400; }
+.mock-match { display: grid; gap: 7px; margin-top: 12px; }
+.mock-match div { display: grid; grid-template-columns: 60px 44px 1fr; align-items: center; padding: 9px 10px; border: 1px solid var(--color-line); border-radius: 8px; background: #fff; }
+.mock-match div:first-child { box-shadow: inset 3px 0 0 var(--color-warm-strong); }
+.mock-score { font-family: var(--font-en); font-size: 15px; font-weight: 800; color: var(--color-warm-strong); }
+.mock-match small { color: var(--color-body); }
+
+/* 配置（キャンバス 640×440 の中） */
+.mock-at-dev-laptop { left: 0; top: 14px; width: 548px; }
+.mock-at-dev-phone { right: 0; top: 96px; width: 176px; }
+.mock-at-infra-win { left: 0; top: 0; width: 590px; }
+.mock-at-infra-term { right: 0; top: 268px; width: 270px; }
+.mock-at-qa-win { left: 0; top: 16px; width: 560px; }
+.mock-at-qa-phone { right: 0; top: 120px; width: 168px; }
+.mock-at-agent-win { left: 10px; top: 16px; width: 620px; }
+.mock-at-enable-win { left: 10px; top: 30px; width: 620px; }
+.mock-at-product-laptop { left: 0; top: 14px; width: 548px; }
+.mock-at-product-phone { right: 0; top: 120px; width: 172px; }
+.mock-at-product-phone .mock-phone-screen { height: 300px; }
+
+/* 事業の行：文章と画面モックを左右に並べ、行ごとに左右を入れ替える */
+.biz-row { display: grid; grid-template-columns: 1fr; gap: 36px; padding: 56px 0; border-bottom: 1px solid var(--color-line); }
+.biz-row:first-child { border-top: 1px solid var(--color-line); }
+@media (min-width: 900px) {
+  .biz-row { grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); align-items: center; gap: 56px; padding: 80px 0; }
+  .biz-row:nth-child(even) { grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr); }
+  .biz-row:nth-child(even) > :first-child { order: 2; }
+}
+.biz-points { margin: 20px 0 0; padding: 0; list-style: none; border-top: 1px solid var(--color-ink); }
+.biz-points li { padding: 13px 0; border-bottom: 1px solid var(--color-line); font-size: 14px; font-weight: 700; color: var(--color-ink); }
+.biz-points li p { margin-top: 4px; font-size: 13px; font-weight: 400; line-height: 1.9; color: #5c5a55; }
+
+/* 技術領域：会社概要と同じ「項目｜内容」の表 */
+.tech-table { margin: 0; border-top: 1px solid var(--color-ink); }
+.tech-table > div { display: grid; gap: 8px; padding: 22px 0; border-bottom: 1px solid var(--color-line); }
+.tech-table dt { font-size: 14px; font-weight: 700; color: var(--color-ink); }
+.tech-table dt small { display: block; margin-top: 3px; font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--color-muted); }
+.tech-table dd { margin: 0; font-size: 16px; font-weight: 700; line-height: 1.9; color: var(--color-ink); }
+.tech-table dd span { white-space: nowrap; }
+.tech-table dd span:not(:last-child)::after { content: "／"; margin: 0 0.4em; font-weight: 400; color: var(--color-line); }
+.tech-table dd.is-lead { font-size: 24px; color: var(--color-brand); }
+@media (min-width: 900px) {
+  .tech-table > div { grid-template-columns: 220px 1fr; align-items: baseline; gap: 32px; }
+  .tech-table dd { font-size: 18px; }
+  .tech-table dd.is-lead { font-size: 30px; }
+}
+
+/* 工程：番号を付けず、左から右へ読む。上の罫線の右端に小さな矢印を置いて流れを示す */
+.flow-steps { display: grid; grid-template-columns: 1fr; margin: 0; padding: 0; list-style: none; }
+.flow-steps li { position: relative; padding: 18px 0 20px; border-top: 2px solid var(--color-line); }
+.flow-steps li::before { content: ""; position: absolute; left: 0; top: -2px; width: 36px; height: 2px; background: var(--color-brand); }
+.flow-steps h3 { font-size: 18px; font-weight: 700; line-height: 1.6; color: var(--color-ink); }
+.flow-steps p { margin-top: 6px; font-size: 13.5px; line-height: 1.95; color: var(--color-body); }
+@media (min-width: 900px) {
+  .flow-steps { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  .flow-steps li { padding: 22px 28px 0 0; }
+  .flow-steps li:not(:last-child)::after { content: ""; position: absolute; right: 12px; top: -6px; width: 8px; height: 8px; border-top: 2px solid var(--color-line); border-right: 2px solid var(--color-line); rotate: 45deg; background: var(--color-cream); }
+}
+
+/* NOVA の流れ：番号の円をやめ、矢印でつないだ言葉の列にする */
+.nova-chain { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; margin: 28px 0 0; padding: 0; list-style: none; }
+.nova-chain li { display: flex; align-items: center; gap: 10px; font-size: 13.5px; font-weight: 700; color: #fff; }
+.nova-chain li:not(:last-child)::after { content: "→"; font-weight: 400; color: var(--color-warm); }
+.nova-chain li:last-child { color: var(--color-warm); }

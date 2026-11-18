@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { NextBusinessBand } from "@/components/business/NextBusinessBand";
+import { AgentScreens, EnablementScreens, ProductScreens } from "@/components/business/ScreenMocks";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { businessSubNav, SubNav } from "@/components/layout/SubNav";
 import { JsonLd } from "@/components/seo/JsonLd";
@@ -36,6 +37,7 @@ const facts = [
 const services = [
   {
     id: "ai-agent",
+    screens: AgentScreens,
     en: "AI Agent Development",
     title: "AIエージェント開発・RAG構築",
     lead: "AIエージェント、RAG、チャットボット、AIを組み込んだ業務アプリケーションを、法人向けに受託開発します。要件整理から設計・開発・運用まで一気通貫で対応します。",
@@ -52,6 +54,7 @@ const services = [
   },
   {
     id: "ai-consulting",
+    screens: EnablementScreens,
     en: "AI Enablement",
     title: "AI導入支援・AI推進コンサル事業",
     lead: "AIエージェントの導入支援を中心に、業務自動化・効率化を内製化して実現していくための伴走支援を行います。",
@@ -65,10 +68,10 @@ const services = [
         body: "現場が自走して改善を続けられるよう、業務整理、活用ルール、運用設計、社内展開まで支援します。",
       },
     ],
-    tags: ["AIエージェント", "業務自動化", "内製化支援", "AI推進体制"],
   },
   {
     id: "ai-product",
+    screens: ProductScreens,
     en: "AI Product",
     title: "AIサービス開発",
     lead: "NOVAをはじめとしたAIサービスの企画・開発を通じて、現場の生産性を高めるプロダクトを継続的に生み出します。",
@@ -276,51 +279,30 @@ export default function AiSolutionsPage() {
             lead="AIシステムの受託開発、AI導入・推進の伴走、自社AIサービスの開発。企業のAI活用を実装と運用の両面から支援します。"
             className="mb-4"
           />
-          <div>
+          {/* 領域ごとに、文章と画面モックを左右に並べる（IT ソリューションと同じ作り。画面は架空のイメージ） */}
+          <div className="mt-10">
             {services.map((s) => (
-              <FadeIn
-                key={s.en}
-                id={s.id}
-                className="brand-line-row group grid scroll-mt-24 grid-cols-1 gap-5 border-b border-line py-10 first:border-t min-[900px]:grid-cols-[1.05fr_1.35fr] min-[900px]:gap-10 min-[900px]:py-12"
-              >
+              <FadeIn key={s.en} id={s.id} className="biz-row scroll-mt-24">
                 <div>
-                  <p className="mb-2 font-mono text-[10px] uppercase tracking-[0.2em] text-muted">
-                    {s.en}
-                  </p>
-                  <h3 className="brand-line-label palt text-[21px] font-bold leading-[1.5] tracking-[-0.01em] text-ink min-[720px]:text-[24px]">
+                  <p className="mb-2 font-mono text-[11px] uppercase tracking-[0.16em] text-warm-ink">{s.en}</p>
+                  <h3 className="palt text-[22px] font-bold leading-[1.5] tracking-[-0.01em] text-ink min-[720px]:text-[26px]">
                     {s.title}
                   </h3>
                   <p className="mt-4 text-[14px] leading-[2.05] text-body">{s.lead}</p>
-                  {s.tags && (
-                    <div className="mt-4 flex flex-wrap gap-2">
-                      {s.tags.map((t) => (
-                        <span
-                          key={t}
-                          className="rounded-label border border-line px-2.5 py-1 text-[11px] font-semibold tracking-[0.02em] text-body"
-                        >
-                          {t}
-                        </span>
-                      ))}
-                    </div>
-                  )}
-                </div>
-                {/* 詳細は箱にせず、見出しと文章を罫線で区切って縦に並べる */}
-                <div className="service-detail-list self-start">
-                  {s.items.map((item) => (
-                    <div key={item.head} className="service-detail-item">
-                      <h4 className="brand-line-label palt flex items-baseline gap-3 text-[15px] font-bold text-ink">
-                        <span aria-hidden className="h-px w-4 shrink-0 translate-y-[-3px] bg-warm" />
+                  <ul className="biz-points">
+                    {s.items.map((item) => (
+                      <li key={item.head}>
                         {item.head}
-                      </h4>
-                      <p className="mt-2.5 text-[13.5px] leading-[1.95] text-[#5c5a55]">
-                        {item.body}
-                      </p>
-                    </div>
-                  ))}
+                        <p>{item.body}</p>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
+                <s.screens />
               </FadeIn>
             ))}
           </div>
+          <p className="mt-4 text-[12.5px] text-muted">画面はいずれも説明用のイメージです。</p>
         </Container>
       </section>
 
@@ -341,12 +323,11 @@ export default function AiSolutionsPage() {
               <p className="mt-6 text-[14.5px] leading-[2.05] text-white/80">
                 NOVAは、届いた案件・人材メールをAIが自動で構造化し、タグスコアとAI判定の2段階マッチングで候補と「なぜ合うか」の判断理由まで提示するSES特化のAIマッチングシステムです。契約終了アラートによる先回り営業、提案メールのAI起草まで、メール1通が提案になるまでを一気通貫で支えます。
               </p>
-              {/* メール1通が提案になるまでの流れを、番号付きの円4つでつなぐ（順番に意味があるので番号を振る） */}
-              <ol className="nova-flow2">
-                {novaFlow.map((f, i) => (
-                  <li key={f}>
-                    <span className="nova-flow2-node">{String(i + 1).padStart(2, "0")}</span>
-                    <span className="nova-flow2-label palt">{f}</span>
+              {/* メール1通が提案になるまでの流れ。番号や円は使わず、矢印でつないだ言葉の列で見せる */}
+              <ol className="nova-chain">
+                {novaFlow.map((f) => (
+                  <li key={f} className="palt">
+                    {f}
                   </li>
                 ))}
               </ol>

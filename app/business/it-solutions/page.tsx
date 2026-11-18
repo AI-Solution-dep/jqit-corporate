@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { NextBusinessBand } from "@/components/business/NextBusinessBand";
+import { DevScreens, InfraScreens, QaScreens } from "@/components/business/ScreenMocks";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { businessSubNav, SubNav } from "@/components/layout/SubNav";
 import { JsonLd } from "@/components/seo/JsonLd";
@@ -36,8 +37,8 @@ const fields = [
   {
     title: "システム＆アプリ開発",
     en: "Development",
-    image: "/it-field-dev.webp",
-    alt: "ノートPCとスマートフォンを見ながらコードを確認するエンジニア",
+    screens: DevScreens,
+    stack: "Kotlin · Swift · Java · TypeScript · React · Next.js",
     tags: ["Web系", "スマホアプリ", "社内システム"],
     can: ["スマートフォンアプリ（iOS・Android）の開発", "Webアプリケーション・Web API の開発", "既存システムの改修・保守"],
     body: "Web系、スマホアプリ、社内システム系などのソフトウェアを要件定義・設計・コーディング・テスト・保守運用まで行います。フロントエンドやサーバサイドのプログラマーはもちろん、システムエンジニアも多数在籍しています。",
@@ -45,8 +46,8 @@ const fields = [
   {
     title: "インフラ（サーバ / ネットワーク）",
     en: "Infrastructure",
-    image: "/it-field-infra.webp",
-    alt: "サーバラックの配線を確認するインフラエンジニア",
+    screens: InfraScreens,
+    stack: "AWS · Linux · Network · Middleware · Monitoring",
     tags: ["ネットワーク", "サーバ", "ミドルウェア", "監視"],
     can: ["AWS・Linux 環境の設計・構築", "ネットワーク・ミドルウェアの導入", "運用保守・監視"],
     body: "要件定義からシステムの規模や環境に合わせて、ネットワーク・サーバ・ミドルウェアの導入や企画、設計から運用保守、監視業務まで、ITインフラにかかわる業務を幅広く担います。",
@@ -54,8 +55,8 @@ const fields = [
   {
     title: "QA（第三者検証）",
     en: "Quality Assurance",
-    image: "/it-field-qa.webp",
-    alt: "複数のスマートフォンとタブレットで動作を確かめるテストエンジニア",
+    screens: QaScreens,
+    stack: "Test Planning · Playwright · Mobile Devices",
     tags: ["第三者検証", "ユーザー観点", "網羅的なテスト・評価"],
     can: ["テスト計画・テスト管理", "テスト自動化（Playwright）", "ユーザー観点での評価"],
     body: "開発者や運用者とは異なる第三者が、設計通りに正しく動作するかをテストし、システムの品質を評価します。不具合やユーザー観点の問題箇所を効率的かつ網羅的に見つけ出し、テスト・評価を繰り返すことでより高品質なシステムを作り上げます。",
@@ -64,11 +65,13 @@ const fields = [
 
 /** 実績のある技術領域（会社・案件単位ではなく、技術・対象の領域で。2026-11-18 オーナー確認。経験の多いものから順に） */
 const techAreas = [
-  { label: "開発", items: ["スマートフォンアプリ", "Webアプリケーション", "Web API", "社内業務システム", "業務系パッケージ"] },
-  { label: "言語・フレームワーク", items: ["Kotlin", "Swift", "Java", "Python", "TypeScript", "React", "Next.js"] },
-  { label: "クラウド・インフラ", items: ["AWS", "Linux", "ネットワーク", "サーバ", "ミドルウェア", "運用監視"] },
+  { label: "業界", en: "Industries", items: ["金融", "物流", "メーカー"], lead: true },
+  { label: "開発", en: "Development", items: ["スマートフォンアプリ", "Webアプリケーション", "Web API", "社内業務システム", "業務系パッケージ"] },
+  { label: "言語・フレームワーク", en: "Languages", items: ["Kotlin", "Swift", "Java", "Python", "TypeScript", "React", "Next.js"] },
+  { label: "クラウド・インフラ", en: "Cloud & Infra", items: ["AWS", "Linux", "ネットワーク", "サーバ", "ミドルウェア", "運用監視"] },
   {
     label: "品質保証",
+    en: "Quality",
     items: [
       "テスト計画",
       "テスト管理",
@@ -80,16 +83,15 @@ const techAreas = [
       "保険システムの検証",
     ],
   },
-  { label: "業界", items: ["金融", "物流", "メーカー"] },
 ];
 
 /** 開発の流れ（一括でも一部工程からでも） */
 const steps = [
-  { no: "01", title: "要件定義", body: "課題と要望を整理し、システムの要件を定義します。" },
-  { no: "02", title: "設計", body: "システムの規模・環境に合わせて設計します。" },
-  { no: "03", title: "開発・構築", body: "アプリケーション開発とインフラ構築を進めます。" },
-  { no: "04", title: "検証・テスト", body: "第三者の視点で品質をテスト・評価します。" },
-  { no: "05", title: "導入・運用保守", body: "リリース後の保守・運用・監視まで担います。" },
+  { title: "要件定義", body: "課題と要望を整理し、システムの要件を定義します。" },
+  { title: "設計", body: "システムの規模・環境に合わせて設計します。" },
+  { title: "開発・構築", body: "アプリケーション開発とインフラ構築を進めます。" },
+  { title: "検証・テスト", body: "第三者の視点で品質をテスト・評価します。" },
+  { title: "導入・運用保守", body: "リリース後の保守・運用・監視まで担います。" },
 ];
 
 const strengths = [
@@ -292,91 +294,93 @@ export default function ItSolutionsPage() {
         <Container>
           <SectionHead
             kicker="What We Do"
-            title="できること"
+            title={
+              <>
+                開発・インフラ・QAを、
+                <br />
+                <span className="text-brand">ひとつのチーム</span>で。
+              </>
+            }
             lead="システムの開発・インフラ・品質保証を、要件定義から運用保守まで。一括でも、必要な工程・期間だけでも、チームでお請けします。"
             className="mb-4"
           />
-          <div>
-            {fields.map((f, i) => (
-              <FadeIn
-                key={f.en}
-                className="brand-line-row group grid grid-cols-1 items-center gap-6 border-b border-line py-9 first:border-t min-[900px]:grid-cols-2 min-[900px]:gap-14 min-[900px]:py-12"
-              >
-                {/* 文字だけにならないよう、領域ごとの写真を添える（写真の上に文字は載せない）。PC は行ごとに左右を入れ替える */}
-                <div
-                  className={`${i % 2 === 1 ? "photo-curve--reverse min-[900px]:order-2" : "photo-curve"} relative overflow-hidden`}
-                >
-                  <Image
-                    src={f.image}
-                    alt={f.alt}
-                    width={1536}
-                    height={1024}
-                    sizes="(min-width: 900px) 45vw, 100vw"
-                    data-photo-slide
-                    className="aspect-[3/2] h-auto w-full object-cover"
-                  />
-                </div>
+          {/* 領域ごとに、文章と「作る物」の画面モックを左右に並べる（画面は架空のイメージ） */}
+          <div className="mt-10">
+            {fields.map((f) => (
+              <FadeIn key={f.en} className="biz-row">
                 <div>
                   <p className="mb-2 font-mono text-[11px] uppercase tracking-[0.16em] text-warm-ink">{f.en}</p>
-                  <h3 className="brand-line-label palt text-[21px] font-bold leading-[1.5] tracking-[-0.01em] text-ink min-[720px]:text-[24px]">
+                  <h3 className="palt text-[22px] font-bold leading-[1.5] tracking-[-0.01em] text-ink min-[720px]:text-[26px]">
                     {f.title}
                   </h3>
                   <p className="mt-4 text-[14px] leading-[2.05] text-body">{f.body}</p>
-                  <ul className="can-list">
+                  <ul className="biz-points">
                     {f.can.map((c) => (
                       <li key={c}>{c}</li>
                     ))}
                   </ul>
+                  <p className="mt-4 font-mono text-[11.5px] tracking-[0.06em] text-muted">{f.stack}</p>
                 </div>
+                <f.screens />
               </FadeIn>
             ))}
           </div>
         </Container>
       </section>
 
-      {/* EXPERIENCE — 実績は会社・案件ではなく、経験のある技術領域で見せる */}
+      {/* EXPERIENCE — 実績は会社・案件ではなく、経験のある技術領域で。会社概要と同じ「項目｜内容」の表 */}
       <section className="border-t border-line bg-paper py-20 min-[720px]:py-[92px]">
         <Container>
           <SectionHead
             kicker="Experience"
-            title="実績のある技術領域"
+            title={
+              <>
+                実績のある<span className="text-brand">技術領域</span>
+              </>
+            }
             lead="これまでに担当してきた技術・対象の領域です。守秘義務に配慮し、お客様名・案件名は掲載していません。"
             className="mb-10"
           />
-          <div className="tech-areas">
-            {techAreas.map((area) => (
-              <FadeIn key={area.label} className="tech-area">
-                <p className="tech-area-label palt">{area.label}</p>
-                <ul className="tech-area-items">
-                  {area.items.map((it) => (
-                    <li key={it}>{it}</li>
-                  ))}
-                </ul>
-              </FadeIn>
-            ))}
-          </div>
+          <FadeIn>
+            <dl className="tech-table">
+              {techAreas.map((area) => (
+                <div key={area.label}>
+                  <dt>
+                    {area.label}
+                    <small>{area.en}</small>
+                  </dt>
+                  <dd className={area.lead ? "is-lead palt" : "palt"}>
+                    {area.items.map((it) => (
+                      <span key={it}>{it}</span>
+                    ))}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+            <p className="mt-4 text-[12.5px] text-muted">画面はいずれも説明用のイメージです。</p>
+          </FadeIn>
         </Container>
       </section>
 
-      {/* PROCESS — 開発の流れ */}
+      {/* PROCESS — 開発の流れ。番号や円は使わず、左から右へ読む5列 */}
       <section className="border-t border-line bg-cream py-20 min-[720px]:py-[96px]">
         <Container>
           <SectionHead
             kicker="Process"
             title="開発の流れ"
             lead="すべての工程を一括でも、検証のみ・運用のみといった一部の工程からでもお請けできます。"
-            className="mb-12"
+            className="mb-10"
           />
-          {/* 縦のタイムライン。見せ場：読み進めるにつれ縦線が赤く伸び、工程の点が赤くなる（globals.css） */}
-          <ol className="delivery-timeline delivery-circles">
-            {steps.map((s) => (
-              <li key={s.no} className="delivery-step">
-                <span className="delivery-step-number font-mono font-semibold">{s.no}</span>
-                <h3 className="palt text-[19px] font-bold leading-[1.6] text-ink">{s.title}</h3>
-                <p className="text-[14px] leading-[2] text-body">{s.body}</p>
-              </li>
-            ))}
-          </ol>
+          <FadeIn>
+            <ol className="flow-steps">
+              {steps.map((s) => (
+                <li key={s.title}>
+                  <h3 className="palt">{s.title}</h3>
+                  <p>{s.body}</p>
+                </li>
+              ))}
+            </ol>
+          </FadeIn>
         </Container>
       </section>
 
