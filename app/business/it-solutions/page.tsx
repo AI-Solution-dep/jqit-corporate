@@ -36,6 +36,8 @@ const fields = [
   {
     title: "システム＆アプリ開発",
     en: "Development",
+    image: "/it-field-dev.webp",
+    alt: "ノートPCとスマートフォンを見ながらコードを確認するエンジニア",
     tags: ["Web系", "スマホアプリ", "社内システム"],
     can: ["スマートフォンアプリ（iOS・Android）の開発", "Webアプリケーション・Web API の開発", "既存システムの改修・保守"],
     body: "Web系、スマホアプリ、社内システム系などのソフトウェアを要件定義・設計・コーディング・テスト・保守運用まで行います。フロントエンドやサーバサイドのプログラマーはもちろん、システムエンジニアも多数在籍しています。",
@@ -43,6 +45,8 @@ const fields = [
   {
     title: "インフラ（サーバ / ネットワーク）",
     en: "Infrastructure",
+    image: "/it-field-infra.webp",
+    alt: "サーバラックの配線を確認するインフラエンジニア",
     tags: ["ネットワーク", "サーバ", "ミドルウェア", "監視"],
     can: ["AWS・Linux 環境の設計・構築", "ネットワーク・ミドルウェアの導入", "運用保守・監視"],
     body: "要件定義からシステムの規模や環境に合わせて、ネットワーク・サーバ・ミドルウェアの導入や企画、設計から運用保守、監視業務まで、ITインフラにかかわる業務を幅広く担います。",
@@ -50,6 +54,8 @@ const fields = [
   {
     title: "QA（第三者検証）",
     en: "Quality Assurance",
+    image: "/it-field-qa.webp",
+    alt: "複数のスマートフォンとタブレットで動作を確かめるテストエンジニア",
     tags: ["第三者検証", "ユーザー観点", "網羅的なテスト・評価"],
     can: ["テスト計画・テスト管理", "テスト自動化（Playwright）", "ユーザー観点での評価"],
     body: "開発者や運用者とは異なる第三者が、設計通りに正しく動作するかをテストし、システムの品質を評価します。不具合やユーザー観点の問題箇所を効率的かつ網羅的に見つけ出し、テスト・評価を繰り返すことでより高品質なシステムを作り上げます。",
@@ -291,19 +297,31 @@ export default function ItSolutionsPage() {
             className="mb-4"
           />
           <div>
-            {fields.map((f) => (
+            {fields.map((f, i) => (
               <FadeIn
                 key={f.en}
-                className="brand-line-row group grid grid-cols-1 gap-4 border-b border-line py-9 first:border-t min-[900px]:grid-cols-[1fr_1.4fr] min-[900px]:gap-10 min-[900px]:py-11"
+                className="brand-line-row group grid grid-cols-1 items-center gap-6 border-b border-line py-9 first:border-t min-[900px]:grid-cols-2 min-[900px]:gap-14 min-[900px]:py-12"
               >
+                {/* 文字だけにならないよう、領域ごとの写真を添える（写真の上に文字は載せない）。PC は行ごとに左右を入れ替える */}
+                <div
+                  className={`${i % 2 === 1 ? "photo-curve--reverse min-[900px]:order-2" : "photo-curve"} relative overflow-hidden`}
+                >
+                  <Image
+                    src={f.image}
+                    alt={f.alt}
+                    width={1536}
+                    height={1024}
+                    sizes="(min-width: 900px) 45vw, 100vw"
+                    data-photo-slide
+                    className="aspect-[3/2] h-auto w-full object-cover"
+                  />
+                </div>
                 <div>
                   <p className="mb-2 font-mono text-[11px] uppercase tracking-[0.16em] text-warm-ink">{f.en}</p>
                   <h3 className="brand-line-label palt text-[21px] font-bold leading-[1.5] tracking-[-0.01em] text-ink min-[720px]:text-[24px]">
                     {f.title}
                   </h3>
-                </div>
-                <div>
-                  <p className="text-[14px] leading-[2.05] text-body">{f.body}</p>
+                  <p className="mt-4 text-[14px] leading-[2.05] text-body">{f.body}</p>
                   <ul className="can-list">
                     {f.can.map((c) => (
                       <li key={c}>{c}</li>
