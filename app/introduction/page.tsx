@@ -74,7 +74,7 @@ export default function IntroductionPage() {
         </section>
 
         <section className={styles.section} data-section="team" id="team" aria-labelledby="team-heading">
-          <div className={styles.sectionHead}><p className={styles.eyebrow}>開発体制</p><h2 id="team-heading"><span>4つの専門領域が</span><span>ひとつのチームに。</span></h2></div>
+          <div className={styles.sectionHead}><p className={styles.eyebrow}>開発体制</p><h2 id="team-heading"><span>4つの専門領域から、</span><span>案件に合わせて体制を組む。</span></h2></div>
           {/* 4人を同じ大きさの写真カードで並べず、会社概要と同じ「項目｜内容」の行にする。担当範囲と技術は折りたたまずに見せる */}
           <ul className={styles.leaderList}>{leaders.map((leader) => <li key={leader.field}>
             <span className={styles.leaderPhoto} data-zoom={leader.zoom || undefined}><Image src={leader.image} alt="" width={96} height={96} sizes="44px" /></span>
