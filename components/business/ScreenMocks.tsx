@@ -49,17 +49,13 @@ function Win({ title, children, className = "", dark = false }: { title: string;
 }
 
 /**
- * 立体イラスト（色の面）に、小さな画面のカードを1枚重ねる（AI ページ用）。
- * イラストは画像、カードは HTML。center はカードを中央に置く（リボンの背景のとき）。
+ * AI ページの立体イラスト。画面のカードも画像生成で描き込んである（2026-11-18 オーナー判断）。
+ * 画像の中の文字は読み上げられないので、alt にカードの中身まで書く。
  */
-function ToyScene({ src, alt, label, center = false, children }: { src: string; alt: string; label?: string; center?: boolean; children: ReactNode }) {
+function ToyScene({ src, alt }: { src: string; alt: string }) {
   return (
-    <div className={`toy-scene ${center ? "is-center" : ""}`}>
+    <div className="toy-scene">
       <Image src={src} alt={alt} width={1536} height={1024} sizes="(min-width: 900px) 55vw, 100vw" className="toy-scene-img" />
-      {label && <span className="toy-scene-label" aria-hidden>{label}</span>}
-      <div className="toy-scene-card mock-shadow" aria-hidden>
-        {children}
-      </div>
     </div>
   );
 }
@@ -234,74 +230,27 @@ export function QaScreens() {
 
 export function AgentScreens() {
   return (
-    <ToyScene src="/business-ai-agent.webp" alt="ロボットが虫めがねで書類を調べる立体イラスト" label="AI AGENT">
-      <div className="mock-win-bar">
-        <i />
-        <i />
-        <i />
-        <span>ai-agent / 業務アシスタント</span>
-      </div>
-      <div className="mock-win-body mock-chat">
-        <p className="mock-msg is-user">来月の発注量の案を作ってください。</p>
-        <div className="mock-msg is-ai">
-          <span className="mock-steps">
-            <i>✓ 受注データを取得（12,480件）</i>
-            <i>✓ 社内規程「発注基準」を参照</i>
-          </span>
-          上位3品目は前月比 +8% で案を作りました。
-        </div>
-        <div className="mock-approve">
-          <span>購買部へ送信しますか？</span>
-          <span className="mock-btn">承認する</span>
-        </div>
-      </div>
-    </ToyScene>
+    <ToyScene
+      src="/business-ai-agent.webp"
+      alt="ロボットが虫めがねで書類を調べるイラスト。画面のカードには「来月の発注量の案を作って」という依頼と、「上位3品目を +8% で提案」という答え、「承認する」「修正」のボタンが並ぶ"
+    />
   );
 }
 
 export function EnablementScreens() {
   return (
-    <ToyScene src="/business-ai-enable.webp" alt="旗の立った階段の立体イラスト" label="AI ENABLEMENT">
-      <div className="mock-win-body">
-        <b className="mock-h">導入計画</b>
-        <div className="mock-plan">
-          <div className="mock-plan-row"><span>業務整理</span><span className="mock-plan-track"><i style={{ left: "0%", width: "34%" }} /></span></div>
-          <div className="mock-plan-row"><span>小さく試す</span><span className="mock-plan-track"><i style={{ left: "30%", width: "38%" }} /></span></div>
-          <div className="mock-plan-row"><span>社内展開</span><span className="mock-plan-track"><i className="is-dark" style={{ left: "62%", width: "38%" }} /></span></div>
-          <div className="mock-plan-months"><span>1月</span><span>2月</span><span>3月</span></div>
-        </div>
-      </div>
-    </ToyScene>
+    <ToyScene
+      src="/business-ai-enable.webp"
+      alt="旗の立った3段の階段のイラスト。カードには「業務を整理（完了）」「小さく試す（いまここ）」「社内に広げる」の3つの段階が並ぶ"
+    />
   );
 }
 
 export function ProductScreens() {
   return (
-    <ToyScene src="/business-ai-ribbon.webp" alt="オレンジのリボンの立体グラフィック" center>
-      <div className="mock-win-body">
-        <div className="mock-row-between">
-          <b className="mock-h">案件　物流システム</b>
-          <span className="mock-tag">メールから自動で構造化</span>
-        </div>
-        <div className="mock-fields">
-          <span><small>言語</small>Java・Spring</span>
-          <span><small>期間</small>2月〜</span>
-          <span><small>場所</small>リモート併用</span>
-          <span><small>人数</small>2名</span>
-        </div>
-        <div className="mock-match">
-          {[
-            ["候補 A", "92", "Java 7年・物流の経験あり"],
-            ["候補 B", "85", "2月から参画できる"],
-          ].map(([n, sc, why]) => (
-            <div key={n}>
-              <b>{n}</b>
-              <span className="mock-score">{sc}</span>
-              <small>{why}</small>
-            </div>
-          ))}
-        </div>
-      </div>
-    </ToyScene>
+    <ToyScene
+      src="/business-ai-ribbon.webp"
+      alt="オレンジのリボンの上に、新着の案件にぴったりの人を示すカード。適合度92点の「候補 A」、Java 7年・物流の経験"
+    />
   );
 }

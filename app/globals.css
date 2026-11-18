@@ -1048,7 +1048,6 @@ p, dd, li { text-wrap: pretty; }
 .mock-h { font-size: 12px; }
 .mock-row-between { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
 .mock-btn { padding: 4px 9px; border-radius: var(--radius-button); background: var(--color-warm-strong); color: #fff; font-weight: 700; white-space: nowrap; }
-.mock-btn.is-ghost { background: transparent; color: var(--color-ink); box-shadow: inset 0 0 0 1px var(--color-line); }
 .mock-tag { display: inline-block; padding: 1px 6px; border-radius: var(--radius-label); background: var(--warm-soft); color: var(--color-warm-ink); font-weight: 700; white-space: nowrap; }
 .mock-tag.is-done { background: #e7f5ec; color: #1f7a45; }
 .mock-pass { color: #1f7a45; font-weight: 800; }
@@ -1097,22 +1096,6 @@ p, dd, li { text-wrap: pretty; }
 .mock-case { display: grid; grid-template-columns: 54px 1fr 64px 40px; align-items: center; padding: 6px 0; border-bottom: 1px solid var(--color-line); }
 
 /* AI */
-.mock-chat { display: grid; gap: 10px; }
-.mock-msg { max-width: 82%; padding: 9px 12px; border-radius: 12px; line-height: 1.7; }
-.mock-msg.is-user { justify-self: end; background: var(--color-ink); color: #fff; }
-.mock-msg.is-ai { display: grid; gap: 6px; background: #f5f3ee; }
-.mock-steps { display: grid; gap: 2px; color: var(--color-muted); }
-.mock-source { color: var(--color-warm-ink); font-family: var(--font-mono); font-size: 8.5px; }
-.mock-approve { display: flex; align-items: center; gap: 8px; padding: 10px 12px; border: 1px solid var(--warm-line); border-radius: 10px; background: #fffaf5; }
-.mock-approve > span:first-child { flex: 1; font-weight: 700; }
-.mock-fields { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 10px; }
-.mock-fields span { display: grid; padding: 7px 9px; border: 1px solid var(--color-line); border-radius: 7px; background: #fff; font-weight: 700; }
-.mock-fields small { color: var(--color-muted); font-weight: 400; }
-.mock-match { display: grid; gap: 7px; margin-top: 12px; }
-.mock-match div { display: grid; grid-template-columns: 60px 44px 1fr; align-items: center; padding: 9px 10px; border: 1px solid var(--color-line); border-radius: 8px; background: #fff; }
-.mock-match div:first-child { box-shadow: inset 3px 0 0 var(--color-warm-strong); }
-.mock-score { font-family: var(--font-en); font-size: 15px; font-weight: 800; color: var(--color-warm-strong); }
-.mock-match small { color: var(--color-body); }
 
 /* 配置（キャンバス 640×440 の中） */
 .mock-at-dev-laptop { left: 0; top: 14px; width: 548px; }
@@ -1192,13 +1175,6 @@ p, dd, li { text-wrap: pretty; }
 .mock-bug b { font-family: var(--font-mono); font-size: 8.5px; letter-spacing: .08em; opacity: .85; }
 
 
-.mock-plan { display: grid; gap: 8px; margin-top: 8px; }
-.mock-plan-row { display: grid; grid-template-columns: 64px 1fr; align-items: center; }
-.mock-plan-track { position: relative; height: 10px; border-radius: 5px; background: #f3f1ec; }
-.mock-plan-track i { position: absolute; top: 0; height: 100%; border-radius: 5px; background: var(--color-warm-strong); }
-.mock-plan-track i.is-dark { background: var(--color-ink); }
-.mock-plan-months { display: grid; grid-template-columns: 64px 1fr 1fr 1fr; color: var(--color-muted); }
-.mock-plan-months span:first-child { grid-column: 2; }
 
 
 @media (max-width: 899px) {
@@ -1238,23 +1214,10 @@ p, dd, li { text-wrap: pretty; }
 .mock-servers div { display: flex; justify-content: space-between; padding: 5px 8px; border: 1px solid rgb(255 255 255 / 12%); border-radius: 7px; color: rgb(255 255 255 / 80%); }
 .mock-ok { color: #4cc27c; font-weight: 700; }
 
-/* AI：立体イラスト（色の面）に小さな画面のカードを1枚重ねる（components/business/ScreenMocks.tsx の ToyScene） */
-.toy-scene { position: relative; overflow: hidden; aspect-ratio: 3 / 2; border-radius: 18px; }
-.toy-scene-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-.toy-scene-label { position: absolute; left: 22px; top: 20px; font-family: var(--font-mono); font-size: 11px; letter-spacing: .14em; color: var(--color-ink); opacity: .65; }
-.toy-scene-card { position: absolute; left: 22px; bottom: 22px; width: 54%; overflow: hidden; border-radius: 12px; background: #fff; font-size: 9.5px; line-height: 1.5; color: var(--color-ink); }
-.toy-scene-card i { font-style: normal; }
-.toy-scene-card .mock-win-body { padding: 12px 14px; }
-.toy-scene-card .mock-msg { max-width: 92%; padding: 7px 10px; }
-.toy-scene.is-center .toy-scene-card { left: 50%; top: 50%; bottom: auto; width: 62%; translate: -50% -50%; }
-.toy-scene-card .mock-fields { grid-template-columns: 1fr 1fr; }
-/* スマホ：カードでイラストを隠さないよう、イラストの下にカードを少し重ねて置く */
-@media (max-width: 640px) {
-  .toy-scene { aspect-ratio: auto; overflow: visible; border-radius: 0; }
-  .toy-scene-img { position: static; height: auto; aspect-ratio: 3 / 2; border-radius: 14px; }
-  .toy-scene-card, .toy-scene.is-center .toy-scene-card { position: relative; left: auto; top: auto; bottom: auto; width: auto; translate: none; margin: -36px 12px 0; font-size: 9px; }
-  .toy-scene-card .mock-win-bar { display: none; }
-}
+/* AI：立体イラスト（画面のカードも画像に描き込み済み。components/business/ScreenMocks.tsx の ToyScene） */
+.toy-scene { overflow: hidden; aspect-ratio: 3 / 2; border-radius: 18px; }
+.toy-scene-img { display: block; width: 100%; height: 100%; object-fit: cover; }
+@media (max-width: 640px) { .toy-scene { border-radius: 14px; } }
 /* AI：NOVA の帯。左（文章側）は黒のまま、右にオレンジのリボンを敷く */
 .nova-band { background: linear-gradient(90deg, var(--color-ink) 0%, var(--color-ink) 34%, rgb(20 20 15 / 55%) 60%, rgb(20 20 15 / 0%) 100%), url(/business-ai-ribbon-dark.webp) right center / auto 135% no-repeat, var(--color-ink); }
 @media (max-width: 1023px) { .nova-band { background: linear-gradient(180deg, var(--color-ink) 0%, var(--color-ink) 55%, rgb(20 20 15 / 40%) 100%), url(/business-ai-ribbon-dark.webp) center bottom / 160% auto no-repeat, var(--color-ink); } }
