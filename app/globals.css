@@ -1129,15 +1129,26 @@ p, dd, li { text-wrap: pretty; }
 .dial-dot:focus-visible { outline: 2px solid var(--color-warm-ink); outline-offset: 4px; }
 .dial-ping { position: absolute; inset: -1px; border-radius: 50%; border: 1.5px solid var(--color-warm); animation: dial-ping 1s ease-out .35s both; pointer-events: none; }
 @keyframes dial-ping { from { opacity: .8; transform: scale(1); } to { opacity: 0; transform: scale(1.9); } }
-/* 節の名前：上から入り、下へ抜ける */
+/* 節の名前：下から入り、上へ抜ける */
 .dial-title { position: absolute; top: 50%; width: 190px; pointer-events: none; }
 .dial-title span { position: absolute; left: 0; top: 0; translate: 0 -50%; display: block; width: 100%;
   font-size: 14.5px; font-weight: 700; line-height: 1.55; color: var(--color-ink); white-space: nowrap;
   transition: transform .6s cubic-bezier(.22,.8,.24,1), opacity .45s ease; }
 .dial-title .is-in { opacity: 1; transform: translateY(0); }
-.dial-title .is-from { opacity: 0; transform: translateY(-18px); }
-.dial-title .is-out { opacity: 0; transform: translateY(18px); }
+.dial-title .is-from { opacity: 0; transform: translateY(18px); }
+.dial-title .is-out { opacity: 0; transform: translateY(-18px); }
 @media (prefers-reduced-motion: reduce) {
   .dial-dot, .dial-dot::before, .dial-title span { transition: none; }
   .dial-ping { display: none; }
+}
+
+/* ===== 文字の切り替え：重ねずに「消えてから出る」（2026-11-19） =====
+   古い文字と新しい文字を同時にフェードすると、途中で2つが重なって二重に見える。
+   古い文字は短く消し、新しい文字はそのあと少し遅らせて出す。 */
+.value-orbit-text { transition: opacity .18s ease, visibility 0s linear .18s, translate .18s ease; }
+.value-orbit-text[data-active] { transition: opacity .4s ease .16s, visibility 0s linear 0s, translate .55s cubic-bezier(.16, .84, .44, 1) .16s; }
+.dial-title span { transition: transform .2s ease, opacity .15s ease; }
+.dial-title .is-in { transition: transform .5s cubic-bezier(.22, .8, .24, 1) .14s, opacity .35s ease .14s; }
+@media (prefers-reduced-motion: reduce) {
+  .value-orbit-text, .value-orbit-text[data-active], .dial-title span, .dial-title .is-in { transition: none; }
 }
