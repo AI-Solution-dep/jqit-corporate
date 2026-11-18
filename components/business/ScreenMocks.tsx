@@ -119,7 +119,7 @@ export function DevScreens() {
 
 export function InfraScreens() {
   return (
-    <PhotoScene src="/business-it-infra.webp" alt="サーバラックの配線を確認するインフラエンジニア" flip>
+    <PhotoScene src="/business-it-cloud.webp" alt="クラウドの構成図を画面で確認するエンジニア" flip>
       <b className="mock-h">構成</b>
       {[
         ["ネットワーク", "VPC・サブネット 4"],
