@@ -38,10 +38,12 @@ const anton = Anton({
 });
 
 /**
- * トップページの title。検索される事業名を先頭に置く（SEO対策.docx ①）。
+ * トップページの title。会社名を先頭に置く（2026-11-19 オーナー指定）。
+ * 「株式会社JQIT」の検索で会社情報ページがトップより上に出ていたため。
+ * 会社名で検索した人にトップを1件目で見せ、下層ページを連ねて出やすくする。
  * h1 はキャッチコピー（tagline）のまま残す。
  */
-const homeTitle = `SES・受託開発・AI導入支援の${siteConfig.name}`;
+const homeTitle = `${siteConfig.name}｜DX・AI推進の伴走パートナー`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
