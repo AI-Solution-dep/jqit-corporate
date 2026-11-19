@@ -2,6 +2,8 @@ import Image from "next/image";
 import { NextBusinessBand } from "@/components/business/NextBusinessBand";
 import { AgentScreens, EnablementScreens, ProductScreens } from "@/components/business/ScreenMocks";
 import { PageHeader } from "@/components/layout/PageHeader";
+import { LeadsLine } from "@/components/business/FieldLead";
+import { ConsultLine } from "@/components/layout/ConsultLine";
 import { businessSubNav, SubNav } from "@/components/layout/SubNav";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { ServiceFaq, type ServiceFaqItem } from "@/components/seo/ServiceFaq";
@@ -279,6 +281,10 @@ export default function AiSolutionsPage() {
             lead="AIシステムの受託開発、AI導入・推進の伴走、自社AIサービスの開発。企業のAI活用を実装と運用の両面から支援します。"
             className="mb-4"
           />
+          {/* 3つの領域とも同じ事業部長が見るので、責任者は節の冒頭に1回だけ出す */}
+          <FadeIn className="mt-8">
+            <LeadsLine leaders={["ai"]} />
+          </FadeIn>
           {/* 領域ごとに、文章と画面モックを左右に並べる（IT ソリューションと同じ作り。画面は架空のイメージ） */}
           <div className="mt-10">
             {services.map((s) => (
@@ -355,6 +361,9 @@ export default function AiSolutionsPage() {
       </section>
 
       <ServiceFaq items={faqs} />
+
+      <ConsultLine text="AI活用のご相談は、検討の段階からお問い合わせフォームで承ります。" />
+
 
       {/* NEXT — ITソリューション事業へ */}
       <NextBusinessBand

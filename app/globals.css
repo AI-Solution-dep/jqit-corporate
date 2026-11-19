@@ -686,7 +686,8 @@ h1, h2, .vision-statement, .brand-article-title { word-break: keep-all; overflow
   .value-orbit { display: grid; grid-template-columns: minmax(0, 560px) minmax(0, 1fr); gap: 72px; align-items: center; max-width: none; }
   .value-orbit-detail { margin-top: 0; padding-left: 32px; border-left: 2px solid var(--warm-line); }
 }
-.value-orbit-nav { display: flex; gap: 10px; margin-top: 28px; }
+.value-orbit-nav { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+.value-orbit-nav button { white-space: nowrap; }
 .value-orbit-nav button {
   display: inline-flex; align-items: center; gap: 8px; padding: 9px 16px; border: 1px solid var(--color-line); border-radius: var(--radius-button);
   background: #fff; font-size: 13px; font-weight: 600; color: var(--color-ink); cursor: pointer; transition: border-color .25s, color .25s;
@@ -1028,7 +1029,7 @@ p, dd, li { text-wrap: pretty; }
 .tech-table dd { margin: 0; font-size: 16px; font-weight: 700; line-height: 1.9; color: var(--color-ink); }
 .tech-table dd span { white-space: nowrap; }
 .tech-table dd span:not(:last-child)::after { content: "／"; margin: 0 0.4em; font-weight: 400; color: var(--color-line); }
-.tech-table dd.is-lead { font-size: 24px; color: var(--color-brand); }
+.tech-table dd.is-lead { font-size: 24px; }
 @media (min-width: 900px) {
   .tech-table > div { grid-template-columns: 220px 1fr; align-items: baseline; gap: 32px; }
   .tech-table dd { font-size: 18px; }
@@ -1054,9 +1055,8 @@ p, dd, li { text-wrap: pretty; }
 .nova-chain li:last-child { color: var(--color-warm-strong); }
 
 /* AI：立体イラスト（画面のカードも画像に描き込み済み。components/business/ScreenMocks.tsx の ToyScene） */
-.toy-scene { overflow: hidden; aspect-ratio: 3 / 2; border-radius: 18px; }
+.toy-scene { overflow: hidden; aspect-ratio: 3 / 2; border-radius: 0 var(--radius-photo) 0 0; }
 .toy-scene-img { display: block; width: 100%; height: 100%; object-fit: cover; }
-@media (max-width: 640px) { .toy-scene { border-radius: 14px; } }
 
 /* ===== 会社情報（/about）：数字・事業の入口・認証マーク（2026-11-18） ===== */
 .about-facts { display: grid; grid-template-columns: 1fr; margin: 0; border-top: 1px solid var(--color-ink); }
@@ -1075,11 +1075,11 @@ p, dd, li { text-wrap: pretty; }
 /* 「ISO/IEC 27001」だけ文字が長いので、数字より小さくする */
 .about-facts > div:last-child .about-facts-v { font-size: 26px; line-height: 1.55; }
 .about-biz { display: block; }
-.about-biz-img { display: block; overflow: hidden; aspect-ratio: 3 / 2; border-radius: 16px; }
+.about-biz-img { display: block; overflow: hidden; aspect-ratio: 3 / 2; border-radius: 0 var(--radius-photo) 0 0; }
 .about-biz-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s cubic-bezier(0.16, 0.84, 0.44, 1); }
 .about-biz:hover .about-biz-img img { transform: scale(1.03); }
 .about-badges { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin: 32px 0 0; padding: 0; list-style: none; }
-.about-badges li { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; min-height: 128px; padding: 18px 14px; border: 1px solid var(--color-line); border-radius: 12px; background: #fff; text-align: center; }
+.about-badges li { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; min-height: 128px; padding: 18px 14px; border: 1px solid var(--color-line); border-radius: var(--radius-card); background: #fff; text-align: center; }
 .about-badges span { font-size: 12px; font-weight: 700; line-height: 1.6; color: var(--color-body); }
 @media (min-width: 900px) { .about-badges { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
 

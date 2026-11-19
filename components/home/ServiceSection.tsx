@@ -1,6 +1,5 @@
 import Image from "next/image";
 import { Container } from "@/components/ui/Container";
-import { DisplayText } from "@/components/ui/DisplayText";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { Kicker } from "@/components/ui/Kicker";
 import { siteConfig } from "@/lib/site-config";
@@ -38,7 +37,6 @@ export function ServiceSection() {
     >
       <Container>
         <FadeIn>
-          <DisplayText className="-ml-1 mb-8">SERVICES</DisplayText>
           <Kicker className="mb-4">Services</Kicker>
           <h2 className="palt text-[28px] font-bold leading-[1.4] tracking-[-0.02em] text-ink md:text-[38px]">
             JQITの<span className="text-brand">サービス</span>
@@ -107,7 +105,7 @@ export function ServiceSection() {
                     href={service.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group inline-flex min-h-12 w-full items-center justify-center gap-3 rounded-button bg-ink px-7 py-[14px] text-sm font-bold tracking-[0.02em] text-white transition-colors hover:bg-warm-strong focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand min-[600px]:w-fit"
+                    className="group inline-flex min-h-12 w-full items-center justify-center gap-3 rounded-button bg-brand px-7 py-[14px] text-sm font-bold tracking-[0.02em] text-white transition-colors hover:bg-brand-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand min-[600px]:w-fit"
                   >
                     <span>{service.cta}</span>
                     <span

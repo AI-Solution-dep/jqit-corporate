@@ -38,7 +38,7 @@ export function ColumnListFiltered({ items }: { items: Item[] }) {
         <div
           role="group"
           aria-label="タグで絞り込み"
-          className="flex flex-wrap gap-2 border-b border-line pb-7"
+          className="flex flex-wrap gap-2"
         >
           {tabs.map((t) => {
             const selected = t === active;
@@ -79,9 +79,9 @@ export function ColumnListFiltered({ items }: { items: Item[] }) {
               {c.tags.slice(0, 3).map((tag) => (
                 <span
                   key={tag}
-                  className="rounded-label border border-line px-2.5 py-[3px] text-[11px] font-semibold tracking-[0.06em] text-muted"
+                  className="text-[11px] font-semibold tracking-[0.04em] text-muted"
                 >
-                  {tag}
+                  #{tag}
                 </span>
               ))}
             </span>

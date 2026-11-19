@@ -2,6 +2,8 @@ import Image from "next/image";
 import { NextBusinessBand } from "@/components/business/NextBusinessBand";
 import { DevScreens, InfraScreens, QaScreens } from "@/components/business/ScreenMocks";
 import { PageHeader } from "@/components/layout/PageHeader";
+import { LeadsLine } from "@/components/business/FieldLead";
+import { ConsultLine } from "@/components/layout/ConsultLine";
 import { businessSubNav, SubNav } from "@/components/layout/SubNav";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { ServiceFaq, type ServiceFaqItem } from "@/components/seo/ServiceFaq";
@@ -301,12 +303,16 @@ export default function ItSolutionsPage() {
               <>
                 開発・インフラ・QAを、
                 <br />
-                <span className="text-brand">ひとつのチーム</span>で。
+                <span className="text-brand">案件に合わせた体制</span>で。
               </>
             }
             lead="システムの開発・インフラ・品質保証を、要件定義から運用保守まで。一括でも、必要な工程・期間だけでも、チームでお請けします。"
             className="mb-4"
           />
+          {/* 誰が見るのかは、ここで3人まとめて1回だけ出す（領域ごとに繰り返さない） */}
+          <FadeIn className="mt-8">
+            <LeadsLine leaders={["development", "infrastructure", "qa"]} />
+          </FadeIn>
           {/* 領域ごとに、文章と「作る物」の画面モックを左右に並べる（画面は架空のイメージ） */}
           <div className="mt-10">
             {fields.map((f) => (
@@ -415,6 +421,9 @@ export default function ItSolutionsPage() {
       </section>
 
       <ServiceFaq items={faqs} />
+
+      <ConsultLine text="開発・インフラ・QAのご相談は、お問い合わせフォームから承ります。" />
+
 
       {/* NEXT — AIソリューション事業へ */}
       <NextBusinessBand

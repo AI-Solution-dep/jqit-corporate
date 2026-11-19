@@ -172,7 +172,7 @@ export function ValueOrbit({ values }: { values: readonly Value[] }) {
           </button>
           {auto && (
             <button type="button" onClick={() => setAuto(false)}>
-              自動送りを止める
+              自動送りを停止
             </button>
           )}
         </div>

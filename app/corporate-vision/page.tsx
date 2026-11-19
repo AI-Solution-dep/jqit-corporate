@@ -1,4 +1,5 @@
 import { PageHeader } from "@/components/layout/PageHeader";
+import { ConsultLine } from "@/components/layout/ConsultLine";
 import { companySubNav, SubNav } from "@/components/layout/SubNav";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Container } from "@/components/ui/Container";
@@ -80,17 +81,17 @@ const dxKpis = [
     label: "Productivity",
     title: "社内業務の生産性向上",
     items: [
-      { label: "事務工数|削減率", target: "2025年度までに 40％削減", figure: "40", unit: "%削減", when: "2025年度まで" },
-      { label: "クラウド基盤|移行率", target: "2025年度末までに主要業務 100％移行", figure: "100", unit: "%", when: "2025年度末・主要業務" },
-      { label: "AIマッチング|システム|導入率", target: "2025年度末までに 70％以上", figure: "70", unit: "%以上", when: "2025年度末まで" },
+      { label: "事務工数|削減率", target: "2026年度までに 40％削減", figure: "40", unit: "%削減", when: "2026年度まで" },
+      { label: "クラウド基盤|移行率", target: "2026年度末までに主要業務 100％移行", figure: "100", unit: "%", when: "2026年度末・主要業務" },
+      { label: "AIマッチング|システム|導入率", target: "2026年度末までに 70％以上", figure: "70", unit: "%以上", when: "2026年度末まで" },
     ],
   },
   {
     label: "Data & Management",
     title: "経営革新・データ活用",
     items: [
-      { label: "データ基盤|稼働率", target: "2025年度中に 100％", figure: "100", unit: "%", when: "2025年度中" },
-      { label: "AI分析モデル|稼働数", target: "2025年度末までに 2モデル以上", figure: "2", unit: "モデル以上", when: "2025年度末まで" },
+      { label: "データ基盤|稼働率", target: "2026年度中に 100％", figure: "100", unit: "%", when: "2026年度中" },
+      { label: "AI分析モデル|稼働数", target: "2026年度末までに 2モデル以上", figure: "2", unit: "モデル以上", when: "2026年度末まで" },
       { label: "経営判断支援|ダッシュボード|活用回数", target: "月次提出 100％", figure: "100", unit: "%", when: "月次提出" },
     ],
   },
@@ -191,7 +192,7 @@ export default function CorporateVisionPage() {
               データ活用による経営革新
             </h3>
             <p className="mt-3 text-[14.5px] leading-[2.05] text-body">
-              2025年度中に業務基幹システムを刷新し、AI機能を搭載したデータ基盤を構築。営業データと経営データの精度向上と連携強化により、迅速かつ的確な経営判断を可能にします。
+              2026年度中に業務基幹システムを刷新し、AI機能を搭載したデータ基盤を構築。営業データと経営データの精度向上と連携強化により、迅速かつ的確な経営判断を可能にします。
             </p>
           </FadeIn>
           {/* 指標ごとに、目標値を大きく入れた3つの円を線でつなぐ。円の下に何の指標かを置く */}
@@ -216,7 +217,7 @@ export default function CorporateVisionPage() {
                     <div key={plainPhrase(item.label)} className="kpi-item">
                       <dt className="palt mt-4 text-center text-[12.5px] font-semibold leading-[1.6] text-ink min-[720px]:text-[13.5px]">
                         <Phrase text={item.label} />
-                        <span className="kpi-when">{item.when}</span>
+                        <span className="kpi-when">目標｜{item.when}</span>
                       </dt>
                       <dd className="kpi-circle">
                         <span className="sr-only">目標: {item.target}</span>
@@ -250,6 +251,7 @@ export default function CorporateVisionPage() {
         </Container>
       </section>
 
+      <ConsultLine />
     </>
   );
 }

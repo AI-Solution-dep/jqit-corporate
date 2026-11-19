@@ -94,7 +94,7 @@ const businessLinks = [
   {
     en: "IT Solutions",
     title: "ITソリューション事業",
-    body: "業務システム・アプリの開発、インフラの設計・運用、QA（第三者検証）をひとつのチームで。",
+    body: "業務システム・アプリの開発、インフラの設計・運用、QA（第三者検証）を、案件に合わせた体制で。",
     href: "/business/it-solutions",
     image: "/business-it-dev.webp",
     alt: "ノートPCとスマートフォンに業務システムの画面が映ったイメージ",
@@ -204,7 +204,7 @@ export default function AboutPage() {
                 alt={`${siteConfig.ceo}の顔写真`}
                 width={96}
                 height={96}
-                className="h-[96px] w-[96px] rounded-full border border-line bg-cream object-cover object-[50%_28%] shadow-[0_16px_34px_rgba(15,15,15,0.11)]"
+                className="h-[96px] w-[96px] rounded-full border border-line bg-cream object-cover object-[50%_28%]"
               />
               <p className="flex flex-col gap-1 min-[520px]:flex-row min-[520px]:items-baseline min-[520px]:gap-3.5">
                 <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-muted">

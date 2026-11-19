@@ -1,7 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Container } from "@/components/ui/Container";
-import { DisplayText } from "@/components/ui/DisplayText";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { Kicker } from "@/components/ui/Kicker";
 import { formatNewsDate, getNewsList } from "@/lib/microcms";
@@ -23,7 +22,6 @@ export async function NewsSection() {
         <div className="grid grid-cols-1 gap-10 min-[900px]:grid-cols-[0.75fr_1.25fr] min-[900px]:gap-16">
           {/* 左: 見出しブロック（編集型の非対称レイアウト） */}
           <FadeIn>
-            <DisplayText className="-ml-1 mb-11">NEWS</DisplayText>
             <Kicker className="mb-3.5">News</Kicker>
             <h2 className="palt text-[26px] font-bold tracking-[-0.02em] text-ink min-[720px]:text-[34px]">
               お知らせ

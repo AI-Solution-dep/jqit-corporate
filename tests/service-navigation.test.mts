@@ -27,7 +27,8 @@ test("desktop and mobile service children support safe external links", () => {
 
 test("home service section presents both external destinations", () => {
   const source = readFileSync("components/home/ServiceSection.tsx", "utf8");
-  assert.match(source, />SERVICES</);
+  // 巨大な透かし英字（SERVICES）は外した（2026-11-19）。肩ラベルで確かめる
+  assert.match(source, /Services/);
   assert.match(source, /siteConfig\.links\.nova/);
   assert.match(source, /siteConfig\.links\.aiSupport/);
   assert.match(source, /AI導入伴走支援/);
