@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { Fragment } from "react";
 import { getLeader, type LeaderKey } from "@/lib/leaders";
 
 /**
@@ -7,7 +6,7 @@ import { getLeader, type LeaderKey } from "@/lib/leaders";
  * 領域ごとに同じ部品を繰り返さない（判で押したように見えるため）。1ページに1回、節の冒頭に置く。
  * 連絡先は載せない。写真は代表メッセージと同じ円形。
  */
-export function LeadsLine({ leaders, intro = "責任者は、" }: { leaders: LeaderKey[]; intro?: string }) {
+export function LeadsLine({ leaders }: { leaders: LeaderKey[] }) {
   const people = leaders.map(getLeader);
   return (
     <p className="flex flex-col gap-4 min-[600px]:flex-row min-[600px]:items-center min-[600px]:gap-5">
@@ -29,14 +28,10 @@ export function LeadsLine({ leaders, intro = "責任者は、" }: { leaders: Lea
         ))}
       </span>
       <span className="text-[14px] leading-[1.9] text-body">
-        {intro}
-        {people.map((l, i) => (
-          <Fragment key={l.key}>
-            {people.length > 1 ? `${l.field}が` : `${l.title}の`}
-            <strong className="whitespace-nowrap font-bold text-ink">{l.name}</strong>
-            {i < people.length - 1 ? "、" : "です。"}
-          </Fragment>
-        ))}
+        {/* 氏名は出さない（オーナー判断）。領域と役職だけで示す */}
+        {people.length > 1
+          ? `${people.map((l) => l.field).join("・")}それぞれの事業部長が、責任を持って担当します。`
+          : `${people[0].title}が、責任を持って担当します。`}
       </span>
     </p>
   );
