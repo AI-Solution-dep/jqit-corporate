@@ -303,7 +303,7 @@ export default function ItSolutionsPage() {
               <>
                 開発・インフラ・QAを、
                 <br />
-                <span className="text-brand">ひとつのチーム</span>で。
+                <span className="text-brand">案件に合わせた体制</span>で。
               </>
             }
             lead="システムの開発・インフラ・品質保証を、要件定義から運用保守まで。一括でも、必要な工程・期間だけでも、チームでお請けします。"

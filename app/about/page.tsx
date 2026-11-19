@@ -94,7 +94,7 @@ const businessLinks = [
   {
     en: "IT Solutions",
     title: "ITソリューション事業",
-    body: "業務システム・アプリの開発、インフラの設計・運用、QA（第三者検証）をひとつのチームで。",
+    body: "業務システム・アプリの開発、インフラの設計・運用、QA（第三者検証）を、案件に合わせた体制で。",
     href: "/business/it-solutions",
     image: "/business-it-dev.webp",
     alt: "ノートPCとスマートフォンに業務システムの画面が映ったイメージ",
