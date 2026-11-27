@@ -28,7 +28,16 @@ export function Hero() {
               Challenge &amp; Innovation — Since 2024
             </p>
             <p className="hero-rise mt-7 max-w-[470px] text-[16px] leading-[2.05] text-body [animation-delay:400ms]">
-              私たちは、技術の力でお客様の“本質的な課題”を解決するITのプロフェッショナル集団です。ITとAI、ふたつのソリューションで企業の挑戦を支えます。
+              {/* 幅 520px 以上では文の切れ目で改行する。それより狭い画面では1行に収まらないので、流し込みにする */}
+              私たちは、お客様の“本質的な課題”を技術の力で解決する
+              <br className="hidden min-[520px]:inline" />
+              ITのプロフェッショナル集団です。
+              <br className="hidden min-[520px]:inline" />
+              システム開発・インフラ・品質検証から、
+              <br className="hidden min-[520px]:inline" />
+              生成AIの導入・AIエージェント開発まで。
+              <br className="hidden min-[520px]:inline" />
+              ITとAIの両面で、お客様の課題解決に伴走します。
             </p>
             <div className="hero-rise mt-10 [animation-delay:500ms]">
               <Button href="/#business">事業を見る</Button>
