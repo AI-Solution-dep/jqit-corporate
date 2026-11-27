@@ -28,7 +28,11 @@ function characterRegions(element: HTMLElement) {
   return regions;
 }
 
-/** 確定した登場順と速度を、トップ本体と比較画面で共有する。 */
+/**
+ * 確定した登場順と速度を、トップ本体と比較画面で共有する。
+ * OS の「動きを減らす」設定（Windows の「アニメーション効果」オフ）でも再生する。視覚効果をパフォーマンス優先に
+ * した業務用 PC ではこの設定がオフで、従うと登場演出が見えないため（2026-11-27 の判断。会社情報のロゴと同じ扱い）。
+ */
 export function HeroEntrance({ variant = "motion", preview = false }: { variant?: HeroEntranceVariant; preview?: boolean }) {
   useLayoutEffect(() => {
     const originalScrollRestoration = window.history.scrollRestoration;
@@ -42,13 +46,12 @@ export function HeroEntrance({ variant = "motion", preview = false }: { variant?
     const button = extras.find(element => element.querySelector('a[href="/#business"]'));
     const kicker = extras[0];
     const supporting = extras.filter(element => element !== button && element !== kicker);
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
     const carouselControls = hero.querySelector<HTMLElement>('[aria-label="トップ画像の切り替え"]');
     // ヘッダーは演出の対象にしない。ナビゲーションは開いた瞬間から見えて操作できるようにする。
     const inertTargets = [button, carouselControls].filter((element): element is HTMLElement => Boolean(element));
     const originalInert = inertTargets.map(element => element.inert);
     // キャッシュからの再表示でも、前回のreadyを引き継がず登場を準備する。
-    root.dataset.topInitial = variant === "motion" && !reduce.matches ? "pending" : "ready";
+    root.dataset.topInitial = variant === "motion" ? "pending" : "ready";
     let animations: Animation[] = [];
     let glyphLayers: { line: HTMLElement; style: string | null; layers: HTMLElement[] }[] = [];
     const restoreText = () => {
@@ -81,7 +84,7 @@ export function HeroEntrance({ variant = "motion", preview = false }: { variant?
     const play = () => {
       cancel();
       if (preview) window.scrollTo({ top: 0, behavior: "instant" });
-      if (variant !== "motion" || reduce.matches) { report(reduce.matches && variant === "motion" ? "reduced" : "complete"); return; }
+      if (variant !== "motion") { report("complete"); return; }
       report("playing");
       inertTargets.forEach(element => { element.inert = true; });
       const fade = (element: HTMLElement, delay: number, duration: number) => {
@@ -149,8 +152,6 @@ export function HeroEntrance({ variant = "motion", preview = false }: { variant?
       if (event.data?.type === "top-stop") { cancel(); report("complete"); }
     };
     window.addEventListener("message", onMessage);
-    const onPreference = () => { if (reduce.matches) { cancel(); report("reduced"); } };
-    reduce.addEventListener("change", onPreference);
     // アンカー・履歴の復帰位置や、ユーザー自身のスクロールを優先する。
     const shouldSkip = () => !preview && (Boolean(window.location.hash) || window.scrollY > 32);
     const onScroll = () => {
@@ -171,10 +172,9 @@ export function HeroEntrance({ variant = "motion", preview = false }: { variant?
       if (!active || !root) return;
       starting = false;
       if (!fontsReady || shouldSkip()) {
-        cancel(); report(reduce.matches ? "reduced" : "complete"); return;
+        cancel(); report("complete"); return;
       }
       if (preview) window.scrollTo({ top: 0, behavior: "instant" });
-      if (reduce.matches) root.dataset.topInitial = "ready";
       if (preview) window.parent.postMessage({ type: "top-ready", variant }, window.location.origin);
       if (!preview || window.parent === window) {
         if (preview && new URLSearchParams(window.location.search).get("autoplay") === "0") { cancel(); report("complete"); }
@@ -182,7 +182,7 @@ export function HeroEntrance({ variant = "motion", preview = false }: { variant?
       }
     }
     void start();
-    return () => { active = false; cancelAnimationFrame(entryFrame); cancel(); window.removeEventListener("message", onMessage); reduce.removeEventListener("change", onPreference); window.removeEventListener("scroll", onScroll); window.clearTimeout(fontTimer); if (preview) window.history.scrollRestoration = originalScrollRestoration; };
+    return () => { active = false; cancelAnimationFrame(entryFrame); cancel(); window.removeEventListener("message", onMessage); window.removeEventListener("scroll", onScroll); window.clearTimeout(fontTimer); if (preview) window.history.scrollRestoration = originalScrollRestoration; };
   }, [variant, preview]);
   return null;
 }
