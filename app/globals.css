@@ -645,14 +645,12 @@ html:has(.page-curtain) { scroll-behavior: auto; }
 }
 
 /* ===== 粒が集まるロゴ（components/about/LogoParticles.tsx） =====
-   画像は最初から隠し、粒が集まり終えたら出す。JS が動かないときは約3秒後に出す（安全弁）。 */
+   画像は最初から隠し、粒が集まり終えたら出す。JS が動かないときは約3秒後に出す（安全弁）。
+   「動きを減らす」設定でも再生するので、ここには prefers-reduced-motion の分岐を置かない。 */
 .logo-particles img { opacity: 0; animation: logo-particles-fallback 1ms 3s forwards; }
 .logo-particles[data-logo="waiting"] img { animation: none; }
 .logo-particles[data-logo="done"] img { opacity: 1; animation: none; transition: opacity .6s ease-out; }
 @keyframes logo-particles-fallback { to { opacity: 1; } }
-@media (prefers-reduced-motion: reduce) {
-  .logo-particles img, .logo-particles[data-logo] img { opacity: 1; animation: none; transition: none; }
-}
 
 /* ===== 見出しの改行（2026-11-18） =====
    語の途中（「切り拓/く。」など）で折り返さないよう、見出しは句読点・空白・<wbr> でだけ改行する。

@@ -67,9 +67,10 @@ test("粒の数が上限を超えない間隔を選ぶ", () => {
   assert.ok(200000 / ((step - 1) * (step - 1)) > 9000);
 });
 
-test("ロゴの部品は動きを減らす設定を尊重し、three.js を持ち込まない", () => {
+test("ロゴの部品は動きを減らす設定でも再生し、three.js を持ち込まない", () => {
   const source = readFileSync("components/about/LogoParticles.tsx", "utf8");
-  assert.match(source, /prefers-reduced-motion: reduce/);
+  // 設定を見て止める分岐を戻さない（業務用 PC では設定がオフの人が多く、演出が見えなくなる）
+  assert.doesNotMatch(source, /matchMedia/);
   assert.doesNotMatch(source, /from "three"|from "gsap"/);
   assert.doesNotMatch(readFileSync("package.json", "utf8"), /"three"|"gsap"/);
 });

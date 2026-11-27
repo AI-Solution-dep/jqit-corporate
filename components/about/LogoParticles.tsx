@@ -27,7 +27,9 @@ const TONES = ["#e50014", "#000000"] as const;
  * - 画像そのものはサーバーで描いておく。粒は canvas に重ねて描き、集まり終えたら本物の画像に切り替えて canvas を捨てる。
  * - 画像は最初から CSS で隠しておく（globals.css の logo-particles）。ページを開いた時点で画面内にあっても、
  *   ちらつかずに再生できる。再読み込みでスクロール位置が戻ったときも再生する。
- * - JS が動かないときは CSS の安全弁で約3秒後に画像を出す。動きを減らす設定では最初から画像を出す。
+ * - JS が動かないときは CSS の安全弁で約3秒後に画像を出す。
+ * - OS の「動きを減らす」設定（Windows の「アニメーション効果」オフ）でも再生する。業務用 PC では
+ *   オフにしている人が多く、従うと演出が見えないため（2026-11-27 の判断。サイトのほかの演出は設定に従う）。
  * - three.js などは使わない（2D canvas だけ）。
  */
 export function LogoParticles({ className = "" }: { className?: string }) {
@@ -38,10 +40,7 @@ export function LogoParticles({ className = "" }: { className?: string }) {
     const wrap = wrapRef.current;
     const img = imgRef.current;
     if (!wrap || !img) return;
-    if (
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
-      typeof IntersectionObserver === "undefined"
-    ) {
+    if (typeof IntersectionObserver === "undefined") {
       wrap.dataset.logo = "done";
       return;
     }
