@@ -327,7 +327,7 @@ export default function AiSolutionsPage() {
                 決める仕事へ。
               </h2>
               <p className="mt-6 text-[14.5px] leading-[2.05] text-body">
-                NOVAは、届いた案件・人材メールをAIが自動で構造化し、タグスコアとAI判定の2段階マッチングで候補と「なぜ合うか」の判断理由まで提示するSES特化のAIマッチングシステムです。契約終了アラートによる先回り営業、提案メールのAI起草まで、メール1通が提案になるまでを一気通貫で支えます。
+                NOVAは、届いた案件・人材メールをAIが自動で構造化し、タグスコアとAI判定の2段階マッチングで候補と「なぜ合うか」の判断理由まで提示するSES特化のAIマッチングシステムです。提案メールのAI起草まで、メール1通が提案になるまでを一気通貫で支えます。
               </p>
               {/* メール1通が提案になるまでの流れ。番号や円は使わず、矢印でつないだ言葉の列で見せる */}
               <ol className="nova-chain">
@@ -338,7 +338,7 @@ export default function AiSolutionsPage() {
                 ))}
               </ol>
               <p className="mt-5 text-[13px] leading-[1.9] text-muted">
-                ほかに、案件・人材・BP の一元管理と、契約終了アラートによる先回り営業にも対応します。
+                ほかに、案件・人材・BP の一元管理にも対応します。
               </p>
               <div className="mt-9">
                 <Button href={siteConfig.links.nova} external>
