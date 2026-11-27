@@ -10,9 +10,17 @@ const services = [
     label: "Product",
     name: "NOVA",
     heading: "SES営業を変える、NOVA",
-    description:
-      "案件・人材メールをAIが構造化し、2段階マッチングで候補と判断理由を提示。契約終了アラートによる先回り営業まで、メール1通が提案になるまでを支えるSES向けAIマッチングシステムです。",
-    features: ["AI 2段階マッチング", "メール自動取込", "契約終了アラート"],
+    // 製品サイト（nova-ai.jp）の今の説明に合わせる。契約終了アラートは 2026-07-31 に製品から外れたので書かない。
+    // 説明は言葉のまとまりごとに分けて持つ（Phrases が、まとまりの途中では折り返さないように描く）
+    description: [
+      "届いた案件・人材メールを",
+      "AIが読み取って整理し、",
+      "合う候補を根拠つきで提示。",
+      "提案メールの下書きまで、",
+      "メール1通が提案になるまでを支える",
+      "SES向けAIマッチングシステムです。",
+    ],
+    features: ["根拠つきAIマッチング", "メール自動取込", "提案文の下書き"],
     href: siteConfig.links.nova,
     cta: "NOVA 製品サイトへ",
   },
@@ -21,13 +29,21 @@ const services = [
     label: "AI Automation",
     name: "AI導入伴走支援",
     heading: "手作業を減らす、AI導入伴走支援",
-    description:
-      "いま使っている業務アプリを活かしながら、現場で動くAIエージェントの導入まで3か月で伴走します。",
+    description: ["いま使っている業務アプリを", "活かしながら、", "現場で動くAIエージェントの導入まで", "3か月で伴走します。"],
     features: ["業務の棚卸しから設計", "既存アプリを活用", "運用と内製化まで支援"],
     href: siteConfig.links.aiSupport,
     cta: "AI導入伴走支援を見る",
   },
 ] as const;
+
+/** 言葉のまとまりの途中で折り返さない文章。「ます。」だけ、語の途中だけが次の行に落ちるのを防ぐ */
+function Phrases({ parts }: { parts: readonly string[] }) {
+  return parts.map((part) => (
+    <span key={part} className="inline-block">
+      {part}
+    </span>
+  ));
+}
 
 export function ServiceSection() {
   return (
@@ -41,8 +57,9 @@ export function ServiceSection() {
           <h2 className="palt text-[28px] font-bold leading-[1.4] tracking-[-0.02em] text-ink md:text-[38px]">
             JQITの<span className="text-brand">サービス</span>
           </h2>
-          <p className="mt-4 max-w-[680px] text-[15px] leading-[2] text-body">
-            業務に寄り添うプロダクトと、現場への導入まで伴走する支援サービスで、企業の変革を前に進めます。
+          {/* 46文字。680px だと最後の「ます。」だけが次の行に落ちるので、1行に収まる幅にする。狭い画面では言葉のまとまりで折り返す */}
+          <p className="mt-4 max-w-[720px] text-[15px] leading-[2] text-body">
+            <Phrases parts={["業務に寄り添うプロダクトと、", "現場への導入まで伴走する", "支援サービスで、", "企業の変革を前に進めます。"]} />
           </p>
         </FadeIn>
 
@@ -90,7 +107,9 @@ export function ServiceSection() {
                 <h3 className="palt mt-3 text-[22px] font-bold leading-[1.5] text-ink min-[720px]:text-[26px]">
                   {service.heading}
                 </h3>
-                <p className="mt-4 text-[15px] leading-[2.05] text-body">{service.description}</p>
+                <p className="mt-4 text-[15px] leading-[2.05] text-body">
+                  <Phrases parts={service.description} />
+                </p>
                 </div>
                 <div>
                 <ul className="nova-features">
