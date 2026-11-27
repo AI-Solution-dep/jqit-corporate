@@ -8,7 +8,4 @@
 [data-home-entrance][data-top-initial=pending] [aria-label="トップ画像の切り替え"] { visibility:hidden; animation:jqit-controls-fallback 1ms 2200ms forwards; }
 .top-type-host { color:transparent; }
 .top-type-host > :not([data-top-glyph]) { color:transparent !important; }
-@media(prefers-reduced-motion:reduce) {
-  [data-home-entrance][data-top-initial=pending] > section:first-of-type .hero-rise { opacity:1; animation:none; }
-  [data-home-entrance][data-top-initial=pending] [aria-label="トップ画像の切り替え"] { visibility:visible; animation:none; }
-}
+/* 「動きを減らす」設定でも再生するので、prefers-reduced-motion の分岐は置かない（HeroEntrance.tsx の説明を参照）。 */
