@@ -156,7 +156,7 @@ export function LogoParticles({ className = "" }: { className?: string }) {
         alt="株式会社JQIT"
         width={LOGO.width}
         height={LOGO.height}
-        className="h-[52px] w-auto min-[720px]:h-[68px]"
+        className="h-[72px] w-auto min-[720px]:h-[80px] min-[960px]:h-[96px]"
       />
     </div>
   );
