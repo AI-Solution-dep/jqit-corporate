@@ -25,7 +25,9 @@ const TONES = ["#e50014", "#000000"] as const;
 /**
  * JQIT のロゴ。画面に入ると、散った粒が集まってロゴになる（1度だけ）。
  * - 画像そのものはサーバーで描いておく。粒は canvas に重ねて描き、集まり終えたら本物の画像に切り替えて canvas を捨てる。
- * - 最初から画面内にあるとき、動きを減らす設定のとき、JS が動かないときは、画像をそのまま出す。
+ * - 画像は最初から CSS で隠しておく（globals.css の logo-particles）。ページを開いた時点で画面内にあっても、
+ *   ちらつかずに再生できる。再読み込みでスクロール位置が戻ったときも再生する。
+ * - JS が動かないときは CSS の安全弁で約3秒後に画像を出す。動きを減らす設定では最初から画像を出す。
  * - three.js などは使わない（2D canvas だけ）。
  */
 export function LogoParticles({ className = "" }: { className?: string }) {
@@ -40,20 +42,14 @@ export function LogoParticles({ className = "" }: { className?: string }) {
       window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
       typeof IntersectionObserver === "undefined"
     ) {
+      wrap.dataset.logo = "done";
       return;
     }
-    // すでに画面内なら表示のまま（いったん消すとちらつく）
-    if (wrap.getBoundingClientRect().top < window.innerHeight * 0.8) return;
 
     let canvas: HTMLCanvasElement | null = null;
     let raf = 0;
     let swapTimer = 0;
     let finished = false;
-
-    const showImage = (withFade: boolean) => {
-      img.style.transition = withFade ? `opacity ${SWAP_MS}ms ease-out` : "";
-      img.style.opacity = "";
-    };
 
     /** 途中でやめるときも、必ず画像が見える状態で終える */
     const finish = () => {
@@ -65,7 +61,7 @@ export function LogoParticles({ className = "" }: { className?: string }) {
       window.removeEventListener("resize", finish);
       canvas?.remove();
       canvas = null;
-      showImage(false);
+      wrap.dataset.logo = "done";
     };
 
     const play = async () => {
@@ -113,8 +109,8 @@ export function LogoParticles({ className = "" }: { className?: string }) {
           raf = window.requestAnimationFrame(draw);
           return;
         }
-        // 粒のロゴから本物の画像へ、重ねたまま入れ替える
-        showImage(true);
+        // 粒のロゴから本物の画像へ、重ねたまま入れ替える（画像側のフェードは globals.css）
+        wrap.dataset.logo = "done";
         context.canvas.style.transition = `opacity ${SWAP_MS}ms ease-out`;
         context.canvas.style.opacity = "0";
         swapTimer = window.setTimeout(finish, SWAP_MS + 50);
@@ -122,7 +118,8 @@ export function LogoParticles({ className = "" }: { className?: string }) {
       raf = window.requestAnimationFrame(draw);
     };
 
-    img.style.opacity = "0";
+    // CSS の安全弁（約3秒後に画像を出す）を止め、画面に入るまで隠したままにする
+    wrap.dataset.logo = "waiting";
     const io = new IntersectionObserver(
       ([entry]) => {
         if (!entry.isIntersecting) return;
@@ -140,7 +137,7 @@ export function LogoParticles({ className = "" }: { className?: string }) {
   }, []);
 
   return (
-    <div ref={wrapRef} className={`relative w-fit ${className}`}>
+    <div ref={wrapRef} className={`logo-particles relative w-fit ${className}`}>
       <Image
         ref={imgRef}
         src={LOGO.src}

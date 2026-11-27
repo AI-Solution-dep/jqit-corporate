@@ -644,6 +644,16 @@ html:has(.page-curtain) { scroll-behavior: auto; }
   .type-char, .type-text[data-type] .type-char { opacity: 1; animation: none; }
 }
 
+/* ===== 粒が集まるロゴ（components/about/LogoParticles.tsx） =====
+   画像は最初から隠し、粒が集まり終えたら出す。JS が動かないときは約3秒後に出す（安全弁）。 */
+.logo-particles img { opacity: 0; animation: logo-particles-fallback 1ms 3s forwards; }
+.logo-particles[data-logo="waiting"] img { animation: none; }
+.logo-particles[data-logo="done"] img { opacity: 1; animation: none; transition: opacity .6s ease-out; }
+@keyframes logo-particles-fallback { to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  .logo-particles img, .logo-particles[data-logo] img { opacity: 1; animation: none; transition: none; }
+}
+
 /* ===== 見出しの改行（2026-11-18） =====
    語の途中（「切り拓/く。」など）で折り返さないよう、見出しは句読点・空白・<wbr> でだけ改行する。
    1行に収まらない長い語だけは、はみ出さないよう途中でも折り返す（break-word は最小幅を変えないので段組みが崩れない）。 */
