@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { ReactNode } from "react";
 import { TechBackdrop } from "@/components/ui/TechBackdrop";
 
 export function PageHeader({
@@ -6,6 +7,7 @@ export function PageHeader({
   en,
   current,
   titleAs: TitleTag = "h1",
+  aside,
 }: {
   title: string;
   en: string;
@@ -13,6 +15,8 @@ export function PageHeader({
   current?: string;
   /** ページ本体に別の h1 がある場合は "p" を指定（h1重複の回避） */
   titleAs?: "h1" | "p";
+  /** 帯の右側（狭い画面では見出しの下）に置く要素。会社情報ページのロゴなど */
+  aside?: ReactNode;
 }) {
   return (
     // data-backdrop-after：背景の図形（PageBackdrop）はこの帯の下から出す
@@ -59,6 +63,11 @@ export function PageHeader({
             {en}
           </span>
         </div>
+        {aside && (
+          <div className="mt-7 min-[720px]:absolute min-[720px]:right-6 min-[720px]:top-1/2 min-[720px]:mt-0 min-[720px]:-translate-y-1/2">
+            {aside}
+          </div>
+        )}
       </div>
     </section>
   );

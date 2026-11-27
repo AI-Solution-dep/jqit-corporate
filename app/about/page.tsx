@@ -156,7 +156,8 @@ export default function AboutPage() {
   return (
     <>
       <JsonLd data={aboutJsonLd} />
-      <PageHeader title="会社情報" en="About" />
+      {/* 帯の右側で、粒が集まってロゴになる（components/about/LogoParticles.tsx） */}
+      <PageHeader title="会社情報" en="About" aside={<LogoParticles />} />
       <SubNav group="Company" items={companySubNav} />
 
       {/* MESSAGE — 代表写真は署名横の小さなアイコンに留め、メインビジュアルは企業イメージとして扱う */}
@@ -221,8 +222,6 @@ export default function AboutPage() {
       {/* KEY FACTS — 数字で見る JQIT */}
       <section className="border-t border-line bg-cream py-16 min-[720px]:py-20">
         <Container>
-          {/* 粒が集まってロゴになる（components/about/LogoParticles.tsx）。FadeIn の外に置く：中だと透明なまま再生が進む */}
-          <LogoParticles className="mb-12 min-[720px]:mb-14" />
           <FadeIn>
             <Kicker className="mb-8">JQIT at a Glance</Kicker>
             <dl className="about-facts">

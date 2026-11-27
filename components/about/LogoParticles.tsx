@@ -15,9 +15,12 @@ const LOGO = { src: "/jqit-logo.png", width: 425, height: 118 } as const;
 /** 粒が集まるまでの時間と、本物の画像へ切り替える時間（ミリ秒） */
 const GATHER_MS = 1800;
 const SWAP_MS = 600;
-/** 粒が散る範囲（ロゴの外側へ何 px まで描くか） */
+/** 粒が散る範囲（ロゴの外側へ何 px まで描くか）。縦は、置かれた帯の余白に合わせて狭める */
 const MARGIN_X = 170;
 const MARGIN_Y = 80;
+const MIN_MARGIN_Y = 24;
+/** サイト内の遷移で出る幕（globals.css の page-curtain、約0.94秒）が抜けるのを待つ時間 */
+const CURTAIN_WAIT_MS = 800;
 const MAX_PARTICLES = 9000;
 /** 赤（輪）と黒（文字）。public/jqit-logo.png の実際の色 */
 const TONES = ["#e50014", "#000000"] as const;
@@ -48,6 +51,7 @@ export function LogoParticles({ className = "" }: { className?: string }) {
     let canvas: HTMLCanvasElement | null = null;
     let raf = 0;
     let swapTimer = 0;
+    let curtainTimer = 0;
     let finished = false;
 
     /** 途中でやめるときも、必ず画像が見える状態で終える */
@@ -57,6 +61,7 @@ export function LogoParticles({ className = "" }: { className?: string }) {
       io.disconnect();
       window.cancelAnimationFrame(raf);
       window.clearTimeout(swapTimer);
+      window.clearTimeout(curtainTimer);
       window.removeEventListener("resize", finish);
       canvas?.remove();
       canvas = null;
@@ -64,6 +69,13 @@ export function LogoParticles({ className = "" }: { className?: string }) {
     };
 
     const play = async () => {
+      // ページ先頭に置くと、遷移の幕の裏で再生が終わってしまう。幕があれば抜けるまで待つ
+      if (document.querySelector(".page-curtain")) {
+        await new Promise<void>((resolve) => {
+          curtainTimer = window.setTimeout(resolve, CURTAIN_WAIT_MS);
+        });
+        if (finished) return;
+      }
       try {
         await img.decode();
       } catch {
@@ -74,8 +86,9 @@ export function LogoParticles({ className = "" }: { className?: string }) {
 
       const logoWidth = img.clientWidth;
       const logoHeight = img.clientHeight;
-      const context = prepareCanvas(wrap, logoWidth, logoHeight);
-      const built = buildParticles(img, logoWidth, logoHeight);
+      const marginY = verticalRoom(wrap);
+      const context = prepareCanvas(wrap, logoWidth, logoHeight, marginY);
+      const built = buildParticles(img, logoWidth, logoHeight, marginY);
       if (!context || !built) {
         finish();
         return;
@@ -153,13 +166,13 @@ export function LogoParticles({ className = "" }: { className?: string }) {
  * ロゴより一回り大きい canvas を重ねる。横は画面の幅からはみ出さないように切る
  * （はみ出すとページが横にスクロールする）。
  */
-function prepareCanvas(wrap: HTMLElement, logoWidth: number, logoHeight: number) {
+function prepareCanvas(wrap: HTMLElement, logoWidth: number, logoHeight: number, marginY: number) {
   const rect = wrap.getBoundingClientRect();
   const viewportWidth = document.documentElement.clientWidth;
   const left = -Math.min(MARGIN_X, Math.max(0, rect.left));
   const right = logoWidth + Math.min(MARGIN_X, Math.max(0, viewportWidth - rect.left - logoWidth));
   const width = Math.max(1, Math.floor(right - left));
-  const height = logoHeight + MARGIN_Y * 2;
+  const height = logoHeight + marginY * 2;
   const dpr = Math.min(window.devicePixelRatio || 1, 2);
 
   const canvas = document.createElement("canvas");
@@ -169,7 +182,7 @@ function prepareCanvas(wrap: HTMLElement, logoWidth: number, logoHeight: number)
   Object.assign(canvas.style, {
     position: "absolute",
     left: `${left}px`,
-    top: `${-MARGIN_Y}px`,
+    top: `${-marginY}px`,
     width: `${width}px`,
     height: `${height}px`,
     pointerEvents: "none",
@@ -178,13 +191,27 @@ function prepareCanvas(wrap: HTMLElement, logoWidth: number, logoHeight: number)
   if (!ctx) return null;
   ctx.scale(dpr, dpr);
   wrap.appendChild(canvas);
-  return { canvas, ctx, width, height, originX: -left, originY: MARGIN_Y };
+  return { canvas, ctx, width, height, originX: -left, originY: marginY };
+}
+
+/**
+ * 粒を縦に散らせる幅。ロゴを置いた帯（section）の上下の余白より広くしない。
+ * 帯が overflow:hidden のとき（ページ先頭の帯）に、散った粒が帯の縁で切れて見えるのを防ぐ。
+ */
+function verticalRoom(wrap: HTMLElement): number {
+  const band = wrap.closest("section");
+  if (!band) return MARGIN_Y;
+  const rect = wrap.getBoundingClientRect();
+  const bandRect = band.getBoundingClientRect();
+  const room = Math.min(rect.top - bandRect.top, bandRect.bottom - rect.bottom);
+  return Math.round(Math.min(MARGIN_Y, Math.max(MIN_MARGIN_Y, room)));
 }
 
 function buildParticles(
   img: HTMLImageElement,
   logoWidth: number,
   logoHeight: number,
+  marginY: number,
 ): { particles: LogoParticle[]; dotSize: number } | null {
   if (!logoWidth || !logoHeight) return null;
   // 表示する大きさの2倍で描いてから拾う（縁のにじみを粒の濃さに反映させる）
@@ -209,7 +236,7 @@ function buildParticles(
   const particles = sampleLogoParticles(data, width, height, {
     step,
     scale: 1 / density,
-    scatter: { minX: 40, maxX: MARGIN_X * 0.9, minY: 20, maxY: MARGIN_Y * 0.9 },
+    scatter: { minX: 40, maxX: MARGIN_X * 0.9, minY: 20, maxY: marginY * 0.9 },
   });
   return { particles, dotSize: step / density };
 }
