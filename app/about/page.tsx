@@ -13,6 +13,7 @@ import { certificationBadges, siteConfig } from "@/lib/site-config";
 import Link from "next/link";
 import { CountUp } from "@/components/about/CountUp";
 import { HistoryTimeline, type HistoryYear } from "@/components/about/HistoryTimeline";
+import { LogoParticles } from "@/components/about/LogoParticles";
 
 const pageDescription =
   "株式会社JQITの会社情報。企業理念「挑戦と革新で、顧客の未来を切り拓く。」のもと、ITソリューション事業とAIソリューション事業を展開しています。";
@@ -220,6 +221,8 @@ export default function AboutPage() {
       {/* KEY FACTS — 数字で見る JQIT */}
       <section className="border-t border-line bg-cream py-16 min-[720px]:py-20">
         <Container>
+          {/* 粒が集まってロゴになる（components/about/LogoParticles.tsx）。FadeIn の外に置く：中だと透明なまま再生が進む */}
+          <LogoParticles className="mb-12 min-[720px]:mb-14" />
           <FadeIn>
             <Kicker className="mb-8">JQIT at a Glance</Kicker>
             <dl className="about-facts">
