@@ -757,40 +757,14 @@ p, dd, li { text-wrap: pretty; }
   .service-stack-text { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 64px; margin-top: 40px; align-items: end; }
 }
 
-/* ===== TOP：事業（左に固定した「IT・AI・実装と運用」の円の図、右に2つの事業）
-   同じ大きさの箱を左右に並べない。図は読んでいる事業に合わせて選択が切り替わり、押すとその事業へ移る ===== */
+/* ===== TOP：事業（左に固定した見出しと説明文、右に2つの事業）
+   同じ大きさの箱を左右に並べない。左にあった「IT・AI・実装と運用」の円の図は、役目が伝わらないのでやめた（2026-11-27） ===== */
 .biz-layout { display: grid; gap: 16px; }
-/* スマホは図だけをヘッダーの下に固定し、見出しは図の上に置く */
+/* スマホは見出しを事業の上に置くだけ（固定しない）。左の列は幅 1024px 以上で出す */
 .biz-head-sp { display: block; }
-.biz-aside { position: sticky; top: 72px; z-index: 5; margin-inline: -24px; padding: 0 24px; background: rgb(250 249 247 / 94%); backdrop-filter: blur(6px); }
-.biz-head { display: none; }
+.biz-aside { display: none; }
 .biz-list { display: grid; gap: 96px; }
-.biz-map { position: relative; height: 64px; }
-.biz-map-lines { position: absolute; inset: 0; width: 100%; height: 100%; }
-.biz-map-lines line { stroke: var(--warm-line); stroke-width: 1.5; vector-effect: non-scaling-stroke; transition: stroke .4s; }
-.biz-map-lines line[data-active] { stroke: var(--warm-strong); stroke-width: 2; }
-.biz-map-node {
-  position: absolute; top: 50%; translate: -50% -50%; width: 44px; aspect-ratio: 1; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
-  background: #fff; border: 1.5px solid #e2d6d9; color: var(--color-ink); cursor: pointer;
-  box-shadow: 0 2px 4px rgb(70 40 20 / 12%), 0 18px 36px -8px rgb(70 40 20 / 24%);
-  transition: background-color .4s, border-color .4s, color .4s, scale .4s cubic-bezier(.16, .84, .44, 1);
-}
-.biz-map-node--it { left: 18%; }
-.biz-map-node--ai { left: 82%; }
-.biz-map-node[aria-pressed="true"] { background: var(--warm-soft); border-color: var(--warm-mid); color: var(--warm-strong); scale: 1.06; }
-.biz-map-node:focus-visible { outline: 2px solid var(--warm-strong); outline-offset: 3px; }
-@media (hover: hover) { .biz-map-node:hover { border-color: var(--warm-mid); } }
-.biz-map-short { font-family: var(--font-anton); font-size: 18px; line-height: 1; }
-.biz-map-en { display: none; font-family: var(--font-mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--color-muted); }
-.biz-map-core {
-  position: absolute; left: 50%; top: 50%; translate: -50% -50%; width: 30px; aspect-ratio: 1; border-radius: 50%; display: grid; place-items: center; text-align: center;
-  background: #fff; border: 1px solid rgb(20 20 15 / 15%); color: var(--color-ink); font-size: 13px; font-weight: 700; line-height: 1.35;
-  box-shadow: 0 2px 4px rgb(70 40 20 / 10%), 0 12px 24px -8px rgb(70 40 20 / 20%);
-}
-.biz-map-core-text { display: none; }
-.biz-map-core-label { position: absolute; left: 50%; top: calc(50% + 18px); translate: -50% 0; font-size: 10px; font-weight: 700; letter-spacing: .06em; color: var(--color-muted); white-space: nowrap; }
-.biz-map-caption { display: none; }
-.biz-item { scroll-margin-top: 190px; }
+.biz-item { scroll-margin-top: 96px; }
 .biz-item-photo { overflow: hidden; aspect-ratio: 358 / 260; }
 .biz-photo-curve-bl { border-radius: 0 0 0 var(--radius-photo); }
 .biz-caps { margin: 24px 0 0; padding: 0; list-style: none; border-top: 1px solid var(--color-line); }
@@ -815,25 +789,11 @@ p, dd, li { text-wrap: pretty; }
 @media (min-width: 1024px) {
   .biz-head-sp { display: none; }
   .biz-layout { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 72px; align-items: start; }
-  .biz-aside { top: 120px; margin: 0; padding: 0; background: none; backdrop-filter: none; }
-  .biz-head { display: block; }
-  .biz-map { height: 200px; margin-top: 56px; }
-  .biz-map-node { width: 150px; }
-  .biz-map-node--it { left: 17%; }
-  .biz-map-node--ai { left: 83%; }
-  .biz-map-short { font-size: 48px; }
-  .biz-map-core-text { display: block; }
-  .biz-map-core-label { display: none; }
-  .biz-map-caption { display: block; margin-top: 32px; font-size: 15px; font-weight: 700; color: var(--color-ink); }
-  .biz-map-caption-text { display: inline-block; animation: biz-caption .25s ease-out; }
-  .biz-map-en { display: block; }
-  .biz-map-core { width: 80px; }
+  .biz-aside { display: block; position: sticky; top: 120px; }
   .biz-item { scroll-margin-top: 120px; }
   .biz-list { gap: 160px; }
   .biz-item-photo { aspect-ratio: 680 / 500; }
 }
-@media (prefers-reduced-motion: reduce) { .biz-map-node, .biz-map-lines line { transition: none; } }
-@keyframes biz-caption { from { opacity: 0; translate: 0 6px; } to { opacity: 1; translate: 0 0; } }
 /* 事業欄を表示している間は、背景の図形を薄くする（BusinessSection が #main に data-backdrop-dim を付ける） */
 .page-backdrop { transition: opacity .4s; }
 #main[data-backdrop-dim] .page-backdrop { opacity: .45; }
