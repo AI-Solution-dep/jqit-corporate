@@ -13,6 +13,7 @@ import { certificationBadges, siteConfig } from "@/lib/site-config";
 import Link from "next/link";
 import { CountUp } from "@/components/about/CountUp";
 import { HistoryTimeline, type HistoryYear } from "@/components/about/HistoryTimeline";
+import { LogoParticles } from "@/components/about/LogoParticles";
 
 const pageDescription =
   "株式会社JQITの会社情報。企業理念「挑戦と革新で、顧客の未来を切り拓く。」のもと、ITソリューション事業とAIソリューション事業を展開しています。";
@@ -155,7 +156,8 @@ export default function AboutPage() {
   return (
     <>
       <JsonLd data={aboutJsonLd} />
-      <PageHeader title="会社情報" en="About" />
+      {/* 帯の右側で、粒が集まってロゴになる（components/about/LogoParticles.tsx） */}
+      <PageHeader title="会社情報" en="About" aside={<LogoParticles />} />
       <SubNav group="Company" items={companySubNav} />
 
       {/* MESSAGE — 代表写真は署名横の小さなアイコンに留め、メインビジュアルは企業イメージとして扱う */}
