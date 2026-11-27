@@ -105,13 +105,14 @@ export function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-line bg-white/95 backdrop-blur-md backdrop-saturate-125">
-      <div className="mx-auto flex h-[72px] w-full max-w-[1160px] items-center justify-between gap-6 px-6">
+      {/* 本文（1160px）には揃えず、画面の幅いっぱいに使う：ロゴは左端、ナビと問い合わせは右端に寄せる */}
+      <div className="mx-auto flex h-[72px] w-full max-w-[1920px] items-center justify-between gap-6 px-6 min-[1280px]:gap-9 min-[1280px]:px-10">
         <BrandLogo />
 
         {/* PC nav */}
         <nav
           aria-label="グローバルナビゲーション"
-          className="hidden items-center gap-7 min-[960px]:flex"
+          className="ml-auto hidden items-center gap-7 min-[960px]:flex min-[1280px]:gap-9"
         >
           {globalNav.map((item) =>
             item.external ? (
