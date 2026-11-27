@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import { Container } from "@/components/ui/Container";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { Kicker } from "@/components/ui/Kicker";
@@ -18,7 +18,8 @@ const businesses = [
     key: "it",
     title: "ITソリューション事業",
     tags: ["開発", "インフラ", "QA"],
-    body: "システム構築の要件定義から運用保守まで。業務システム開発、インフラ構築、QA・第三者検証をワンストップで提供します。",
+    // 行ごとに分けて持つ（幅の広い画面では、この切れ目で改行する。1文目は1行に収まらないので読点でも分ける）
+    body: ["大規模なシステムから小規模なものまで、", "品質とスケジュールの管理を徹底して開発します。", "インフラ構築、QA・第三者検証まで、ワンストップで対応します。"],
     image: "/business-it-whiteboard.webp",
     alt: "ホワイトボードにシステム構成を描き足すエンジニアの手元",
     href: "/business/it-solutions",
@@ -32,7 +33,7 @@ const businesses = [
     key: "ai",
     title: "AIソリューション事業",
     tags: ["生成AI", "RAG", "AIエージェント"],
-    body: "生成AIの導入支援からAIシステム開発まで。大規模言語モデルを中心に、企業のAI活用を実務で動く形にします。",
+    body: ["生成AIの導入支援からAIシステム開発まで。", "大規模言語モデルを中心に、企業のAI活用を実務で動く形にします。"],
     image: "/business-ai-review.webp",
     alt: "紙のフロー図とノートPCを見ながらAIの業務フローを確認する2人",
     href: "/business/ai-solutions",
@@ -78,7 +79,10 @@ export function BusinessSection() {
             <span className="text-brand">ふたつの力</span>で課題を解く。
           </h2>
           <p className="mt-4 text-[14.5px] leading-[2] text-body">
-            つくる力と、AIを使いこなす力。両方を持つチームが、実装と運用まで届けます。
+            {/* 幅 520px 以上は文の切れ目で二行にする。それより狭いと1行目が収まらないので流し込みにする */}
+            システムをつくるIT事業と、AIを業務に活かすAI事業。
+            <br className="hidden min-[520px]:inline" />
+            開発から運用まで、2つの事業でお応えします。
           </p>
         </FadeIn>
         <div className="biz-layout">
@@ -90,7 +94,10 @@ export function BusinessSection() {
                 ITとAI、<span className="text-brand">ふたつの力</span>で課題を解く。
               </h2>
               <p className="mt-5 text-[15px] leading-[2] text-body">
-                つくる力と、AIを使いこなす力。両方を持つチームが、実装と運用まで届けます。
+                {/* 幅 1100px 以上は文の切れ目で二行にする。それより狭いと1行目が列に収まらないので流し込みにする */}
+                システムをつくるIT事業と、AIを業務に活かすAI事業。
+                <br className="hidden min-[1100px]:inline" />
+                開発から運用まで、2つの事業でお応えします。
               </p>
             </FadeIn>
           </div>
@@ -114,7 +121,15 @@ export function BusinessSection() {
                 <h3 className="palt mt-2 text-[24px] font-bold tracking-[-0.02em] text-ink min-[720px]:text-[32px]">
                   {b.title}
                 </h3>
-                <p className="mt-4 max-w-[560px] text-[15px] leading-[2.05] text-body">{b.body}</p>
+                <p className="mt-4 max-w-[600px] text-[15px] leading-[2.05] text-body">
+                  {b.body.map((line, li) => (
+                    <Fragment key={line}>
+                      {/* 幅 720px 以上は決めた切れ目で改行する。それより狭いと1行に収まらないので流し込みにする */}
+                      {li > 0 && <br className="hidden min-[720px]:inline" />}
+                      {line}
+                    </Fragment>
+                  ))}
+                </p>
                 <ul className="biz-caps">
                   {b.capabilities.map((c) => (
                     <li key={c.head}>
